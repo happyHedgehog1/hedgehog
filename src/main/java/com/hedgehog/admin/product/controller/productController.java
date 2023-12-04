@@ -9,7 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class productController {
 
     @GetMapping("/productserach")
-    public String adminmain(){
+    public String productPage(){
         return "admin/content/product/productserch.html";
     }
+
+    @GetMapping("/productAdd")
+    public String productAddPage(){
+        return "admin/content/product/productAdd.html";
+    }
+
 }
