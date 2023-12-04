@@ -1,18 +1,18 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-  <link rel="stylesheet" th:href="@{/client/css/main.css}">
+<th:block layout:fragment="content">
   <script th:src="@{/client/js/index.js}"></script>
-<body>
+  <link rel="stylesheet" th:href="@{/client/css/main.css}">
+  <body>
 
 
 
 
-  <section layout:fragment="content">
-
-
+  <section>
     <div class="slae_img">
       <a href="#"><img src="/client/images/time_sale.jpg" alt=""></a>
     </div>
@@ -34,11 +34,11 @@
           <span>거실</span>
         </li>
         <li>
-          <a href="#"><img src="../image/study.jpg" alt=""></a>
+          <a href="#"><img src="/client/images/study.jpg" alt=""></a>
           <span>서재</span>
         </li>
         <li>
-          <a href="#"><img src="../image/kitchen.jpg" alt=""></a>
+          <a href="#"><img src="/client/images/kitchen.jpg" alt=""></a>
           <span>주방</span>
         </li>
     </ul>
@@ -49,7 +49,7 @@
         <div class="best_pruduct">
           <ul>
             <li>
-              <a href="#"><img src="../image/best_product/1.jpg" alt=""></a>
+              <a href="#"><img src="/client/images/best_product/1.jpg" alt=""></a>
               <ul class="best_pruduct_text">
                 <li>상품명</li>
                 <li>상품설명</li>
@@ -60,7 +60,7 @@
               </ul>
             </li>
             <li>
-              <a href="#"><img src="../image/best_product/2.png" alt=""></a>
+              <a href="#"><img src="/client/images/best_product/2.png" alt=""></a>
               <ul class="best_pruduct_text">
                 <li>상품명</li>
                 <li>상품설명</li>
@@ -71,7 +71,7 @@
               </ul>
             </li>
             <li>
-              <a href="#"><img src="../image/best_product/3.jpg" alt=""></a>
+              <a href="#"><img src="/client/images/best_product/3.jpg" alt=""></a>
               <ul class="best_pruduct_text">
                 <li>상품명</li>
                 <li>상품설명</li>
@@ -82,7 +82,7 @@
               </ul>
             </li>
             <li>
-              <a href="#"><img src="../image/best_product/4.jpg" alt=""></a>
+              <a href="#"><img src="/client/images/best_product/4.jpg" alt=""></a>
               <ul class="best_pruduct_text">
                 <li>상품명</li>
                 <li>상품설명</li>
@@ -97,4 +97,5 @@
 
   </section>
 </body>
+</th:block>
 </html>
