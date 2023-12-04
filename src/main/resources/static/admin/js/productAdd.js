@@ -1,12 +1,16 @@
+document.addEventListener('DOMContentLoaded', function() {
+
+
 // 모달 메뉴 열기
-document.getElementById("btnSubmitAdd").addEventListener("click", function() {
-    document.getElementById("myModal").style.display = "flex";
-});
+    document.getElementById("btnSubmitAdd").addEventListener("click", function() {
+        document.getElementById("myModal").style.display = "flex";
+    });
 
 // 모달 닫기
-document.getElementById("closeModal").addEventListener("click", function() {
-    document.getElementById("myModal").style.display = "none";
-});
+    document.getElementById("closeModal").addEventListener("click", function() {
+        document.getElementById("myModal").style.display = "none";
+    });
+
 
 // 옵션 누르면 메뉴 생겼다 없어졌다가는 기능
 $(document).ready(function () {
@@ -24,39 +28,44 @@ $(document).ready(function () {
     }
 });
 
-// 옵션 추가 삭제
-$("body").on("click", "li.w140 a", function(event) {
-    event.preventDefault(); // 링크의 기본 동작 방지
-    if ($(this).find("img").attr("name") === "img-add") {
-        // 새로운 op-list 엘리먼트 생성
-        var newOpList = $("<tr class='optionList'>" +
-                            "<th colspan='2'>" +
-                                "<ul class='arrAlign'>" +
-                                    "<li class='w400'><input type='text' name='optionName' style='width: 350px;' value='예시 : 색상'></li>" +
-                                    "<li class='w400'><input type='text' name='optionColor' style='width: 350px;' value='예시 : 갈색'></li>" +
-                                    "<li class='w200'><input type='number' name='optionPrice' style='width: 125px;' value='0'> 원</li>" +
-                                    "<li class='w200'><input type='number' name='optionQuantity' style='width: 125px;' value='0'> 개</li>" +
-                                    "<li class='w140' style='padding-top: 5px;'><a href='#'><img src='../../image/delete.png' height='25px' name='img-delete'></a></li>" +
-                                "</ul>" +
-                            "</th>" +
-                        "</tr>");
+    $("body").on("click", "#img-add img", function (event) {
+        console.log("클릭");
+        event.preventDefault(); // 링크의 기본 동작 방지
 
-        $(".optionList:last").after(newOpList);
-    } else if ($(this).find("img").attr("name") === "img-delete") {
-        $(this).closest(".optionList").remove();
-    }
-});
+        var src = $(this).attr("src");
+        if (src.includes("add.png")) {
+            // 새로운 op-list 엘리먼트 생성
+            var newOpList = $("<tr class='optionList'>" +
+                "<th colspan='2'>" +
+                "<ul class='arrAlign'>" +
+                "<li class='w400'><input type='text' name='optionName' style='width: 350px;' value='예시 : 색상'></li>" +
+                "<li class='w400'><input type='text' name='optionColor' style='width: 350px;' value='예시 : 갈색'></li>" +
+                "<li class='w200'><input type='number' name='optionPrice' style='width: 125px;' value='0'> 원</li>" +
+                "<li class='w200'><input type='number' name='optionQuantity' style='width: 125px;' value='0'> 개</li>" +
+                "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
+                "</ul>" +
+                "</th>" +
+                "</tr>");
+
+            $(".optionList:last").after(newOpList);
+        } else if (src.includes("delete.png")) {
+            $(this).closest(".optionList").remove();
+        }
+    });
+    $("body").on("click", "img[name='img-delete']", function(event) {
+        $(this).closest("tr.optionList").remove();
+    });
 
 
 
-$("#file").on("change", function(e){
-	
+    $("#file").on("change", function(e){
+
     var files = e.target.files; //input file 객체를 가져온다.
     var i,f;
     for (i = 0; i != files.length; ++i) {
         f = files[i];
-        var reader = new FileReader(); //FileReader를 생성한다.         
-        
+        var reader = new FileReader(); //FileReader를 생성한다.
+
         //성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
         reader.onload = function(e) {
         };
@@ -84,13 +93,13 @@ $(function () {
     $("#sub_thumbnail").change(function (event) {
         const files = event.target.files;
 
-                // 최대 5개까지만 허용
-                if (files.length > 5) {
-                    alert("최대 5개의 이미지만 선택할 수 있습니다.");
-                    // 선택된 파일 초기화
-                    $("#sub_thumbnail").val('');
-                    return;
-                }
+        // 최대 5개까지만 허용
+        if (files.length > 5) {
+            alert("최대 5개의 이미지만 선택할 수 있습니다.");
+            // 선택된 파일 초기화
+            $("#sub_thumbnail").val('');
+            return;
+        }
 
         // 미리보기를 담을 컨테이너 엘리먼트 가져오기
         var thumbnailContainer = $("#subThumbnailPreview");
@@ -153,3 +162,4 @@ function updateTotalStock() {
 
 // 페이지 로딩 시 초기 전체 재고를 설정하기 위해 updateTotalStock 함수를 호출합니다.
 updateTotalStock();
+});

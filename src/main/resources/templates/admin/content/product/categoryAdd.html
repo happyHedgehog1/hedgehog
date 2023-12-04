@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품분류관리</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="../../css/categoryAdd.css">
+    <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+    <link rel="stylesheet"  th:href="@{/admin/css/categoryAdd.css}">
 </head>
 <body>
     <div id="wrap">
         <header>
             <div class="logobackground">
-                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
-                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+                <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>
                 <div class="logout"><a href="#">
-                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h1 style="padding-right: 10px;"><img th:src="@{/admin/images/logout.png}" alt="logout"></h1>
                     <h4>로그아웃</h4></a>
                 </div>
             </div>
@@ -24,31 +24,31 @@
                 <li class="prodList">
                     <a href="#상품조회" class="control">상품관리</a>
                     <ul class="sub_ProdList">
-                        <li><a href="../product/productserch.html">상품조회</a></li>
-                        <li><a href="../product/productAdd.html">상품등록</a></li>
-                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                        <li><a th:href="@{/product/productserach}">상품조회</a></li>
+                        <li><a th:href="@{/product/productAdd}">상품등록</a></li>
+                        <li><a th:href="@{/category/categoryAdd}">상품분류등록</a></li>
                     </ul>
                 </li>
                 <li class="prodList"><a href="#">회원관리</a>
                     <ul class="sub_ProdList">
-                        <li><a href="../member/member.html">전체회원관리</a></li>
-                        <li><a href="../member/unregister.html">탈퇴회원관리</a></li>
+                        <li><a th:href="@{/member/member}">전체회원관리</a></li>
+                        <li><a th:href="@{/member/unregister}">탈퇴회원조회</a></li>
                     </ul>
                 </li>
-                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
-                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList"><a th:href="@{/point/pointA}">적립금관리</a></li>
+                <li class="prodList"><a th:href="@{/order/order}">주문관리</a></li>
                 <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
                     <ul class="sub_ProdList">
-                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
-                        <li><a href="../Service/email.html">메일관리</a></li>
+                        <li><a th:href="@{/service/productInquiry}">게시판관리</a></li>
+                        <li><a th:href="@{/Service/email}">메일관리</a></li>
                     </ul>
                 </li>
-                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
-                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a th:href="@{/adminManagement/adminManagement}">관리자관리</a></li>
+                <li class="prodList"><a th:href="@{/statistics/statistics}">통계</a></li>
                 <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
                     <ul class="sub_ProdList">
-                        <li><a href="../event/eventList.html">이벤트목록</a></li>
-                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                        <li><a th:href="@{/event/eventList}">이벤트목록</a></li>
+                        <li><a th:href="@{/event/eventProdAdd}">이벤트등록</a></li>
                     </ul>
                 </li>
             </ul>
@@ -73,19 +73,19 @@
                                     <col style="width: 85%;">
                                     <col style="width: 5%;">
                                     <col style="width: 5%;">
-                                    <col style="width: 5%;">                                    
+                                    <col style="width: 5%;">
                                     </colgroup>
                                     <tr class="category">
-                                        <td><img src="../../image/category1.png" height="20px"> 카테고리(대분류)</td>
-                                        <td><a href="#"><img src="../../image/add2.png" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img src="../../image/open.png" height="12px" name="img-open"></a></td>
-                                        <td><a href="#"><img src="../../image/allow_up.png" height="10px" name="img-allow_up"></a></td>
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px"> 카테고리(대분류)</td>
+                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
                                     <tr class="category1">
-                                        <td style="padding-left: 5px;"><img src="../../image/L.png" height="20px"><img src="../../image/category2.png" height="20px"> 카테고리(소분류)</td>
+                                        <td style="padding-left: 5px;"><img th:src="@{/admin/images/L.png}" height="20px"><img th:src="@{/admin/images/category2.png}" height="20px"> 카테고리(소분류)</td>
                                         <td></td>
                                         <td></td>
-                                        <td><a href="#"><img src="../../image/open.png" height="12px" name="open"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="open"></a></td>
                                     </tr>
                                 </table>
                                 <table style="width: 550px;" class="category-row">
@@ -93,20 +93,20 @@
                                     <col style="width: 85%;">
                                     <col style="width: 5%;">
                                     <col style="width: 5%;">
-                                    <col style="width: 5%;">                                    
+                                    <col style="width: 5%;">
                                     </colgroup>
                                     <tr class="category">
-                                        <td><img src="../../image/category1.png" height="20px"> 카테고리(대분류)</td>
-                                        <td><a href="#"><img src="../../image/add2.png" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img src="../../image/close.png" height="12px" name="img-close"></a></td>
-                                        <td><a href="#"><img src="../../image/allow_up.png" height="10px" name="img-allow_up"></a></td>
-                                        
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px"> 카테고리(대분류)</td>
+                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/close.png}" height="12px" name="img-close"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
+
                                     </tr>
                                     <tr class="category1">
-                                        <td style="padding-left: 5px;"><img src="../../image/L.png" height="20px"><img src="../../image/category2.png" height="20px"> 카테고리(소분류)</td>
+                                        <td style="padding-left: 5px;"><img th:src="@{/admin/images/L.png}" height="20px"><img th:src="@{/admin/images/category2.png}" height="20px"> 카테고리(소분류)</td>
                                         <td></td>
                                         <td></td>
-                                        <td><a href="#"><img src="../../image/open.png" height="12px" name="img-open"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
                                     </tr>
                                 </table>
                                 <table style="width: 550px;" class="category-row">
@@ -114,19 +114,19 @@
                                     <col style="width: 85%;">
                                     <col style="width: 5%;">
                                     <col style="width: 5%;">
-                                    <col style="width: 5%;">                                    
+                                    <col style="width: 5%;">
                                     </colgroup>
                                     <tr class="category">
-                                        <td><img src="../../image/category1.png" height="20px"> 카테고리(대분류)</td>
-                                        <td><a href="#"><img src="../../image/add2.png" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img src="../../image/open.png" height="12px" name="img-open"></a></td>
-                                        <td><a href="#"><img src="../../image/allow_up.png" height="10px" name="img-allow_up"></a></td>
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px"> 카테고리(대분류)</td>
+                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
                                     <tr class="category1">
-                                        <td style="padding-left: 5px;"><img src="../../image/L.png" height="20px"><img src="../../image/category2.png" height="20px"> 카테고리(소분류)</td>
+                                        <td style="padding-left: 5px;"><img th:src="@{/admin/images/L.png}" height="20px"><img th:src="@{/admin/images/category2.png}" height="20px"> 카테고리(소분류)</td>
                                         <td></td>
                                         <td></td>
-                                        <td><a href="#"><img src="../../image/open.png" height="12px" name="img-open"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
                                     </tr>
                                 </table>
                             </div>
@@ -213,6 +213,7 @@
             </section>
         </div>
     </div>
-    <script src="../../js/categoryAdd.js"></script>
+    <script th:src="@{/admin/js/categoryAdd.js}"></script>
+
 </body>
 </html>
