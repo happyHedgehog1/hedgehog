@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class categoryController {
 
 
-    @GetMapping("/add")
+    @GetMapping("/categoryAdd")
     public String categoryadd(){ return "admin/content/product/categoryAdd.html";}
 
 }
