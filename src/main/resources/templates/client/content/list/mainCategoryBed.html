@@ -1,18 +1,14 @@
+
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<th:block layout:fragment="content">
+  <link rel="stylesheet" th:href="@{/client/css/mainCategory.css}">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/footer.css">
-  <link rel="stylesheet" href="../css/mainCategory.css">
-  <script src="../js/header.js" defer></script>
-</head>
+
 
 <body>
 
@@ -219,5 +215,5 @@
   </section>
 
 </body>
-
+</th:block>
 </html>
