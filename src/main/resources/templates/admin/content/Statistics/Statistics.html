@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통계</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="../../css/Statistics.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="#">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                        <h4>통계</h4>
+                        <br>
+                        </div>
+                        <div class="box"></div>
+                    </div>
+                    <div class="secTopWrapper">
+                    <div class="sectTop">
+                        <div><h3>매출</h3></div>
+                        <div id="divWrapper">
+                            <div id="divLeft">                                                        
+                                <input type="date" name="salesStartDay" id="salesStartDay">
+                            </div>
+                            <div id="divCenter">
+                                ~
+                            </div>
+                            <div id="divRight">                                                        
+                                <input type="date" name="salesEndDay" id="salesEndDay">
+                            </div>
+                        </div>
+                    </div>
+                    <table class="tblTop">
+                        <tbody>
+                            <tr>
+                                <th class="w200"></th>
+                                <th class="w140">매출</th>
+                                <th class="colorRed"><h3>3,000,000원</h3></th>
+                                <th>방문자수</th>
+                                <th class="colorRed"><h3>300명</h3></th>
+                                <th class="w200"></th>
+                            </tr>
+                            <tr>
+                                <th class="w200"></th>
+                                <th>결제건수</th>
+                                <th class="colorRed"><h3>320건</h3></th>
+                                <th>신규회원</th>
+                                <th class="colorRed"><h3>2명</h3></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="sectBottom">
+                        <div><h3>상품</h3></div>
+                        <div id="divWrapper">
+                            <div id="divLeft">                                                        
+                                <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                            </div>
+                            <div id="divCenter">
+                                ~
+                            </div>
+                            <div id="divRight">                                                        
+                                <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                            </div>
+                        </div>
+                    </div>
+                    <table class="tblBottom">
+                        <tbody>
+                            <tr>
+                                <th>분류</th>
+                                <th>상품번호</th>
+                                <th>상품명</th>
+                                <th>판매가</th>
+                                <th>재고량</th>
+                                <th>판매량</th>
+                                <th>조회수</th>
+                                <th>후기순</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="4">판매수량</th>
+                                <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <th rowspan="4">조회순</th>
+                                <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <th rowspan="4">후기순</th>
+                                <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <th rowspan="4">별점순</th>
+                                <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </nav>
+
+</body>
+</html>

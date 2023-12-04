@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 상품 등록</title>
+    <link rel="stylesheet" href="../../css/eventProdAdd.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                        <h4>이벤트 상품 등록</h4>
+                        <br>
+                        </div>
+                        <div class="box"></div>
+                    </div>
+                    <div class="sectTopTop">
+                        <div class="sectTop">
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>        
+                                        <th>진행여부</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <label for="eventOnOff">
+                                                            <input type="radio" name="eventOnOff" value="Y" checked><span> 진행함</span>
+                                                        </label>
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        <label for="eventOnOff">
+                                                            <input type="radio" name="eventOnOff" value="N"><span> 진행안함</span>
+                                                        </label>
+                                                    </li>
+                                                </ul>  
+                                            </td>   
+                                    </tr>    
+                                    <tr>        
+                                        <th>기간설정</th>    
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <input type="datetimeLocal" name="eventStart" id="eventStart">
+                                                </li>
+                                                <li class="w25">
+                                                    ~
+                                                </li>
+                                                <li>
+                                                    <input type="datetimeLocal" name="eventEnd" id="eventEnd">
+                                                </li>
+                                            </ul>  
+                                        </td>    
+                                    </tr>    
+                                    <tr>        
+                                        <th>상품범위 설정</th>    
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <label for="eventState">
+                                                        <input type="radio" name="eventState" value="Y" checked><span> 전체상품</span>
+                                                    </label>
+                                                </li>
+                                                <li class="w25">
+                                                    &nbsp;
+                                                </li>
+                                                <li>
+                                                    <label for="eventState">
+                                                        <input type="radio" name="eventState" value="N"><span> 특정상품</span>
+                                                    </label>
+                                                </li>
+                                            </ul>  
+                                        </td>  
+                                    </tr>   
+                                    <tr>        
+                                        <th>혜택설정</th>    
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <label for="salenum">
+                                                        <input type="text" name="salenum" id="salenum" style="width: 190px;">
+                                                    </label>
+                                                </li>
+                                                <li class="w25">
+                                                    &nbsp;
+                                                </li>
+                                                <li >
+                                                    <label for="salenum">
+                                                        <select name="prdCate1" id="prdCate1" style="width: 150px;" >
+                                                            <option value="0" selected>%</option>
+                                                            <option value="1">원</option>                                                    
+                                                        </select>
+                                                        <span>할인</span>
+                                                    </label>
+                                                </li>
+                                            </ul>  
+                                        </td>      
+                                    </tr> 
+                                    <tr>        
+                                        <th>상품선택</th>    
+                                    </tr> 
+                                    <tr>        
+                                        <th colspan="2">
+                                            <div class="eventProdList">
+                                            <table class="result">
+                                                <colgroup>
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <th><input type="checkbox" name="" id=""></input></th>
+                                                        <th>상품번호</th>
+                                                        <th>상품명</th>
+                                                        <th>판매가</th>
+                                                        <th>할인 적용가</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                        <td>c-2023-01</td>
+                                                        <td>COOKY 패브릭 소파 1인</td>
+                                                        <td>299,000원</td>
+                                                        <td>269,100원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                        <td>c-2023-01</td>
+                                                        <td>COOKY 패브릭 소파 1인</td>
+                                                        <td>299,000원</td>
+                                                        <td>269,100원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                        <td>c-2023-01</td>
+                                                        <td>COOKY 패브릭 소파 1인</td>
+                                                        <td>299,000원</td>
+                                                        <td>269,100원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                        <td>c-2023-01</td>
+                                                        <td>COOKY 패브릭 소파 1인</td>
+                                                        <td>299,000원</td>
+                                                        <td>269,100원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                        <td>c-2023-01</td>
+                                                        <td>COOKY 패브릭 소파 1인</td>
+                                                        <td>299,000원</td>
+                                                        <td>269,100원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="" id=""></td>
+                                                        <td>c-2023-01</td>
+                                                        <td>COOKY 패브릭 소파 1인</td>
+                                                        <td>299,000원</td>
+                                                        <td>269,100원</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </th>    
+                                    </tr> 
+                                </tbody>    
+                            </table>
+                            <div class="bottombtn">
+                                <div><button id="btnEventDelete"> 선택삭제 </button></div>
+                                <div><button id="btnEventAdd"> 상품추가 </button></div>
+                                </div>
+                        </div>  
+                    </div>
+                </div>    
+                    <div class="modal" id="myModal">
+                        <div class="modalContent">
+                            <span id="closeModal">&times;</span>
+                            <div class="modalTop">
+                                <div class="modalTitle"><h4>이벤트 상품 추가</h4></div>
+                                <table class="modalTable1">
+                                    <colgroup>
+                                        <col class="w140">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>        
+                                            <th>키워드</th>    
+                                                <td>
+                                                    <ul class="arrAlign">
+                                                        <li class="w200">
+                                                            <select name="prdKeyword" id="prdLeyword" >
+                                                                <option value="0" selected>상품명</option>
+                                                                <option value="1">상품번호</option>
+                                                            </select>
+                                                        </li>
+                                                        <li class="w25">
+                                                            &nbsp;
+                                                        </li>                                                    
+                                                        <li>
+                                                            <input type="text" name="proSearch" id="proSearch">
+                                                        </li>
+                                                    </ul>    
+                                                </td>   
+                                        </tr>    
+                                        <tr>
+                                            <th>카테고리</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdCate1" id="prdCate1" >
+                                                            <option value="0" selected>상위 카테고리</option>
+                                                            <option value="1">상위 카테고리1</option>
+                                                            <option value="2">상위 카테고리2</option>
+                                                            <option value="3">상위 카테고리3</option>
+                                                        </select>
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>
+                                                    <li class="w200">
+                                                        <select name="prdCate2" id="prdCate2" >
+                                                            <option value="0" selected>하위 카테고리</option>
+                                                            <option value="1">하위 카테고리1</option>
+                                                            <option value="2">하위 카테고리2</option>
+                                                            <option value="3">하위 카테고리3</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                        </tr>   
+                                        <tr>        
+                                            <th>등록일</th>    
+                                                <td>
+                                                    <ul class="arrAlign">
+                                                        <li class="w200">
+                                                            <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                                                        </li>
+                                                        <li class="w25">
+                                                            &nbsp;
+                                                        </li>  
+                                                        <li class="w200">
+                                                            <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                                                        </li>
+                                                    </ul>    
+                                                </td>   
+                                        </tr> 
+                                    </tbody>    
+                                </table>
+                                <div>
+                                    <button id="btnPrdSearch"> 검색 </button>
+                                </div>
+                                <div>
+                                    <b>상품 검색 결과</b> (총 : <span class="colorRed">3</span> / 판매중 : <span class="colorRed">2</span> / 품절 : <span class="colorRed">1</span> )
+                                </div>
+                                <div class="modalResultTable">
+                                    <table class="modalTable2">
+                                        <colgroup>
+                                            <col class="w140">
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr class="proSearchResult">        
+                                                <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                                <th>상품번호</th>
+                                                <th>상품명</th>
+                                                <th>판매가</th>
+                                                <th>등록일(수정일)</th>                                                    
+                                            </tr> 
+                                            <tr>
+                                                <td class="proSearchBottomCheck">
+                                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"></td>
+                                                <td>c-2023-01</td>
+                                                <td>COOKY 패브릭 소파 1인</td>
+                                                <td>299,000원</td>
+                                                <td>2023-10-10</td>
+                                            </tr>   
+                                            <tr>
+                                                <td class="proSearchBottomCheck">
+                                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"></td>
+                                                <td>c-2023-01</td>
+                                                <td>COOKY 패브릭 소파 1인</td>
+                                                <td>299,000원</td>
+                                                <td>2023-10-10</td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="proSearchBottomCheck">
+                                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"></td>
+                                                <td>c-2023-01</td>
+                                                <td>COOKY 패브릭 소파 1인</td>
+                                                <td>299,000원</td>
+                                                <td>2023-10-10</td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="proSearchBottomCheck">
+                                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"></td>
+                                                <td>c-2023-01</td>
+                                                <td>COOKY 패브릭 소파 1인</td>
+                                                <td>299,000원</td>
+                                                <td>2023-10-10</td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="proSearchBottomCheck">
+                                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"></td>
+                                                <td>c-2023-01</td>
+                                                <td>COOKY 패브릭 소파 1인</td>
+                                                <td>299,000원</td>
+                                                <td>2023-10-10</td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="proSearchBottomCheck">
+                                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"></td>
+                                                <td>c-2023-01</td>
+                                                <td>COOKY 패브릭 소파 1인</td>
+                                                <td>299,000원</td>
+                                                <td>2023-10-10</td>
+                                            </tr> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <button id="btnModalProdAdd">선택한 상품 추가</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </nav>
+        <script src="../../js/event.js"></script>
+</body>
+</html>

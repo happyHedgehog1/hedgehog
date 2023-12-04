@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품등록</title>
+    <link rel="stylesheet" href="../../css/unregister.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                        <h4>탈퇴회원조회</h4>
+                        <br>
+                        </div>
+                        <div class="box"></div>
+                    </div>
+                    <div class="sectTopWrapper">
+                        <div class="sectTop">
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>  
+                                    <tr>        
+                                        <th>아이디</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <input type="text" name="seartId" id="seartId">
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>   
+                                    <tr>        
+                                        <th>탈퇴유형</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="unregisterCondition" id="unregisterCondition" >
+                                                            <option value="0" selected>전체</option>
+                                                            <option value="1">일반탈퇴</option>
+                                                            <option value="2">강제탈퇴</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr> 
+                                    <tr>        
+                                        <th>기간</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <input type="date" name="startDay" id="startDay">
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>  
+                                                    <li class="w200">
+                                                        <input type="date" name="endDay" id="endDay">
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr> 
+                                </tbody>    
+                            </table>
+                            <div>
+                                <button id="btnSearch"> 검색 </button>
+                            </div>
+                            <div><br><br></div>
+                        </div>    
+                    </div>
+                    <div><br><br></div>
+                    <div class="sectBottom">
+                        <div class="bottomResult">
+                            <div class="bottomResultTitle"><h3>검색 결과</h3></div>
+                            <div class="bottomResult1"><span>(총 : </span>
+                                <span class="colorRed"> 5 </span> 건 / 일반탈퇴 :
+                                <span class="colorRed"> 4 </span>건 / 강제탈퇴 : 
+                                <span class="colorRed"> 1 </span>건 )
+                            </div>
+                        </div>
+                        <div class="tblWrapper">
+                        <table class="tblBottom">
+                            <colgroup>
+                                <col class="w200">
+                                <col class="w200">
+                                <col class="w200">
+                                <col class="w200">
+
+                            </colgroup>
+                            <tbody>
+                                        <tr class="searchResult">        
+                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                            <th>아이디</th>
+                                            <th>회원탈퇴일</th>
+                                            <th>구분</th>
+                                            <th>탈퇴사유</th>                                                 
+                                </tr> 
+                                <tr class="searchBottom_tr">
+                                    <td class="searchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>아이디1</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-11-20</li>
+                                    </td>
+                                    <td>
+                                        <li>일반탈퇴</li>
+                                    </td>
+                                    <td>
+                                        <li>직접 입력한 사유</li>
+                                    </td>
+                                </tr>    
+                                <tr class="searchBottom_tr">
+                                    <td class="searchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>아이디1</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-11-20</li>
+                                    </td>
+                                    <td>
+                                        <li>일반탈퇴</li>
+                                    </td>
+                                    <td>
+                                        <li>직접 입력한 사유</li>
+                                    </td>
+                                </tr> 
+                                <tr class="searchBottom_tr">
+                                    <td class="searchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>아이디1</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-11-20</li>
+                                    </td>
+                                    <td>
+                                        <li class="colorRed">강제탈퇴</li>
+                                    </td>
+                                    <td>
+                                        <li>직접 입력한 사유</li>
+                                    </td>
+                                </tr> 
+                                <tr class="searchBottom_tr">
+                                    <td class="searchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>아이디1</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-11-20</li>
+                                    </td>
+                                    <td>
+                                        <li>일반탈퇴</li>
+                                    </td>
+                                    <td>
+                                        <li>직접 입력한 사유</li>
+                                    </td>
+                                </tr> 
+                                <tr class="searchBottom_tr">
+                                    <td class="searchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>아이디1</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-11-20</li>
+                                    </td>
+                                    <td>
+                                        <li>일반탈퇴</li>
+                                    </td>
+                                    <td>
+                                        <li>직접 입력한 사유</li>
+                                    </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+            </section>
+        </nav>
+
+</body>
+</html>

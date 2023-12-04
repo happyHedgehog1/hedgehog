@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항작성</title>
+    <link rel="stylesheet" href="../../css/noticeWrite.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                            <h4>게시판관리</h4>
+                        </div>
+                        <div class="topbtnWrapper">
+                            <div class="pageButton"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
+                            <div class="pageButton"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
+                            <div class="pageButton"><a href="../Service/FAQ.html">FAQ 관리</a></div>
+                            <div class="pageButton1"><a href="../Service/notice.html">공지사항 관리</a></div>
+                        </div>
+                    </div>
+                    <div class="sectTopWrapper">
+                        <div class="sectTop">
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>        
+                                        <th>제목</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li>
+                                                        <input type="text" name="title" id="title">
+                                                    </li>
+                                                    <li>
+                                                        <label for=""><input type="checkbox" name="" id=""> 상단고정</label>
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr> 
+                                    <tr>        
+                                        <th>내용</th>    
+                                        <td>
+                                            <div id="summernote"></div>
+                                        </td>
+                                    </tr>    
+                                    <tr>        
+                                        <th>공개여부</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdCondition" id="prdCondition" >
+                                                            <option value="0" selected>전체</option>
+                                                            <option value="1">공개</option>
+                                                            <option value="2">비공개</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>    
+                                    
+                                </tbody>    
+                            </table>
+                            <div>
+                                <button id="btnSearch"> 등록 </button>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </section>
+        </nav>
+        <script src="../../js/noticeWrite.js"></script>
+</body>
+</html>

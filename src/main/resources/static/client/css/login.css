@@ -1,0 +1,199 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 수정사항. 맨 위 부터 정렬되도록. */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+    /* background-color: red; */
+}
+
+#contents {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 70em;
+    margin-bottom: 5em;
+    padding-top: 7em;
+    width: 33em;
+}
+
+#search_form {
+    margin-top: 5em;
+}
+
+td {
+    height: 2em;
+    padding: 5px;
+}
+
+input,
+button {
+    width: 100%;
+}
+
+.contents-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.contents-table>caption {
+    font-size: 1.5em;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#input_order,
+#input_email,
+#input_authentication,
+#email_button,
+#authentication_button,
+#input_password,
+#input_id {
+    border: 0;
+    border-radius: 8px;
+}
+
+
+#input_email,
+#email_button,
+#input_password,
+#input_id {
+    margin-bottom: 0.3em;
+}
+
+
+#input_order,
+#input_email,
+#email_button,
+#search,
+#input_password,
+#input_id {
+    height: 3em;
+    font-size: 1em;
+    padding: 0px;
+}
+
+#input_order,
+#input_email,
+#input_authentication,
+#input_password,
+#input_id {
+    background-color: #ECECEC;
+    padding-left: 0.5em;
+}
+
+#order_number,
+#email,
+#password,
+#id {
+    font-weight: bold;
+}
+
+#input_authentication,
+#authentication_button {
+    height: 2em;
+}
+
+#email_button {
+    border: 2px solid #A7727D;
+    font-size: 0.8em;
+    height: 48px;
+    padding: 1em;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+#email_button:hover {
+    color: white;
+    background-color: #A7727D;
+}
+
+#authentication_button {
+    font-size: 0.8em;
+    padding: 3px;
+    border: 1px solid #A6A6A6;
+    background-color: white;
+    height: 26.66px;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+#authentication_button:hover {
+    color: white;
+    background-color: #A6A6A6;
+}
+
+
+#timer {
+    color: gray;
+    font-size: 0.9em;
+}
+
+#timer>div {
+    display: flex;
+}
+
+#reload {
+    width: 1.5em;
+    height: 1.5em;
+    margin-left: 0.5em;
+    cursor: pointer;
+}
+
+#search_button,
+#login_button {
+    border-radius: 0.7em;
+    border: 3px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    margin-top: 1em;
+    font-size: 1.1em;
+    padding: 0.5em;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+#search_button:hover,
+#login_button:hover {
+    color: black;
+    background-color: white;
+}
+
+#save_id_wrap {
+    display: grid;
+    grid-template-columns: 1em 6em;
+    align-items: center;
+    justify-items: flex-start;
+    gap: 0.5em;
+}
+
+#login_additional_wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+#id_search,
+#password_search,
+#regist_button {
+    border-radius: 0.6em;
+    box-sizing: border-box;
+    padding: 0.3em 0.5em;
+    border: 2px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+#id_search:hover,
+#password_search:hover,
+#regist_button:hover {
+    background-color: white;
+    color: black;
+}
+#login_additional_buttons{
+    display: flex;
+    gap: 0.3em;
+}

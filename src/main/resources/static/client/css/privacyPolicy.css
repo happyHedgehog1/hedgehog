@@ -1,0 +1,70 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#route_home {
+    cursor: pointer;
+}
+
+#contents {
+    align-self: center;
+    /* min-width는 선택 */
+    /* max-width는 선택 */
+    min-width: 55em;
+    padding-top: 7em;
+    margin-bottom: 5em;
+}
+
+#contents_table {
+    width: 100%;
+    border: 1px solid #848484;
+    background-color: rgba(237, 218, 196, 0.15);
+    color: #5D5C5C;
+    font-size: 0.8em;
+}
+
+#contents_table>caption {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 1em;
+    color: black;
+}
+
+td {
+    text-align: left;
+    padding: 10px;
+    /* br 태그 높이 */
+    line-height: 200%;
+}
+
+#bottom_button_wrap {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1em;
+    padding: 8px 15px 0px 15px;
+    margin-bottom: 30px;
+}
+
+#bottom_button {
+    border-radius: 0.6em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding: 0.3em 0.5em 0.3em 0.5em;
+    border: 3px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    cursor: pointer;
+    transition: 300ms;
+    ;
+}
+
+#bottom_button:hover {
+    color: black;
+    background-color: white;
+}

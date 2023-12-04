@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품문의</title>
+    <link rel="stylesheet" href="../../css/Product-inquiry.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="/Member/Member-member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                            <h4>게시판관리</h4>
+                        </div>
+                        <div class="topbtnWrapper">
+                            <div class="pageButton1"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
+                            <div class="pageButton"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
+                            <div class="pageButton"><a href="../Service/FAQ.html">FAQ 관리</a></div>
+                            <div class="pageButton"><a href="../Service/notice.html">공지사항 관리</a></div>
+                            </div>
+                        
+                    </div>
+                    <div class="sectTopWrapper">
+                        <div class="sectTop">
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>        
+                                        <th>문의일</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;~
+                                                    </li>  
+                                                    <li class="w200">
+                                                        <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                                                    </li>
+                                                    
+                                                </ul>    
+                                            </td>   
+                                    </tr> 
+                                    <tr>        
+                                        <th>구분</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdCondition" id="prdCondition" >
+                                                            <option value="0" selected>--문의유형 전체--</option>
+                                                            <option value="1">상품</option>
+                                                            <option value="2">배송</option>
+                                                            <option value="3">교환</option>
+                                                            <option value="4">반품</option>
+                                                            <option value="5">환불</option>
+                                                            <option value="6">기타</option>
+                                                        </select>
+                                                    </li>
+                                                    <li class="w00">
+                                                        <select name="prdCondition" id="prdCondition" >
+                                                            <option value="0" selected>--답변여부 전체--</option>
+                                                            <option value="1">답변완료</option>
+                                                            <option value="2">미답변</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>    
+                                    <tr>        
+                                        <th>키워드</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdKeyword" id="prdKeyword" >
+                                                            <option value="0" selected>--검색 키워드--</option>
+                                                            <option value="1">상품명</option>
+                                                            <option value="2">작성자</option>
+                                                        </select>
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>                                                    
+                                                    <li>
+                                                        <input type="text" name="proSearch" id="proSearch">
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>    
+                                </tbody>    
+                            </table>
+                            <div>
+                                <button id="btnSearch"> 검색 </button>
+                            </div>
+                        </div>    
+                    </div>
+                    <div><br><br></div>
+                    <div class="sectBottom">
+                        <div class="bottomResult">
+                            <div class="bottomResultTitle"><h3>검색 결과</h3></div>
+                            <div class="bottomResult1"><span>(총 : </span>
+                                <span class="colorRed"> 5 </span> 건 / 미답변 :
+                                <span class="colorRed"> 2 </span>
+                                <span> 건 ) </span></div>
+                        </div>
+                        <div class="tblWrapper">
+                        <table class="tblBottom">
+                            <colgroup>
+                                <col class="w50">
+                                <col class="w140">
+                                <col class="w140">
+                                <col class="w140">
+                                <col>
+                                <col style="width: 100%;">
+                                <col class="w140">
+                                <col class="w140">
+                            </colgroup>
+                            <tbody>
+                                        <tr>        
+                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                            <th>답변여부</th>
+                                            <th>이미지</th>
+                                            <th>유형</th>
+                                            <th>상품명</th>                                        
+                                            <th>제목</th>
+                                            <th>작성자</th>                                        
+                                            <th>등록일</th>                                        
+                                </tr> 
+                                <tr class="proSearchBottomtr" >
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>미답변</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>배송</li>
+                                    </td>
+                                    <td>
+                                        <li>딱딱돌침대</li>
+                                    </td>
+                                    <td>
+                                        <li>문의 제목</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>미답변</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>배송</li>
+                                    </td>
+                                    <td>
+                                        <li>딱딱돌침대</li>
+                                    </td>
+                                    <td>
+                                        <li>문의 제목</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>  
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>미답변</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>배송</li>
+                                    </td>
+                                    <td>
+                                        <li>딱딱돌침대</li>
+                                    </td>
+                                    <td>
+                                        <li>문의 제목</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>  
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>미답변</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>배송</li>
+                                    </td>
+                                    <td>
+                                        <li>딱딱돌침대</li>
+                                    </td>
+                                    <td>
+                                        <li>문의 제목</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>  
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>미답변</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>배송</li>
+                                    </td>
+                                    <td>
+                                        <li>딱딱돌침대</li>
+                                    </td>
+                                    <td>
+                                        <li>문의 제목</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>  
+                               
+                            </tbody>
+                        </table>
+                        </div>
+                        <select name="" id="">
+                            <option value="0">--공개 상태 전환--</option>
+                            <option value="1">공개 전환</option>
+                            <option value="2">비공개 전환</option>
+                            
+                        
+                    </div>
+            </section>
+        </nav>
+        <script src="../../js/Product-inquiry.js"></script>
+
+</body>
+</html>

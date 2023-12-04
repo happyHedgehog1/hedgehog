@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/header.css">
+  <script src="../js/header.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <div class="gnb">
+      <div class="hamburger_button" onclick="toggleHamburger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- 사이드메뉴 -->
+      <div class="side_nenu" onclick="toggleHamburger()">
+        <ul class="side_nenu_List">
+          <li><a href="#">베스트 상품</a></li>
+          <li><a href="mainCategoryBed.html">침실</a></li>
+          <li><a href="mainCategorySopa.html">거실</a></li>
+          <li><a href="mainCategoryDesk.html">서재</a></li>
+          <li><a href="mainCategoryTable.html">주방</a></li>
+          <li><a href="#">게시판</a></li>
+        </ul>
+      </div>
+      <h1 class="logo"><a href="main.html"><img src="../image/logo.png" alt="logo"></a></h1>
+      <ul class="login_list">
+        <li><a href="#"><img src="../image/icon/login.png">로그인</a></li>
+        <li><a href="#"><img src="../image/icon/join.png">회원가입</a></li>
+        <li><a href="$"><img src="../image/icon/mypage.png">마이페이지</a></li>
+        <li><a href="#"><img src="../image/icon/cart.png">장바구니</a></li>
+      </ul>
+    </div>
+
+
+    <nav>
+      <div>
+        <div class="line"></div>
+        <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <li><a href="mainCategoryBed.html">침실</a></a></li>
+          <li><a href="mainCategorySopa.html">거실</a></li>
+          <li><a href="mainCategoryDesk.html">서재</a></li>
+          <li><a href="mainCategoryTable.html">주방</a></li>
+        </ul>
+        <div class="line"></div>
+        <div class="gnb_sub_box"  onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <div class="gnb_sub_list" >
+              <ul class="detail_list">
+                  <li><a href="mainCategoryBed.html">침대</a></li>
+                  <span></span>
+                  <li><a href="#">옷장</a></li>
+                  <span></span>
+                  <li><a href="#">화장대</a></li>
+              </ul>
+              <ul class="detail_list">
+                  <li><a href="mainCategorySopa.html">소파</a></li>
+                  <span></span>
+                  <li><a href="#">테이블</a></li>
+                  <span></span>
+                  <li><a href="#">수납장</a></li>
+              </ul>
+              <ul class="detail_list">
+                  <li><a href="mainCategoryDesk.html">책상</a></li>
+                  <span></span>
+                  <li><a href="#">책장</a></li>
+                  <span></span>
+                  <li><a href="#">의자</a></li>
+              </ul>
+              <ul class="detail_list">
+                  <li><a href="mainCategoryTable.html">식탁</a></li>
+                  <span></span>
+                  <li><a href="#">수납장</a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+</header>
+
+
+  <section>
+
+  </section>
+</body>
+</html>

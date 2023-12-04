@@ -1,0 +1,159 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+
+/* 여기부터 개인 css */
+
+
+.main_section{
+  padding-top: 150px;
+}
+
+
+.board {
+  
+  justify-content: center;
+  align-items: center;
+}
+
+.start_board{
+  display: flex;
+  justify-content: center;
+}
+
+.board_title {
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+.board_title3{
+  margin-left: 100px ;
+}
+
+.board_write{
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+.board_write3{
+   margin-left: 85px ;
+}
+
+.board_date{
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+ .board_date3{
+  margin-left: 100px ;
+ }
+
+ .board_click {
+  display: flex;
+  height: 30px;
+  align-items: center;
+ }
+
+ .board_click3{
+  margin-left: 85px ;
+ }
+
+ .event_img{
+  justify-content: center;
+  text-align: center;
+  background-color: aliceblue;
+  margin-top: 50px;
+  width: 500px;
+ }
+
+
+ .writing{
+  background-color: aliceblue;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+
+ .reading{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: 300px;
+  width: 730px;
+ }
+
+ .comment_space{
+  height: 40px;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+ }
+
+ .comment_hr{
+  border: 1px solid #000;
+  
+
+ }
+
+ .main_comment{
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+ }
+
+ .main_comment3{
+ font-size: 13px;
+ color: gray;
+ 
+ }
+
+ .main_comment5{
+  font-size: 13px;
+  color: gray;
+  }
+
+ .password_input{
+  display: flex;
+ }
+
+ #password_input2{
+  margin-left: 40px ;
+
+ }
+
+ .board_btn{
+  text-align: right;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 80px;
+ }
+
+ .delete_btn{
+  border: 2px solid #c59e9e;
+  border-radius: 20px;
+  height: 30px;
+  width: 100px;
+  margin-left: 20px ;
+  
+ }
+
+ .back_btn{
+  border: 2px solid #c59e9e;
+  border-radius: 20px;
+  height: 30px;
+  width: 100px;
+ }
+
+ .back_btn:hover {
+  background-color: rgb(186, 183, 178);
+ }
+.delete_btn:hover {
+  background-color: rgb(186, 183, 178);
+}
+
+#password {
+  width: 200px;
+}
+

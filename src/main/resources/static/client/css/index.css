@@ -1,0 +1,117 @@
+
+section{
+  padding-top: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+input[type="search"]{
+  width: 500px;
+  height: 40px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  position: relative;
+  text-indent: 20px;
+  font-size: 16px;
+}
+
+.search{
+  position: relative;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.fa{
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  color: rgb(121, 121, 121);
+}
+
+.slae_img{
+  display: flex;
+  position: relative;
+}
+
+section{
+  padding-top: 150px;
+}
+
+section img{
+  width: 1600px;
+}
+
+/* 메인카테고리 */
+
+section .main_category{
+  width: 70%;
+  margin: 30px 0;
+  
+}
+
+section .main_category ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section .main_category ul li{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.main_category img{
+  width: 120px;
+  border-radius: 50%;
+}
+
+.main_category span{
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+/* 베스트상품 */
+
+h3{
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+.best_pruduct{
+  margin-top: 20px;
+  margin-bottom: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.best_pruduct ul{
+  display: flex;
+}
+
+.best_pruduct ul li ul{
+  display: flex;
+  flex-direction: column;
+}
+
+.best_pruduct ul li ul li{
+  padding: 5px 0;
+}
+
+.best_pruduct li a img{
+  width: 350px;
+  margin-left: 14px;
+  border: 1px solid rgb(153, 153, 153);
+  /* object-fit : cover; */
+}
+
+.best_pruduct_text{
+  margin-left: 20px;
+}
+
+

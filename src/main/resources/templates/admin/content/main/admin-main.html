@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 메인페이지</title>
+    <link rel="stylesheet" href="../../css/admin-main.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+
+            <div class="page-body">
+                <div class="totalWrapper">
+                <div id="topWrapper">
+                    <div class="todayhd">
+                    <b>오늘현황</b>
+                    </div>
+                    <div class="top"><a href="../Statistics/Statistics.html">
+                        매출 
+                        <span class="fontRed">3,000,000원</span>
+                        </a></div>
+                    <div class="top"><a href="../Statistics/Statistics.html">
+                        방문자수 
+                        <span class="fontRed">300명</span>
+                        </a></div>
+                    <div class="top"><a href="../Statistics/Statistics.html">
+                        한줄리뷰  
+                        <span class="fontRed">40건</span>
+                        / 포토리뷰 
+                        <span class="fontRed">20건</span>
+                        </a></div>
+                    <div class="top"><a href="../Statistics/Statistics.html">
+                        판매량 
+                        <span class="fontRed">300개</span>
+                        </a></div>
+                    <div class="top"><a href="../Statistics/Statistics.html">
+                        신규회원수 
+                        <span class="fontRed">20명</span>
+                        </a></div>
+                    <div class="top"><a href="../Statistics/Statistics.html">
+                        상품 문의 등록 
+                        <span class="fontRed">20건</span>
+                        </a></div>
+                </div>
+                <div class="blank">&nbsp;</div>
+                <div id="middleWrapper">
+                    <div class="middlehd"><b>주문현황</b></div>
+                    <div class="middle"><a href="#">
+                        미입금 
+                        <span class="fontRed">0건</span></a></div>
+                    <div class="middle"><a href="#">
+                        배송대기
+                        <span class="fontRed">23건</span></a></div>
+                    <div class="middle"><a href="#">
+                        구매확정 대기  
+                        <span class="fontRed">300건</span></a></div>
+                    <div class="middle"><a href="#">
+                        구매확정 
+                        <span class="fontRed">50건</span></a></div>
+                </div>
+                <div class="bottom">
+                    <table class="=bottomTable">
+                        <tr>
+                            <td colspan="4" style="border-right: #d8d8d8 1px solid;"><a href="#">상품 문의</a></td>
+                            <td colspan="4"><a href="#">상품 후기</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tableProduct">상품명</td>
+                            <td class="tableTitle">제목</td>
+                            <td class="tableWriter">작성자</td>
+                            <td class="tableDate">작성일자</td>
+                            <td class="tableProduct">상품명</td>
+                            <td class="tableTitle">제목</td>
+                            <td class="tableWriter">작성자</td>
+                            <td class="tableDate">작성일자</td>
+                        </tr>   
+                        <tr>
+                            <td class="tableProduct">&nbsp;</td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                            <td class="tableProduct"></td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                        </tr>   
+                        <tr>
+                            <td class="tableProduct">&nbsp;</td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                            <td class="tableProduct"></td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                        </tr>   
+                        <tr>
+                            <td class="tableProduct">&nbsp;</td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                            <td class="tableProduct"></td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                        </tr>   
+                        <tr>
+                            <td class="tableProduct">&nbsp;</td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                            <td class="tableProduct"></td>
+                            <td class="tableTitle"></td>
+                            <td class="tableWriter"></td>
+                            <td class="tableDate"></td>
+                        </tr>   
+                    </table>
+            </div>
+            </div>
+            </div>
+        </section>
+    </nav>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자관리</title>
+    <link rel="stylesheet" href="../../css/adimin-management.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                        <h4>상품 조회</h4>
+                        <br>
+                        </div>
+                    </div>
+                        <div class="sectTop">
+                            <div><button id="btnAdminAdd">관리자 등록</button></div>
+                            <table>
+                                <colgroup>
+                                <col style="width: 20%;">
+                                <col style="width: 20%;">
+                                <col style="width: 20%;">
+                                <col style="width: 20%;">
+                                <col style="width: 20%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>아이디</th>
+                                        <th>이름</th>
+                                        <th>비밀번호 변경</th>
+                                        <th>최근 로그인 시간</th>
+                                        <th>관리자 삭제</th>
+                                    </tr>
+                                    <tr>
+                                        <td>masteradmin</td>
+                                        <td>마스터 관리자</td>
+                                        <td><button id="btnChangePass">변경</button></td>
+                                        <td id="currentTime">&nbsp;</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>admin1</td>
+                                        <td>등록된 관리자1</td>
+                                        <td><button id="btnChangePass">변경</button></td>
+                                        <td id="currentTime">&nbsp;</td>
+                                        <td><button id="btnDeleteAdmin">삭제</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal" id="myModal">
+                            <div class="modalContent">
+                                <span id="closeAdminModal">&times;</span>
+                                <div class="modalInput">
+                                    <div class="title">
+                                        <h3>관리자 등록</h3>
+                                    </div>
+                                    <div>
+                                        <input type="text" name="adminAddId" id="adminAddId" placeholder="등록할 아이디 입력">
+                                    </div>
+                                    <div>
+                                        <input type="password" name="adminAddPass" id="adminAddPass" placeholder="등록할 비밀번호 입력">
+                                    </div>
+                                    <div>
+                                        <input type="text" name="adminAddName" id="adminAddName" placeholder="등록할 관리자 이름 입력">
+                                    </div>
+                                    <div>
+                                        <button id="btnModalAdminAdd">관리자 등록 신청</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="passChangeModal" id="passChange">
+                            <div class="modalContent">
+                                <span id="closePassModal">&times;</span>
+                                <div class="modalInput">
+                                    <div class="passChangModalTitle">
+                                        비밀번호 변경
+                                    </div>
+                                        <input type="password" name="adminUpdatePass" id="adminUpdatePass" placeholder="변경할 비밀번호 입력">
+                                    </div>
+                                    <div>
+                                        <button id="btnModalAdminAdd">관리자 등록 신청</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </section>
+        </nav>
+        <script src="../../js/admin-management.js"></script>
+</body>
+</html>

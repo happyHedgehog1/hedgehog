@@ -1,0 +1,290 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+#wrap {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+}
+
+
+header {
+    background-color: #F5F5F5;
+
+}
+
+.logobackground{
+    display: flex;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    height: 170px;
+}
+
+.logoimg img{
+    width: 130px;
+    margin-left: 40px;
+}
+
+.logout{
+margin-left: auto;
+
+}
+
+.logout a{
+    color: black;
+}
+
+
+
+h2 {
+    margin-left: 100px;
+    font-size: 40px;
+    line-height: 110px;
+}
+
+
+
+
+/* 왼측 카테고리 */
+
+.contents {
+    display: grid;
+    grid-template-columns: 250px repeat(1, auto);
+    flex: 1;
+    overflow-y: auto;
+}
+
+
+.left_nav{
+    background-color: #747E8A;
+    text-align: center;
+    width: 250px;
+    height: 100%;
+    flex-direction: column;
+
+}
+
+.left_nav li{
+    border-bottom: 1px solid rgb(92, 92, 92);
+
+}
+
+
+.prodList {
+    color: white;
+    background-color: #3F464F;
+    display: block;
+}
+
+.prodList a{
+    color: inherit;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    padding: 25px 0;
+}
+
+.sub_ProdList li a{
+    background-color: #747E8A;
+    transition: 150ms;
+}
+
+.sub_ProdList li:hover a{
+    background-color: tomato;
+}
+
+.prodList .sub_ProdList{
+    display: none;
+    transition: 200ms;
+}
+
+.prodList:hover .sub_ProdList{
+    display: block;
+    height: 100%;
+}
+
+/* ================================================================================================================================================= */
+
+.page-body{
+    padding: 30px;
+    background-color: #F5F5F5;
+    width: 1650px;
+    /* height: 1155px; */
+    height: calc(100vh - 170px);
+    overflow-y: auto;
+}
+
+
+
+
+
+.main-head {
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 150px ;
+}
+
+input[type=text] {
+    width: 100%;
+    height: 36px;
+    padding: 0 15px;
+    border: 1px solid #d8d8d8;
+    background: #eef1f4;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.text{
+    color: #A7727D;
+}
+
+.tbl-setting th, .tbl-setting td {
+    padding: 20px 30px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.mt-10 {
+    margin-top: 10px !important;
+}
+.fs-15 {
+    font-size: 15px !important;
+}
+.fc-gray {
+    color: #858f9b !important;
+}
+
+.tbl-setting th {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+    line-height: 36px;
+}
+
+.btn-wrap li {
+    float: left;
+    margin-right: -1px;
+}
+
+.btn-toggle {
+    display: inline-block;
+    width: 105px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #86909c;
+    background: #fff;
+    font-size: 15px;
+    color: #858f9b;
+    box-sizing: border-box;
+    text-align: center;
+}
+.sect-cont {
+    position: relative;
+    margin-top: -1px;
+    padding: 20px 30px;
+    border: 1px solid #d8d8d8;
+    background: #fff;
+}
+
+.sect-hd {
+    position: relative;
+    height: 52px;
+    line-height: 52px;
+    margin-top: 30px;
+    padding: 0 20px;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    background: #fff;
+}
+
+.tab-menu-ul{
+    margin-top: 30px;
+}
+
+.sect-guide p {
+    margin: 15px;
+    padding-left: 55px;
+    background: url(/image/h26_qmark.png) no-repeat 10px 50%;
+    color: #ff0000;
+    font-size: 15px;
+    line-height: 26px;
+}
+
+.sect-guide {
+    margin-top: 20px;
+    border: 1px solid #eba8a8;
+    background: #fffafa;
+}
+
+.btn-h52-blue {
+    display: inline-block;
+    width: 130px;
+    height: 52px;
+    line-height: 52px;
+    background: #00affe;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+}
+
+.btn-c {
+    margin: 30px 0;
+    text-align: center;
+    
+    line-height: 0;
+}
+
+.aaa{
+    margin-left: 10px;
+    font-size: 25px;
+}
+
+.topbtnWrapper{
+    display: flex;
+    margin-left: 20px;
+  }
+
+  .pageButton{
+    background-color: #D9D9D9;
+    border: #989da3 1px solid;
+    font-size: 15px;
+    width: 110px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pageButton1, .pageButton1>a{
+    background-color: #262B32;
+    color: white;
+    border: #3F464F 1px solid;
+    font-size: 15px;
+    width: 110px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  a {
+    color: black; 
+    text-decoration: none; 
+  }
+

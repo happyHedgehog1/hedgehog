@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="../../css/Product-review.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="/Member/Member-member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                            <h4>게시판관리</h4>
+                        </div>
+                        <div class="topbtnWrapper">
+                            <div class="pageButton"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
+                            <div class="pageButton1"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
+                            <div class="pageButton"><a href="../Service/FAQ.html">FAQ 관리</a></div>
+                            <div class="pageButton"><a href="../Service/notice.html">공지사항 관리</a></div>
+                            </div>
+                        
+                    </div>
+                    <div class="sectTopWrapper">
+                        <div class="sectTop">
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>        
+                                        <th>작성일</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;~
+                                                    </li>  
+                                                    <li class="w200">
+                                                        <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                                                    </li>
+                                                    
+                                                </ul>    
+                                            </td>   
+                                    </tr> 
+                                    <tr>        
+                                        <th>구분</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdCondition" id="prdCondition" >
+                                                            <option value="0" selected>--후기유형 전체--</option>
+                                                            <option value="1">일반후기</option>
+                                                            <option value="2">사진후기</option>
+                                                            
+                                                        </select>
+                                                    </li>
+                                                    <li class="w00">
+                                                        <select name="prdCondition" id="prdCondition" >
+                                                            <option value="0" selected>--평점--</option>
+                                                            <option value="1">5점</option>
+                                                            <option value="2">4점</option>
+                                                            <option value="2">3점</option>
+                                                            <option value="2">2점</option>
+                                                            <option value="2">1점</option>
+                                                        </select>
+                                                        <input class="check" type="checkbox" name="" id="">베스트후기
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>    
+                                    <tr>        
+                                        <th>키워드</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdKeyword" id="prdKeyword" >
+                                                            <option value="0" selected>--검색 키워드--</option>
+                                                            <option value="1">상품명</option>
+                                                            <option value="2">작성자</option>
+                                                        </select>
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>                                                    
+                                                    <li>
+                                                        <input type="text" name="proSearch" id="proSearch">
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>    
+                                </tbody>    
+                            </table>
+                            <div>
+                                <button id="btnSearch"> 검색 </button>
+                            </div>
+                        </div>    
+                    </div>
+                    <div><br><br></div>
+                    <div class="sectBottom">
+                        <div class="bottomResult">
+                            <div class="bottomResultTitle"><h3>검색 결과</h3></div>
+                            <div class="bottomResult1"><span>(총 : </span>
+                                <span class="colorRed"> 5 </span> 건 / 일반 :
+                                <span class="colorRed"> 3 </span> 건 / 사진 :
+                                <span class="colorRed"> 2 </span>
+                                <span> 건 ) </span></div>
+                        </div>
+                        <div class="tblWrapper">
+                        <table class="tblBottom">
+                            <colgroup>
+                                <col class="w140">
+                                <col class="w140">
+                                <col style="width: 100%;">
+                                <col class="w140">
+                                <col class="w140">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                        <tr>        
+                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                            <th>후기유형</th>
+                                            <th>이미지</th>
+                                            <th>평점</th>
+                                            <th>후기내용</th>                                        
+                                            <th>작성자</th>                                        
+                                            <th>등록일</th>                                        
+                                </tr> 
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>사진후기</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>5점</li>
+                                    </td>
+                                    <td>
+                                        <li>눕자마자 잠이와요!</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>사진후기</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>5점</li>
+                                    </td>
+                                    <td>
+                                        <li>눕자마자 잠이와요!</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>사진후기</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>5점</li>
+                                    </td>
+                                    <td>
+                                        <li>눕자마자 잠이와요!</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>사진후기</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>5점</li>
+                                    </td>
+                                    <td>
+                                        <li>눕자마자 잠이와요!</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li>사진후기</li>
+                                    </td>
+                                    <td>
+                                        상품이미지</li>
+                                    </td>
+                                    <td>
+                                        <li>5점</li>
+                                    </td>
+                                    <td>
+                                        <li>눕자마자 잠이와요!</li>
+                                    </td>
+                                    <td>
+                                        <li>코난</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-10</li>
+                                    </td>
+                                    
+                                </tr>   
+                               
+                            </tbody>
+                        </table>
+                        </div>
+                        <select name="" id="">
+                            <option value="0">--베스트후기 설정--</option>
+                            <option value="1">베스트후기 설정</option>
+                            <option value="2">베스트후기 설정해제</option>
+                         </select>   
+                         <select name="" id="">
+                            <option value="0">--공개 상태 전환--</option>
+                            <option value="1">공개 전환</option>
+                            <option value="2">비공개 전환</option>
+                         </select>   
+                        
+                            
+                        
+                    </div>
+            </section>
+        </nav>
+
+</body>
+</html>

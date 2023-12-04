@@ -1,0 +1,299 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+
+}
+
+
+#wrap {
+    position: fixed;
+    width: 100%;
+    
+
+}
+
+
+
+header {
+    background-color: #F5F5F5;
+
+}
+.logobackground{
+    display: flex;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    height: 170px;
+}
+
+.logoimg img{
+    width: 130px;
+    margin-left: 40px;
+}
+
+.logout{
+margin-left: auto;
+
+}
+
+.logout a{
+    color: black;
+}
+
+
+
+
+h2 {
+    margin-left: 100px;
+    font-size: 40px;
+    line-height: 110px;
+}
+
+
+
+/* 왼측 카테고리 */
+
+.contents {
+    display: grid;
+    grid-template-columns: 250px repeat(2, auto);
+    background-color: #F5F5F5;
+
+}
+
+
+.left_nav{
+    background-color: #747E8A;
+    text-align: center;
+    width: 250px;
+    height: 100vh;
+
+}
+
+.left_nav li{
+    border-bottom: 1px solid rgb(92, 92, 92);
+
+}
+
+
+.prodList {
+    color: white;
+    background-color: #3F464F;
+    display: block;
+}
+
+.prodList a{
+    color: inherit;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    padding: 25px 0;
+}
+
+.sub_ProdList li a{
+    background-color: #747E8A;
+    transition: 150ms;
+}
+
+.sub_ProdList li:hover a{
+    background-color: tomato;
+}
+
+.prodList .sub_ProdList{
+    display: none;
+    transition: 200ms;
+}
+
+.prodList:hover .sub_ProdList{
+    display: block;
+    height: 100%;
+}
+
+/* ================================================================================================================================================= */
+
+.checkbox-container {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn {
+    display: inline-block;
+    width: 130px;
+    height: 52px;
+    line-height: 52px;
+    background: #A7727D;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+}
+
+.main-head h2 {
+    margin-left: 50px;
+    
+    
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.page-top{
+    background: #fff;
+    border: 3px solid #bdc5cd;
+    background-color: rgb(255, 255, 255);
+    margin-left: 40px;
+    margin-right: 40px;
+    height: 257px;
+    width: auto px;
+    
+}
+
+.tbl-setting th {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+    line-height: 36px;
+    padding: 18px 30px;
+    border-bottom: 1px solid #ebebeb;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+.tbl-setting td {
+    padding: 18px 30px;
+    border-bottom: 1px solid #ebebeb;
+    background-color: rgb(255, 255, 255);
+    
+}
+
+input[type=checkbox]{
+    width: 30px;
+    height: 14px;
+}
+
+.box{
+    
+    height: 36px;
+    padding: 0 15px;
+    border: 1px solid #d8d8d8;
+    background: #eef1f4;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.box1{
+    font-size: 15px;
+    margin-top: 18px;
+    width: 40%;
+}
+
+.btn-c{
+    margin: 30px 0;
+    text-align: center;
+    font-size: 0;
+    line-height: 0;
+}
+
+.background{
+    background-color: #F5F5F5;
+    
+}
+.sect-hd {
+    position: relative;
+    height: 52px;
+    line-height: 52px;
+    margin-top: 120px;
+    padding: 0 20px;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    background: #fff;
+    margin-left: 40px;
+    margin-right: 40px;
+    border: 1px solid #bdc5cd;
+    }
+
+ .sect-hd h3 {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 17px;}
+
+ .sect-cont {
+   height: 230px;
+   margin-top: -1px;
+   padding: 20px 30px;
+   border: 1px solid #d8d8d8;
+   background: #fff;
+   margin-left: 40px;
+   margin-right: 40px;
+   border: 1px solid #bdc5cd;}
+
+   element.style {
+    width: 140px;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.btn-black {
+    display: inline-block;
+    width: 105px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #3f464f;
+    background: #3f464f;
+    color: #fff !important;
+    font-size: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tbl-side{
+    margin-left: 600px;
+}
+
+.tbl-list.tbl-extend {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+    margin-top: 30px;
+}
+
+.tbl-list th {
+    background: #f5f7f8;
+    font-weight: bold;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    line-height: 1.25;
+}
+
+.tbl-list th, .tbl-list td {
+    padding: 10px;
+    border-right: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    text-align: center;}
+
+.tbl-list {
+    border-top: 1px solid #d8d8d8;
+    }
+   
+.aa{
+    width: 1% ;
+    border-right: none;
+}   
+
+
+            
+
+
+.tbl-list tbl-extend mt-20{
+    border-collapse: collapse;
+}

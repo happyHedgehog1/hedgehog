@@ -1,0 +1,272 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#route_home,
+#route_mypage,
+#contents_menu {
+    cursor: pointer
+}
+
+#contents {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 7em;
+}
+
+#contents_menu>div,
+#quick_date_buttons>label {
+    transition: 200ms;
+}
+
+#contents_menu {
+    display: flex;
+    border-bottom: 1px solid #bebebe;
+}
+
+#contents_menu>div {
+    padding: 8px 30px 8px 30px;
+    border: 1px solid #bebebe;
+    border-bottom: 0;
+    box-sizing: border-box;
+}
+
+#contents_menu>div:first-child:hover,
+#quick_date_buttons>label:hover {
+    background-color: #a7727db0;
+    /* 투명도 설정 */
+    color: white;
+}
+
+#contents_menu>div:last-child {
+    border: 0;
+    background-color: #A7727D;
+    color: white;
+}
+
+#search {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #848484;
+    padding: 8px 15px 8px 15px;
+    margin-top: 30px;
+}
+
+#state_select {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+#form_wrap {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+#date_setting {
+    display: flex;
+    gap: 5px;
+}
+
+#date_setting>label,
+#form_wrap>label {
+    display: none;
+}
+
+#date_start,
+#date_end {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+    padding-left: 0.3em;
+
+}
+
+#submit_button {
+    display: flex;
+    box-sizing: border-box;
+    border: 2px solid #a7727d;
+    border-radius: 0.5em;
+    padding: 0.3em 0.2em 0.3em 0.2em;
+    background-color: #A7727D;
+    color: white;
+    align-items: center;
+    justify-items: center;
+    gap: 0.2em;
+    height: 2em;
+    transition: 200ms;
+}
+
+#notice {
+    margin-top: 1em;
+}
+
+#notice li {
+    list-style-type: disc;
+    list-style-position: inside;
+    color: #5D5C5C;
+    font-size: 0.9em;
+}
+
+#notice li:last-child {
+    color: white;
+}
+
+#submit_button>input {
+    background-color: #00000000;
+    color: white;
+    border: 0;
+}
+
+#quick_date_buttons {
+    display: flex;
+}
+
+#quick_date_buttons>input[type=radio] {
+    display: none;
+}
+
+#quick_date_buttons>input[type=radio]:checked+label {
+    background-color: #A7727D;
+    color: white;
+    border: 0;
+}
+
+#quick_date_buttons>label {
+    border: 1px solid #BEBEBE;
+    padding: 3px 3px 3px 3px;
+    min-width: 3.3em;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+
+#product_table {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #848484;
+    color: #5D5C5C;
+}
+
+#product_table>caption {
+    font-size: 1.7em;
+    padding: 30px;
+    color: black;
+}
+
+th {
+    font-size: 1.2em;
+    padding: 0.3em 0.5em 0.3em 0.5em;
+}
+
+tr {
+    border-bottom: 1px solid #848484;
+}
+
+
+tr>td {
+    padding: 8px 15px 8px 15px;
+    text-align: center;
+    font-size: 0.95em;
+}
+
+tr>td:nth-child(3) {
+    text-align: left;
+}
+
+#product_table>thead tr {
+    background-color: rgba(237, 218, 196, 0.3);
+}
+
+tbody img {
+    width: 4em;
+}
+
+tbody td:nth-child(2) {
+    display: flex;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    justify-content: center;
+}
+
+tbody td:nth-child(2)>img {
+    transition: 400ms ease;
+}
+
+tbody tr {
+    transition: 300ms;
+}
+
+tbody tr:hover {
+    text-decoration: underline;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #A7727D20;
+}
+
+tbody tr:hover img {
+    width: 7em;
+}
+
+#product_table th:nth-child(1) {
+    min-width: 6em;
+}
+
+#product_table th:nth-child(2) {
+    min-width: 4em;
+}
+
+#product_table th:nth-child(3) {
+    min-width: 14em;
+}
+
+#product_table th:nth-child(4) {
+    min-width: 7em;
+}
+
+#product_table th:nth-child(5) {
+    min-width: 4em;
+}
+
+#product_table th:nth-child(6) {
+    min-width: 6em;
+}
+
+#product_table th:nth-child(7) {
+    min-width: 6em;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#bottom_buttons input:hover {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#bottom_buttons input {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    padding: 0px 3px 0px 3px;
+    background-color: white;
+    border: 0;
+}

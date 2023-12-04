@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>헤더부분</title>
+    
+    <link rel="stylesheet" href="../../css/pointA.css" />
+  </head>
+  <body>
+    <div id="wrap">
+      <header>
+          <div class="logobackground">
+              <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+              <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+              <div class="logout"><a href="#">
+                  <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                  <h4>로그아웃</h4></a>
+              </div>
+          </div>
+      </header>
+      <div class="contents">
+          <ul class="left_nav">
+              <li class="prodList">
+                  <a href="#상품조회" class="control">상품관리</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../product/productserch.html">상품조회</a></li>
+                      <li><a href="../product/productAdd.html">상품등록</a></li>
+                      <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                  </ul>
+              </li>
+              <li class="prodList"><a href="#">회원관리</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../member/member.html">전체회원관리</a></li>
+                      <li><a href="../member/unregister.html">탈퇴회원관리</a></li>
+                  </ul>
+              </li>
+              <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+              <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+              <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                      <li><a href="../Service/email.html">메일관리</a></li>
+                  </ul>
+              </li>
+              <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+              <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+              <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../event/eventList.html">이벤트목록</a></li>
+                      <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <section>
+            <div class="page-body">
+              <div class="main-head">
+                <h2 class="aaa">적립금 관리</h2>
+              </div>
+              <div class="tab-menu">
+                <div class="topbtnWrapper">
+                  <li class="pageButton1">
+                    <a href="../point/pointA.html">적립금 설정</a>
+                  </li>
+                  <li class="pageButton">
+                    <a href="../point/pointB.html">적립금 내역</a>
+                  </li>
+                </div>
+              </div>
+              <form>
+                <div class="sect-hd">
+                  <h3>적립금 지급 설정</h3>
+                </div>
+                <div class="sect-cont">
+                  <div class="tbl-setting">
+                    <table>
+                      <colgroup>
+                        <col class="w180" />
+                        <col />
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <th><strong>회원가입</strong></th>
+                          <td>
+                            <p class="txt">
+                              회원 가입 시,
+                              <input
+                                type="text"
+                                name="mcf_join_save_mileage"
+                                value="0"
+                                style="width: 100px"
+                                class="numformat"
+                              />
+                              원 적립금 지급
+                              <span class="text">0원 입력시, 미지급</span>
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th><strong>상품 적립금</strong></th>
+                          <td>
+                            <p class="txt">
+                              상품 구매 시,
+                              <input
+                                type="text"
+                                name="mcf_join_save_mileage"
+                                value="0"
+                                style="width: 100px"
+                                class="numformat"
+                              />
+                              원 적립금 지급
+                            </p>
+                            <div class="mt-10 fs-15 fc-gray">
+                              상품관리 &gt; 상품등록/수정 &gt; 적립금에서
+                              설정해주세요. (배송완료 후 적립금 지급)
+                            </div>
+                            <p></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>
+                            <strong>후기 적립금</strong>
+                          </th>
+                          <td>
+                            <ul class="btn-wrap">
+                              <li>
+                                <input type="radio" name="radio"><label>사용안함</label>
+                              </li>
+                              <li>
+                                <input type="radio" name="radio"><label>사용함</label>
+                                <span class="text">일반후기 작성 시, 1000원 적립 </span> <hr>
+                                <span class="text">포토후기 작성 시, 5000원 적립 </span>
+                              </li>
+                              
+                            </ul>
+                          </td>
+                        </tr>
+                        <tr
+                          class="entry js-reviewMileageArea"
+                          style="display: none"
+                        >
+                          <th></th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="sect-hd">
+                  <h3>적립금 사용 설정</h3>
+                </div>
+                <div class="sect-cont pd-none">
+                  <div class="tbl-setting">
+                    <table>
+                      <caption></caption>
+                      <colgroup>
+                        <col class="w180" />
+                        <col />
+                      </colgroup>
+                      <tbody>
+                        <tr>
+                          <th><strong>사용 조건</strong></th>
+                          <td>
+                            <p class="txt">
+                              전체 상품 구매금액이
+                              <input
+                                type="text"
+                                name="mcf_min_pay_price_use"
+                                value="0"
+                                style="width: 100px"
+                                class="numformat"
+                              />
+                              원 이상일 때 적립금 사용가능
+                            </p>
+                            <div class="mt-10 fs-15 fc-gray">
+                              전체 상품 구매금액 = 판매가격(할인가)+옵션,
+                              프로모션코드, 쿠폰 및 배송비는 제외
+                            </div>
+  
+                            <p></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th></th>
+                          <td>
+                            <p class="txt">
+                              보유 적립금
+                              <input
+                                type="text"
+                                name="mcf_min_have_mileage_use"
+                                value="0"
+                                style="width: 100px"
+                                class="numformat"
+                              />
+                              원 부터 주문 시 사용가능
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th><strong>사용 제한</strong></th>
+                          <td>
+                            <p class="txt">
+                              1회 주문시 최대 사용 가능 적립금
+                              <input
+                                type="text"
+                                name="mcf_max_use_mileage"
+                                value="0"
+                                style="width: 100px"
+                                class="numformat"
+                              />
+                              원
+                              <span class="text">0원 입력시, 무제한</span>
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </form>
+              <div class="sect-guide mt-10">
+                <p>
+                  주문 결제 중 화면 이탈로 결제가 실패된 경우, 사용한 적립금은
+                  자동 복구됩니다.(결제 실패 1시간 후 자동복구)
+                </p>
+              </div>
+              <div class="btn-c">
+                <a class="btn-h52-blue">저장</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </body>
+  </html>

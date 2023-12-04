@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <script src="../js/header.js" defer></script>
+
+
+  <script src="../js/termsAndConditions.js" defer></script>
+  <link rel="stylesheet" href="../css/termsAndConditions.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="gnb">
+      <div class="hamburger_button" onclick="toggleHamburger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- 사이드메뉴 -->
+      <div class="side_nenu" onclick="toggleHamburger()">
+        <ul class="side_nenu_List">
+          <li><a href="#">베스트 상품</a></li>
+          <li><a href="mainCategoryBed.html">침실</a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+          <li><a href="#">게시판</a></li>
+        </ul>
+      </div>
+      <h1 class="logo"><a href="main.html"><img src="../image/logo.png" alt="logo"></a></h1>
+      <ul class="login_list">
+        <li><a href="#"><img src="../image/icon/login.png">로그인</a></li>
+        <li><a href="#"><img src="../image/icon/join.png">회원가입</a></li>
+        <li><a href="$"><img src="../image/icon/mypage.png">마이페이지</a></li>
+        <li><a href="#"><img src="../image/icon/cart.png">장바구니</a></li>
+      </ul>
+    </div>
+
+
+    <nav>
+      <div>
+        <div class="line"></div>
+        <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <li><a href="mainCategoryBed.html">침실</a></a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+        </ul>
+        <div class="line"></div>
+        <div class="gnb_sub_box" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <div class="gnb_sub_list">
+            <ul class="detail_list">
+              <li><a href="mainCategoryBed">침대</a></li>
+              <span></span>
+              <li><a href="#">옷장</a></li>
+              <span></span>
+              <li><a href="#">화장대</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">소파</a></li>
+              <span></span>
+              <li><a href="#">테이블</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">책상</a></li>
+              <span></span>
+              <li><a href="#">책장</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">식탁</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <!-- 여기에 작성 -->
+    <div id="main_category_route">
+      <ul class="route_list">
+        <li id="route_home" onclick="goHome();"><img src="../image/icon/home.png" alt=""></li>
+        <li>&gt;</li>
+        <li>이용약관</li>
+      </ul>
+      <div id="contents">
+        <table id="contents_table">
+          <caption>이용약관</caption>
+          <tr>
+            <td>이용약관이 아래로 작성될 예정입니다. 어떻게 작성될진 모르겠구요. <br>
+              한줄씩 데이터베이스에 저장되어 이를 작성할 수도 있고 HTML 그 자체가<br>
+              데이터베이스에 단 하나의 튜플로 저장될 수도 있습니다. <br>
+              예를 들자면
+              <p>01 이는 p태그로 만든 것입니다.</p>
+              <p>02 이는 p태그로 만든 것입니다.</p>
+              <p>03 이는 p태그로 만든 것입니다.</p>
+              <p>04 이는 p태그로 만든 것입니다.</p>
+              <p>05 이는 p태그로 만든 것입니다.</p>
+              <p>06 이는 p태그로 만든 것입니다.</p>
+              <p>07 이는 p태그로 만든 것입니다.</p>
+              <p>08 이는 p태그로 만든 것입니다.</p>
+              <p>09 이는 p태그로 만든 것입니다.</p>
+              <p>10 이는 p태그로 만든 것입니다.</p>
+            </td>
+          </tr>
+        </table>
+        <div id="bottom_button_wrap">
+          <button id="bottom_button" onclick="goHome()">홈으로가기</button>
+        </div>
+      </div>
+    </div>
+  </section> <!-- 여기까지 -->
+  <footer>
+    <div id="footer_wrap">
+      <ul class="footer_text1">
+        <li>이용약관</li>
+        <li>위치정보이용약관</li>
+        <li>개인정보처리방침</li>
+        <li>이메일무단수집거부</li>
+        <li>사이버검사실</li>
+      </ul>
+      <div class="footer_text2">
+        <ul>
+          <li>고객센터 이용안내</li>
+          <li>평일 오전 9:00 ~ 18:00</li>
+          <li>(일요일,공휴일 휴무)</li>
+        </ul>
+        <ul>
+          <li><a href="# ">1인가구 문의</a></li>
+          <li>상품/배송문의</li>
+          <li>1688-0000</li>
+        </ul>
+        <ul>
+          <li><a href="#">Q&A</a></li>
+          <li>자주하는 질문</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

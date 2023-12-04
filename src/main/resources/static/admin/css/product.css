@@ -1,0 +1,116 @@
+#product{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.product_wrap{
+  width: 950px;
+  display: flex;
+  justify-content: left;
+  border: 1px solid rgb(158, 158, 158);
+}
+
+.product_photos{
+  display: flex;
+  flex-direction: column;
+}
+
+.product_main_photo{
+}
+.product_main_photo img{
+  width: 100%;
+}
+
+.product_sub_photos{
+  display: flex;
+  cursor: pointer;
+}
+
+.product_sub_photos li img{
+  width: 130px;
+
+}
+
+/* 상품 텍스트  */
+
+.product_text{
+  padding: 20px;
+  width: 100%;
+}
+
+.product_text_wrap{
+  display: flex;
+  flex-direction: column;
+}
+
+.product_text div:first-child{
+  font-size: 14px;
+}
+
+.product_text div{
+  padding: 10px 0;
+}
+
+h3{
+  font-size: 24px;
+  padding: 14px 0;
+}
+
+.product_price span{
+  margin-right: 50px;
+}
+
+.product_price span:nth-child(2){
+  margin-right: 50px;
+  font-size: 20px;
+}
+
+.option select{
+  width: 200px;
+  height: 26px;
+  margin-left: 60px;
+}
+
+.info div{
+  display: flex;
+}
+.info p{
+  margin-left: 30px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.info div p span{
+  color: #A7727D;
+  font-weight: bold;
+}
+
+.button {
+  text-align: center;
+  float: left;
+
+}
+button{
+  padding: 10px 50px;
+  border: 1px solid #A7727D;
+  cursor: pointer;
+  transition: 200ms;
+  background-color: white;
+  font-size: 16px;
+}
+button:hover {
+  background-color: #A7727D;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+

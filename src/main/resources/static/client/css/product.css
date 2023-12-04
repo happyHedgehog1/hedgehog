@@ -1,0 +1,433 @@
+
+
+section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px;
+}
+
+.wrap{
+  width: 950px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+
+
+
+.product_wrap{
+  display: flex;
+  justify-content: left;
+  border: 1px solid rgb(158, 158, 158);
+  flex-shrink: 0;
+}
+
+.product_photos{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.product_main_photo img{
+  width: 100%;
+}
+
+.product_sub_photos{
+  display: flex;
+  cursor: pointer;
+}
+
+.product_sub_photos img{
+  width: 130px;
+
+}
+
+/* 상품 텍스트  */
+
+.product_text{
+  padding: 20px;
+  width: 100%;
+}
+
+.product_text_wrap{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.product_text div:first-child{
+  font-size: 14px;
+}
+
+
+.product_text div{
+  padding: 18px 0;
+}
+
+h3{
+  font-size: 24px;
+  padding: 14px 0;
+  margin-bottom: 10px;
+}
+
+.product_price span{
+  margin-right: 50px;
+  color: black;
+}
+
+.product_price span:nth-child(2){
+  margin-right: 50px;
+  font-size: 20px;
+}
+
+.option select{
+  width: 200px;
+  height: 26px;
+  margin-left: 60px;
+}
+
+.info div{
+  display: flex;
+}
+.info p{
+  margin-left: 30px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.info div p span{
+  color: #A7727D;
+  font-weight: bold;
+}
+
+.button {
+  text-align: center;
+  float: left;
+
+}
+button{
+  padding: 10px 50px;
+  border: 0px solid #A7727D;
+  cursor: pointer;
+  transition: 200ms;
+  background-color: white;
+  font-size: 16px;
+}
+button:hover {
+  background-color: #A7727D;
+  color: white;
+}
+
+
+/* 상품 및 리뷰텍스트 width : 55% */
+
+.point_txt_wrap{
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  font-size: 18px;
+}
+
+.point_txt_wrap > ul{
+  padding: 15px 0;
+}
+
+
+.review{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(197, 197, 197);
+  font-size: 22px;
+}
+
+/* 리뷰 더보기+ */
+.review li:nth-child(2){
+  cursor: pointer;
+}
+
+.review_txt{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.point_txt_wrap > div{
+  border-bottom: 1px solid rgb(197, 197, 197);
+  padding-bottom: 15px;
+}
+
+.point_txt_wrap span {
+  color: red;
+}
+
+/* 상세정보  */
+
+.detail_info{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(197, 197, 197);
+  font-size: 18px;
+}
+
+.detail_info ul{
+  display: flex;
+}
+
+.detail_info ul li{
+  padding-left: 30px;
+
+}
+
+.page_view{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.page_view img{
+  width: 100%;
+}
+
+
+.average_review{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.average_review li{
+  padding: 10px 0;
+  font-size: 24px;
+}
+.average_review span{
+  color: tomato;
+  font-size: 40px;
+}
+
+/* 포토리뷰 */
+
+h2{
+  border-bottom: 1px solid rgb(168, 168, 168);
+  padding-bottom: 10px;
+}
+
+span{
+  color: tomato;
+}
+
+.poto_review ul{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.poto_review img{
+  width: 150px;
+  height: 150px;
+  background-color: #A7727D;
+  margin: 25px 0;
+
+}
+
+.poto_review_txt{
+  margin-left: 120px;
+  font-size: 18px;
+}
+
+.review_page_number{
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
+  border-top: 1px solid rgb(168, 168, 168);
+  padding-top: 20px;
+}
+
+.text_review_list{
+  display: grid;
+  grid-template-columns: auto auto 400px repeat(2, auto);
+  justify-content: space-between;
+  align-items: center;  
+  padding: 20px 0;
+}
+
+.qa{
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 3px;
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.qa ul{
+  display: grid;
+  grid-template-columns: auto auto 300px repeat(2, auto);
+}
+
+.main{
+  padding: 10px;
+}
+
+.sub{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 10px 50px;
+}
+
+
+.qa::after{
+  content: "+";
+  position: absolute;
+  top:-15px;
+  right: 10px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+
+.sub{display: none;}
+
+
+.nonmember{
+  margin-top: 80px;
+  margin-bottom: 100px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgb(168, 168, 168);
+
+}
+
+/* 모달*/
+
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.modal {
+  background-color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  justify-content: space-between;
+  flex-direction: column; 
+
+  width: 1200px;
+  height: 700px;
+}
+
+.modal_content{
+  vertical-align: middle;
+}
+
+.modal button {
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.modal p{
+  padding: 20px;
+}
+
+.modal img{
+  width: 600px;
+  height: 400px;
+  background-color: blueviolet;
+  align-items: center;
+
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.left-column,
+.right-column {
+  flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+}
+
+.left-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-column img {
+  max-height: 600px;
+  height: auto;
+}
+
+#review-img{
+  display: flex;
+  padding-top: 10px;
+}
+
+#review-img img{
+  height: 100px;
+  width: auto;
+  cursor: pointer;
+
+}
+
+.right-column{
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+
+
+}
+
+
+.modal_average_review {
+  display: flex;
+  flex-direction: column; 
+
+}
+
+.modal_average_review ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.modal_average_review li {
+  width: 80px;
+  height: 30px;
+  text-align: left; 
+  margin-right: 30px; 
+}
+
+.modal_option, .modal_content{
+  text-align: left;
+}
+
+.modal_content{
+  height: 400px;
+  padding-top: 20px;
+}
+
+.modal_option{
+  height: 30px;
+}

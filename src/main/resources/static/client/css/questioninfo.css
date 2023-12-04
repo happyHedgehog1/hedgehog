@@ -1,0 +1,173 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#contents {
+    align-self: center;
+    padding-top: 7em;
+    margin-bottom: 5em;
+    align-self: center;
+    min-width: 55em;
+}
+
+#route_home,
+#route_mypage {
+    cursor: pointer;
+}
+
+#contents_table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #5D5C5C;
+}
+
+#contents_table #type_select_row {
+    text-align: left;
+}
+
+#contents_table>caption {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 1em;
+    color: black;
+}
+
+th {
+    font-size: 1.2em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+}
+
+tr {
+    border-bottom: 1px solid #848484;
+}
+
+
+tr>td {
+    padding: 8px 15px 8px 15px;
+    text-align: center;
+    font-size: 0.95em;
+}
+
+tbody td:nth-child(1) {
+    min-width: 3.6em;
+    
+}
+
+tr>td:nth-child(2) {
+    min-width: 5em;
+}
+
+tr>td:nth-child(3) {
+    text-align: left;
+}
+
+tr>td:nth-child(4) {
+    min-width: 5em;
+}
+
+#write_buttons_wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 15px 8px 15px;
+    margin-top: 2em;
+}
+
+#write_button,
+#search_button {
+    border-radius: 0.6em;
+    box-sizing: border-box;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+    border: 2px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+#write_button:hover,
+#search_button:hover {
+    color: black;
+    background-color: white;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 1em;
+}
+
+#search_buttons_wrap {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+#type_select,
+#search_select {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+#search_input {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+#contents_table thead tr:nth-child(2) {
+    background-color: rgba(237, 218, 196, 0.3);
+}
+
+tbody td:nth-child(3) {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+tbody td:nth-child(3):hover {
+    font-weight: bold;
+    font-size: 1.01em;
+}
+
+.title_group {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.title_group>img {
+    height: 1.4em;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#bottom_buttons input:hover {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#bottom_buttons input {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    padding: 0px 3px 0px 3px;
+    background-color: white;
+    border: 0;
+}
+
+#search_input {
+    padding-left: 0.5em;
+}

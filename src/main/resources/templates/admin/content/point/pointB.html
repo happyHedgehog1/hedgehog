@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>헤더부분</title>
+    
+    <link rel="stylesheet" href="../../css/pointB.css" />
+    
+  </head>
+  <body>
+    <div id="wrap">
+      <header>
+        <div class="logobackground">
+            <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+            <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+            <div class="logout"><a href="#">
+                <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                <h4>로그아웃</h4></a>
+            </div>
+        </div>
+    </header>
+        <!-- 사이드카테고리 -->
+        <div class="contents">
+          <ul class="left_nav">
+              <li class="prodList">
+                  <a href="#상품조회" class="control">상품관리</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../product/productserch.html">상품조회</a></li>
+                      <li><a href="../product/productAdd.html">상품등록</a></li>
+                      <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                  </ul>
+              </li>
+              <li class="prodList"><a href="#">회원관리</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../member/member.html">전체회원관리</a></li>
+                      <li><a href="../member/unregister.html">탈퇴회원관리</a></li>
+                  </ul>
+              </li>
+              <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+              <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+              <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                      <li><a href="../Service/email.html">메일관리</a></li>
+                  </ul>
+              </li>
+              <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+              <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+              <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                  <ul class="sub_ProdList">
+                      <li><a href="../event/eventList.html">이벤트목록</a></li>
+                      <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                  </ul>
+              </li>
+          </ul>
+        <section class="background">
+          <div class="page-body">
+            <div class="main-head">
+              <h2>적립금관리</h2>
+            </div>
+            <div class="topbtnWrapper">
+              
+              <li class="pageButton"><a href="../point/pointA.html">적립금 설정</a></li>
+              <li class="pageButton1"><a href="../point/pointB.html">적립금 내역</a></li>
+                
+              
+            </div>
+
+            <div class="page-top">
+              
+            <div class="tbl-setting">
+            <table class="table">
+
+              
+  <tbody>
+    <tr>
+      <th>가입일</th>
+      <td>
+        <ul>
+            <div class="checkbox-container">
+              <input type="radio" class="unique-checkbox" name="option1" value="option1"> 전체
+          </div>
+          <div class="checkbox-container">
+              <input type="radio" class="unique-checkbox" name="option1" value="option2"> 오늘
+          </div>
+          <div class="checkbox-container">
+              <input type="radio" class="unique-checkbox" name="option1" value="option3"> 1주일
+          </div>
+          <input type="radio" class="unique-checkbox" name="option1" value="option4"> 1개월
+          </div>
+            <input type="radio" class="unique-checkbox" name="option1" value="option5"> 3개월
+            
+</div>
+
+
+
+                      </ul>
+                      <ul>
+                        <li>
+                          <div>
+                            
+                            <input type="date" id="date1" class="box1">
+                            <span class="tilde">~</span>
+                            
+                            <input type="date" id="date2" class="box1">
+                        </div>
+                          
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class>구분</th>
+                    <td>
+                      <ul class>
+                        <li class>
+                          <div class="checkbox-container">
+                            <input type="radio" class="unique-checkbox" name="option" value="option1"> 전체
+                        </div>
+                        <div class="checkbox-container">
+                            <input type="radio" class="unique-checkbox" name="option" value="option2"> 지급내역
+                        </div>
+                        <div class="checkbox-container">
+                            <input type="radio" class="unique-checkbox" name="option" value="option3"> 사용(차감)내역
+                        </div>
+                        
+                        </li>
+                    
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>키워드</th>
+                    <td>
+                      <ul>
+                        <li>
+                          <select class="box">
+                            <option value="">아이디</option>
+                            <option value="user_id">회원명</option>
+                            <option value="user_name">사유</option>
+                            
+                          </select>
+                          <input class="box" type="text" name="search_keyword" value="" />
+                        </li>
+                        
+                      </ul>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+            <div class="btn-c">
+              <button class="btn" type="button">검색</button>
+            </div>
+          </div>
+
+
+
+<!-- 검색결과 -->
+          <div class="pc-switch">
+            <div class="sect-hd">
+                <h3>검색 결과</h3>
+                <span>( 전체건수 : 0건 / 지급금액: 0원 / 사용금액: 0원)</span>
+            </div>
+            <div class="sect-cont">
+          
+         
+          
+          <div class="tbl-list tbl-extend mt-20">
+                    <table class="bottom-table">
+                       
+                        <thead>
+                            <tr>
+                                <th><label class="single"><input type="checkbox" name="chk_all_users"><span></span></label></th>
+                                <th>No</th>
+                                <th>날짜</th>
+                                <th>아이디</th>
+                                <th>회원명</th>
+                                <th>이메일</th>
+                                <th>사유</th>
+                                <th>금액</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody class="usersList">
+                            <tr>
+                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>
+                </tr>
+                        </tbody>
+                    </table>
+               
+            
+        </div>
+          </div>
+        </section>
+      </div>
+
+      
+    </div>
+  </body>
+</html>

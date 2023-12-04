@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <script src="../js/header.js" defer></script>
+
+
+  <script src="../js/memberMypageMain.js" defer></script>
+  <link rel="stylesheet" href="../css/mypageMember.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="gnb">
+      <div class="hamburger_button" onclick="toggleHamburger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- 사이드메뉴 -->
+      <div class="side_nenu" onclick="toggleHamburger()">
+        <ul class="side_nenu_List">
+          <li><a href="#">베스트 상품</a></li>
+          <li><a href="mainCategoryBed.html">침실</a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+          <li><a href="#">게시판</a></li>
+        </ul>
+      </div>
+      <h1 class="logo"><a href="./index1.html"><img src="../image/logo.png" alt="logo"></a></h1>
+      <ul class="login_list">
+        <li><a href="#"><img src="../image/icon/login.png">로그인</a></li>
+        <li><a href="#"><img src="../image/icon/join.png">회원가입</a></li>
+        <li><a href="$"><img src="../image/icon/mypage.png">마이페이지</a></li>
+        <li><a href="#"><img src="../image/icon/cart.png">장바구니</a></li>
+      </ul>
+    </div>
+
+
+    <nav>
+      <div>
+        <div class="line"></div>
+        <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <li><a href="mainCategoryBed.html">침실</a></a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+        </ul>
+        <div class="line"></div>
+        <div class="gnb_sub_box" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <div class="gnb_sub_list">
+            <ul class="detail_list">
+              <li><a href="mainCategoryBed">침대</a></li>
+              <span></span>
+              <li><a href="#">옷장</a></li>
+              <span></span>
+              <li><a href="#">화장대</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">소파</a></li>
+              <span></span>
+              <li><a href="#">테이블</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">책상</a></li>
+              <span></span>
+              <li><a href="#">책장</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">식탁</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <!-- 여기에 작성 -->
+    <div id="main_category_route">
+      <ul class="route_list">
+        <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+        <li>&gt;</li>
+        <li>MY페이지</li>
+      </ul>
+      <div id="contents">
+        <div id="top">
+          <div><span onclick="location.href='./memberInfoChange.html'">OOO님 &gt;</span></div>
+          <div><img src="../image/mypage/icons_coin.png" alt="코인">보유포인트</div>
+          <div>항상 1 in 가구를 방문해 주셔서 감사합니다.</div>
+          <div>
+            0p
+          </div>
+        </div>
+        <ul id="bottom">
+          <li id="mypage01" onclick="location.href='./memberInfoChange.html'"><img src="../image/mypage/mypage01.png"
+              alt="회원정보수정"><span>회원정보수정</span></li>
+          <li id="mypage02" onclick="location.href='./questionInfo.html'"><img src="../image/mypage/mypage02.png"
+              alt="문의내역"><span>문의내역</span></li>
+          <li id="mypage03" onclick="location.href='./orderDeliveryInfo.html'"><img src="../image/mypage/mypage03.png"
+              alt="주문/배송내역"><span>주문/배송내역</span></li>
+          <li id="mypage04" onclick="location.href='./memberInfo.html'"><img src="../image/mypage/mypage04.png"
+              alt="나의정보"><span>나의 정보</span></li>
+          <li id="mypage05" onclick="location.href='./reviewInfo.html'"><img src="../image/mypage/mypage05.png"
+              alt="리뷰내역"><span>리뷰 내역</span></li>
+          <li id="mypage06" onclick="location.href='./cancelpaybackInfo.html'"><img src="../image/mypage/mypage06.png"
+              alt="취소/환불내역"><span>취소/환불내역</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div id="footer_wrap">
+      <ul class="footer_text1">
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">공지사항</a></li>
+      </ul>
+      <div class="footer_text2">
+        <ul >
+          <li>고객센터 이용안내</li>
+          <li>평일 오전 9:00 ~ 18:00</li>
+          <li>(일요일,공휴일 휴무)</li>
+        </ul>
+        <ul>
+          <li><a href="# ">1인가구 문의</a></li>
+          <li>상품/배송문의</li>
+          <li>1688-0000</li>
+        </ul>
+        <ul>
+          <li><a href="#">Q&A</a></li>
+          <li>자주하는 질문</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

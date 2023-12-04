@@ -1,0 +1,69 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+#contents {
+    align-self: center;
+    padding-top:3em;
+}
+
+#remove_info{
+    padding:10px;
+    font-size: 0.8em;
+    color:#8e8e8e;
+}
+#remove_info>li {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+#password_input {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    padding: 5px;
+    height: 1.7em;
+    width: 15em;
+}
+
+#password_wrap,
+#question {
+    padding: 10px;
+}
+
+#bottom_buttons {
+    padding: 5px;
+    margin-top: 1em;
+    margin-bottom:30px;
+}
+
+#bottom_buttons>button:first-child {
+    border: 1.5px solid #A7727D;
+    border-radius: 0.7em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    width: 6em;
+    background-color: white;
+    color: black;
+}
+
+#bottom_buttons>button:last-child {
+    border-radius: 0.7em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    width: 7em;
+    border: 0;
+    background-color: #A7727D;
+    color: white;
+}

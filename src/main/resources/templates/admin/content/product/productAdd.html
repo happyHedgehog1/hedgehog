@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품등록</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="../../css/productAdd.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                            <h4>상품 등록</h4>
+                                <div><button id="btnSubmitAdd">상품일괄등록</button></div>
+                        </div>
+                    </div>
+                    <div class="sectTopWrapper">
+                    <div class="sectTop">
+                    <table>
+                        <colgroup>
+                            <col class="w200">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="tblTitle">판매상태</th>
+                                <td>
+                                    <ul class="arrAlign">
+                                        <li class="w200">
+                                            <label for="prdDisplayCondition">
+                                                <input type="radio" name="prdDisplayCondition" value="Y" checked><span> 판매</span>
+                                            </label>
+                                        </li>
+                                        <li class="w25">
+                                            &nbsp;
+                                        </li>
+                                        <li>
+                                            <label for="prdDisplayCondition">
+                                                <input type="radio" name="prdDisplayCondition" value="N"><span> 판매 중지</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="tblTitle">판매기간</th>
+                                <td>
+                                    <ul class="arrAlign">
+                                            <li class="w250">
+                                                <input type="date" name="saleStart" id="saleStart" style="width: 200px;">
+                                            </li>
+                                            <li class="w50">
+                                                &nbsp;~
+                                            </li>
+                                            <li class="w250">
+                                                <input type="date" name="saleEnd" id="saleEnd" style="width: 200px;">
+                                            </li>
+                                        </ul>
+                                    </td>
+                            </tr>
+                            <tr>        
+                                <th class="tblTitle">상품명</th>    
+                                <td>
+                                    <ul class="arrAlign">
+                                            <li class="w250">
+                                                <input type="text" name="name" id="name" style="width: 200px;">
+                                            </li>
+                                        </ul>
+                                    </td>   
+                            </tr>           
+                            <tr>        
+                                <th class="tblTitle">가격</th>    
+                                <td>
+                                    <ul class="arrAlign">
+                                            <li class="w250">
+                                                <input type="number" name="price" id="price" style="width: 200px;">
+                                            </li>
+                                        </ul>
+                                    </td>   
+                            </tr>   
+                            <tr>        
+                                <th class="tblTitle">카테고리</th>    
+                                <td>
+                                    <ul class="arrAlign">
+                                            <li class="w250">
+                                                <select name="prdCategory1" id="prdCategory1" >
+                                                    <option value="0" selected>상위 카테고리</option>
+                                                    <option value="1">상위 카테고리1</option>
+                                                    <option value="2">상위 카테고리2</option>
+                                                    <option value="3">상위 카테고리3</option>
+                                                </select>
+                                            </li>
+                                            <li class="w50">
+                                                &nbsp;
+                                            </li>
+                                            <li class="w250">
+                                                <select name="prdCategory2" id="prdCategory2" >
+                                                    <option value="0" selected>하위 카테고리</option>
+                                                    <option value="1">하위 카테고리1</option>
+                                                    <option value="2">하위 카테고리2</option>
+                                                    <option value="3">하위 카테고리3</option>
+                                                </select>
+                                            </li>
+                                        </ul>    
+                                    </td>   
+                            </tr>    
+                            <tr>        
+                                <th class="tblTitle">배송비</th>    
+                                <td>
+                                    <ul class="arrAlign">
+                                            <li>
+                                                <label for="deliveryCharge1">기본 배송비</label>
+                                                    <input type="number" name="deliveryCharge1" id="deliveryCharge1" style="width: 125px;" value="0">
+                                                    원
+                                            </li>
+                                            <li>
+                                                *0원이면 무료배송
+                                            </li>
+                                        </ul>
+                                    </td>   
+                            </tr>   
+                            <tr class="optionList">        
+                                <th colspan="2" class="optionth">
+                                    <ul class="arrAlign">
+                                        <li class="w400">
+                                            추가 옵션명
+                                        </li>
+                                        <li class="w400">
+                                            옵션값
+                                        </li>
+                                        <li class="w200">
+                                            옵션가격
+                                        </li>
+                                        <li class="w200">
+                                            재고
+                                        </li>
+                                        <li class="w140">
+                                            추가
+                                        </li>
+                                    </ul>    
+                                </th>    
+                            </tr>   
+                            <tr class="optionList">        
+                                <th colspan="2" >
+                                    <ul class="arrAlign">
+                                        <li class="w400">
+                                            <input type="text" name="optionName" id="optionName" style="width: 350px;" value="예시 : 색상">
+                                        </li>
+                                        <li class="w400">
+                                            <input type="text" name="optionColor" id="optionColor" style="width: 350px;" value="예시 : 갈색">
+                                        </li>
+                                        <li class="w200">
+                                            <input type="number" name="optionPrice" id="optionPrice" style="width: 125px;" value="0">
+                                            원
+                                        </li>
+                                        <li class="w200">
+                                            <input type="number" name="optionQuantity" id="optionQuantity" style="width: 125px;" value="0">
+                                            개
+                                        </li>
+                                        <li class="w140" style="padding-top: 5px;">
+                                            <a href="#"><img src="../../image/add.png" height="25px" name="img-add"></a>
+                                        </li>
+                                    </ul>    
+                                </th>    
+                            </tr> 
+                            <tr>        
+                                <th class="tblTitle">총재고량</th>     
+                                <td>
+                                    <ul class="arrAlign">
+                                            <li class="w200">
+                                                <div id="totalStock"></div>
+                                            </li>
+                                        </ul>
+                                    </td>  
+                            </tr>       
+                            <tr>        
+                                <th class="tblTitle" colspan="2">상세페이지 작성</th>     
+                            </tr>
+                            <tr>
+                                <td class="imgWrapper" style="border-bottom: 0px;">
+                                    <div class="img-file1">                             
+                                    <label for="thumbnail">대표이미지 지정</label> 
+                                    <input type="file" id="thumbnail" accept="image/*">
+                                    <div id="thumbnailPreview">
+                                        <img id="previewImage" alt="">
+                                    </div>
+                                    </div>   
+                                    <div class="img-file2">                             
+                                    <label for="sub_thumbnail">대표이미지 지정2</label> 
+                                    <input type="file" id="sub_thumbnail" accept="image/*" multiple>
+                                    <div id="subThumbnailPreview">
+                                        <img id="subpreviewImage" alt="">
+                                    </div>
+                                </div>   
+                                    <div class="img-file3">                             
+                                    <label for="pro_img">제품 상세이미지</label> 
+                                    <input type="file" id="pro_img"  accept="image/*">
+                                    <div id="proPreview">
+                                        <img id="previewImage" alt="">
+                                    </div>
+                                </div>   
+                                </td>
+                            </tr>
+                        </tbody>    
+                    </table>
+                    <div><button id="btnAdd">상품등록</button></div>
+                    </div>    
+                    </div>
+                    <div class="modal" id="myModal">
+                        <div class="modalContent">
+                            <span id="closeModal">&times;</span>
+                            <div class="modalTbl">
+                                <table>
+                                    <colgroup>
+                                        <col class="w400">
+                                        <col>
+                                    </colgroup>
+                                    <tr class="modalTblhd">
+                                        <th colspan="2">상품 일괄 업로드</th>
+                                    </tr>
+                                    <tr>
+                                        <th>양식 다운로드</th>
+                                        <td>
+                                            <img src="../../image/download.png" alt="download" height="20px"><span><a href="../../uploadSampleFile/1infurniture_products_upload_sample.xlsx"> 양식 파일 다운로드</a></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>상품 일괄 업로드</th>
+                                        <td>
+                                            <div class="filebox">
+                                                <label for="file">파일찾기</label> 
+                                                <input type="file" id="file">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <table class="modalInsideTbl">
+                                        <tr>
+                                            <th colspan="2" style="background-color: #ebebeb;">
+                                                <div class="modalResultTbl">
+                                                    <div>시도 : 0</div>
+                                                    <div class="colorBlue">등록 : 0</div>
+                                                    <div class="colorRed">실패 : 0</div>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        <tr>        
+                                            <td colspan="2" class="optionth">
+                                                <ul class="arrAlign">
+                                                    <li class="w400">
+                                                        추가 옵션명
+                                                    </li>
+                                                    <li class="w400">
+                                                        옵션값
+                                                    </li>
+                                                    <li class="w200">
+                                                        옵션가격
+                                                    </li>
+                                                    <li class="w200">
+                                                        재고
+                                                    </li>
+                                                    <li class="w140">
+                                                        추가
+                                                    </li>
+                                                </ul>    
+                                            </td>  
+                                        </tr>   
+                                        <tr>        
+                                            <th class="modalResultTbl-tr" colspan="2">
+                                                <ul class="arrAlign" class="modalResultTbl">
+                                                    결과값 출력
+                                                </ul>    
+                                            </th>    
+                                        </tr>  
+                                        </table>
+                                        <div class="modalBottom">
+                                            <div><button id="btnSelectDelete">삭제</button></div>
+                                            <div class="moadlTblTotalResult">최종 등록 상품 수 : 0개</div></td>
+                                    </div>
+                        </div>
+                        <button id="modalBtnPrdAdd">상품등록</button> 
+                    </div>
+                </div>
+            </section>
+        </nav>
+        <script src="../../js/productAdd.js"></script>
+</body>
+</html>

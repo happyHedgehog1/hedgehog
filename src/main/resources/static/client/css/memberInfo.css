@@ -1,0 +1,234 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#contents {
+    align-self: center;
+    /* min-width는 선택 */
+    /* max-width는 선택 */
+    padding-top: 7em;
+    padding-bottom: 5em;
+}
+
+#regist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#regist_header {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+
+
+#agree_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid #A7727D;
+    max-width: 57em;
+}
+
+#agree_list>div {
+    box-sizing: border-box;
+}
+
+#termsAndConditionContainer,
+#privacyPolicyContainer {
+    padding: 0.5em;
+    border: 1px solid #a7727d;
+}
+
+#termsAndConditionContainer>:first-child,
+#privacyPolicyContainer>:first-child {
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+}
+
+#termsAndConditionContainer>:nth-child(2),
+#privacyPolicyContainer>:nth-child(2) {
+    max-height: 15em;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 0.75em;
+    margin-bottom: 0.5em;
+}
+
+#termsAndConditionContainer>:nth-child(3),
+#privacyPolicyContainer>:nth-child(3) {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.3em;
+    align-items: center;
+}
+
+#check_agree1,
+#check_agree2 {
+    width: 2em;
+    background-color: #dcdcdc;
+    border: 1px solid black;
+    border-radius: 0.2em;
+    transition: 300ms;
+
+}
+
+#check_agree1:hover,
+#check_agree2:hover {
+    background-color: white;
+}
+
+#agree1,
+#agree2 {
+    display: none;
+}
+
+#contents_table {
+    max-width: 30em;
+    border-collapse: collapse;
+    margin-top: 3em;
+}
+
+#contents_table th {
+    min-width: 7em;
+}
+
+#contents_table th,
+#contents_table td {
+    padding: 5px 0px 5px 15px;
+}
+
+#contents_table td>input {
+    margin: 3px 0px 3px 5px;
+
+}
+
+#email_row td>div {
+    margin: 4px 0px 4px 5px;
+}
+
+#email_row td>div:nth-child(3),
+#email_row td>div:nth-child(4),
+#email_row td>div:nth-child(5) {
+    font-size: 0.8em;
+}
+
+#reload_timer {
+    font-size: 0.8em;
+}
+
+#contents_table td:nth-child(3) {
+    font-size: 0.8em;
+    min-width: 19em;
+}
+
+#contents_table td input[type=text],
+#contents_table td input[type=date] {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+#contents_table td>input+label {
+    margin-left: 5px;
+}
+
+#contents_table th {
+    max-width: 4em;
+    font-size: 1.21m;
+    text-align: left;
+}
+
+#contents_table tr {
+    border-bottom: 1px solid black;
+}
+
+#contents_table caption {
+    font-size: 1.7em;
+    padding: 30px;
+    color: black;
+}
+
+#check_text {
+    font-size: 0.75em;
+    display: none;
+}
+
+#warning {
+    color: red;
+}
+
+#email_authentication {
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+}
+
+#email_authentication>div {
+    min-width: 4.3em;
+}
+
+#reload {
+    width: 1em;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 2em 0em 1em 0em;
+}
+
+#address_button,
+#email_button {
+    margin-left: 5px;
+}
+
+input {
+    padding-left: 0.3em;
+}
+
+#id_check_button,
+#email_button,
+#goback_button,
+#address_button,
+#remove_button,
+#regist_button,
+#email_authentication_button {
+    border-radius: 0.6em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding: 0.3em 0.5em;
+    border: 2px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+#id_check_button:hover,
+#email_button:hover,
+#goback_button:hover,
+#address_button:hover,
+#remove_button:hover,
+#regist_button:hover,
+#email_authentication_button:hover {
+    background: white;
+    color: black
+}
+
+#reload {
+    cursor: pointer;
+}
+
+#address_col_2,
+#address_col_3 {
+    width: 25em;
+}

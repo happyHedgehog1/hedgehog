@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메일발송내역</title>
+    <link rel="stylesheet" href="../../css/emailHistory.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2><a href="../main/admin-main.html">관리자 페이지</a></h2>
+                <div class="logout"><a href="#">
+                    <h1 style="padding-right: 10px;"><img src="../../image/logout.png" alt="logout"></h1>
+                    <h4>로그아웃</h4></a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="contents">
+            <ul class="left_nav">
+                <li class="prodList">
+                    <a href="#상품조회" class="control">상품관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../product/productserch.html">상품조회</a></li>
+                        <li><a href="../product/productAdd.html">상품등록</a></li>
+                        <li><a href="../product/categoryAdd.html">상품분류등록</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="#">회원관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../member/member.html">전체회원관리</a></li>
+                        <li><a href="../member/unregister.html">탈퇴회원조회</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../point/pointA.html">적립금관리</a></li>
+                <li class="prodList"><a href="../order/order.html">주문관리</a></li>
+                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../Service/Product-inquiry.html">게시판관리</a></li>
+                        <li><a href="../Service/email.html">메일관리</a></li>
+                    </ul>
+                </li>
+                <li class="prodList"><a href="../adimin-management/adimin-management.html">관리자관리</a></li>
+                <li class="prodList"><a href="../Statistics/Statistics.html">통계</a></li>
+                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
+                    <ul class="sub_ProdList">
+                        <li><a href="../event/eventList.html">이벤트목록</a></li>
+                        <li><a href="../event/eventProdAdd.html">이벤트등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <section>
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                            <h4>메일관리</h4>
+                        </div>
+                        <div class="topbtnWrapper">
+                                <div class="pageButton"><a href="../Service/email.html">메일발송</a></div>
+                                <div class="pageButton1"><a href="../Service/emailHistory.html">메일발송내역</a></div>
+                            </div>
+                        <div id="btnNoticeAdd"><a href="../Service/.html">자동발송메일관리</a></div>
+                    </div>
+                    <div class="sectTopWrapper">
+                        <div class="sectTop">
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>        
+                                        <th>작성일</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;~
+                                                    </li>  
+                                                    <li class="w200">
+                                                        <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>  
+                                    <tr>        
+                                        <th>키워드</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <select name="prdKeyword" id="prdKeyword" >
+                                                            <option value="0" selected>전체</option>
+                                                            <option value="1">제목</option>
+                                                            <option value="2">내용</option>
+                                                        </select>
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>                                                    
+                                                    <li>
+                                                        <input type="text" name="proSearch" id="proSearch">
+                                                    </li>
+                                                </ul>    
+                                            </td>   
+                                    </tr>    
+                                </tbody>    
+                            </table>
+                            <div>
+                                <button id="btnSearch"> 검색 </button>
+                            </div>
+                        </div>    
+                    </div>
+                    <div><br><br></div>
+                    <div class="sectBottom">
+                        <div class="bottomResult">
+                            <div class="bottomResultTitle"><h3>검색 결과</h3></div>
+                            <div class="bottomResult1"><span>(총 : </span>
+                                <span class="colorRed"> 0 </span>
+                                <span> 건 ) </span></div>
+                        </div>
+                        <div class="tblWrapper">
+                        <table class="tblBottom">
+                            <colgroup>
+                                <col class="w140">
+                                <col style="width: 100%;">
+                                <col class="w140">
+                                <col class="w140">
+                                <col class="w140">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                        <tr>        
+                                            <th>번호</th>    
+                                            <th>제목</th>
+                                            <th>발송신청통수</th>
+                                            <th>발송시간</th>
+                                            <th>발송결과</th>                                             
+                                </tr> 
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            1
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li class="textAlignLeft">11월 이벤트 시작~</li>
+                                    </td>
+                                    <td>
+                                        <li>3,000통</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-28 09:00:00</li>
+                                    </td>
+                                    <td>
+                                        <li>성공 <span class="colorBlue">2,700</span>건</li>
+                                        <li>실패 <span class="colorRed">300건</span></li>
+                                    </td>
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            2
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li class="textAlignLeft">11월 이벤트 시작~</li>
+                                    </td>
+                                    <td>
+                                        <li>3,000통</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-28 09:00:00</li>
+                                    </td>
+                                    <td>
+                                        <li>성공 <span class="colorBlue">2,700</span>건</li>
+                                        <li>실패 <span class="colorRed">300건</span></li>
+                                    </td>
+                                </tr>  
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            3
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li class="textAlignLeft">11월 이벤트 시작~</li>
+                                    </td>
+                                    <td>
+                                        <li>3,000통</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-28 09:00:00</li>
+                                    </td>
+                                    <td>
+                                        <li>성공 <span class="colorBlue">2,700</span>건</li>
+                                        <li>실패 <span class="colorRed">300건</span></li>
+                                    </td>
+                                </tr>  
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            4
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li class="textAlignLeft">11월 이벤트 시작~</li>
+                                    </td>
+                                    <td>
+                                        <li>3,000통</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-28 09:00:00</li>
+                                    </td>
+                                    <td>
+                                        <li>성공 <span class="colorBlue">2,700</span>건</li>
+                                        <li>실패 <span class="colorRed">300건</span></li>
+                                    </td>
+                                </tr>  
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        <li>
+                                            5
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <li class="textAlignLeft">11월 이벤트 시작~</li>
+                                    </td>
+                                    <td>
+                                        <li>3,000통</li>
+                                    </td>
+                                    <td>
+                                        <li>2023-10-28 09:00:00</li>
+                                    </td>
+                                    <td>
+                                        <li>성공 <span class="colorBlue">2,700</span>건</li>
+                                        <li>실패 <span class="colorRed">300건</span></li>
+                                    </td>
+                                </tr>  
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+            </section>
+        </nav>
+
+</body>
+</html>
