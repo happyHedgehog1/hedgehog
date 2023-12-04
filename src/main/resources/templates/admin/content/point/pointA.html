@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>헤더부분</title>
-    
-    <link rel="stylesheet" href="../../css/pointA.css" />
+      <link th:href="@{/admin/css/pointA.css}" rel="stylesheet">
+
   </head>
   <body>
     <div id="wrap">
@@ -60,10 +61,10 @@
               <div class="tab-menu">
                 <div class="topbtnWrapper">
                   <li class="pageButton1">
-                    <a href="../point/pointA.html">적립금 설정</a>
+                    <a th:href="@{/point/pointA}">적립금 설정</a>
                   </li>
                   <li class="pageButton">
-                    <a href="../point/pointB.html">적립금 내역</a>
+                    <a th:href="@{/point/pointB}">적립금 내역</a>
                   </li>
                 </div>
               </div>
