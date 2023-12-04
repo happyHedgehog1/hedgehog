@@ -4,7 +4,7 @@
 
 #contents {
   padding-top: 80px;
-  width: 80%;
+  width: 50%;
 }
 
 .home_logo {
@@ -15,7 +15,7 @@
   height: 25px;
 }
 .character{
-  
+
   font-size: 12px;
   margin-top: 10px;
 }
@@ -36,13 +36,13 @@
   grid-template-columns: auto auto auto auto auto auto;
   margin-top: 120px;
   text-align: center;
- 
+
 }
 
 
 .order_info{
   display: flex;
-  width: 1200px;
+  width: 100%;
   font-size: 20px;
   border: 1px solid #d09191;
   border-radius: 10px;
@@ -50,6 +50,8 @@
   align-items: center;
   text-align: center;
   height: 40px;
+  margin: auto;
+
 }
 
 
@@ -62,37 +64,37 @@
 
 .total {
   font-weight: bold;
-  text-align: right; 
+  text-align: right;
 }
 
 
 .select_cart{
-text-align: right; 
+  text-align: right;
 
 }
 .select_cart input[type="submit"] {
-width: 100px;
-height: 30px;
-align-items: center; 
+  width: 100px;
+  height: 30px;
+  align-items: center;
 }
 
 .total_price {
-display: flex;
-justify-self: center;
-min-width: 450px;
-background-color: #f2f2f2;
-border: 1px solid #d09191;
-border-radius: 10px; 
-padding: 5px;
-width: 450px; 
-justify-content: center;
-align-items: center;
+  display: flex;
+  justify-self: center;
+  min-width: 450px;
+  background-color: #f2f2f2;
+  border: 1px solid #d09191;
+  border-radius: 10px;
+  padding: 5px;
+  width: 450px;
+  justify-content: center;
+  align-items: center;
 
 
 }
 .total_price_contain{
-display: flex;
-justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 
 }
 
@@ -106,7 +108,7 @@ justify-content: flex-end;
 
 .total {
   font-weight: bold;
-  text-align: right; 
+  text-align: right;
 }
 
 
@@ -130,7 +132,7 @@ td {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 5px;
-  
+
 }
 
 th {
@@ -138,7 +140,7 @@ th {
   padding: 8px;
   text-align: center;
   background-color: #f2f2f2;
-  
+
 }
 
 br {
@@ -156,93 +158,94 @@ tr:last-child {
   bottom: 10px;
   border: 1px solid #e1dbdb;
   background-color: #d8d0d2;
-  border-radius: 30px; 
+  border-radius: 30px;
   grid-template-columns: auto auto auto ;
   box-sizing: border-box;
   height: 140px;
-  
-  
+
+
   color: #FFFFFF;
-  }
-  .sum_text{
+}
+.sum_text{
   display: grid;
   align-items: center;
   justify-content: center;
   padding-right: 20px;
-  }
-  .sum_text2{
+}
+.sum_text2{
   display: grid;
   align-items: center;
-  }
-  .sum_text3{
+}
+.sum_text3{
   display: grid;
   align-items: center;
-  
-  }
-  .sum_text_contain{
-  
+
+}
+.sum_text_contain{
+
   display: flex;
   justify-content: flex-end;
-  }
+}
 
 
 .main_payment{
-  
-  width: 1200px;
+
+  width: 100%;
   border: 2px solid rgb(179, 177, 173);
   border: 2px solid #d09191;
-    border-radius: 30px; 
+  border-radius: 30px;
+  margin: auto;
 }
 
-  .payment {
-    display: grid;
-    width: 100px;
-    padding: 30px;
-  
-  }
+.payment {
+  display: grid;
+  width: 100px;
+  padding: 30px;
 
-  .payment2 {
-    display: flex;
-    border: 2px solid #d09191;
-    border-radius: 30px; 
-    width: 100px;
-    justify-content: center;
-    
-  }
-  .payment3{
-    cursor: pointer;
-  }
+}
 
-  .buying {
-    display: grid;
-    justify-content: flex-end;
-    padding: 20px;
-      
-  }
+.payment2 {
+  display: flex;
+  border: 2px solid #d09191;
+  border-radius: 30px;
+  width: 100px;
+  justify-content: center;
 
-  .buying2 {
-    display: flex;
-    border: 2px solid #ad7474;
-    border-radius: 30px; 
-    width: 200px;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    transition: background-color 0.3s ease;
-    
-  }
+}
+.payment3{
+  cursor: pointer;
+}
 
-  .buying2:hover {
-    background-color: #d5d4d4;
-    cursor: pointer;
-  }
+.buying {
+  display: grid;
+  justify-content: flex-end;
+  padding: 20px;
 
-  
-  #shipping_info{
-    padding-left: 35px;
-    background-color: #dccfcf;
-  }
+}
+
+.buying2 {
+  display: flex;
+  border: 2px solid #ad7474;
+  border-radius: 30px;
+  width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+
+}
+
+.buying2:hover {
+  background-color: #d5d4d4;
+  cursor: pointer;
+}
+
+
+#shipping_info{
+  text-align: center;
+  background-color: #dccfcf;
+}
 
 #name-input-label,
 #birth-input-label,
@@ -252,9 +255,9 @@ tr:last-child {
 #email-input-label,
 #phone1-input-label,
 #phone2-input-label,
-/* #home-input1-label, */
+  /* #home-input1-label, */
 #home-input2-label
-/* #home-input3-label */
+  /* #home-input3-label */
 
 {
   display: none;
@@ -265,7 +268,7 @@ footer{
   width: 100%;
   display: flex;
   justify-content: center;
-  
+
 
 }
 #footer_wrap{
