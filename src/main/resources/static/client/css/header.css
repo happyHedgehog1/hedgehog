@@ -60,7 +60,7 @@ header{
 }
 
 /* 햄버거/로고/로그인 */
-.gnb{  
+.gnb{
   display: grid;
   grid-template-columns: repeat(6, auto);
   align-items: center;
@@ -105,7 +105,7 @@ header{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  
+
 }
 
 .login_list li a img{
@@ -194,6 +194,10 @@ header{
 .side_nenu.active {
   transform: translateX(0);
 }
+.side_nenu li{
+  background-color: #F8F4F4;
+
+}
 
 .side_nenu li a{
   display: inline-block;
@@ -202,6 +206,7 @@ header{
   line-height: 80px;
   margin-bottom: 16px;
   transition: transform 300ms;
+
 }
 
 .side_nenu li a:hover {
@@ -209,6 +214,43 @@ header{
   font-weight: bold;
   transform: scale(1.1);
 }
+
+.side_nenu > ul > li > a{
+  z-index: 99;
+}
+
+
+/* 게시판 카데고리 */
+
+
+.side_nenu .post {
+  position: relative;
+
+}
+
+.side_nenu .post_list{
+  display: inline-block;
+  position: absolute;
+  top: 75px;
+  left: 0;
+  width: 100%;
+  font-size: 16px;
+  transform: translateY(-230px);
+  transition: all 400ms;
+  z-index: -99;
+}
+
+.side_nenu .post_list li a{
+  height: 60px;
+  line-height: 60px;
+}
+
+
+.side_nenu .post:hover .post_list{
+  transform: translateY(20px);
+
+}
+
 
 /* ========== 메인카테고리 */
 
@@ -221,12 +263,12 @@ nav{
 }
 
 nav > div{
-width: 100%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .gnb_list{
@@ -349,7 +391,7 @@ position: relative;
   bottom: 0;
   left: 50%;
   transition: 500ms;
-  
+
 }
 
 .gnb_sub_list .detail_list li a:hover::before {
@@ -357,7 +399,7 @@ position: relative;
   width: 30px;
   transform: translateX(-30px);
 
-  
+
 }
 
 
