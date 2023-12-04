@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lagn="ko"
+<html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
@@ -11,13 +11,20 @@
 
 </head>
 
+<body>
 
-    <header th:replace="fragments/client/header :: headerFragment"></header>
+<header th:replace="fragments/client/header :: headerFragment">
+</header>
 
-    <div layout:fragment="content"></div>
-    <!-- <footer th:replace="fragments/footer :: footerFragment"></footer> -->
+<div layout:fragment="content">
+</div>
+
+<!-- <footer th:replace="fragments/footer :: footerFragment"></footer> -->
 <footer th:replace="fragments/client/footer :: footerFragment">
-
-
 </footer>
+<link rel="stylesheet" th:href="@{/client/css/footer.css}">
+
+
+</body>
+
 </html>
