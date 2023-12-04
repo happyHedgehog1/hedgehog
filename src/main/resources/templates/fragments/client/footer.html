@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +10,7 @@
 </head>
 <body>
 
-  <footer>
+  <footer th:fragment="footerFragment" class="footer">
     <div id="footer_wrap">
       <ul class="footer_text1">
         <li><a href="#">이용약관</a></li>

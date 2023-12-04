@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" th:href="@{/client/css/header.css}">
+    <script th:src="@{/client/js/header.js}" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+
+    <header th:replace="fragments/client/header :: headerFragment"></header>
+
+    <div layout:fragment="content"></div>
+    <!-- <footer th:replace="fragments/footer :: footerFragment"></footer> -->
+<footer th:replace="fragments/client/footer :: footerFragment">
+
+
+</footer>
+</html>

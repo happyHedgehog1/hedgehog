@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/footer.css">
-  <script src="../js/header.js" defer></script>
-  <link rel="stylesheet" href="../css/index.css">
-  <script src="../js/index.js" defer></script>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <link rel="stylesheet" th:href="@{/client/css/main.css}">
+  <script th:src="@{/client/js/index.js}"></script>
 <body>
 
 
 
 
-  <section>
+  <section layout:fragment="content">
 
 
     <div class="slae_img">
-      <a href="#"><img src="../image/time_sale.jpg" alt=""></a>
+      <a href="#"><img src="/client/images/time_sale.jpg" alt=""></a>
     </div>
 
     <div class="search">
@@ -32,11 +26,11 @@
     <div class="main_category">
       <ul>
         <li>
-          <a href="#"><img src="../image/bedroom.jpg" alt=""></a>
+          <a href="#"><img src="/client/images/bedroom.jpg" alt=""></a>
           <span>침실</span>
         </li>
         <li>
-          <a href="#"><img src="../image/living_room.jpg" alt=""></a>
+          <a href="#"><img src="/client/images/living_room.jpg" alt=""></a>
           <span>거실</span>
         </li>
         <li>
@@ -100,9 +94,6 @@
             </li>
           </ul>
         </div>
-
-
-
 
   </section>
 </body>
