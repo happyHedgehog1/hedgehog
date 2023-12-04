@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/product")
 public class productController {
 
-    @GetMapping("/search")
+    @GetMapping("/productserach")
     public String productsearch(){ return "admin/content/product/productSerch.html";}
 
 
-    @GetMapping("/add")
-    public String productadd(){ return "admin/content/product/productAdd.html";}
+    @GetMapping("/productAdd")
+    public String productAdd(){ return "admin/content/product/productAdd.html";}
 
 
 

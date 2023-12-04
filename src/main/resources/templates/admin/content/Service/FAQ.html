@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +41,7 @@
                 <li class="prodList"><a th:href="@{/order/order}">주문관리</a></li>
                 <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
                     <ul class="sub_ProdList">
-                        <li><a th:href="@{/service/productInquiry}">게시판관리</a></li>
+                        <li><a th:href="@{/Service/productInquiry}">게시판관리</a></li>
                         <li><a th:href="@{/Service/email}">메일관리</a></li>
                     </ul>
                 </li>
@@ -60,10 +61,10 @@
                             <h4>게시판관리</h4>
                         </div>
                         <div class="topbtnWrapper">
-                                <div class="pageButton"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
-                                <div class="pageButton"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
-                                <div class="pageButton1"><a href="../Service/FAQ.html">FAQ 관리</a></div>
-                                <div class="pageButton"><a href="../Service/notice.html">공지사항 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/ProductInquiry}">상품 문의 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/Product-review}">상품 후기 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/notice}">공지사항 관리</a></div>
                             </div>
                         
                     </div>
