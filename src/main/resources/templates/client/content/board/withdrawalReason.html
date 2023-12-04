@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <script src="../js/header.js" defer></script>
+
+
+  <!-- Summernote -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <!-- Summernote -->
+
+  <script src="../js/withdrawalReason.js" defer></script>
+  <link rel="stylesheet" href="../css/withdrawalReason.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="gnb">
+      <div class="hamburger_button" onclick="toggleHamburger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- 사이드메뉴 -->
+      <div class="side_nenu" onclick="toggleHamburger()">
+        <ul class="side_nenu_List">
+          <li><a href="#">베스트 상품</a></li>
+          <li><a href="../list/mainCategoryBed.html">침실</a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+          <li><a href="#">게시판</a></li>
+        </ul>
+      </div>
+      <h1 class="logo"><a href="main.html"><img src="../image/logo.png" alt="logo"></a></h1>
+      <ul class="login_list">
+        <li><a href="#"><img src="../image/icon/login.png">로그인</a></li>
+        <li><a href="#"><img src="../image/icon/join.png">회원가입</a></li>
+        <li><a href="$"><img src="../image/icon/mypage.png">마이페이지</a></li>
+        <li><a href="#"><img src="../image/icon/cart.png">장바구니</a></li>
+      </ul>
+    </div>
+
+
+    <nav>
+      <div>
+        <div class="line"></div>
+        <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <li><a href="../list/mainCategoryBed.html">침실</a></a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+        </ul>
+        <div class="line"></div>
+        <div class="gnb_sub_box" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <div class="gnb_sub_list">
+            <ul class="detail_list">
+              <li><a href="mainCategoryBed">침대</a></li>
+              <span></span>
+              <li><a href="#">옷장</a></li>
+              <span></span>
+              <li><a href="#">화장대</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">소파</a></li>
+              <span></span>
+              <li><a href="#">테이블</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">책상</a></li>
+              <span></span>
+              <li><a href="#">책장</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">식탁</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <!-- 여기에 작성 -->
+    <div id="main_category_route">
+      <ul class="route_list">
+        <li onclick="location.href='./index1.html'"><img src="../image/icon/home.png" alt=""></li>
+        <li>&gt;</li>
+        <li onclick="location.href='../myshop/mypageMember.html'">My페이지</li>
+        <li>&gt;</li>
+        <li onclick="location.href='../myshop/memberInfoChange.html'">회원정보수정</li>
+        <li>&gt;</li>
+        <li>회원탈퇴</li>
+      </ul>
+      <div id="contents">
+        <form action="withdrawal">
+          <ul id="remove_info">
+            <li>탈퇴 신청한 시점부터 1주일 뒤 아이디를 제외한 모든 개인 정보는 삭제됩니다.</li>
+            <li>그 이전에 접속하시면 탈퇴를 취소할 수 있습니다.</li>
+            <li>탈퇴 신청은 현재 비밀번호가 필요합니다.</li>
+          </ul>
+
+          <h1 id="question">무엇이 불편하셨나요?</h1>
+          <!-- Summernote -->
+          <div id="summernote"></div>
+          <script>
+            $('#summernote').summernote({
+              placeholder: 'Hello stand alone ui',
+              tabsize: 2,
+              height: 300,
+              width: 650,
+              toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+              ],
+            });
+          </script>
+          <!-- Summernote -->
+
+          <div id="password_wrap">
+            <label>비밀번호</label>
+            <input type="password" placeholder="현재 비밀번호를 입력해주세요." id="password_input">
+          </div>
+
+          <div id="bottom_buttons">
+            <input type="button" value="뒤로가기">
+            <input type="submit" value="탈퇴신청하기">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- 여기까지 -->
+  <footer>
+    <div id="footer_wrap">
+      <ul class="footer_text1">
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">공지사항</a></li>
+      </ul>
+      <div class="footer_text2">
+        <ul>
+          <li>고객센터 이용안내</li>
+          <li>평일 오전 9:00 ~ 18:00</li>
+          <li>(일요일,공휴일 휴무)</li>
+        </ul>
+        <ul>
+          <li><a href="# ">1인가구 문의</a></li>
+          <li>상품/배송문의</li>
+          <li>1688-0000</li>
+        </ul>
+        <ul>
+          <li><a href="#">Q&A</a></li>
+          <li>자주하는 질문</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

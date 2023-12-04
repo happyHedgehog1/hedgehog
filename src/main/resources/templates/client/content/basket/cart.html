@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/cart.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <script src="../js/header.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <div class="gnb">
+      <div class="hamburger_button" onclick="toggleHamburger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- 사이드메뉴 -->
+      <div class="side_nenu" onclick="toggleHamburger()">
+        <ul class="side_nenu_List">
+          <li><a href="#">베스트 상품</a></li>
+          <li><a href="../list/mainCategoryBed.html">침실</a></li>
+          <li><a href="../list/mainCategorySopa.html">거실</a></li>
+          <li><a href="../list/mainCategoryDesk.html">서재</a></li>
+          <li><a href="../list/mainCategoryTable.html">주방</a></li>
+          <li><a href="#">게시판</a></li>
+        </ul>
+      </div>
+      <h1 class="logo"><a href="main.html"><img src="./image/logo.png" alt="logo"></a></h1>
+      <ul class="login_list">
+        <li><a href="#"><img src="../image/icon/login.png">로그인</a></li>
+        <li><a href="#"><img src="../image/icon/join.png">회원가입</a></li>
+        <li><a href="$"><img src="../image/icon/mypage.png">마이페이지</a></li>
+        <li><a href="#"><img src="../image/icon/cart.png">장바구니</a></li>
+      </ul>
+    </div>
+
+
+    <nav>
+      <div>
+        <div class="line"></div>
+        <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <li><a href="../list/mainCategoryBed.html">침실</a></a></li>
+          <li><a href="../list/mainCategorySopa.html">거실</a></li>
+          <li><a href="../list/mainCategoryDesk.html">서재</a></li>
+          <li><a href="../list/mainCategoryTable.html">주방</a></li>
+        </ul>
+        <div class="line"></div>
+        <div class="gnb_sub_box"  onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <div class="gnb_sub_list" >
+              <ul class="detail_list">
+                  <li><a href="../list/mainCategoryBed.html">침대</a></li>
+                  <span></span>
+                  <li><a href="#">옷장</a></li>
+                  <span></span>
+                  <li><a href="#">화장대</a></li>
+              </ul>
+              <ul class="detail_list">
+                  <li><a href="../list/mainCategorySopa.html">소파</a></li>
+                  <span></span>
+                  <li><a href="#">테이블</a></li>
+                  <span></span>
+                  <li><a href="#">수납장</a></li>
+              </ul>
+              <ul class="detail_list">
+                  <li><a href="../list/mainCategoryDesk.html">책상</a></li>
+                  <span></span>
+                  <li><a href="#">책장</a></li>
+                  <span></span>
+                  <li><a href="#">의자</a></li>
+              </ul>
+              <ul class="detail_list">
+                  <li><a href="../list/mainCategoryTable.html">식탁</a></li>
+                  <span></span>
+                  <li><a href="#">수납장</a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+</header>
+
+  <section>
+    <div id="contents">
+
+      <ul class="route_list">
+        <li><img src="../image/icon/home.png" alt=""></li>
+        <li>&gt;</li>
+        <li>침실</li>
+        <li>&gt;</li>
+        <li>침대</li>
+      </ul>
+  
+    <div class="cart_order">
+  
+      <div></div>
+      <div id="cart_write"><h2>장바구니</h2></div>
+      <div><h2>주문서작성</h2></div>
+      <div><h2>결제하기</h2></div>
+      <div><h2>완료</h2></div>
+      <div></div>
+    
+    </div>
+  
+  
+      
+      
+      <table class="cart_table">
+        <tr>
+          <th><input id="cartcheckbox" type="checkbox" name="cartcheckbox"></th>
+          <th>이미지</th>
+          <th>상품명</th>
+          <th>판매가</th>
+          <th>적립포인트</th>
+          <th>수량</th>
+          <th>배송비</th>
+          <th>합계</th>
+        </tr>
+        <tr>
+          <td><input id="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
+          <td><img src="../image/chair.png", width="70px" , height="70px"></td>
+          <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
+          <td>200000원</td>
+          <td>2000원</td>
+          <td class="cart_numbrt_btn">
+            <div id="quantity-container">
+              <button class="quantity-button" onclick="decreaseQuantity()">-</button>
+              <span id="quantity-display">1</span>
+              <button class="quantity-button" onclick="increaseQuantity()">+</button>
+            </div>
+          </td>
+          <td>무료</td>
+          <td>200000원</td>
+        </tr>
+        <tr>
+          <td><input id="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
+          <td><img src="../image/chair.png", width="70px" , height="70px"></td>
+          <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
+          <td>200000원</td>
+          <td>2000원</td>
+          <td class="cart_numbrt_btn">
+            <div id="quantity-container">
+              <button class="quantity-button" onclick="decreaseQuantity()">-</button>
+              <span id="quantity-display">1</span>
+              <button class="quantity-button" onclick="increaseQuantity()">+</button>
+            </div>
+          </td>
+          <td>무료</td>
+          <td>200000원</td>
+        </tr>
+        <tr>
+          <td><input id="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
+          <td><img src="../image/chair.png", width="70px" , height="70px"></td>
+          <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
+          <td>200000원</td>
+          <td>2000원</td>
+          <td class="cart_numbrt_btn">
+            <div id="quantity-container">
+              <button class="quantity-button" onclick="decreaseQuantity()">-</button>
+              <span id="quantity-display">1</span>
+              <button class="quantity-button" onclick="increaseQuantity()">+</button>
+            </div>
+          </td>
+          <td>무료</td>
+          <td>200000원</td>
+        </tr>
+      </table>
+      
+      <br>
+      <div class="total_price_contain">
+        <div class="total_price">
+          <div>
+            <div>상품구매금액 117,000원 + 배송비 0 (무료)</div>
+            <div>합계 = 117,000원</div>
+          </div>
+        </div>
+      </div>
+      
+      <br>
+      <hr>
+      <br>
+      <br>
+      
+      <div class="select_cart">
+        
+        <div class="select_btn">&nbsp;
+           
+          <button class="select_like_btn">선택상품 삭제</button>
+        </div>
+        <div class="select_order_btn2">
+          <button class="select_order_btn">선택상품주문하기</button>
+        </div>
+      </div>
+      <br>
+      <br>
+      
+      <div class="sum_box">
+        <div class="sum_text">
+          <h1>합계</h1>
+          <h2>고객님의 총 주문 합계 금액 입니다.</h2>
+        </div>
+        
+        <div class="sum_text_contain">
+          <div class="sum_text2">
+            <h3>상품 합계금액</h3>
+            <h3>배송비</h3>
+            <h3>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h3>
+          </div>
+          
+          <div class="sum_text3">
+            <h3>200,000원</h3>
+            <h3>0원</h3>
+            <h3>200,000원</h3>
+          </div>
+
+          
+          
+        </div>
+      </div>
+      
+      <br>
+      <br>
+      <div class="select_all_btn2">
+        <button class="select_all_btn">전체상품주문하기</button>
+      </div>
+      <br>
+      <br>
+      <br>
+
+
+      
+
+  </section>
+    
+  <footer>
+    <div id="footer_wrap">
+      <ul class="footer_text1">
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">공지사항</a></li>
+      </ul>
+      <div class="footer_text2">
+        <ul >
+          <li>고객센터 이용안내</li>
+          <li>평일 오전 9:00 ~ 18:00</li>
+          <li>(일요일,공휴일 휴무)</li>
+        </ul>
+        <ul>
+          <li><a href="# ">1인가구 문의</a></li>
+          <li>상품/배송문의</li>
+          <li>1688-0000</li>
+        </ul>
+        <ul>
+          <li><a href="#">Q&A</a></li>
+          <li>자주하는 질문</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+   
+        
+        <script src="js/header.js"></script>
+        
+  </body>
+  
+  </html>

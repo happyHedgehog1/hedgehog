@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <script src="../js/header.js" defer></script>
+
+
+  <script src="../js/regist.js" defer></script>
+  <link rel="stylesheet" href="../css/regist.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="gnb">
+      <div class="hamburger_button" onclick="toggleHamburger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <!-- 사이드메뉴 -->
+      <div class="side_nenu" onclick="toggleHamburger()">
+        <ul class="side_nenu_List">
+          <li><a href="#">베스트 상품</a></li>
+          <li><a href="../list/mainCategoryBed.html">침실</a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+          <li><a href="#">게시판</a></li>
+        </ul>
+      </div>
+      <h1 class="logo"><a href="main.html"><img src="../image/logo.png" alt="logo"></a></h1>
+      <ul class="login_list">
+        <li><a href="#"><img src="../image/icon/login.png">로그인</a></li>
+        <li><a href="#"><img src="../image/icon/join.png">회원가입</a></li>
+        <li><a href="$"><img src="../image/icon/mypage.png">마이페이지</a></li>
+        <li><a href="#"><img src="../image/icon/cart.png">장바구니</a></li>
+      </ul>
+    </div>
+
+
+    <nav>
+      <div>
+        <div class="line"></div>
+        <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <li><a href="../list/mainCategoryBed.html">침실</a></a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
+        </ul>
+        <div class="line"></div>
+        <div class="gnb_sub_box" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
+          <div class="gnb_sub_list">
+            <ul class="detail_list">
+              <li><a href="mainCategoryBed">침대</a></li>
+              <span></span>
+              <li><a href="#">옷장</a></li>
+              <span></span>
+              <li><a href="#">화장대</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">소파</a></li>
+              <span></span>
+              <li><a href="#">테이블</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">책상</a></li>
+              <span></span>
+              <li><a href="#">책장</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+            </ul>
+            <ul class="detail_list">
+              <li><a href="#">식탁</a></li>
+              <span></span>
+              <li><a href="#">의자</a></li>
+              <span></span>
+              <li><a href="#">수납장</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <!-- 여기에 작성 -->
+    <div id="main_category_route">
+      <ul class="route_list">
+        <li onclick="location.href='./index1.html'"><img src="../image/icon/home.png" alt="홈으로가기"></li>
+        <li>&gt;</li>
+        <li>회원가입</li>
+      </ul>
+      <div id="contents">
+        <form action="regist" id="regist">
+          <h1 id="regist_header">회원가입</h1>
+          <div id="agree_list">
+            <div id="termsAndConditionContainer">
+              <p>쇼핑몰 이용약관 동의</p>
+              <div>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+              </div>
+              <div>
+                <label for="agree1">동의하기</label>
+                <img src="../image/regist/check_false.png" alt="체크표시(false)" id="check_agree1"
+                  onclick="agreeCheckImg(this)">
+                <input type="checkbox" id="agree1" name="agree1" onchange="agreeCheckbox(this)">
+              </div>
+            </div>
+            <div id="privacyPolicyContainer">
+              <p>개인정보 수집/이용에 관한 사항</p>
+              <div>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+                <p>쇼핑몰개인정보 수집/이용에에 대한 얘기쇼핑몰 이용약관에 대한 얘기쇼핑몰 이용약관에 대한 얘기</p>
+              </div>
+              <div>
+                <label for="agree2">동의하기</label>
+                <img src="../image/regist/check_false.png" alt="체크표시(false)" id="check_agree2"
+                  onclick="agreeCheckImg(this)">
+                <input type="checkbox" id="agree2" name="agree2" onchange="agreeCheckbox(this)">
+              </div>
+            </div>
+          </div>
+
+          <table id="contents_table">
+            <tr>
+              <th>성명</th>
+              <td colspan="2"><input type="text" name="name" id="name"></td>
+            </tr>
+            <tr>
+              <th>생일</th>
+              <td colspan="2"><input type="date" name="date" id="date"></td>
+            </tr>
+            <tr>
+              <th>성별</th>
+              <td colspan="2">
+                <label for="male">남</label>
+                <input type="radio" name="gender" id="male">
+                <label for="female">여</label>
+                <input type="radio" name="gender" id="female">
+              </td>
+            </tr>
+            <tr>
+              <th>아이디</th>
+              <td>
+                <input type="text" name="id" id="id">
+                <input type="button" value="중복체크" id="id_check_button">
+                <span id="check_text">중복체크 완료</span>
+              </td>
+              <td>공백없는 5~12자리의 영문/숫자 조합</td>
+            </tr>
+            <tr>
+              <th>비밀번호</th>
+              <td><input type="text" input="password" id="password"></td>
+              <td>공백없는 5~12자리의 영문/숫자<br>
+                <span id="warning">특수문자 사용가능, 단 \, ', " 제외</span>
+              </td>
+            </tr>
+            <tr>
+              <th>비밀번호확인</th>
+              <td colspan="2"><input type="text" input="password2" id="password2"></td>
+            </tr>
+            <tr id="email_row">
+              <th>이메일</th>
+              <td colspan="2">
+                <div><input type="text" name="email" id="email"><input id="email_button" value="이메일인증" type="button">
+                </div>
+                <div id="email_authentication">
+                  <div>인증번호</div>
+                  <input type="text" id="email_authentication_number" name="email_authentication_number">
+                  &nbsp;
+                  <input type="button" id="email_authentication_button" value="인증하기">
+                  &nbsp;
+                  <span id="reload_timer">05:00</span>
+                  &nbsp;
+                  <img src="../image/reloadButton/reload.png" alt="시간연장" id="reload">
+                </div>
+                <div id="email_count"></div>
+                <div>
+                  email 서비스를 받으시겠습니까?&nbsp;
+                  <input type="radio" name="email_service" id="email_yes"><label for="email_service">&nbsp;예</label>
+                  <input type="radio" name="email_service" id="email_no"><label for="email_service">&nbsp아니오</label>
+                </div>
+                <div>
+                  주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>휴대전화</th>
+              <td colspan="2"><input type="text" id="phone" name="phone" placeholder="01011112222(- 생략)"></td>
+            </tr>
+            <tr id="address_row">
+              <th>주소</th>
+              <td colspan="2">
+                <input type="text" id="address_col_1" readonly><input type="button" id="address_button" value=우편번호><br>
+                <input type="text" id="address_col_2" readonly><br>
+                <input type="text" id="address_col_3">
+              </td>
+            </tr>
+          </table>
+          <div id="bottom_buttons">
+            <input type="submit" name="regist_button" id="regist_button" value="회원가입">
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </section><!-- 여기까지 -->
+  <footer>
+    <div id="footer_wrap">
+      <ul class="footer_text1">
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">공지사항</a></li>
+      </ul>
+      <div class="footer_text2">
+        <ul>
+          <li>고객센터 이용안내</li>
+          <li>평일 오전 9:00 ~ 18:00</li>
+          <li>(일요일,공휴일 휴무)</li>
+        </ul>
+        <ul>
+          <li><a href="# ">1인가구 문의</a></li>
+          <li>상품/배송문의</li>
+          <li>1688-0000</li>
+        </ul>
+        <ul>
+          <li><a href="#">Q&A</a></li>
+          <li>자주하는 질문</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
