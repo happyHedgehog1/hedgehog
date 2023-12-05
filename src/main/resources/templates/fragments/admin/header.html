@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:fragment="headerFragment">
+
+<div class="logobackground">
+    <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+    <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>
+    <div class="logout"><a href="#">
+        <h1 style="padding-right: 10px;"><img th:src="@{/admin/images/logout.png}" alt="logout"></h1>
+        <h4>로그아웃</h4></a>
+    </div>
+</div>
+</header>
+</body>
+</html>

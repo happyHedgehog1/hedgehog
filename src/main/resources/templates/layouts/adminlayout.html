@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" th:href="@{/admin/css/header.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/sidebar.css}">
+
+</head>
+<body>
+<header th:replace="fragments/admin/header :: headerFragment">
+</header>
+<div class="contents1">
+<th:block th:replace="fragments/admin/sidebar :: sidebarFragment"></th:block>
+<div layout:fragment="content">
+</div>
+
+</div>
+</body>
+</html>

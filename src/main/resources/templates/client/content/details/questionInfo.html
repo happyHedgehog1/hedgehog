@@ -1,113 +1,108 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+
+  <th:block layout:fragment="content">
   <script th:src="@{/client/js/questionInfo.js}"></script>
   <link rel="stylesheet" th:href="@{/client/css/questioninfo.css}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-
-<body>
-
-  <section>
-    <!-- 여기에 작성 -->
-    <div id="main_category_route">
-      <ul class="route_list">
-        <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
-        <li>&gt;</li>
-        <li id="route_mypage" onclick="goMyPage()">MY페이지</li>
-        <li>&gt;</li>
-        <li>문의 내역</li>
-      </ul>
-      <div id="contents">
-        <table id="contents_table">
-          <caption>문의내역</caption>
-          <thead>
-            <tr>
-              <td colspan="4" id="type_select_row"><label for="">분류선택</label>
-                <select name="typeSelect" id="type_select">
-                  <option value="default">분류선택</option>
-                  <option value="delivery">배송문의</option>
-                  <option value="product">제품문의</option>
-                  <option value="cancel">취소문의</option>
-                  <option value="exchange">환불문의</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th>번호</th>
-              <th>분류</th>
-              <th>제목</th>
-              <th>작성일</th>
-              <th>작성자</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>00054</td>
-              <td>[반품문의]</td>
-              <td class="title_group">
-                <div>제목제목제목제목제목제목제목제목제목</div><img src="../image/question/comment.png" alt="">
-              </td>
-              <td>1111-11-11</td>
-              <td>w******2</td>
-            </tr>
-            <tr>
-              <td>00054</td>
-              <td>[반품문의]</td>
-              <td class="title_group">
-                <div>제목제목제목제목제목제목제목제목제목</div><img src="../image/question/comment.png" alt=""><img src="../image/lock.png" alt="비밀글">
-              </td>
-              <td>1111-11-11</td>
-              <td>w******2</td>
-            </tr>
-            <tr>
-              <td>00054</td>
-              <td>[반품문의]</td>
-              <td class="title_group">
-                <div>제목제목제</div><img src="../image/question/comment.png" alt="">
-              </td>
-              <td>2222-22-22</td>
-              <td>d******3</td>
-            </tr>
-          </tbody>
-        </table>
-        <div id="write_buttons_wrap">
-          <div id="search_buttons_wrap">
-            <select name="searchSelect" id="search_select">
-              <option value="id">아이디</option>
-              <option value="title">제목</option>
-              <option value="contents">내용</option>
-              <option value="titleAndContents">제목+내용</option>
-            </select>
-            <input type="text" name="search" id="search_input">
-            <input type="submit" id="search_button" value="찾기">
+    <section>
+      <div id="main_category_route">
+        <ul class="route_list">
+          <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+          <li>&gt;</li>
+          <li id="route_mypage" onclick="goMyPage()">MY페이지</li>
+          <li>&gt;</li>
+          <li>문의 내역</li>
+        </ul>
+        <div id="contents">
+          <table id="contents_table">
+            <caption>문의내역</caption>
+            <thead>
+              <tr>
+                <td colspan="4" id="type_select_row"><label for="">분류선택</label>
+                  <select name="typeSelect" id="type_select">
+                    <option value="default">분류선택</option>
+                    <option value="delivery">배송문의</option>
+                    <option value="product">제품문의</option>
+                    <option value="cancel">취소문의</option>
+                    <option value="exchange">환불문의</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>번호</th>
+                <th>분류</th>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>작성자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>00054</td>
+                <td>[반품문의]</td>
+                <td class="title_group">
+                  <div>제목제목제목제목제목제목제목제목제목</div><img src="../image/question/comment.png" alt="">
+                </td>
+                <td>1111-11-11</td>
+                <td>w******2</td>
+              </tr>
+              <tr>
+                <td>00054</td>
+                <td>[반품문의]</td>
+                <td class="title_group">
+                  <div>제목제목제목제목제목제목제목제목제목</div><img src="../image/question/comment.png" alt=""><img src="../image/lock.png" alt="비밀글">
+                </td>
+                <td>1111-11-11</td>
+                <td>w******2</td>
+              </tr>
+              <tr>
+                <td>00054</td>
+                <td>[반품문의]</td>
+                <td class="title_group">
+                  <div>제목제목제</div><img src="../image/question/comment.png" alt="">
+                </td>
+                <td>2222-22-22</td>
+                <td>d******3</td>
+              </tr>
+            </tbody>
+          </table>
+          <div id="write_buttons_wrap">
+            <div id="search_buttons_wrap">
+              <select name="searchSelect" id="search_select">
+                <option value="id">아이디</option>
+                <option value="title">제목</option>
+                <option value="contents">내용</option>
+                <option value="titleAndContents">제목+내용</option>
+              </select>
+              <input type="text" name="search" id="search_input">
+              <input type="submit" id="search_button" value="찾기">
+            </div>
+            <button id="write_button" type="submit">글쓰기</button>
           </div>
-          <button id="write_button" type="submit">글쓰기</button>
-        </div>
-        <div id="bottom_buttons">
-          <div>
-            <input type="button" onclick="" value="&lt;&lt;">
-            <input type="button" onclick="" value="&lt;"">
-            <input type="button" onclick="" value="1">
-            <input type="button" onclick="" value="2">
-            <input type="button" onclick="" value="3">
-            <input type="button" onclick="" value="4">
-            <input type="button" onclick="" value="5">
-            <input type="button" onclick="" value="6">
-            <input type="button" onclick="" value="7">
-            <input type="button" onclick="" value="8">
-            <input type="button" onclick="" value="&gt;">
-            <input type="button" onclick="" value="&gt;&gt;">
+          <div id="bottom_buttons">
+            <div>
+              <input type="button" onclick="" value="&lt;&lt;">
+              <input type="button" onclick="" value="&lt;"">
+              <input type="button" onclick="" value="1">
+              <input type="button" onclick="" value="2">
+              <input type="button" onclick="" value="3">
+              <input type="button" onclick="" value="4">
+              <input type="button" onclick="" value="5">
+              <input type="button" onclick="" value="6">
+              <input type="button" onclick="" value="7">
+              <input type="button" onclick="" value="8">
+              <input type="button" onclick="" value="&gt;">
+              <input type="button" onclick="" value="&gt;&gt;">
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section> <!-- 여기까지 -->
+    </section>
 
-</body>
-</th:block>
+
+  </th:block>
 </html>

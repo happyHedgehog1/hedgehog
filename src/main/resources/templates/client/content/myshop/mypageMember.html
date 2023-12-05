@@ -1,52 +1,46 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+
+  <th:block layout:fragment="content">
   <script th:src="@{/client/js/memberMypageMain.js}"></script>
   <link rel="stylesheet" th:href="@{/client/css/mypageMember.css}">
 
-
-<body>
-
-
-  <section>
-    <!-- 여기에 작성 -->
-    <div id="main_category_route">
-      <ul class="route_list">
-        <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
-        <li>&gt;</li>
-        <li>MY페이지</li>
-      </ul>
-      <div id="contents">
-        <div id="top">
-          <div><span onclick="location.href='memberInfoChange.html'">OOO님 &gt;</span></div>
-          <div><img src="../image/mypage/icons_coin.png" alt="코인">보유포인트</div>
-          <div>항상 1 in 가구를 방문해 주셔서 감사합니다.</div>
-          <div>
-            0p
-          </div>
-        </div>
-        <ul id="bottom">
-          <li id="mypage01" onclick="location.href='memberInfoChange.html'"><img src="../image/mypage/mypage01.png"
-                                                                                 alt="회원정보수정"><span>회원정보수정</span></li>
-          <li id="mypage02" onclick="location.href='../details/questionInfo.html'"><img src="../image/mypage/mypage02.png"
-                                                                                        alt="문의내역"><span>문의내역</span></li>
-          <li id="mypage03" onclick="location.href='../details/orderDeliveryinfo.html'"><img src="../image/mypage/mypage03.png"
-                                                                                             alt="주문/배송내역"><span>주문/배송내역</span></li>
-          <li id="mypage04" onclick="location.href='memberInfo.html'"><img src="../image/mypage/mypage04.png"
-                                                                           alt="나의정보"><span>나의 정보</span></li>
-          <li id="mypage05" onclick="location.href='../details/reviewInfo.html'"><img src="../image/mypage/mypage05.png"
-                                                                                      alt="리뷰내역"><span>리뷰 내역</span></li>
-          <li id="mypage06" onclick="location.href='../details/cancelPaybackInfo.html'"><img src="../image/mypage/mypage06.png"
-                                                                                             alt="취소/환불내역"><span>취소/환불내역</span></li>
+    <section>
+      <div id="main_category_route">
+        <ul class="route_list">
+          <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+          <li>&gt;</li>
+          <li>MY페이지</li>
         </ul>
+        <div id="contents">
+          <div id="top">
+            <div><span onclick="location.href='memberInfoChange.html'">OOO님 &gt;</span></div>
+            <div><img src="../image/mypage/icons_coin.png" alt="코인">보유포인트</div>
+            <div>항상 1 in 가구를 방문해 주셔서 감사합니다.</div>
+            <div>
+              0p
+            </div>
+          </div>
+          <ul id="bottom">
+            <li id="mypage01" onclick="location.href='memberInfoChange.html'"><img src="../image/mypage/mypage01.png"
+                                                                                   alt="회원정보수정"><span>회원정보수정</span></li>
+            <li id="mypage02" onclick="location.href='../details/questionInfo.html'"><img src="../image/mypage/mypage02.png"
+                                                                                          alt="문의내역"><span>문의내역</span></li>
+            <li id="mypage03" onclick="location.href='../details/orderDeliveryinfo.html'"><img src="../image/mypage/mypage03.png"
+                                                                                               alt="주문/배송내역"><span>주문/배송내역</span></li>
+            <li id="mypage04" onclick="location.href='memberInfo.html'"><img src="../image/mypage/mypage04.png"
+                                                                             alt="나의정보"><span>나의 정보</span></li>
+            <li id="mypage05" onclick="location.href='../details/reviewInfo.html'"><img src="../image/mypage/mypage05.png"
+                                                                                        alt="리뷰내역"><span>리뷰 내역</span></li>
+            <li id="mypage06" onclick="location.href='../details/cancelPaybackInfo.html'"><img src="../image/mypage/mypage06.png"
+                                                                                               alt="취소/환불내역"><span>취소/환불내역</span></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-</body>
-</th:block>
+  </th:block>
 </html>

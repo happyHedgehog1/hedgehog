@@ -1,57 +1,54 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+
+  <th:block layout:fragment="content">
   <script th:src="@{/client/js/searchId.js}"></script>
   <link rel="stylesheet" th:href="@{/client/css/searchId.css}">
 
-
-<body>
-  <section>
-    <!-- 여기에 작성 -->
-    <div id="main_category_route">
-      <ul class="route_list">
-        <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
-        <li>&gt;</li>
-        <li onclick="">로그인</li>
-        <li>&gt;</li>
-        <li>아이디찾기</li>
-      </ul>
-      <div id="contents">
-        <form action="" method="post">
-          <table id="contents-table">
-            <caption>아이디 찾기</caption>
-            <tr>
-              <td colspan="5" id="email">이메일주소</td>
-            </tr>
-            <tr>
-              <td colspan="3"><input type="text" id="input_email" name="email" placeholder="주문 시 입력한 이메일 주소 입력"></td>
-              <td colspan="2"><input type="button" value="이메일인증" id="email_button"></td>
-            </tr>
-            <tr id="authentication_row">
-              <td>인증번호</td>
-              <td colspan="2"><input type="text" id="input_authentication" name="authentication"></td>
-              <td><input type="button" id="authentication_button" value="인증하기"></td>
-              <td id="timer">
-                <div><span>05:00</span><img src="../image/reloadButton/reload.png" alt="시간연장" id="reload"></div>
-              </td>
-            </tr>
-            <tr id="authentication_complete_row">
-              <td colspan="5"></td>
-            </tr>
-            <tr>
-              <td colspan="5"><input type="submit" id="search_button" value="조회"></td>
-            </tr>
-          </table>
-        </form>
+    <section>
+      <!-- 여기에 작성 -->
+      <div id="main_category_route">
+        <ul class="route_list">
+          <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+          <li>&gt;</li>
+          <li onclick="">로그인</li>
+          <li>&gt;</li>
+          <li>아이디찾기</li>
+        </ul>
+        <div id="contents">
+          <form action="" method="post">
+            <table id="contents-table">
+              <caption>아이디 찾기</caption>
+              <tr>
+                <td colspan="5" id="email">이메일주소</td>
+              </tr>
+              <tr>
+                <td colspan="3"><input type="text" id="input_email" name="email" placeholder="주문 시 입력한 이메일 주소 입력"></td>
+                <td colspan="2"><input type="button" value="이메일인증" id="email_button"></td>
+              </tr>
+              <tr id="authentication_row">
+                <td>인증번호</td>
+                <td colspan="2"><input type="text" id="input_authentication" name="authentication"></td>
+                <td><input type="button" id="authentication_button" value="인증하기"></td>
+                <td id="timer">
+                  <div><span>05:00</span><img src="../image/reloadButton/reload.png" alt="시간연장" id="reload"></div>
+                </td>
+              </tr>
+              <tr id="authentication_complete_row">
+                <td colspan="5"></td>
+              </tr>
+              <tr>
+                <td colspan="5"><input type="submit" id="search_button" value="조회"></td>
+              </tr>
+            </table>
+          </form>
+        </div>
       </div>
-    </div>
-    <!-- 여기까지 -->
-  </section>
+      <!-- 여기까지 -->
+    </section>
 
-</body>
-</th:block>
+  </th:block>
 </html>

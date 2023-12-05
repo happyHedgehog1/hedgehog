@@ -1,59 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminlayout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항</title>
     <link rel="stylesheet" th:href="@{/admin/css/notice.css}" type="text/css">
+    <script th:src="@{/admin/js/seach.js}"></script>
 
 </head>
 <body>
-    <div id="wrap">
-        <header>
-            <div class="logobackground">
-                <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
-                <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>
-                <div class="logout"><a href="#">
-                    <h1 style="padding-right: 10px;"><img th:src="@{/admin/images/logout.png}" alt="logout"></h1>
-                    <h4>로그아웃</h4></a>
-                </div>
-            </div>
-        </header>
-        <div class="contents">
-            <ul class="left_nav">
-                <li class="prodList">
-                    <a href="#상품조회" class="control">상품관리</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/product/productserach}">상품조회</a></li>
-                        <li><a th:href="@{/product/productAdd}">상품등록</a></li>
-                        <li><a th:href="@{/category/categoryAdd}">상품분류등록</a></li>
-                    </ul>
-                </li>
-                <li class="prodList"><a href="#">회원관리</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/member/member}">전체회원관리</a></li>
-                        <li><a th:href="@{/member/unregister}">탈퇴회원조회</a></li>
-                    </ul>
-                </li>
-                <li class="prodList"><a th:href="@{/point/pointA}">적립금관리</a></li>
-                <li class="prodList"><a th:href="@{/order/order}">주문관리</a></li>
-                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/Service/productInquiry}">게시판관리</a></li>
-                        <li><a th:href="@{/Service/email}">메일관리</a></li>
-                    </ul>
-                </li>
-                <li class="prodList"><a th:href="@{/adminManagement/adminManagement}">관리자관리</a></li>
-                <li class="prodList"><a th:href="@{/statistics/statistics}">통계</a></li>
-                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/event/eventList}">이벤트목록</a></li>
-                        <li><a th:href="@{/event/eventProdAdd}">이벤트등록</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <section>
+<th:block layout:fragment="content">
                 <div class="pageBody">
                     <div class="mainHd">
                         <div class="topTitle">
@@ -65,7 +24,7 @@
                             <div class="pageButton"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
                             <div class="pageButton1"><a th:href="@{/Service/notice}">공지사항 관리</a></div>
                             </div>
-                        <div id="btnNoticeAdd"><a href="../Service/noticeWrite.html">공지사항등록</a></div>
+                        <div id="btnNoticeAdd"><a th:href="@{/Service/noticeWrite}">공지사항등록</a></div>
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
@@ -144,7 +103,7 @@
                                 <span> 건 ) </span></div>
                         </div>
                         <div class="tblWrapper">
-                        <table class="tblBottom">
+                        <table class="tblBottom" id="notice">
                             <colgroup>
                                 <col class="w140">
                                 <col class="w140">
@@ -154,7 +113,7 @@
                                 <col>
                             </colgroup>
                             <tbody>
-                                        <tr>        
+                                            <tr class="searchResult">
                                             <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
                                             <th>공개여부</th>
                                             <th>제목</th>
@@ -268,8 +227,7 @@
                         <button id="btnDelete">적용</button>
                         <button id="btnDelete">상단고정/해지</button>
                     </div>
-            </section>
-        </nav>
-
+                </div>
+</th:block>
 </body>
 </html>

@@ -180,6 +180,7 @@ tbody{
 tr{
     display: table-row;
     visibility: inherit;
+
 }
 
 .w200 {
@@ -205,7 +206,6 @@ tr{
 td {
     border-bottom: solid #ebebeb 1px;
     text-align: center !important;
-    
 }
 
 
@@ -258,4 +258,13 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .link{
+      display: inline-block;
+      width: 100px;
+      height: 30px;
+      border: 1px solid #bdc5cd;
+      padding-top: 3px;
+
   }

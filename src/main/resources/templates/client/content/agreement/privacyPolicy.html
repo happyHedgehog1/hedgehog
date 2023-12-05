@@ -1,66 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content"></th:block>
-  <script th:src="@{/client/privacyPolicey.js}"></script>
-  <link rel="stylesheet" th:href="@{/client/css/privacyPolicy.css}">
 
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--  <title>Document</title>-->
-<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">-->
-<!--  <link rel="stylesheet" href="../css/header.css">-->
-<!--  <link rel="stylesheet" href="../css/footer.css">-->
-<!--  <script src="../js/header.js" defer></script>-->
+    <th:block layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/client/css/privacyPolicy.css}">
+    <script th:src="@{/client/privacyPolicey.js}"></script>
 
-
-<!--  <script src="../js/privacyPolicy.js" defer></script>-->
-<!--  <link rel="stylesheet" href="../css/privacyPolicy.css">-->
-<!--</head>-->
-
-<body>
-
-
-
-  <section>
-    <!-- 여기에 작성 -->
-    <div id="main_category_route">
-      <ul class="route_list">
-        <li id="route_home" onclick="goHome();"><img src="../image/icon/home.png" alt=""></li>
-        <li>&gt;</li>
-        <li>이용약관</li>
-      </ul>
-      <div id="contents">
-        <table id="contents_table">
-          <caption>개인정보처리방침</caption>
-          <tr>
-            <td>개인정보처리방침이 아래로 작성될 예정입니다. 어떻게 작성될진 모르겠구요. <br>
-              한줄씩 데이터베이스에 저장되어 이를 작성할 수도 있고 HTML 그 자체가<br>
-              데이터베이스에 단 하나의 튜플로 저장될 수도 있습니다. <br>
-              예를 들자면
-              <p>01 이는 p태그로 만든 것입니다.</p>
-              <p>02 이는 p태그로 만든 것입니다.</p>
-              <p>03 이는 p태그로 만든 것입니다.</p>
-              <p>04 이는 p태그로 만든 것입니다.</p>
-              <p>05 이는 p태그로 만든 것입니다.</p>
-              <p>06 이는 p태그로 만든 것입니다.</p>
-              <p>07 이는 p태그로 만든 것입니다.</p>
-              <p>08 이는 p태그로 만든 것입니다.</p>
-              <p>09 이는 p태그로 만든 것입니다.</p>
-              <p>10 이는 p태그로 만든 것입니다.</p>
-            </td>
-          </tr>
-        </table>
-        <div id="bottom_button_wrap">
-          <button id="bottom_button" onclick="goHome()">홈으로가기</button>
+      <section>
+        <!-- 여기에 작성 -->
+        <div id="main_category_route">
+          <ul class="route_list">
+            <li id="route_home" onclick="goHome();"><img src="../image/icon/home.png" alt=""></li>
+            <li>&gt;</li>
+            <li>이용약관</li>
+          </ul>
+          <div id="contents">
+            <table id="contents_table">
+              <caption>개인정보처리방침</caption>
+              <tr>
+                <td>개인정보처리방침이 아래로 작성될 예정입니다. 어떻게 작성될진 모르겠구요. <br>
+                  한줄씩 데이터베이스에 저장되어 이를 작성할 수도 있고 HTML 그 자체가<br>
+                  데이터베이스에 단 하나의 튜플로 저장될 수도 있습니다. <br>
+                  예를 들자면
+                  <p>01 이는 p태그로 만든 것입니다.</p>
+                  <p>02 이는 p태그로 만든 것입니다.</p>
+                  <p>03 이는 p태그로 만든 것입니다.</p>
+                  <p>04 이는 p태그로 만든 것입니다.</p>
+                  <p>05 이는 p태그로 만든 것입니다.</p>
+                  <p>06 이는 p태그로 만든 것입니다.</p>
+                  <p>07 이는 p태그로 만든 것입니다.</p>
+                  <p>08 이는 p태그로 만든 것입니다.</p>
+                  <p>09 이는 p태그로 만든 것입니다.</p>
+                  <p>10 이는 p태그로 만든 것입니다.</p>
+                </td>
+              </tr>
+            </table>
+            <div id="bottom_button_wrap">
+              <button id="bottom_button" onclick="goHome()">홈으로가기</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section> <!-- 여기까지 -->
+      </section>
 
-</body>
-</th:block>
+    </th:block>
 </html>
