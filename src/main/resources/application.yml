@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.coffit.today/thymeleafspringboot
+    username: oneinfurniture
+    password: oneinfurniture1234
+
+mybatis:
+  mapper-locations: mybatis/mapper/admin/*.xml
+  type-aliases-package: com.hedgehog
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    root: info
