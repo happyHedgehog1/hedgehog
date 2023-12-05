@@ -1,12 +1,12 @@
 /*권한목록*/
 INSERT INTO tbl_authority(name) /*1. 슈퍼관리자*/
-VALUES ('super_admin');
+VALUES ('SUPER_ADMIN');
 INSERT INTO tbl_authority(name) /*2. 일반관리자*/
-VALUES ('admin');
+VALUES ('ADMIN');
 INSERT INTO tbl_authority(name) /*3. 회원*/
-VALUES ('member');
+VALUES ('MEMBER');
 INSERT INTO tbl_authority(name) /*4. 비회원*/
-VALUES ('guest');
+VALUES ('GUEST');
 /*사용자 + 권한리스트 + 고객 + 회원 + 탈퇴이력관리 */
 /*1번 user는 1번 권한(슈퍼관리자)*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
