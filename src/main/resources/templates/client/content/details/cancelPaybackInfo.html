@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content"></th:block>
+  <th:block layout:fragment="content"></th:block>
   <script th:src="@{/client/js/cancelPaybackInfo.js}"></script>
   <link rel="stylesheet" th:href="@{/client/css/cancelPaybackInfo.css}">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-
-  <script src="../js/cancelPaybackInfo.js" defer></script>
-  <link rel="stylesheet" href="../css/cancelPaybackInfo.css">
-
 
 <body>
 
   <section>
-    <!-- 여기에 작성 -->
     <div id="main_category_route">
       <ul class="route_list">
         <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt="메인화면"></li>
@@ -142,7 +133,7 @@
         <input type="button" onclick="" value="&gt;&gt;">
       </div>
     </div>
-  </section> <!-- 여기까지 -->
+  </section>
 
 </body>
 </th:block>

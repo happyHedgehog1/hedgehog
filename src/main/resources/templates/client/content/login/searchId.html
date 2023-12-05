@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+  <th:block layout:fragment="content">
   <script th:src="@{/client/js/searchId.js}"></script>
   <link rel="stylesheet" th:href="@{/client/css/searchId.css}">
 

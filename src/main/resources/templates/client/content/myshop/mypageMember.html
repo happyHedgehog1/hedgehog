@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+      layout:decorate="~{layouts/client/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"><th:block layout:fragment="content">
   <script th:src="@{/client/js/memberMypageMain.js}"></script>
   <link rel="stylesheet" th:href="@{/client/css/mypageMember.css}">
 
-
 <body>
-
-
   <section>
     <!-- 여기에 작성 -->
     <div id="main_category_route">
