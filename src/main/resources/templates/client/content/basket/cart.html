@@ -121,7 +121,8 @@
                 <button class="select_like_btn">선택상품 삭제</button>
             </div>
             <div class="select_order_btn2">
-                <a href="./cartOrder.html"><button class="select_order_btn">선택상품주문하기</button></a>
+                <a th:href="@{/orderProcess/cartOrder}"><button class="select_order_btn">선택상품주문하기</button>
+                </a>
             </div>
         </div>
 
@@ -155,7 +156,7 @@
         <br>
         <br>
         <div class="select_all_btn2">
-            <a href="./cartOrder.html">
+            <a th:href="@{/order/cartOrder}">
                 <button class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</button>
             </a>
         </div>

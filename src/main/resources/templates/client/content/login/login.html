@@ -28,7 +28,7 @@
     <!-- 여기에 작성 -->
     <div id="main_category_route">
       <ul class="route_list">
-        <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+        <li id="route_home" onclick="goHome()"><img src="/client/images/icon/home.png" alt=""></li>
         <li>&gt;</li>
         <li>로그인</li>
       </ul>
@@ -58,9 +58,18 @@
                     <label for="save_id">아이디저장</label>
                   </div>
                   <div id="login_additional_buttons">
-                    <input type="button" name="regist_button" id="regist_button" value="회원가입">
-                    <input type="button" name="id_search" id="id_search" value="아이디 찾기">
-                    <input type="button" name="password_search" id="password_search" value="비밀번호 찾기">
+                      <a th:href="@{/join/regist}">
+                          <input type="button" name="regist_button" id="regist_button" value="회원가입">
+                      </a>
+
+                    <a th:href="@{/login/searchId}">
+                      <input type="button" name="id_search" id="id_search" value="아이디 찾기">
+                    </a>
+
+                    <a th:href="@{/login/searchPassword}">
+                      <input type="button" name="password_search" id="password_search" value="비밀번호 찾기">
+                    </a>
+
                   </div>
                 </div>
               </td>
@@ -93,7 +102,7 @@
               <td colspan="2"><input type="text" id="input_authentication" name="authentication"></td>
               <td><input type="button" id="authentication_button" value="인증하기"></td>
               <td id="timer">
-                <div><span>05:00</span><img src="../image/reloadButton/reload.png" alt="시간연장" id="reload"></div>
+                <div><span>05:00</span><img src="/client/images/reloadButton/reload.png" alt="시간연장" id="reload"></div>
               </td>
             </tr>
             <tr id="authentication_complete_row">
