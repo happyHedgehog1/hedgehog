@@ -44,5 +44,9 @@ public class serviceController {
     @GetMapping("/noticeWrite")
     public String noticeWrite(){return "admin/content/Service/noticeWrite.html";}
 
+    @GetMapping("/detail")
+    public String productInquiryDetail(){
+        return "adming/content/Service/Product-inquiry-details.html";
+    }
 
 }

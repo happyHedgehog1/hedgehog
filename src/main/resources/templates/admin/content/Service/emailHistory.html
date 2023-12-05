@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메일발송내역</title>
     <link rel="stylesheet" th:href="@{/admin/css/emailHistory.css}" type="text/css">
+    <script th:src="@{/admin/js/seach.js}"></script>
 
 </head>
 <body>
@@ -83,7 +84,7 @@
                                 <span> 건 ) </span></div>
                         </div>
                         <div class="tblWrapper">
-                        <table class="tblBottom">
+                        <table class="tblBottom" id="emailHistory">
                             <colgroup>
                                 <col class="w140">
                                 <col style="width: 100%;">
