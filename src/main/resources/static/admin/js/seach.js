@@ -11,6 +11,8 @@
         // 하위 체크박스들의 상태를 업데이트
         $(".searchBottom_tr input[type='checkbox']").prop("checked", isChecked);
 
+        // 하위 체크박스들의 상태를 업데이트
+        $(".eventProdAdd input[type='checkbox']").prop("checked", isChecked);
     });
 
 
@@ -68,7 +70,10 @@
 
                 $tdsProduct[i].onclick = function() {
                     const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    // location.href = "/product/productAdd?no=" + no;
+                    location.href = "/product/productAdd";
+
+
                 };
             }
         }
