@@ -5,28 +5,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("details")
+@RequestMapping("/details")
 public class DetailsController {
-    @GetMapping("cancelPaybackInfo")
+    @GetMapping("/cancelPaybackInfo")
         public String cancelPaybackInfo() {
-        return "client/content/details/cancelPaybackInfo.html";
+        return "/client/content/details/cancelPaybackInfo";
     }
 
-    @GetMapping("noticeInfo")
+    @GetMapping("/noticeInfo")
     public String noticeInfo() {
-        return "client/content/details/noticeInfo.html";
+        return "/client/content/details/noticeInfo";
     }
-    @GetMapping("orderDetails")
+    @GetMapping("/orderDetails")
     public String orderDetails() {
-        return "client/content/details/orderDetails.html";
+        return "/client/content/details/orderDetails";
     }
-    @GetMapping("questionInfo")
+    @GetMapping("/questionInfo")
     public String questionInfo() {
-        return "client/content/details/questionInfo.html";
+        return "/client/content/details/questionInfo/";
     }
-    @GetMapping("reviewInfo.html")
+    @GetMapping("/reviewInfo.html")
     public String reviewInfo() {
         return "client/content/details/reviewInfo.html";
+    }
+    @GetMapping("/orderDeliveryinfo")
+    public String orderDeliveryinfo() {
+        return "client/content/details/orderDeliveryinfo.html";
     }
 
 }
