@@ -38,5 +38,8 @@ public class serviceController {
         return "admin/content/Service/notice.html";
     }
 
+    @GetMapping("/autoMail")
+    public String autoMail(){return "admin/content/Service/autoMail.html";}
+
 
 }
