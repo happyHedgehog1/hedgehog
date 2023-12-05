@@ -1,4 +1,4 @@
-package com.hedgehog.admin.service.controller;
+package com.hedgehog.admin.adminservice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/Service")
-public class serviceController {
+public class adminServiceController {
 
     @GetMapping("/productInquiry")
     public String productInquiry(){

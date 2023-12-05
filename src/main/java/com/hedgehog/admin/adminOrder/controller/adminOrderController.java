@@ -1,4 +1,4 @@
-package com.hedgehog.admin.order.controller;
+package com.hedgehog.admin.adminOrder.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/order")
-public class orderController {
+public class adminOrderController {
 
     @GetMapping("/order")
     public String order(){
