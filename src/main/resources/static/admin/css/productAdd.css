@@ -449,7 +449,7 @@ button#btnSubmitAdd:active {
     font-size: 20px;
 }
 
-button#modalBtnPrdAdd:active {
+#modalBtnPrdAdd:active {
     display: block;
     width: 200px;
     height: 50px;

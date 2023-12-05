@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/join")
 public class JoinController {
     @GetMapping("/regist")
-    public String login(){
+    public String regist(){
         return "/client/content/join/regist";
     }
-
 }

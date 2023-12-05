@@ -13,13 +13,15 @@ public class LoginController {
         return "client/content/login/login.html";
     }
 
-    @GetMapping("searchId")
+    @GetMapping("/searchId")
     public String searchId() {
-        return "client/content/login/searchId.html";
+        return "/client/content/login/searchId.html";
     }
 
-    @GetMapping("searchPassword")
-    public String searchPassword(){
-        return "client/content/login/searchPassword";
+    @GetMapping("/searchPassword")
+    public String searchPassword() {
+        return "/client/content/login/searchPassword.html";
     }
+
 }
+
