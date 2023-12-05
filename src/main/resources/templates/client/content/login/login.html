@@ -42,9 +42,18 @@
                         <label for="save_id">아이디저장</label>
                       </div>
                       <div id="login_additional_buttons">
-                        <input type="button" name="regist_button" id="regist_button" value="회원가입">
-                        <input type="button" name="id_search" id="id_search" value="아이디 찾기">
-                        <input type="button" name="password_search" id="password_search" value="비밀번호 찾기">
+                        <a th:href="@{/join/regist}">
+                          <input type="button" name="regist_button" id="regist_button" value="회원가입">
+                        </a>
+
+                        <a th:href="@{/login/searchId}">
+                          <input type="button" name="id_search" id="id_search" value="아이디 찾기">
+                        </a>
+
+                          <a th:href="@{/login/searchPassword}">
+                            <input type="button" name="password_search" id="password_search" value="비밀번호 찾기">
+                          </a>
+
                       </div>
                     </div>
                   </td>

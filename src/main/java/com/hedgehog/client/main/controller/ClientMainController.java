@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("")
-public class MainController {
+public class ClientMainController {
 
     @GetMapping(value={"/", "/main"})
     public String defaultLocation() {
