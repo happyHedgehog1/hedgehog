@@ -13,5 +13,10 @@ public class BasketController {
         return "client/content/basket/cart.html";
     }
 
+    @GetMapping("/order")
+    public String order() {
+        return "client/content/order/cartOrder.html";
+    }
+
 
 }

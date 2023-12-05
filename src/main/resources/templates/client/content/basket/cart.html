@@ -6,7 +6,7 @@
 <th:block layout:fragment="content">
     <script th:src="@{/client/js/jquery-3.6.3.min.js}"></script>
   <script th:src="@{/client/js/cart.js}"></script>
-  <link rel="stylesheet" th:href="@{/client/css/cart.css}">
+    <link rel="stylesheet" th:href="@{/client/css/cart.css}" type="text/css">
 <body>
 
 
@@ -121,7 +121,7 @@
                 <button class="select_like_btn">선택상품 삭제</button>
             </div>
             <div class="select_order_btn2">
-                <a href="./cartOrder.html"><button class="select_order_btn">선택상품주문하기</button></a>
+                <a th:href="@{/order/order}"><button class="select_order_btn">선택상품주문하기</button></a>
             </div>
         </div>
 
