@@ -1,123 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-   <th:block layout:fragment="content">
-<script th:src="@{/client/js/login.js}" defer></script>
-<link rel="stylesheet" th:href="@{/client/css/login.css}">
 
+    <th:block layout:fragment="content">
+    <script th:src="@{/client/js/login.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/client/css/login.css}">
 
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--  <title>Document</title>-->
-<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">-->
-<!--  <link rel="stylesheet" href="../css/header.css">-->
-<!--  <link rel="stylesheet" href="../css/footer.css">-->
-<!--  <script src="../js/header.js" defer></script>-->
+      <section>
+        <!-- 여기에 작성 -->
+        <div id="main_category_route">
+          <ul class="route_list">
+            <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+            <li>&gt;</li>
+            <li>로그인</li>
+          </ul>
+          <div id="contents">
+            <form action="" method="post" id="login_form">
+              <table class="contents-table">
+                <caption>로그인</caption>
+                <tr>
+                  <td colspan="5" id="id">아이디</td>
+                </tr>
+                <tr>
+                  <td colspan="5"><input type="text" id="input_id" name="id"></td>
+                </tr>
+                <tr>
+                  <td colspan="5" id="password">비밀번호</td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <input type="text" id="input_password" name="password">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <div id="login_additional_wrap">
+                      <div id="save_id_wrap">
+                        <input type="checkbox" name="save_id" id="save_id">
+                        <label for="save_id">아이디저장</label>
+                      </div>
+                      <div id="login_additional_buttons">
+                        <input type="button" name="regist_button" id="regist_button" value="회원가입">
+                        <input type="button" name="id_search" id="id_search" value="아이디 찾기">
+                        <input type="button" name="password_search" id="password_search" value="비밀번호 찾기">
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <input type="submit" id="login_button" value="로그인">
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <form action="" method="post" id="search_form">
+              <table class="contents-table">
+                <caption>비회원 주문/배송 조회</caption>
+                <tr>
+                  <td colspan="5" id="order_number">주문번호</td>
+                </tr>
+                <tr>
+                  <td colspan="5"><input type="text" id="input_order" name="order" placeholder="주문 시 발급받은 이메일 주소 입력"></td>
+                </tr>
+                <tr>
+                  <td colspan="5" id="email">이메일주소</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><input type="text" id="input_email" name="email" placeholder="주문 시 입력한 이메일 주소 입력"></td>
+                  <td colspan="2"><input type="button" value="이메일인증" id="email_button"></td>
+                </tr>
+                <tr id="authentication_row">
+                  <td>인증번호</td>
+                  <td colspan="2"><input type="text" id="input_authentication" name="authentication"></td>
+                  <td><input type="button" id="authentication_button" value="인증하기"></td>
+                  <td id="timer">
+                    <div><span>05:00</span><img src="../image/reloadButton/reload.png" alt="시간연장" id="reload"></div>
+                  </td>
+                </tr>
+                <tr id="authentication_complete_row">
+                  <td colspan="5"></td>
+                </tr>
+                <tr>
+                  <td colspan="5"><input type="submit" id="search_button" value="조회"></td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
 
+      </section>
 
-
-
-
-<body>
-
-
-  <section>
-    <!-- 여기에 작성 -->
-    <div id="main_category_route">
-      <ul class="route_list">
-        <li id="route_home" onclick="goHome()"><img src="/client/images/icon/home.png" alt=""></li>
-        <li>&gt;</li>
-        <li>로그인</li>
-      </ul>
-      <div id="contents">
-        <form action="" method="post" id="login_form">
-          <table class="contents-table">
-            <caption>로그인</caption>
-            <tr>
-              <td colspan="5" id="id">아이디</td>
-            </tr>
-            <tr>
-              <td colspan="5"><input type="text" id="input_id" name="id"></td>
-            </tr>
-            <tr>
-              <td colspan="5" id="password">비밀번호</td>
-            </tr>
-            <tr>
-              <td colspan="5">
-                <input type="text" id="input_password" name="password">
-              </td>
-            </tr>
-            <tr>
-              <td colspan="5">
-                <div id="login_additional_wrap">
-                  <div id="save_id_wrap">
-                    <input type="checkbox" name="save_id" id="save_id">
-                    <label for="save_id">아이디저장</label>
-                  </div>
-                  <div id="login_additional_buttons">
-                      <a th:href="@{/join/regist}">
-                          <input type="button" name="regist_button" id="regist_button" value="회원가입">
-                      </a>
-
-                    <a th:href="@{/login/searchId}">
-                      <input type="button" name="id_search" id="id_search" value="아이디 찾기">
-                    </a>
-
-                    <a th:href="@{/login/searchPassword}">
-                      <input type="button" name="password_search" id="password_search" value="비밀번호 찾기">
-                    </a>
-
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="5">
-                <input type="submit" id="login_button" value="로그인">
-              </td>
-            </tr>
-          </table>
-        </form>
-        <form action="" method="post" id="search_form">
-          <table class="contents-table">
-            <caption>비회원 주문/배송 조회</caption>
-            <tr>
-              <td colspan="5" id="order_number">주문번호</td>
-            </tr>
-            <tr>
-              <td colspan="5"><input type="text" id="input_order" name="order" placeholder="주문 시 발급받은 이메일 주소 입력"></td>
-            </tr>
-            <tr>
-              <td colspan="5" id="email">이메일주소</td>
-            </tr>
-            <tr>
-              <td colspan="3"><input type="text" id="input_email" name="email" placeholder="주문 시 입력한 이메일 주소 입력"></td>
-              <td colspan="2"><input type="button" value="이메일인증" id="email_button"></td>
-            </tr>
-            <tr id="authentication_row">
-              <td>인증번호</td>
-              <td colspan="2"><input type="text" id="input_authentication" name="authentication"></td>
-              <td><input type="button" id="authentication_button" value="인증하기"></td>
-              <td id="timer">
-                <div><span>05:00</span><img src="/client/images/reloadButton/reload.png" alt="시간연장" id="reload"></div>
-              </td>
-            </tr>
-            <tr id="authentication_complete_row">
-              <td colspan="5"></td>
-            </tr>
-            <tr>
-              <td colspan="5"><input type="submit" id="search_button" value="조회"></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-    </div>
-
-  </section>
-</body>
-   </th:block>
+    </th:block>
 
 </html>

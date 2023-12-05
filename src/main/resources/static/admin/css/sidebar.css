@@ -1,0 +1,60 @@
+
+.contents1{
+    display: grid;
+    grid-template-columns: auto repeat(1, 1fr);
+}
+
+/* 왼측 카테고리 */
+
+.contents {
+    display: grid;
+    grid-template-columns: auto repeat(2, 1fr); /* 첫 번째 열은 자동 크기, 나머지 열은 1fr */
+}
+
+.left_nav{
+    background-color: #747E8A;
+    text-align: center;
+    width: 250px;
+    height: 100%;
+
+}
+
+.left_nav li{
+    border-bottom: 1px solid rgb(92, 92, 92);
+
+}
+
+
+.prodList {
+    color: white;
+    background-color: #3F464F;
+    display: block;
+}
+
+.prodList a{
+    color: inherit;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    padding: 25px 0;
+}
+
+.sub_ProdList li a{
+    background-color: #747E8A;
+    transition: 150ms;
+}
+
+.sub_ProdList li:hover a{
+    background-color: tomato;
+}
+
+.prodList .sub_ProdList{
+    display: none;
+    transition: 200ms;
+}
+
+.prodList:hover .sub_ProdList{
+    display: block;
+    height: 100%;
+}
+

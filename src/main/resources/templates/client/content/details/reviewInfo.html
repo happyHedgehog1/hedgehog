@@ -1,133 +1,128 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+
+  <th:block layout:fragment="content">
   <link rel="stylesheet" th:href="@{/client/css/reviewInfo.css}">
 
-<body>
-
-
-<section>
-  <!-- 여기에 작성 -->
-  <div id="main_category_route">
-    <ul class="route_list">
-      <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
-      <li>&gt;</li>
-      <li id="route_mypage" onclick="goMyPage()">MY페이지</li>
-      <li>&gt;</li>
-      <li>리뷰 내역</li>
-    </ul>
-    <div id="contents">
-      <div class="title">내가 작성한 리뷰</div>
-      <hr>
-      <div class="review_wrapper">
-        <div class="reviewInfo">
-          <!-- 제품 썸네일 -->
-          <div><img src="../image/bedroom.jpg" alt=""></div>
-          <div>
-            <div><a href="../html/product.html">평상형 수납침대</a></div>
-            <div>옵션 : 흰색</div>
-            <div>★★★★☆ <span><b>4</b></span> </div>
-            <div>2023.12.03</div>
-          </div>
-        </div>
-        <hr style="border: 0.1px solid rgb(218, 217, 217);">
-        <div id="review_content_wrapper">
-          <div id="content">
-            냄새안나고 너무 예뻐요~!!! <br>
-            가격도 저렴하고 무료배송이라 늘 애용합니다 ~
-          </div>
-          <div id="img_and_btn">
-            <!-- 사용자가 올린 후기 사진 -->
-            <div id="review_img"><img src="../image/chair.png" alt=""></div>
+    <section>
+    <div id="main_category_route">
+      <ul class="route_list">
+        <li id="route_home" onclick="goHome()"><img src="../image/icon/home.png" alt=""></li>
+        <li>&gt;</li>
+        <li id="route_mypage" onclick="goMyPage()">MY페이지</li>
+        <li>&gt;</li>
+        <li>리뷰 내역</li>
+      </ul>
+      <div id="contents">
+        <div class="title">내가 작성한 리뷰</div>
+        <hr>
+        <div class="review_wrapper">
+          <div class="reviewInfo">
+            <!-- 제품 썸네일 -->
+            <div><img src="../image/bedroom.jpg" alt=""></div>
             <div>
-              <button>수정</button>
-              <button>삭제</button>
+              <div><a href="../html/product.html">평상형 수납침대</a></div>
+              <div>옵션 : 흰색</div>
+              <div>★★★★☆ <span><b>4</b></span> </div>
+              <div>2023.12.03</div>
             </div>
           </div>
+          <hr style="border: 0.1px solid rgb(218, 217, 217);">
+          <div id="review_content_wrapper">
+            <div id="content">
+              냄새안나고 너무 예뻐요~!!! <br>
+              가격도 저렴하고 무료배송이라 늘 애용합니다 ~
+            </div>
+            <div id="img_and_btn">
+              <!-- 사용자가 올린 후기 사진 -->
+              <div id="review_img"><img src="../image/chair.png" alt=""></div>
+              <div>
+                <button>수정</button>
+                <button>삭제</button>
+              </div>
+            </div>
+          </div>
+          <hr>
         </div>
-        <hr>
+        <div class="review_wrapper">
+          <div class="reviewInfo">
+            <!-- 제품 썸네일 -->
+            <div><img src="../image/bedroom.jpg" alt=""></div>
+            <div>
+              <div><a href="../html/product.html">평상형 수납침대</a></div>
+              <div>옵션 : 흰색</div>
+              <div>★★★★☆ <span><b>4</b></span> </div>
+              <div>2023.11.03</div>
+            </div>
+          </div>
+          <hr style="border: 0.1px solid rgb(218, 217, 217);">
+          <div id="review_content_wrapper">
+            <div id="content">
+              냄새안나고 너무 예뻐요~!!! <br>
+              가격도 저렴하고 무료배송이라 늘 애용합니다 ~
+            </div>
+            <div id="img_and_btn">
+              <!-- 사용자가 올린 후기 사진 -->
+              <div id="review_img"></div>
+              <div>
+                <button>수정</button>
+                <button>삭제</button>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="review_wrapper">
+          <div class="reviewInfo">
+            <!-- 제품 썸네일 -->
+            <div><img src="../image/bedroom.jpg" alt=""></div>
+            <div>
+              <div><a href="../html/product.html">평상형 수납침대</a></div>
+              <div>옵션 : 흰색</div>
+              <div>★★★★☆ <span><b>4</b></span> </div>
+              <div>2023.10.03</div>
+            </div>
+          </div>
+          <hr style="border: 0.1px solid rgb(218, 217, 217);">
+          <div id="review_content_wrapper">
+            <div id="content">
+              냄새안나고 너무 예뻐요~!!! <br>
+              가격도 저렴하고 무료배송이라 늘 애용합니다 ~
+            </div>
+            <div id="img_and_btn">
+              <!-- 사용자가 올린 후기 사진 -->
+              <div id="review_img"><img src="../image/chair.png" alt=""></div>
+              <div>
+                <button>수정</button>
+                <button>삭제</button>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
       </div>
-      <div class="review_wrapper">
-        <div class="reviewInfo">
-          <!-- 제품 썸네일 -->
-          <div><img src="../image/bedroom.jpg" alt=""></div>
-          <div>
-            <div><a href="../html/product.html">평상형 수납침대</a></div>
-            <div>옵션 : 흰색</div>
-            <div>★★★★☆ <span><b>4</b></span> </div>
-            <div>2023.11.03</div>
-          </div>
+      <div id="bottom_buttons">
+        <div>
+          <input type="button" onclick="" value="&lt;&lt;">
+          <input type="button" onclick="" value="&lt;">
+          <input type="button" onclick="" value="1">
+          <input type="button" onclick="" value="2">
+          <input type="button" onclick="" value="3">
+          <input type="button" onclick="" value="4">
+          <input type="button" onclick="" value="5">
+          <input type="button" onclick="" value="6">
+          <input type="button" onclick="" value="7">
+          <input type="button" onclick="" value="8">
+          <input type="button" onclick="" value="&gt;">
+          <input type="button" onclick="" value="&gt;&gt;">
         </div>
-        <hr style="border: 0.1px solid rgb(218, 217, 217);">
-        <div id="review_content_wrapper">
-          <div id="content">
-            냄새안나고 너무 예뻐요~!!! <br>
-            가격도 저렴하고 무료배송이라 늘 애용합니다 ~
-          </div>
-          <div id="img_and_btn">
-            <!-- 사용자가 올린 후기 사진 -->
-            <div id="review_img"></div>
-            <div>
-              <button>수정</button>
-              <button>삭제</button>
-            </div>
-          </div>
-        </div>
-        <hr>
-      </div>
-      <div class="review_wrapper">
-        <div class="reviewInfo">
-          <!-- 제품 썸네일 -->
-          <div><img src="../image/bedroom.jpg" alt=""></div>
-          <div>
-            <div><a href="../html/product.html">평상형 수납침대</a></div>
-            <div>옵션 : 흰색</div>
-            <div>★★★★☆ <span><b>4</b></span> </div>
-            <div>2023.10.03</div>
-          </div>
-        </div>
-        <hr style="border: 0.1px solid rgb(218, 217, 217);">
-        <div id="review_content_wrapper">
-          <div id="content">
-            냄새안나고 너무 예뻐요~!!! <br>
-            가격도 저렴하고 무료배송이라 늘 애용합니다 ~
-          </div>
-          <div id="img_and_btn">
-            <!-- 사용자가 올린 후기 사진 -->
-            <div id="review_img"><img src="../image/chair.png" alt=""></div>
-            <div>
-              <button>수정</button>
-              <button>삭제</button>
-            </div>
-          </div>
-        </div>
-        <hr>
       </div>
     </div>
-    <div id="bottom_buttons">
-      <div>
-        <input type="button" onclick="" value="&lt;&lt;">
-        <input type="button" onclick="" value="&lt;">
-        <input type="button" onclick="" value="1">
-        <input type="button" onclick="" value="2">
-        <input type="button" onclick="" value="3">
-        <input type="button" onclick="" value="4">
-        <input type="button" onclick="" value="5">
-        <input type="button" onclick="" value="6">
-        <input type="button" onclick="" value="7">
-        <input type="button" onclick="" value="8">
-        <input type="button" onclick="" value="&gt;">
-        <input type="button" onclick="" value="&gt;&gt;">
-      </div>
     </div>
-  </div>
-  </div>
-</section> <!-- 여기까지 -->
+    </section>
 
-</body>
-</th:block>
+  </th:block>
 </html>

@@ -1,185 +1,178 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+
+    <th:block layout:fragment="content">
     <link rel="stylesheet" th:href="@{/client/css/orderDetails.css}">
-<body>
 
-
-
-    <section>
-        <!-- 여기에 작성 -->
-        <div id="main_category_route">
-            <ul class="route_list">
-            <li><img src="../image/icon/home.png" alt=""></li>
-            <li>&gt;</li>
-            <li>MY페이지</li>
-            <li>&gt;</li>
-            <li>취소/반품/교환내역</li>
-            <li>&gt;</li>
-            <li>주문상세</li>
-            </ul>
-            <div id="contents">
-            <table id="product_table">
-                <thead>
-                <tr class="table_subject">
-                    <th>번호</th>
-                    <th>이미지</th>
-                    <th>상품정보</th>
-                    <th>판매가</th>
-                    <th>배송비</th>
-                    <th>적립포인트</th>
-                    <th>상태</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody class="tbody">
-                <tr>
-                    <td>1</td>
-                    <td><img src="" alt="제품이미지"></td>
-                    <td>라클아리너 1인소파<br>색상 그레이 534524h3</td>
-                    <td>100,000 원</td>
-                    <td>무료</td>
-                    <td>1,000 p</td>
-                    <td>배송준비중</td>
-                    <td><button type="button">리뷰하기</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><img src="" alt="제품이미지"></td>
-                    <td>라클아리너 1인소파<br>색상 그레이 534524h3</td>
-                    <td>100,000 원</td>
-                    <td>무료</td>
-                    <td>1,000 p</td>
-                    <td>배송준비중</td>
-                    <td><button type="button">리뷰하기</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><img src="" alt="제품이미지"></td>
-                    <td>라클아리너 1인소파<br>색상 그레이 534524h3</td>
-                    <td>100,000 원</td>
-                    <td>무료</td>
-                    <td>1,000 p</td>
-                    <td>배송준비중</td>
-                    <td><button type="button">리뷰하기</button></td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>300,000 원</td>
-                    <td>무료</td>
-                    <td>3,000 p</td>
-                    <td>배송준비중</td>
-                </tr>
-                </tfoot>
-            </table>
-            <div class="subject">배송 정보</div>
-            <table id="delivery_info">
-                <tbody>
-                <tr>
-                    <td>받는 분</td>
-                    <td>이*경</td>
-                </tr>
-                <tr>
-                    <td>휴대폰 번호</td>
-                    <td>010-****-****</td>
-                </tr>
-                <tr>
-                    <td>배송지</td>
-                    <td>서울 여의도 **** ****</td>
-                </tr>
-                <tr>
-                    <td>배송방법</td>
-                    <td>배송 전 연락해 주세요.</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="subject">주문금액 정보</div>
-            <div id="cost_info">
-                <ul class="minus">
-                    <li>상품금액</li>
-                    <li>+ 305,000 원</li>
+        <section>
+            <div id="main_category_route">
+                <ul class="route_list">
+                <li><img src="../image/icon/home.png" alt=""></li>
+                <li>&gt;</li>
+                <li>MY페이지</li>
+                <li>&gt;</li>
+                <li>취소/반품/교환내역</li>
+                <li>&gt;</li>
+                <li>주문상세</li>
                 </ul>
-                <ul class="plus">
-                    <li>포인트사용</li>
-                    <li>- 5,000 p</li>
-                </ul>
-                <ul class="equal">
-                    <li>배송비/포장비</li>
-                    <li>+ 0 원</li>
-                </ul>
-                <ul>
-                    <li>총 결제금액</li>
-                    <li>= 300,000원</li>
-                </ul>
-            </div>
-
-
-            <div id="point_info">
-                <div class="point_wrap">
-                    <div>
-                        <div class="subject"><span>포인트 적립 예정</span></div>
-                        <div>상세보기</div>
-                    </div>
-                    <!-- 내용 -->
-                    <div class="point">
-                        <ul>
-                            <li>구매적립</li>
-                            <li>3,000 p</li>
-                        </ul>
-                        <ul>
-                            <li>리뷰적립</li>
-                            <li>0 p</li>
-                        </ul>
-                    </div>
+                <div id="contents">
+                <table id="product_table">
+                    <thead>
+                    <tr class="table_subject">
+                        <th>번호</th>
+                        <th>이미지</th>
+                        <th>상품정보</th>
+                        <th>판매가</th>
+                        <th>배송비</th>
+                        <th>적립포인트</th>
+                        <th>상태</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    <tr>
+                        <td>1</td>
+                        <td><img src="" alt="제품이미지"></td>
+                        <td>라클아리너 1인소파<br>색상 그레이 534524h3</td>
+                        <td>100,000 원</td>
+                        <td>무료</td>
+                        <td>1,000 p</td>
+                        <td>배송준비중</td>
+                        <td><button type="button">리뷰하기</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><img src="" alt="제품이미지"></td>
+                        <td>라클아리너 1인소파<br>색상 그레이 534524h3</td>
+                        <td>100,000 원</td>
+                        <td>무료</td>
+                        <td>1,000 p</td>
+                        <td>배송준비중</td>
+                        <td><button type="button">리뷰하기</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><img src="" alt="제품이미지"></td>
+                        <td>라클아리너 1인소파<br>색상 그레이 534524h3</td>
+                        <td>100,000 원</td>
+                        <td>무료</td>
+                        <td>1,000 p</td>
+                        <td>배송준비중</td>
+                        <td><button type="button">리뷰하기</button></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>300,000 원</td>
+                        <td>무료</td>
+                        <td>3,000 p</td>
+                        <td>배송준비중</td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div class="subject">배송 정보</div>
+                <table id="delivery_info">
+                    <tbody>
+                    <tr>
+                        <td>받는 분</td>
+                        <td>이*경</td>
+                    </tr>
+                    <tr>
+                        <td>휴대폰 번호</td>
+                        <td>010-****-****</td>
+                    </tr>
+                    <tr>
+                        <td>배송지</td>
+                        <td>서울 여의도 **** ****</td>
+                    </tr>
+                    <tr>
+                        <td>배송방법</td>
+                        <td>배송 전 연락해 주세요.</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="subject">주문금액 정보</div>
+                <div id="cost_info">
+                    <ul class="minus">
+                        <li>상품금액</li>
+                        <li>+ 305,000 원</li>
+                    </ul>
+                    <ul class="plus">
+                        <li>포인트사용</li>
+                        <li>- 5,000 p</li>
+                    </ul>
+                    <ul class="equal">
+                        <li>배송비/포장비</li>
+                        <li>+ 0 원</li>
+                    </ul>
+                    <ul>
+                        <li>총 결제금액</li>
+                        <li>= 300,000원</li>
+                    </ul>
                 </div>
-                
-                <div class="payment_wrap">
-                    <div>
-                        <div class="subject">결제정보</div>
-                    </div>
+
+
+                <div id="point_info">
+                    <div class="point_wrap">
+                        <div>
+                            <div class="subject"><span>포인트 적립 예정</span></div>
+                            <div>상세보기</div>
+                        </div>
                         <!-- 내용 -->
-                    <div class="payment">
-                        <ul>
-                            <li>신한카드(일시불)</li>
-                            <li><button type="button">결제완료</button></li>
-                            <li>300,000 원</li>
-                        </ul>
+                        <div class="point">
+                            <ul>
+                                <li>구매적립</li>
+                                <li>3,000 p</li>
+                            </ul>
+                            <ul>
+                                <li>리뷰적립</li>
+                                <li>0 p</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="date">2023.10.11</div>
+
+                    <div class="payment_wrap">
+                        <div>
+                            <div class="subject">결제정보</div>
+                        </div>
+                            <!-- 내용 -->
+                        <div class="payment">
+                            <ul>
+                                <li>신한카드(일시불)</li>
+                                <li><button type="button">결제완료</button></li>
+                                <li>300,000 원</li>
+                            </ul>
+                        </div>
+                        <div class="date">2023.10.11</div>
+
+                    </div>
 
                 </div>
 
+
+
+                </div>
+                <div class="page_number">
+                    <span>&lt;&lt;</span>
+                    <span>&lt;</span>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                    <span>&gt;</span>
+                    <span>&gt;&gt;</span>
+                </div>
             </div>
-
-
-
-            </div>
-            <div class="page_number">
-                <span>&lt;&lt;</span>
-                <span>&lt;</span>
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-                <span>6</span>
-                <span>7</span>
-                <span>8</span>
-                <span>&gt;</span>
-                <span>&gt;&gt;</span>
-            </div>
-        </div>
-    </section>
-
-
-</body>
-</th:block>
+        </section>
+    </th:block>
 </html>

@@ -1,68 +1,61 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
-    <link rel="stylesheet" th:href="@{/client/css/orderFailed.css.css}">
+
+    <th:block layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/client/css/orderFailed.css}">
+
+        <section>
+
+            <div id="contents">
+
+                <ul class="route_list">
+                    <li><img src="../image/icon/home.png" alt=""></li>
+                    <li>&gt;</li>
+                    <li>결제완료</li>
+
+                </ul>
+
+            </div>
+            <br><br>
+
+            <div class="order_txtbox">
+                <div class="order_complete">&lt;주문실패&gt;</div>
+                <br>
+
+                <div class="thanks_text">1in가구를 이용해 주셔서 감사합니다.</div>
+                <br>
+            </div>
+            <br><br>
+            <div class="complete_comment">
+                <div class="complete_comment2">죄송합니다, 주문이 정상적으로 이루어지지 않았습니다</div>
+            </div>
+            <br><br>
+
+            <div class="oreder_number">
+                <div class="order_number2">결제실패 사유 : &nbsp;</div>
+                <div class="oreder_number3">카카오페이 승인 실패</div>
+            </div>
+            <br>
+            <div class="order_number5">확인 후 장바구니에서 다시 주문해주세요 </div>
+            <br><br><br>
+            <hr>
+            <br><br><br>
 
 
-<body>
+            <br><br>
+            <div class="main_btn">
 
-<section>
-
-    <div id="contents">
-
-        <ul class="route_list">
-            <li><img src="../image/icon/home.png" alt=""></li>
-            <li>&gt;</li>
-            <li>결제완료</li>
-
-        </ul>
-
-    </div>
-    <br><br>
-
-    <div class="order_txtbox">
-        <div class="order_complete">&lt;주문실패&gt;</div>
-        <br>
-
-        <div class="thanks_text">1in가구를 이용해 주셔서 감사합니다.</div>
-        <br>
-    </div>
-    <br><br>
-    <div class="complete_comment">
-        <div class="complete_comment2">죄송합니다, 주문이 정상적으로 이루어지지 않았습니다</div>
-    </div>
-    <br><br>
-
-    <div class="oreder_number">
-        <div class="order_number2">결제실패 사유 : &nbsp;</div>
-        <div class="oreder_number3">카카오페이 승인 실패</div>
-    </div>
-    <br>
-    <div class="order_number5">확인 후 장바구니에서 다시 주문해주세요 </div>
-    <br><br><br>
-    <hr>
-    <br><br><br>
+                <a href="./index1.html"><button class="main_btn2">메인으로</button></a>
+                <a href="./cart.html"><button class="main_btn3">장바구니로</button></a>
+            </div>
+            <br><br>
 
 
-    <br><br>
-    <div class="main_btn">
+        </section>
+            <br><br><br><br>
 
-        <a href="./index1.html"><button class="main_btn2">메인으로</button></a>
-        <a href="./cart.html"><button class="main_btn3">장바구니로</button></a>
-    </div>
-    <br><br>
-
-
-</section>
-
-        <br><br><br><br>
-
-
-        <script src="js/header.js"></script>
-      </body>
-</th:block>
-      </html>
+    </th:block>
+</html>
