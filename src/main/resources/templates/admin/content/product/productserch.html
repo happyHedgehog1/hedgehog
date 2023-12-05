@@ -1,58 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminlayout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품조회</title>
     <link rel="stylesheet" th:href="@{/admin/css/productserch.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
 </head>
 <body>
-    <div id="wrap">
-        <header>
-            <div class="logobackground">
-                <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
-                <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>
-                <div class="logout"><a href="#">
-                    <h1 style="padding-right: 10px;"><img th:src="@{/admin/images/logout.png}" alt="logout"></h1>
-                    <h4>로그아웃</h4></a>
-                </div>
-            </div>
-        </header>
-        <div class="contents">
-            <ul class="left_nav">
-                <li class="prodList">
-                    <a href="#상품조회" class="control">상품관리</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/product/productserach}">상품조회</a></li>
-                        <li><a th:href="@{/product/productAdd}">상품등록</a></li>
-                        <li><a th:href="@{/category/categoryAdd}">상품분류등록</a></li>
-                    </ul>
-                </li>
-                <li class="prodList"><a href="#">회원관리</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/member/member}">전체회원관리</a></li>
-                        <li><a th:href="@{/member/unregister}">탈퇴회원조회</a></li>
-                    </ul>
-                </li>
-                <li class="prodList"><a th:href="@{/point/pointA}">적립금관리</a></li>
-                <li class="prodList"><a th:href="@{/order/order}">주문관리</a></li>
-                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/Service/productInquiry}">게시판관리</a></li>
-                        <li><a th:href="@{/Service/email}">메일관리</a></li>
-                    </ul>
-                </li>
-                <li class="prodList"><a th:href="@{/adminManagement/adminManagement}">관리자관리</a></li>
-                <li class="prodList"><a th:href="@{/statistics/statistics}">통계</a></li>
-                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>
-                    <ul class="sub_ProdList">
-                        <li><a th:href="@{/event/eventList}">이벤트목록</a></li>
-                        <li><a th:href="@{/event/eventProdAdd}">이벤트등록</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <section>
+<th:block layout:fragment="content">
                 <div class="pageBody">
                     <div class="mainHd">
                         <div class="topTitle">
@@ -179,14 +139,14 @@
                                 <span> ) </span></div>
                         </div>
                         <div class="tblWrapper">
-                        <table class="tblBottom">
+                        <table class="tblBottom" id="list">
                             <colgroup>
                                 <col class="w140">
                                 <col>
                             </colgroup>
                             <tbody>
                                         <tr class="searchResult">        
-                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                            <th>No.</th>
                                             <th>상품번호</th>
                                             <th>상품명</th>
                                             <th>판매가</th>
@@ -197,9 +157,33 @@
                                 </tr> 
                                 <tr class="proSearchBottomtr">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        1
+                                    </td>
+                                    <td>
+                                        c-2023-01
+                                    </td>
+                                    <td>
+                                        COOKY 패브릭 소파 1인
+                                    </td>
+                                    <td>
+                                        299,000원
+                                    </td>
+                                    <td>
+                                        판매중
+                                    </td>
+                                    <td>
+                                        344
+                                    </td>
+                                    <td>
+                                        30>
+                                    </td>
+                                    <td>
+                                        2023-10-10
+                                    </td>
+                                </tr>   
+                                <tr class="proSearchBottomtr">
+                                    <td class="proSearchBottomCheck">
+                                        2
                                     </td>
                                     <td>
                                         <li>c-2023-01</li>
@@ -225,9 +209,7 @@
                                 </tr>   
                                 <tr class="proSearchBottomtr">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        3
                                     </td>
                                     <td>
                                         <li>c-2023-01</li>
@@ -253,9 +235,7 @@
                                 </tr>   
                                 <tr class="proSearchBottomtr">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        4
                                     </td>
                                     <td>
                                         <li>c-2023-01</li>
@@ -281,9 +261,7 @@
                                 </tr>   
                                 <tr class="proSearchBottomtr">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        5
                                     </td>
                                     <td>
                                         <li>c-2023-01</li>
@@ -309,37 +287,7 @@
                                 </tr>   
                                 <tr class="proSearchBottomtr">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>299,000원</li>
-                                    </td>
-                                    <td>
-                                        <li>판매중</li>
-                                    </td>
-                                    <td>
-                                        <li>344</li>
-                                    </td>
-                                    <td>
-                                        <li>30</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        6
                                     </td>
                                     <td>
                                         <li>c-2023-01</li>
@@ -367,8 +315,31 @@
                         </table>
                         </div>
                     </div>
-            </section>
-        </nav>
+
+                </div>
+</th:block>
+<script>
+/* 게시글 리스트에서 해당 게시글에 마우스를 올릴 떄에 대한 스타일 처리 */
+if (document.querySelectorAll("#list td")) {
+const $tds = document.querySelectorAll("#list td");
+for (let i = 0; i < $tds.length; i++) {
+
+$tds[i].onmouseenter = function() {
+this.parentNode.style.backgroundColor = "orangered";
+this.parentNode.style.cursor = "pointer";
+}
+
+$tds[i].onmouseout = function() {
+this.parentNode.style.backgroundColor = "black";
+}
+
+$tds[i].onclick = function() {
+const no = this.parentNode.children[0].innerText;
+location.href = "" ;
+}
+}
+}
+</script>
 
 </body>
 </html>

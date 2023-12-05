@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>휴면회원안내</title>
-    <link rel="stylesheet" href="../../../../css/autoMail/viewport/viewport.css">
+    <link rel="stylesheet"  th:href="@{/admin/css/autoMail/viewport/viewport.css}">
 </head>
 <body>
     <div id="wrap">
         <header><a href="#">
             <div class="logobackground">
-                <h1 class="logoimg"><img src="../../../../image/logo_prod.png" alt="logo"></h1>
+                <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
                 <h2>휴면회원 탈퇴 안내</h2>
             </div>
         </a>
@@ -48,6 +48,6 @@
         Copyright(c) 1in가구 all rights reserved.   1infurniture@1infurniture.co.kr
         </div>
     </div>
-
+    </div>
 </body>
 </html>
