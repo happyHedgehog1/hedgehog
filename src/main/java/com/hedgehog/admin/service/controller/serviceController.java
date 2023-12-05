@@ -18,6 +18,11 @@ public class serviceController {
         return "admin/content/Service/email.html";
     }
 
+    @GetMapping("/emailHistory")
+    public String emailHistory(){
+        return "admin/content/Service/emailHistory.html";
+    }
+
     @GetMapping("/Product-review")
     public String productReview(){
         return "admin/content/Service/Product-review.html";
