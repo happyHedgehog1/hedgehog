@@ -3,10 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
   <th:block layout:fragment="content">
   <link rel="stylesheet" th:href="@{/client/css/mainCategory.css}">
-
-<body>
 
   <section>
     <div id="main_category_bed_contents">
@@ -22,7 +21,7 @@
       <div class="gallery">
         <ul class="gallery_list">
           <li>
-            <a href="../productinfo/product.html"><img src="../image/bead_room/bed/1/main.jpg" alt=""></a>
+            <a href="../../productinfo/product.html"><img src="../image/bead_room/bed/1/main.jpg" alt=""></a>
           </li>
           <li class="gallery_list_text">
             <ul class="gallery_list_text1">
@@ -209,6 +208,5 @@
     </div>
   </section>
 
-</body>
-</th:block>
+  </th:block>
 </html>

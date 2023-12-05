@@ -2,13 +2,6 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{/client/css/header.css}">
-    <script th:src="@{/client/js/header.js}" ></script>
-    </head>
-    <body>
 
     <header th:fragment="headerFragment">
     <div class="gnb">
@@ -21,10 +14,10 @@
       <div class="side_nenu" onclick="toggleHamburger()">
         <ul class="side_nenu_List">
             <li><a href="#">베스트 상품</a></li>
-            <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryBed.html">침실</a></li>
-            <li><a href="../../../../../../resources/templates/client/content/list/mainCategorySopa.html">거실</a></li>
-            <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryDesk.html">서재</a></li>
-            <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryTable.html">주방</a></li>
+            <li><a href="/client/content/list/mainCategoryBed.html">침실</a></li>
+            <li><a href="/client/content/list/mainCategorySopa.html">거실</a></li>
+            <li><a href="/client/content/list/mainCategoryDesk.html">서재</a></li>
+            <li><a href="/client/content/list/mainCategoryTable.html">주방</a></li>
             <li class="post"><a href="#">게시판</a>
                 <ul class="post_list">
                     <li><a href="#">개인정보처리방침</a></li>
@@ -34,7 +27,7 @@
             </li>
             </ul>
       </div>
-      <h1 class="logo"><a href="main.html"><img src="/client/images/logo.png" alt="logo"></a></h1>
+      <h1 class="logo"><a href="main.html"><img src="/client/images/icon/logo.png" alt="logo"></a></h1>
       <ul class="login_list">
           <li><a th:href="@{/adminmain/main}"><img src="/client/images/icon/login.png">관리자페이지</a></li>
           <li><a th:href="@{/login/login}"><img src="/client/images/icon/login.png">로그인</a></li>
@@ -49,37 +42,37 @@
       <div>
         <div class="line"></div>
         <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
-          <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryBed.html">침실</a></a></li>
-          <li><a href="../../../../../../resources/templates/client/content/list/mainCategorySopa.html">거실</a></li>
-          <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryDesk.html">서재</a></li>
-          <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryTable.html">주방</a></li>
+          <li><a href="/client/content/list/mainCategoryBed.html">침실</a></a></li>
+          <li><a href="#">거실</a></li>
+          <li><a href="#">서재</a></li>
+          <li><a href="#">주방</a></li>
         </ul>
         <div class="line"></div>
         <div class="gnb_sub_box"  onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
           <div class="gnb_sub_list" >
               <ul class="detail_list">
-                  <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryBed.html">침대</a></li>
+                  <li><a href="/client/content/list/mainCategoryBed.html">침대</a></li>
                   <span></span>
                   <li><a href="#">옷장</a></li>
                   <span></span>
                   <li><a href="#">화장대</a></li>
               </ul>
               <ul class="detail_list">
-                  <li><a href="../../../../../../resources/templates/client/content/list/mainCategorySopa.html">소파</a></li>
+                  <li><a href="/client/content/list/mainCategorySopa.html">소파</a></li>
                   <span></span>
                   <li><a href="#">테이블</a></li>
                   <span></span>
                   <li><a href="#">수납장</a></li>
               </ul>
               <ul class="detail_list">
-                  <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryDesk.html">책상</a></li>
+                  <li><a href="/client/content/list/mainCategoryDesk.html">책상</a></li>
                   <span></span>
                   <li><a href="#">책장</a></li>
                   <span></span>
                   <li><a href="#">의자</a></li>
               </ul>
               <ul class="detail_list">
-                  <li><a href="../../../../../../resources/templates/client/content/list/mainCategoryTable.html">식탁</a></li>
+                  <li><a href="/client/content/mainCategoryTable.html">식탁</a></li>
                   <span></span>
                   <li><a href="#">수납장</a></li>
               </ul>
@@ -89,7 +82,4 @@
     </nav>
     </header>
 
-
-
-    </body>
     </html>
