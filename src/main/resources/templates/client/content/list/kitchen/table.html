@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/client/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+    <th:block layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/client/css/mainCategory.css}">
+
+        <section>
+        <div id="main_category_bed_contents">
+
+            <ul class="route_list">
+            <li><img src="../image/icon/home.png" alt=""></li>
+            <li>&gt;</li>
+            <li>침실</li>
+            <li>&gt;</li>
+            <li>식탁</li>
+            </ul>
+
+
+            <div class="gallery">
+
+            <ul class="gallery_list">
+                <li>
+                <a href="../../productinfo/product.html"><img src="../image/bead_room/bed/1/main.jpg" alt=""></a>
+                </li>
+                <li class="gallery_list_text">
+                <ul class="gallery_list_text1">
+                    <li>1인가구</li>
+                    <li>☆4.5(3)</li>
+                </ul>
+                <ul class="gallery_list_text2">
+                    <li>상품제목</li>
+                    <li>252,000원</li>
+                </ul>
+                </li>
+            </ul>
+
+            </div>
+            <ul class="page_number">
+            <li>1</li>
+            <li>2</li>
+            </ul>
+
+        </div>
+        </section>
+
+    </th:block>
+</html>
