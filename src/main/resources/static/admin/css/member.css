@@ -191,7 +191,7 @@ input[type=checkbox]{
 
 .box1{
     font-size: 15px;
-    margin-top: 18px;
+
     width: 40%;
 }
 
@@ -226,14 +226,17 @@ input[type=checkbox]{
     font-size: 17px;}
 
  .sect-cont {
-   height: 230px;
+   height: 360px;
    margin-top: -1px;
    padding: 20px 30px;
-   border: 1px solid #d8d8d8;
+     overflow-y: auto;
    background: #fff;
    margin-left: 40px;
    margin-right: 40px;
-   border: 1px solid #bdc5cd;}
+   border: 1px solid #bdc5cd;
+
+
+ }
 
    element.style {
     width: 140px;
@@ -288,7 +291,7 @@ input[type=checkbox]{
 .aa{
     width: 1% ;
     border-right: none;
-}   
+}
 
 
             
@@ -297,3 +300,4 @@ input[type=checkbox]{
 .tbl-list tbl-extend mt-20{
     border-collapse: collapse;
 }
+

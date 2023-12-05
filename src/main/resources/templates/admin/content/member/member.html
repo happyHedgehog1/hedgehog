@@ -9,7 +9,7 @@
     <title>상품분류관리</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" th:href="@{/admin/css/member.css}" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script th:src="@{/admin/js/seach.js}"></script>
 
 </head>
@@ -27,21 +27,7 @@
                   <tr>
                     <th>가입일</th>
                     <td>
-                      <ul>
-                        <li>
-                          <div class="checkbox-container">
-                            <input type="radio" class="unique-checkbox" name="option" value="option1"> 전체
-                        </div>
-                        <div class="checkbox-container">
-                            <input type="radio" class="unique-checkbox" name="option" value="option2"> 오늘
-                        </div>
-                        <div class="checkbox-container">
-                            <input type="radio" class="unique-checkbox" name="option" value="option3"> 1주일
-                        </div>
-                        <input type="radio" class="unique-checkbox" name="option" value="option4"> 1개월
-                        <input type="radio" class="unique-checkbox" name="option" value="option5"> 3개월
-                        </li>
-                      </ul>
+
                       <ul>
                         <li>
                           <div>
@@ -113,11 +99,13 @@
                 <option value="50">50개</option>
                 <option value="100">100개</option>
               </select>
-                        <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">회원 탈퇴</a>                             
+
+                        <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">회원 탈퇴</a>
                         <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">구매 제한</a>
                         <a href="javascript:;" class="btn-black ml-10 btn-users-mileage" style="width:140px;">적립금 관리</a>
                         <a href="javascript:;" class="btn-black ml-10 btn-all-sms-send" style="width:140px;">검색회원 메일발송</a>
                         <a href="javascript:;" class="btn-black ml-10 btn-sms-send" style="width:140px;">선택회원 메일발송</a>
+
             </div>
           </div>
           
@@ -135,16 +123,96 @@
                                 <th>누적 결제금액</th>
                                 <th>적립금</th>
                                 <th>마케팅<br> 수신동의</th>
-                                                            <th>회원가입일</th>
-                  <th>최근로그인</th>
-                  <th class="aa">관리</th>
+                                <th>회원가입일</th>
+                                <th>최근로그인</th>
+                                <th class="aa">관리</th>
+                            </tr>
+                            <tr class="searchBottom_tr">
+                                <td class="searchBottomCheck">
+                                    <li>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                    </li>
+                                </td>
+                                <td>
+                                    <li>1</li>
+                                </td>
+                                <td>
+                                    <li>도라에몽</li>
+                                </td>
+                                <td>
+                                    <li>노진구</li>
+                                </td>
+                                <td>
+                                    <li>ohgiraffers@naver.com</li>
+                                </td>
+                                <td>
+                                    <li>010-7777-7777</li>
+                                </td>
+                                <td>
+                                    <li>2,200,000</li>
+                                </td>
+                                <td>
+                                    <li>11,000</li>
+                                </td>
+                                <td>
+                                    <li>Y</li>
+                                </td>
+                                <td>
+                                    <li>2019-01-20</li>
+                                </td>
+                                <td>
+                                    <li>2023-12-25</li>
+                                </td>
+                                <td>
+                                    <li>정상</li>
+                                </td>
+                            </tr>
+                            <tr class="searchBottom_tr">
+                                <td class="searchBottomCheck">
+                                    <li>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                    </li>
+                                </td>
+                                <td>
+                                    <li>1</li>
+                                </td>
+                                <td>
+                                    <li>스폰지밥</li>
+                                </td>
+                                <td>
+                                    <li>뚱이</li>
+                                </td>
+                                <td>
+                                    <li>ohgiraffers@naver.com</li>
+                                </td>
+                                <td>
+                                    <li>010-7777-7777</li>
+                                </td>
+                                <td>
+                                    <li>2,200,000</li>
+                                </td>
+                                <td>
+                                    <li>11,000</li>
+                                </td>
+                                <td>
+                                    <li>Y</li>
+                                </td>
+                                <td>
+                                    <li>2019-01-20</li>
+                                </td>
+                                <td>
+                                    <li>2023-12-25</li>
+                                </td>
+                                <td>
+                                    <li>탈퇴</li>
+                                </td>
                             </tr>
                         </thead>
-                        <tbody class="usersList">
-                            <tr>
-                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>
-                            </tr>
-                        </tbody>
+<!--                        <tbody class="usersList">-->
+<!--                            <tr>-->
+<!--                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>-->
+<!--                            </tr>-->
+<!--                        </tbody>-->
                     </table>
                
             
