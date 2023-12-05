@@ -12,52 +12,6 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-
-<!--    <div id="wrap">-->
-<!--        <header>-->
-<!--            <div class="logobackground">-->
-<!--                <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>-->
-<!--                <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>-->
-<!--                <div class="logout"><a href="#">-->
-<!--                    <h1 style="padding-right: 10px;"><img th:src="@{/admin/images/logout.png}" alt="logout"></h1>-->
-<!--                    <h4>로그아웃</h4></a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-<!--        <div class="contents">-->
-<!--            <ul class="left_nav">-->
-<!--                <li class="prodList">-->
-<!--                    <a href="#상품조회" class="control">상품관리</a>-->
-<!--                    <ul class="sub_ProdList">-->
-<!--                        <li><a th:href="@{/product/productserach}">상품조회</a></li>-->
-<!--                        <li><a th:href="@{/product/productAdd}">상품등록</a></li>-->
-<!--                        <li><a th:href="@{/category/categoryAdd}">상품분류등록</a></li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-<!--                <li class="prodList"><a href="#">회원관리</a>-->
-<!--                    <ul class="sub_ProdList">-->
-<!--                        <li><a th:href="@{/member/member}">전체회원관리</a></li>-->
-<!--                        <li><a th:href="@{/member/unregister}">탈퇴회원조회</a></li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-<!--                <li class="prodList"><a th:href="@{/point/pointA}">적립금관리</a></li>-->
-<!--                <li class="prodList"><a th:href="@{/order/order}">주문관리</a></li>-->
-<!--                <li class="prodList service" > <a href="#게시판관리">지원서비스</a>-->
-<!--                    <ul class="sub_ProdList">-->
-<!--                        <li><a th:href="@{/service/productInquiry}">게시판관리</a></li>-->
-<!--                        <li><a th:href="@{/Service/email}">메일관리</a></li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-<!--                <li class="prodList"><a th:href="@{/adminManagement/adminManagement}">관리자관리</a></li>-->
-<!--                <li class="prodList"><a th:href="@{/statistics/statistics}">통계</a></li>-->
-<!--                <li class="prodList"><a href="#이벤트목록">이벤트관리</a>-->
-<!--                    <ul class="sub_ProdList">-->
-<!--                        <li><a th:href="@{/event/eventList}">이벤트목록</a></li>-->
-<!--                        <li><a th:href="@{/event/eventProdAdd}">이벤트등록</a></li>-->
-<!--                    </ul>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--            <section>-->
                 <div class="pageBody">
                     <div class="mainHd">
                         <div class="topTitle">
@@ -79,75 +33,89 @@
                                     <tr>        
                                         <th>신규가입</th>    
                                         <td>
-                                            <a href="#"><div class="newMemberModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/newMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                                    수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="newMemberViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/newMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">미리보기</a>
                                         </td>   
                                         <th>회원탈퇴</th>    
                                         <td>
-                                            <a href="#"><div class="unregisterModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/unregister}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                                수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="unregisterViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/unregister}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                     </tr>   
                                     <tr>        
                                         <th>비밀번호 변경</th>    
                                         <td>
-                                            <a href="#"><div class="passwordModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/passwordModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="passwordViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/passwordModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                         <th>주문내역확인</th>    
                                         <td>
-                                            <a href="#"><div class="orderListModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/orderList}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="orderListViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/orderList}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                     </tr>   
                                     <tr>        
                                         <th>휴면회원안내</th>    
                                         <td>
-                                            <a href="#"><div class="dormantMemberModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/dormantMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="dormantMemberViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/dormantMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                         <th>적립금 소멸안내</th>    
                                         <td>
-                                            <a href="#"><div class="pointModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/pointModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="pointViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/pointModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                     </tr>   
                                     <tr>        
                                         <th>개별메일발송</th>    
                                         <td>
-                                            <a href="#"><div class="mailModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/mailModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="mailViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/mailModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                         <th>문의글 답변 안내</th>    
                                         <td>
-                                            <a href="#"><div class="answerModify">수정</div></a>
+                                            <a class="link" th:href="@{/autoMailModify/answer}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            수정</a>
                                         </td>   
                                         <td>
-                                            <a href="#"><div class="answerViewport">미리보기</div></a>
+                                            <a class="link" th:href="@{/autoMailViewport/answer}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
+                                            미리보기</a>
                                         </td>   
                                     </tr>   
                                 </tbody>    
                             </table>
+
                         </div>   
 
                     </div>
                     <script th:src="@{/admin/js/autoMail.js}"></script>
-<!--            </section>-->
-<!--        </nav>-->
                 </div>
 </th:block>
 </body>
