@@ -1,12 +1,8 @@
 package com.hedgehog.client.list.controller;
-
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/list/*")
@@ -38,8 +34,8 @@ public class ListController {
     // 데이터베이스에서 필요정보를 객체로 받아서 결과페이지로 넘겨준다.
 
     @GetMapping("/category")
-    public String getBedRoodBed(){
-        return "/client/content/list/category";
+    public String getCategory(){
+        return "client/content/list/category";
     }
 
 

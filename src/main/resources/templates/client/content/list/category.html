@@ -23,7 +23,7 @@
 
             <ul class="gallery_list">
                 <li>
-                <a href="/client/content/productinfo/product"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></a>
+                <a th:href="@{/product}"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></a>
                 </li>
                 <li class="gallery_list_text">
                 <ul class="gallery_list_text1">
@@ -38,10 +38,18 @@
             </ul>
 
             </div>
-            <ul class="page_number">
-            <li>1</li>
-            <li>2</li>
-            </ul>
+<!--            <ul class="page_number">-->
+<!--            <li>1</li>-->
+<!--            <li>2</li>-->
+<!--            </ul>-->
+
+<!--            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}" class="page_number">-->
+<!--                <button-->
+<!--                        th:text="${ page }"-->
+<!--                        th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"-->
+<!--                        th:disabled="${ selectCriteria.pageNo eq page }">-->
+<!--                </button>-->
+<!--            </th:block>-->
 
         </div>
         </section>
