@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/client/layout}"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/client/layout}"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
     <th:block layout:fragment="content">
     <link rel="stylesheet" th:href="@{/client/css/mainCategory.css}">
@@ -11,7 +11,7 @@
         <div id="main_category_bed_contents">
 
             <ul class="route_list">
-            <li><img src="../image/icon/home.png" alt=""></li>
+            <li><img src="/static/images/icon/home.png" alt=""></li>
             <li>&gt;</li>
             <li th:text="${subject1}">침실</li>
             <li>&gt;</li>
@@ -23,7 +23,7 @@
 
             <ul class="gallery_list">
                 <li>
-                <a href="../../productinfo/product.html"><img src="../image/bead_room/bed/1/main.jpg" alt=""></a>
+                <a th:href="@{/product}"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></a>
                 </li>
                 <li class="gallery_list_text">
                 <ul class="gallery_list_text1">
@@ -38,10 +38,18 @@
             </ul>
 
             </div>
-            <ul class="page_number">
-            <li>1</li>
-            <li>2</li>
-            </ul>
+<!--            <ul class="page_number">-->
+<!--            <li>1</li>-->
+<!--            <li>2</li>-->
+<!--            </ul>-->
+
+<!--            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}" class="page_number">-->
+<!--                <button-->
+<!--                        th:text="${ page }"-->
+<!--                        th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"-->
+<!--                        th:disabled="${ selectCriteria.pageNo eq page }">-->
+<!--                </button>-->
+<!--            </th:block>-->
 
         </div>
         </section>

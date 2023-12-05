@@ -12,7 +12,7 @@
         <section>
             <div id="contents">
                 <ul class="route_list">
-                    <li><img src="/client/image/icon/home.png" alt=""></li>
+                    <li><img src="/client/images/icon/home.png" alt=""></li>
                     <li>&gt;</li>
                     <li>장바구니</li>
                     <!-- <li>&gt;</li> -->
@@ -114,7 +114,10 @@
                         <button class="select_like_btn">선택상품 삭제</button>
                     </div>
                     <div class="select_order_btn2">
-                        <a href="./cartOrder.html"><button class="select_order_btn">선택상품주문하기</button></a>
+                        <a th:href="@{/clientOrder/cartOrder}"><span class="select_order_btn">선택상품주문하기</span></a>
+<!--                        form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
+                            비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
+                            여기서는 굳이 비동기처리까지할 필요가 없고 폼태그로 넘겨주면된다. -->
                     </div>
                 </div>
 

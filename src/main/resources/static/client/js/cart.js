@@ -44,8 +44,7 @@ function selectAllItems() {
 
 $(document).ready(function() {
     $('.select_order_btn').click(function(event) {
-        // 이벤트의 기본 동작을 중지
-        event.preventDefault();
+
 
         // 체크박스가 하나라도 체크되어 있는지 확인
         var isChecked = $('.cartcheckbox:checked').length > 0;
@@ -53,12 +52,12 @@ $(document).ready(function() {
         if (!isChecked) {
             // 체크박스가 하나도 체크되어 있지 않으면 알림창 띄우기
             alert('상품을 선택해주세요.');
-        } else {
-            // 체크박스가 체크되어 있으면 페이지 이동
-            window.location.href = "./cartOrder.html";
+            // 이벤트의 기본 동작을 중지
+            event.preventDefault();
         }
     });
 });
+
 
 $(document).ready(function(){
     var currentPosition = parseInt($(".quickmenu").css("top"));
