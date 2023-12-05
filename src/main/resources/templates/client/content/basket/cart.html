@@ -1,179 +1,179 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}"
+      layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<th:block layout:fragment="content">
+    <th:block layout:fragment="content">
     <script th:src="@{/client/js/jquery-3.6.3.min.js}"></script>
-  <script th:src="@{/client/js/cart.js}"></script>
-  <link rel="stylesheet" th:href="@{/client/css/cart.css}">
+    <script th:src="@{/client/js/cart.js}"></script>
+    <link rel="stylesheet" th:href="@{/client/css/cart.css}">
+
+
 <body>
 
+    <section>
 
+        <div id="contents">
 
-<section>
-
-    <div id="contents">
-
-        <ul class="route_list">
-            <li><img src="/client/image/icon/home.png" alt=""></li>
-            <li>&gt;</li>
-            <li>장바구니</li>
-            <!-- <li>&gt;</li> -->
-            <!-- <li>장바구니</li> -->
-        </ul>
-
-        <div class="cart_order">
-
-            <div></div>
-            <div id="cart_write"><h2>장바구니</h2></div>
-            <div><h2>주문서작성</h2></div>
-            <div><h2>결제하기</h2></div>
-            <div><h2>완료</h2></div>
-            <div></div>
-
-        </div>
-
-
-
-
-        <table class="cart_table">
-            <tr>
-                <th><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></th>
-                <th>이미지</th>
-                <th>상품명</th>
-                <th>판매가</th>
-                <th>적립포인트</th>
-                <th>수량</th>
-                <th>배송비</th>
-                <th>합계</th>
-            </tr>
-            <tr>
-                <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
-                <td><img src="/client/images/chair.png", width="70px" height="70px"></td>
-                <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
-                <td>200000원</td>
-                <td>2000원</td>
-                <td class="cart_numbrt_btn">
-                    <div class="quantity-container" data-product-id="1">
-                        <button class="quantity-button decrease-button" onclick="updateQuantity('1', -1)">-</button>
-                        <span class="quantity-display" id="quantity-display-1">1</span>
-                        <button class="quantity-button increase-button" onclick="updateQuantity('1', 1)">+</button>
-                    </div>
-
-                </td>
-                <td>무료</td>
-                <td>200000원</td>
-            </tr>
-            <tr>
-                <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
-                <td><img src="/client/images/chair.png" width="70px"  height="70px"></td>
-                <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
-                <td>200000원</td>
-                <td>2000원</td>
-                <td class="cart_numbrt_btn">
-                    <div class="quantity-container" data-product-id="2">
-                        <button class="quantity-button decrease-button" onclick="updateQuantity('2', -1)">-</button>
-                        <span class="quantity-display" id="quantity-display-2">1</span>
-                        <button class="quantity-button increase-button" onclick="updateQuantity('2', 1)">+</button>
-                    </div>
-                </td>
-                <td>무료</td>
-                <td>200000원</td>
-            </tr>
-            <tr>
-                <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
-                <td><img src="/client/images/chair.png" width="70px"  height="70px"></td>
-                <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
-                <td>200000원</td>
-                <td>2000원</td>
-                <td class="cart_numbrt_btn">
-                    <div class="quantity-container" data-product-id="3">
-                        <button class="quantity-button decrease-button" onclick="updateQuantity('3', -1)">-</button>
-                        <span class="quantity-display" id="quantity-display-3">1</span>
-                        <button class="quantity-button increase-button" onclick="updateQuantity('3', 1)">+</button>
-                    </div>
-                </td>
-                <td>무료</td>
-                <td>200000원</td>
-            </tr>
-        </table>
-
-        <br>
-        <div class="total_price_contain">
-            <div class="total_price">
-                <div>
-                    <div>상품구매금액 117,000원 + 배송비 0 (무료)</div>
-                    <div>합계 = 117,000원</div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <hr>
-        <br>
-        <br>
-
-        <div class="select_cart">
-
-            <div class="select_btn">&nbsp;
-
-                <button class="select_like_btn">선택상품 삭제</button>
-            </div>
-            <div class="select_order_btn2">
-                <a href="./cartOrder.html"><button class="select_order_btn">선택상품주문하기</button></a>
-            </div>
-        </div>
-
-        <br>
-        <br>
-
-        <div class="sum_box">
-            <div class="sum_text">
-                <h1>합계</h1>
-                <h2>고객님의 총 주문 합계 금액 입니다.</h2>
-            </div>
-
-            <div class="sum_text_contain">
-                <div class="sum_text2">
-                    <h3>상품 합계금액</h3>
-                    <h3>배송비</h3>
-                    <h3>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h3>
-                </div>
-
-                <div class="sum_text3">
-                    <h3>200,000원</h3>
-                    <h3>0원</h3>
-                    <h3>200,000원</h3>
-                </div>
-
-
-
-            </div>
-        </div>
-
-        <br>
-        <br>
-        <div class="select_all_btn2">
-            <a href="./cartOrder.html">
-                <button class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</button>
-            </a>
-        </div>
-        <br>
-        <br>
-        <br>
-
-        <div class="quickmenu">
-            <ul>
-                <li><a href="#">이벤트</a></li>
-                <li><a href="#">문의게시판</a></li>
-                <li><a href="#">게시판</a></li>
-                <li><a href="#">마이페이지</a></li>
+            <ul class="route_list">
+                <li><img src="/client/image/icon/home.png" alt=""></li>
+                <li>&gt;</li>
+                <li>장바구니</li>
+                <!-- <li>&gt;</li> -->
+                <!-- <li>장바구니</li> -->
             </ul>
-        </div>
 
-    </div>
-   </section>
+            <div class="cart_order">
+
+                <div></div>
+                <div id="cart_write"><h2>장바구니</h2></div>
+                <div><h2>주문서작성</h2></div>
+                <div><h2>결제하기</h2></div>
+                <div><h2>완료</h2></div>
+                <div></div>
+
+            </div>
+
+
+
+
+            <table class="cart_table">
+                <tr>
+                    <th><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></th>
+                    <th>이미지</th>
+                    <th>상품명</th>
+                    <th>판매가</th>
+                    <th>적립포인트</th>
+                    <th>수량</th>
+                    <th>배송비</th>
+                    <th>합계</th>
+                </tr>
+                <tr>
+                    <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
+                    <td><img src="/client/images/chair.png", width="70px" height="70px"></td>
+                    <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
+                    <td>200000원</td>
+                    <td>2000원</td>
+                    <td class="cart_numbrt_btn">
+                        <div class="quantity-container" data-product-id="1">
+                            <button class="quantity-button decrease-button" onclick="updateQuantity('1', -1)">-</button>
+                            <span class="quantity-display" id="quantity-display-1">1</span>
+                            <button class="quantity-button increase-button" onclick="updateQuantity('1', 1)">+</button>
+                        </div>
+
+                    </td>
+                    <td>무료</td>
+                    <td>200000원</td>
+                </tr>
+                <tr>
+                    <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
+                    <td><img src="/client/images/chair.png" width="70px"  height="70px"></td>
+                    <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
+                    <td>200000원</td>
+                    <td>2000원</td>
+                    <td class="cart_numbrt_btn">
+                        <div class="quantity-container" data-product-id="2">
+                            <button class="quantity-button decrease-button" onclick="updateQuantity('2', -1)">-</button>
+                            <span class="quantity-display" id="quantity-display-2">1</span>
+                            <button class="quantity-button increase-button" onclick="updateQuantity('2', 1)">+</button>
+                        </div>
+                    </td>
+                    <td>무료</td>
+                    <td>200000원</td>
+                </tr>
+                <tr>
+                    <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
+                    <td><img src="/client/images/chair.png" width="70px"  height="70px"></td>
+                    <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
+                    <td>200000원</td>
+                    <td>2000원</td>
+                    <td class="cart_numbrt_btn">
+                        <div class="quantity-container" data-product-id="3">
+                            <button class="quantity-button decrease-button" onclick="updateQuantity('3', -1)">-</button>
+                            <span class="quantity-display" id="quantity-display-3">1</span>
+                            <button class="quantity-button increase-button" onclick="updateQuantity('3', 1)">+</button>
+                        </div>
+                    </td>
+                    <td>무료</td>
+                    <td>200000원</td>
+                </tr>
+            </table>
+
+            <br>
+            <div class="total_price_contain">
+                <div class="total_price">
+                    <div>
+                        <div>상품구매금액 117,000원 + 배송비 0 (무료)</div>
+                        <div>합계 = 117,000원</div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+            <br>
+
+            <div class="select_cart">
+
+                <div class="select_btn">&nbsp;
+
+                    <button class="select_like_btn">선택상품 삭제</button>
+                </div>
+                <div class="select_order_btn2">
+                    <a href="./cartOrder.html"><button class="select_order_btn">선택상품주문하기</button></a>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="sum_box">
+                <div class="sum_text">
+                    <h1>합계</h1>
+                    <h2>고객님의 총 주문 합계 금액 입니다.</h2>
+                </div>
+
+                <div class="sum_text_contain">
+                    <div class="sum_text2">
+                        <h3>상품 합계금액</h3>
+                        <h3>배송비</h3>
+                        <h3>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h3>
+                    </div>
+
+                    <div class="sum_text3">
+                        <h3>200,000원</h3>
+                        <h3>0원</h3>
+                        <h3>200,000원</h3>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="select_all_btn2">
+                <a href="./cartOrder.html">
+                    <button class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</button>
+                </a>
+            </div>
+            <br>
+            <br>
+            <br>
+
+            <div class="quickmenu">
+                <ul>
+                    <li><a href="#">이벤트</a></li>
+                    <li><a href="#">문의게시판</a></li>
+                    <li><a href="#">게시판</a></li>
+                    <li><a href="#">마이페이지</a></li>
+                </ul>
+            </div>
+
+        </div>
+       </section>
 </body>
 </th:block>
 </html>
