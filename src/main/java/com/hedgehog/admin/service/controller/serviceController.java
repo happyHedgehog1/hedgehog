@@ -13,8 +13,30 @@ public class serviceController {
         return "admin/content/Service/Product-inquiry.html";
     }
 
-    @GetMapping("/mail")
-    public String mail(){
+    @GetMapping("/email")
+    public String email(){
         return "admin/content/Service/email.html";
     }
+
+    @GetMapping("/emailHistory")
+    public String emailHistory(){
+        return "admin/content/Service/emailHistory.html";
+    }
+
+    @GetMapping("/Product-review")
+    public String productReview(){
+        return "admin/content/Service/Product-review.html";
+    }
+
+    @GetMapping("/FAQ")
+    public String FAQ(){
+        return "admin/content/Service/FAQ.html";
+    }
+
+    @GetMapping("/notice")
+    public String notice(){
+        return "admin/content/Service/notice.html";
+    }
+
+
 }
