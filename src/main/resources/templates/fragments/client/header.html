@@ -18,11 +18,11 @@
             <li><a th:href="@{'/list/category'}">거실</a></li>
             <li><a th:href="@{'/list/category'}">서재</a></li>
             <li><a th:href="@{'/list/category'}">주방</a></li>
-            <li class="post"><a href="#">게시판</a>
+            <li class="post"><a th:href="@{/agreement/privacyPolicy}">게시판</a>
                 <ul class="post_list">
-                    <li><a href="#">개인정보처리방침</a></li>
-                    <li><a href="#">이용약관</a></li>
-                    <li><a href="#">공지사항</a></li>
+                    <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
+                    <li><a th:href="@{/agreement/termsAndConditions}">이용약관</a></li>
+                    <li><a th:href="@{/board/boardNotice}">공지사항</a></li>
                 </ul>
             </li>
             </ul>
