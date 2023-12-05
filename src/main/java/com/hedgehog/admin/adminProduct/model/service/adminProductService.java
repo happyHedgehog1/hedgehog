@@ -8,5 +8,7 @@ import java.util.Map;
 
 public interface adminProductService {
 
-    List<adminProductDTO> searchProduct(adminProductForm form);
+//    List<adminProductDTO> searchProduct(adminProductForm form);
+
+    public List<adminProductDTO> selectAllProductList();
 }

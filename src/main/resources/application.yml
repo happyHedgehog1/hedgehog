@@ -6,7 +6,7 @@ spring:
     password: oneinfurniture1234
 
 mybatis:
-  mapper-locations: mybatis/mapper/admin/*.xml
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
   type-aliases-package: com.hedgehog
   configuration:
     map-underscore-to-camel-case: true

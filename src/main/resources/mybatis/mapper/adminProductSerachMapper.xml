@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminProduct.model.dao.adminProductMapper">
+    <resultMap id="productResultMap" type="adminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="orderableStatus" column="orderable_status"/>
+        <result property="price" column="price"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="modificationDate" column="modification_date"/>
+        <result property="eventProgressionStatus" column="event_progressionstatus"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="salesStart" column="sales_start"/>
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+        <result property="salesEnd" column="sales_end"/>
+        <association property="option" resultMap="optionListResultMap"/>
+    </resultMap>
+
+    <resultMap id="optionListResultMap" type="optionListDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="optionCode" column="option_code"/>
+        <result property="stock" column="stock"/>
+        <result property="exposureStatus" column="exposure_status"/>
+        <result property="sales" column="sales_volume"/>
+
+    </resultMap>
+
+<select id="selectAllProductList" resultMap="productResultMap">
+    SELECT
+        A.product_code,
+        A.product_name,
+        A.price,
+        A.orderable_status,
+        A.registration_date,
+        SUM(b.stock) as stock,
+        SUM(B.sales_volume) as sales
+    FROM
+        tbl_product A
+            JOIN
+        tbl_option_list B ON A.product_code = B.product_code
+    GROUP BY
+        A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date;
+</select>
+</mapper>
