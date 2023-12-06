@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" th:href="@{/client/css/product.css}">
 
-    <div class="top"><a href="#"></a></div>
+    <div class="top"><a th:href="@{'#'}"></a></div>
 
     <section>
       <div class="wrap">
@@ -67,7 +67,7 @@
         <div class="point_txt_wrap">
           <ul class="review">
             <li><span>★</span>4.5 후기 3개</li>
-            <li><a href="#rivew">더보기 +</a></li>
+            <li><a th:href="@{'#rivew'}">더보기 +</a></li>
           </ul>
           <ul class="review_txt">
             <li>리뷰 포인트</li>
@@ -79,8 +79,8 @@
         <div class="detail_info ">
           <div>상세정보</div>
           <ul>
-            <li><a href="#rivew">후기(3개)</a></li>
-            <li><a href="#qa">Q&A</a></li>
+            <li><a th:href="@{'#rivew'}">후기(3개)</a></li>
+            <li><a th:href="@{'#qa'}">Q&A</a></li>
           </ul>
         </div>
 
