@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminProduct.model.dao.adminProductMapper">
+    <resultMap id="productResultMap" type="adminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="orderableStatus" column="orderable_status"/>
+        <result property="price" column="price"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="modificationDate" column="modification_date"/>
+        <result property="eventProgressionStatus" column="event_progressionstatus"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="salesStart" column="sales_start"/>
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+        <result property="salesEnd" column="sales_end"/>
+        <association property="option" resultMap="optionListResultMap"/>
+    </resultMap>
+
+    <resultMap id="optionListResultMap" type="optionListDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="optionCode" column="option_code"/>
+        <result property="stock" column="stock"/>
+        <result property="exposureStatus" column="exposure_status"/>
+        <result property="sales" column="sales_volume"/>
+    </resultMap>
+
+<!--<select id="selectAllProductList" resultMap="productResultMap">-->
+<!--    SELECT-->
+<!--        A.product_code,-->
+<!--        A.product_name,-->
+<!--        A.price,-->
+<!--        A.orderable_status,-->
+<!--        A.registration_date,-->
+<!--        SUM(b.stock) as stock,-->
+<!--        SUM(B.sales_volume) as sales_volume-->
+<!--    FROM-->
+<!--        tbl_product A-->
+<!--            JOIN-->
+<!--        tbl_option_list B ON A.product_code = B.product_code-->
+<!--    GROUP BY-->
+<!--        A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date;-->
+<!--</select>-->
+
+    <select id="searchProduct" resultMap="productResultMap">
+        SELECT
+            product_code,
+            product_name,
+            price,
+            orderable_status,
+            stock,
+            sales_volume,
+            registration_date
+        FROM (
+                SELECT
+                    A.product_code,
+                    A.product_name,
+                    A.price,
+                    A.orderable_status,
+                    A.registration_date,
+                    SUM(B.stock) as stock,
+                    SUM(B.sales_volume) as sales_volume
+                FROM
+                    tbl_product A JOIN
+                    tbl_option_list B ON A.product_code = B.product_code
+                <where>
+                    <if test="prdCondition == 'conditionY'">
+                    A.orderable_status = 'Y'
+                    </if>
+                    <if test="prdCondition == 'conditionN'">
+                        A.orderable_status = 'N'
+                    </if>
+                    <if test="serachCondition == 'name'">
+                        A.product_name LIKE CONCAT('%', #{serachValue}, '%')
+                    </if>
+                    <if test="serachCondition == 'number'">
+                        A.product_code LIKE CONCAT('%', #{serachValue}, '%')
+                    </if>
+                </where>
+                GROUP BY
+                    A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date
+            ) AS subquery
+
+    </select>
+    <insert id="addProduct">
+        INSERT INTO tbl_product (
+                                 category_code,
+                                 product_name,
+                                 orderable_status,
+                                 price,
+                                 registration_date,
+                                 delivery_charge,
+                                 sales_start,
+                                 sales_end)
+        VALUES (#{categoryCode}, #{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd});
+        <selectKey keyProperty="product_code" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="addOption">
+        INSERT INTO tbl_option_list (
+                                     product_code,
+                                     option_code,
+                                     stock,
+                                     exposure_status,
+                                     sales_volume)
+        VALUES
+            (#{productCode}, #{optionCode}, #{stock}, 'Y', #{salesVolume})
+    </insert>
+    <insert id="addImg">
+        INSERT INTO tbl_product_img (
+                                     product_code,
+                                     image_classification,
+                                     source_path,
+                                     convert_path,
+                                     source_name,
+                                     convert_name,
+                                     image_status,
+                                     create_date,
+                                     )
+        VALUES(#{productCode}, #{image_classification}, #{source_path}, #{convert_path}, #{source_name}, #{convert_name}, 'Y', #{create_date})
+    </insert>
+</mapper>

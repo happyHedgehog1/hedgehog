@@ -21,6 +21,7 @@
                         <div><button id="btnSubmitAdd">상품일괄등록</button></div>
                     </div>
                 </div>
+                <form id="productAdd" th:action="@{/product/productAdd}" method="post">
                 <div class="sectTopWrapper">
                     <div class="sectTop">
                         <table>
@@ -185,16 +186,17 @@
                             </tr>
                             <tr>
                                 <td class="imgWrapper" style="border-bottom: 0px;">
+                                    <form id="thumbnailRegistForm" th:action="@{/product/thumbnailRegist}" th:method="post" enctype="multipart/form-data">
                                     <div class="img-file1">
                                         <label for="thumbnail">대표이미지 지정</label>
-                                        <input type="file" id="thumbnail" accept="image/*">
+                                        <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
                                         <div id="thumbnailPreview">
                                             <img id="previewImage1" alt="">
                                         </div>
                                     </div>
                                     <div class="img-file2">
                                         <label for="sub_thumbnail">대표이미지 지정2</label>
-                                        <input type="file" id="sub_thumbnail" accept="image/*" multiple>
+                                        <input type="file" id="sub_thumbnail" name="sub_thumbnail" accept="image/*" multiple>
                                         <div id="subThumbnailPreview">
                                             <img id="subpreviewImage" alt="">
                                         </div>
@@ -206,6 +208,7 @@
                                             <img id="previewImage2" alt="">
                                         </div>
                                     </div>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
@@ -213,6 +216,7 @@
                         <div><button id="btnAdd">상품등록</button></div>
                     </div>
                 </div>
+                </form>
                 <div class="modal" id="myModal">
                     <div class="modalContent">
                         <span id="closeModal">&times;</span>
