@@ -22,6 +22,11 @@
                         <div class="box"></div>
                     </div>
                     <div class="sectTopWrapper">
+                        <form id="searchForm"
+                              th:action="@{/product/productserach}"
+                              method="get"
+                              style="display: inline-block"
+                        >
                         <div class="sectTop">
                             <table class="tblTop">
                                 <colgroup>
@@ -29,15 +34,16 @@
                                     <col>
                                 </colgroup>
                                 <tbody>
-                                    <tr>        
-                                        <th>상태</th>    
+                                    <tr>
+                                        <th>상태</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
                                                         <select name="prdCondition" id="prdCondition" >
-                                                            <option value="0" selected>판매상태 전체</option>
-                                                            <option value="1">판매중</option>
-                                                            <option value="2">판매종료</option>
+                                                            <option value="" selected>판매상태 목록</option>
+                                                            <option value="conditionAll" >판매상태 전체</option>
+                                                            <option value="conditionY">판매중</option>
+                                                            <option value="conditionN">판매종료</option>
                                                         </select>
                                                     </li>
                                                 </ul>    
@@ -48,7 +54,7 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="prdKeyword" id="prdKeyword" >
+                                                        <select name="serachCondition" id="serachCondition" >
                                                             <option value="0" selected>상품명</option>
                                                             <option value="1">상품번호</option>
                                                         </select>
@@ -57,7 +63,7 @@
                                                         &nbsp;
                                                     </li>                                                    
                                                     <li>
-                                                        <input type="text" name="proSearch" id="proSearch">
+                                                        <input type="text" name="serachValue" id="serachValue">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -67,13 +73,13 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="text" name="prdSerchStartPrice" id="prdSerchStartPrice">
+                                                        <input type="number" name="prdSerchStartPrice" id="prdSerchStartPrice">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;~
                                                     </li>                                                    
                                                     <li class="w200">
-                                                        <input type="text" name="prdSerchEndPrice" id="prdSerchEndPrice">
+                                                        <input type="number" name="prdSerchEndPrice" id="prdSerchEndPrice">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -124,7 +130,8 @@
                                 <button id="btnSearch"> 검색 </button>
                             </div>
                             <div><br><br></div>
-                        </div>    
+                        </div>
+                        </form>
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
@@ -146,7 +153,6 @@
                             </colgroup>
                             <tbody>
                                         <tr class="searchResult">        
-                                            <th>No.</th>
                                             <th>상품번호</th>
                                             <th>상품명</th>
                                             <th>판매가</th>
@@ -155,162 +161,18 @@
                                             <th>재고</th>
                                             <th>등록일(수정일)</th>                                                    
                                 </tr> 
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        1
-                                    </td>
-                                    <td>
-                                        c-2023-01
-                                    </td>
-                                    <td>
-                                        COOKY 패브릭 소파 1인
-                                    </td>
-                                    <td>
-                                        299,000원
-                                    </td>
-                                    <td>
-                                        판매중
-                                    </td>
-                                    <td>
-                                        344
-                                    </td>
-                                    <td>
-                                        30>
-                                    </td>
-                                    <td>
-                                        2023-10-10
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        2
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>299,000원</li>
-                                    </td>
-                                    <td>
-                                        <li>판매중</li>
-                                    </td>
-                                    <td>
-                                        <li>344</li>
-                                    </td>
-                                    <td>
-                                        <li>30</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        3
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>299,000원</li>
-                                    </td>
-                                    <td>
-                                        <li>판매중</li>
-                                    </td>
-                                    <td>
-                                        <li>344</li>
-                                    </td>
-                                    <td>
-                                        <li>30</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        4
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>299,000원</li>
-                                    </td>
-                                    <td>
-                                        <li>판매중</li>
-                                    </td>
-                                    <td>
-                                        <li>344</li>
-                                    </td>
-                                    <td>
-                                        <li>30</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        5
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>299,000원</li>
-                                    </td>
-                                    <td>
-                                        <li>판매중</li>
-                                    </td>
-                                    <td>
-                                        <li>344</li>
-                                    </td>
-                                    <td>
-                                        <li>30</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        6
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>299,000원</li>
-                                    </td>
-                                    <td>
-                                        <li>판매중</li>
-                                    </td>
-                                    <td>
-                                        <li>344</li>
-                                    </td>
-                                    <td>
-                                        <li>30</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
+                                <tr class="proSearchBottomtr"
+                                    th:each="product : ${ productList }"
+                                >
+                                    <td th:text="${ product.productCode }"></td>
+                                    <td th:text="${ product.productName }"></td>
+                                    <td th:text="${ product.price }"></td>
+                                    <td th:text="${ product.orderableStatus }"></td>
+                                    <td th:text="${ product.option.stock }"></td>
+                                    <td th:text="${ product.option.sales }"></td>
+                                    <td th:text="${ product.registrationDate }"></td>
+
+                                </tr>
                             </tbody>
                         </table>
                         </div>

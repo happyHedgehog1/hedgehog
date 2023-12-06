@@ -1,35 +1,30 @@
 package com.hedgehog.admin.adminMember.controller;
 
-
-import com.hedgehog.admin.adminMember.model.service.adminMemberService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member")
-@Slf4j
 public class adminMemberController {
 
-    @Autowired
-    private adminMemberService adminMemberService;
-
-    @GetMapping("/admin/member")
-
-
+    /**
+     *
+     * @return 회원조회 페이지 연결 메소드
+     */
     @GetMapping("/member")
-    public String memberList(){ return "admin/content/member/member.html";
+    public String memberList(){
+        return "admin/content/member/member.html";
     }
 
-
+    /**
+     *
+     * @return 탈퇴 회원 조회 페이지 연결 메소드
+     */
     @GetMapping("/unregister")
     public String unregisterList(){
         return "admin/content/member/unregister.html";
     }
-
-
 
 
 }
