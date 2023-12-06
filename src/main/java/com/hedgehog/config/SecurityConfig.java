@@ -65,7 +65,7 @@ public class SecurityConfig {
                         })
                 .logout( // 로그아웃 설정
                         logout -> {
-                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"));
+                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
                             logout.deleteCookies("JSESSIONID");
                             logout.invalidateHttpSession(true);
                             logout.logoutSuccessUrl("/");

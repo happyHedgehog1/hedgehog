@@ -30,18 +30,18 @@ public class ListController {
     @GetMapping("/list")
     public ModelAndView selectCategoryList(ModelAndView mv) {
 
-        log.info("");
-        log.info("");
-        log.info("[ListController] ========================== start");
-
-        List<ListDTO> category = listServiceImpl.selectCategoryList();
-
-        log.info("category : " + category);
-
-        mv.addObject("category", category);
-        mv.setViewName("client/list/category");
-
-        log.info("[ListController] ========================== end");
+//        log.info("");
+//        log.info("");
+//        log.info("[ListController] ========================== start");
+//
+//        List<ListDTO> category = listServiceImpl.selectCategoryList();
+//
+//        log.info("category : " + category);
+//
+//        mv.addObject("category", category);
+//        mv.setViewName("client/list/category");
+//
+//        log.info("[ListController] ========================== end");
 
         return mv;
 
