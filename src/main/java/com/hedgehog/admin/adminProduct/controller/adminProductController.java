@@ -2,10 +2,11 @@ package com.hedgehog.admin.adminProduct.controller;
 import com.google.gson.Gson;
 import com.hedgehog.admin.adminProduct.model.dto.adminProductDTO;
 import com.hedgehog.admin.adminProduct.model.dto.adminProductForm;
+import com.hedgehog.admin.adminProduct.model.dto.optionDTO;
+import com.hedgehog.admin.adminProduct.model.dto.optionListDTO;
 import com.hedgehog.admin.adminProduct.model.service.adminProductServiceImpl;
 import com.hedgehog.admin.exception.AdminProductAddException;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 @Controller
@@ -28,18 +34,41 @@ public class adminProductController {
         this.adminProductServiceImpl = adminProductService;
     }
 
-//    @Value("img")
-//    private String IMAGE_DIR;
-//
-//    @Value("C:/hedgehog/")
-//    private String ROOT_LOCATION;
-//
-//    @PostMapping("/thumbnailRegist")
-//    private String productImgAdd(@RequestParam("thumbnail") MultipartFile thumbnail,
-//                                 @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
-//                                 @RequestParam("pro_img") MultipartFile pro_img,
-//                                 RedirectAttributes rttr)
-//    {
+    @Value("img")
+    private String IMAGE_DIR;
+
+    @Value("C:/images/")
+    private String ROOT_LOCATION;
+
+    @PostMapping("/productAdd")
+    private String productAdd(@ModelAttribute adminProductDTO product,
+                              @ModelAttribute optionDTO option,
+                              @ModelAttribute optionListDTO optionList,
+                              @RequestParam("thumbnail") MultipartFile thumbnail,
+                              @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
+                              @RequestParam("proImg") MultipartFile proImg,
+                              RedirectAttributes rttr) throws AdminProductAddException {
+
+
+
+
+        log.info("=============productAdd 시작~~~~~~~~~");
+        log.info("==========product" + product);
+        log.info("==========option" + option);
+        log.info("==========optionList" + optionList);
+        log.info("==========thumbnail" + thumbnail);
+        log.info("==========sub_thumbnail" + sub_thumbnails);
+        log.info("==========proImg" + proImg);
+
+        adminProductServiceImpl.productAdd(product);
+
+        rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
+
+        log.info("=============product 끗~~~~~~~~~~~~~~~");
+        return "redirect:admin/content/product/productAdd";
+    }
+
+
 //        log.info("===========================섬네일 넣기~~~~~~~~~");
 //        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
 //
@@ -125,18 +154,7 @@ public class adminProductController {
 //
 //    }
 
-    @PostMapping("/productAdd")
-    private String productAdd(@ModelAttribute adminProductDTO product, RedirectAttributes rttr) throws AdminProductAddException {
 
-        log.info("=============productAdd 시작~~~~~~~~~");
-
-        adminProductServiceImpl.productAdd(product);
-
-        rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
-
-        log.info("=============product 끗~~~~~~~~~~~~~~~");
-        return "redirect:admin/content/product/productAdd";
-    }
 
 
 

@@ -12,7 +12,6 @@ public interface adminProductMapper {
 
 //    List<adminProductDTO> searchProduct(adminProductForm form);
 
-
     List<adminProductDTO> selectAllProductList();
 
     List<adminProductDTO> searchProduct(adminProductForm form);

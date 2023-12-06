@@ -14,38 +14,38 @@ import java.util.List;
 @RequestMapping("/list")
 @Slf4j
 public class ListController {
-
-    @Value("${im")
-    private String IMAGE_DIR;
-
-    @Value("${spring.servlet.multipart.location}")
-    private String ROOT_LOCATION;
-
-    private final ListServiceImpl listServiceImpl;
-
-    public ListController(ListServiceImpl listServiceImpl) {
-        this.listServiceImpl = listServiceImpl;
-    }
-
-    @GetMapping("/list")
-    public ModelAndView selectCategoryList(ModelAndView mv) {
-
-        log.info("");
-        log.info("");
-        log.info("[ListController] ========================== start");
-
-        List<ListDTO> category = listServiceImpl.selectCategoryList();
-
-        log.info("category : " + category);
-
-        mv.addObject("category", category);
-        mv.setViewName("client/list/category");
-
-        log.info("[ListController] ========================== end");
-
-        return mv;
-
-    }
+//
+//    @Value("${im")
+//    private String IMAGE_DIR;
+//
+//    @Value("${spring.servlet.multipart.location}")
+//    private String ROOT_LOCATION;
+//
+//    private final ListServiceImpl listServiceImpl;
+//
+//    public ListController(ListServiceImpl listServiceImpl) {
+//        this.listServiceImpl = listServiceImpl;
+//    }
+//
+//    @GetMapping("/list")
+//    public ModelAndView selectCategoryList(ModelAndView mv) {
+//
+//        log.info("");
+//        log.info("");
+//        log.info("[ListController] ========================== start");
+//
+//        List<ListDTO> category = listServiceImpl.selectCategoryList();
+//
+//        log.info("category : " + category);
+//
+//        mv.addObject("category", category);
+//        mv.setViewName("client/list/category");
+//
+//        log.info("[ListController] ========================== end");
+//
+//        return mv;
+//
+//    }
 
 
 
@@ -71,7 +71,7 @@ public class ListController {
 //        return "category";
 //
 //    }
-     데이터베이스에서 필요정보를 객체로 받아서 결과페이지로 넘겨준다.
+//     데이터베이스에서 필요정보를 객체로 받아서 결과페이지로 넘겨준다.
 
     @GetMapping("/category")
     public String getCategory(){

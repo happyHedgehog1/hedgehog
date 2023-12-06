@@ -38,10 +38,10 @@ $(document).ready(function () {
             var newOpList = $("<tr class='optionList'>" +
                 "<th colspan='2'>" +
                 "<ul class='arrAlign'>" +
-                "<li class='w400'><input type='text' name='optionName' style='width: 350px;' value='예시 : 색상'></li>" +
-                "<li class='w400'><input type='text' name='optionColor' style='width: 350px;' value='예시 : 갈색'></li>" +
-                "<li class='w200'><input type='number' name='optionPrice' style='width: 125px;' value='0'> 원</li>" +
-                "<li class='w200'><input type='number' name='optionQuantity' style='width: 125px;' value='0'> 개</li>" +
+                "<li class='w400'><input type='text' name='optionCode' style='width: 350px;' value='예시 : 색상'></li>" +
+                "<li class='w400'><input type='text' name='optionName' style='width: 350px;' value='예시 : 갈색'></li>" +
+                "<li class='w200'><input type='number' name='sales' style='width: 125px;' value='0'> 원</li>" +
+                "<li class='w200'><input type='number' name='stock' style='width: 125px;' value='0'> 개</li>" +
                 "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
                 "</ul>" +
                 "</th>" +
@@ -126,7 +126,7 @@ $(function () {
 });
 
 $(function(){
-    $("#pro_img").change(function(event){
+    $("#proImg").change(function(event){
         const file = event.target.files;
 
         var image = new Image();
@@ -144,14 +144,14 @@ $(function(){
 
 
 // 옵션 수량이 변경될 때 전체 재고 업데이트
-$("body").on("input", "input[name='optionQuantity']", function () {
+$("body").on("input", "input[name='stock']", function () {
     updateTotalStock();
 });
 
 // 전체 재고를 업데이트하는 함수
 function updateTotalStock() {
     var totalQuantity = 0;
-    $("input[name='optionQuantity']").each(function () {
+    $("input[name='stock']").each(function () {
         var quantity = parseInt($(this).val()) || 0;
         totalQuantity += quantity;
     });

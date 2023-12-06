@@ -14,17 +14,17 @@ spring:
           max-request-size: 10MB
           location: C:/images/
 
-    image:
-      image-dir: img
+image:
+  image-dir: img
 
-    mybatis:
-      # mapper.xml location Setting
-      mapper-locations: mybatis/mapper/*.xml
-      # alias Setting
-      type-aliases-package: com.hedgehog
-      configuration:
-        map-underscore-to-camel-case: true
+mybatis:
+  # mapper.xml location Setting
+  mapper-locations: mybatis/mapper/*.xml
+  # alias Setting
+  type-aliases-package: com.hedgehog
+  configuration:
+    map-underscore-to-camel-case: true
 
-    logging:
-      level:
-        root: info
+logging:
+  level:
+    root: info
