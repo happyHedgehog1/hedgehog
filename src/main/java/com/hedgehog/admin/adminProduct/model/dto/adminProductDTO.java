@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminProduct.model.dto;
 
 import lombok.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class adminProductDTO {
@@ -19,6 +20,8 @@ private Date salesEnd;
 private int reviews;
 private int grade;
 private optionListDTO option;
+
+
 
 
     public adminProductDTO() {
@@ -172,4 +175,6 @@ private optionListDTO option;
                 ", option=" + option +
                 '}';
     }
+
+
 }

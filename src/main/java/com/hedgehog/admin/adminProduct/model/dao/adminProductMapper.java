@@ -16,4 +16,10 @@ public interface adminProductMapper {
     List<adminProductDTO> selectAllProductList();
 
     List<adminProductDTO> searchProduct(adminProductForm form);
+
+    int addProduct(adminProductDTO product);
+
+    int addOption(adminProductDTO product);
+
+    int addImg(adminProductDTO product);
 }
