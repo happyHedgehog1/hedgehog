@@ -10,7 +10,7 @@ import java.util.Date;
 @ToString
 public class MemberSearchDTO {
 
-    private int memberNo;
+    private int member_code;
     private String memberId;
     private String name;
     private String phone;
