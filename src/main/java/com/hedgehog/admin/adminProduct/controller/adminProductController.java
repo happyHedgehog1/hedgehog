@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,58 +26,31 @@ public class adminProductController {
     }
 
 
-//    @GetMapping(value = "/productserach")
-//    public ModelAndView productsearch(@RequestParam(required = false) String prdCondition,
-//                                      @RequestParam(required = false) String serachCondition,
-//                                      @RequestParam(required = false) String serachValue,
-//                                      @RequestParam(required = false) String prdSerchStartPrice,
-//                                      @RequestParam(required = false) String prdSerchEndPrice,
-//                                      @RequestParam(required = false) String category1,
-//                                      @RequestParam(required = false) String category2,
-//                                      @RequestParam(required = false) String proSearchStartDay,
-//                                      @RequestParam(required = false) String proSearchEndDay,
-//                                      ModelAndView mv){
-//        log.info("productsearch ====================== start");
+    @GetMapping(value = "/productserach")
+    public ModelAndView productsearch(@ModelAttribute("adminProductForm") adminProductForm form) {
+        log.info("productsearch ====================== start");
+
+        log.info(form.toString());
+
+        List<adminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
+        log.info("=================================productList" + productList);
+
+        ModelAndView modelAndView = new ModelAndView("admin/content/product/productSerch");
+        modelAndView.addObject("productList", productList); // 모델에 productList를 추가
+
+        return modelAndView;
+    }
 //
-//        adminProductForm form = new adminProductForm();
-//        form.setPrdCondition(prdCondition);
-//        form.setSerachCondition(serachCondition);
-//        form.setSerachValue(serachValue);
-//        form.setPrdSerchStartPrice(prdSerchStartPrice);
-//        form.setPrdSerchEndPrice(prdSerchEndPrice);
-//        form.setCategory1(category1);
-//        form.setCategory2(category2);
-//        form.setProSearchStartDay(proSearchStartDay);
-//        form.setProSearchEndDay(proSearchEndDay);
+//    @GetMapping("/productserach")
+//    public ModelAndView productList(ModelAndView mv){
+//        List<adminProductDTO> productList = adminProductServiceImpl.selectAllProductList();
+//        log.info(productList.toString());
 //
-//        log.info(form.toString());
-//
-//        List<adminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
-//        log.info("=================================productList" + productList);
-//
-//        // Add results to the model
 //        mv.addObject("productList", productList);
-//
-//
-//
-//
 //        mv.setViewName("admin/content/product/productSerch");
 //
-//
 //        return mv;
-//
 //    }
-
-    @GetMapping("/productserach")
-    public ModelAndView productList(ModelAndView mv){
-        List<adminProductDTO> productList = adminProductServiceImpl.selectAllProductList();
-        log.info(productList.toString());
-
-        mv.addObject("productList", productList);
-        mv.setViewName("admin/content/product/productSerch");
-
-        return mv;
-    }
 
 
 

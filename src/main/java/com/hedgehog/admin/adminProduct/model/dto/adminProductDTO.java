@@ -20,6 +20,7 @@ private int reviews;
 private int grade;
 private optionListDTO option;
 
+
     public adminProductDTO() {
     }
 

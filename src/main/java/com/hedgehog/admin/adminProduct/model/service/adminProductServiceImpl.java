@@ -16,18 +16,20 @@ public class adminProductServiceImpl implements adminProductService{
         this.mapper = mapper;
     }
 
-    @Override
-    public List<adminProductDTO> selectAllProductList() {
-        List<adminProductDTO> productList = mapper.selectAllProductList();
-        return productList;
-    }
-
 
 //    @Override
-//    public List<adminProductDTO> searchProduct(adminProductForm form) {
-//        List<adminProductDTO> productList = mapper.searchProduct(form);
-//
+//    public List<adminProductDTO> selectAllProductList() {
+//        List<adminProductDTO> productList = mapper.selectAllProductList();
 //        return productList;
 //    }
+
+
+
+    @Override
+    public List<adminProductDTO> searchProduct(adminProductForm form) {
+        List<adminProductDTO> productList = mapper.searchProduct(form);
+
+        return productList;
+    }
 
 }
