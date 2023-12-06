@@ -10,11 +10,6 @@ public class BoardController {
 
     @GetMapping("/boardNotice")
     public String getBoard() {
-
         return "client/content/board/boardNotice";
     }
-
-
-
-
 }

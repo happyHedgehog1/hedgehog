@@ -1,4 +1,4 @@
-package com.hedgehog.common;
+package com.hedgehog.common.enums;
 
 public enum UserRole {
     SUPER_ADMIN("SUPER_ADMIN"), ADMIN("ADMIN"), MEMBER("MEMBER"), GUEST("GUEST");
