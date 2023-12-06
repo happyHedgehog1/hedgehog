@@ -1,13 +1,12 @@
-
 /*권한목록*/
 INSERT INTO tbl_authority(name) /*1. 슈퍼관리자*/
-VALUES ('super_admin');
+VALUES ('SUPER_ADMIN');
 INSERT INTO tbl_authority(name) /*2. 일반관리자*/
-VALUES ('admin');
+VALUES ('ADMIN');
 INSERT INTO tbl_authority(name) /*3. 회원*/
-VALUES ('member');
+VALUES ('MEMBER');
 INSERT INTO tbl_authority(name) /*4. 비회원*/
-VALUES ('guest');
+VALUES ('GUEST');
 /*사용자 + 권한리스트 + 고객 + 회원 + 탈퇴이력관리 */
 /*1번 user는 1번 권한(슈퍼관리자)*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
@@ -42,8 +41,8 @@ INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (3, 5);
 INSERT INTO tbl_customer(customer_code, email, member_state, phone) /*5번 user*/
 VALUES (5, 'mmail5@gmail.com', 'Y', '01000000005');
-INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point)
-VALUES (5, '1998-04-21', 'M', 'Y', 3000);
+INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point, cumulative_amount)
+VALUES (5, '1998-04-21', 'M', 'Y', 3000, 548000);
 
 /*6번 user는 3번 권한(회원). 탈퇴상태는 아니지만 예전에 탈퇴이력은 있음*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
@@ -52,8 +51,8 @@ INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (3, 6);
 INSERT INTO tbl_customer(customer_code, email, member_state, phone)
 VALUES (6, 'mmail6@gmail.com', 'Y', '01000000006');
-INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point)
-VALUES (6, '1988-01-01', 'F', 'Y', 0);
+INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point, cumulative_amount)
+VALUES (6, '1988-01-01', 'F', 'Y', 0, 336000);
 INSERT INTO tbl_withdraw(user_code, state, cause, apply_date, cancel_date)
 VALUES (6, 'N', '사이트가 맘에 들지 않는다.', '2019-11-05 17:40:50', '2019-11-06 18:30:20');
 

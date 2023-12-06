@@ -29,7 +29,8 @@
                     <div></div>
 
                 </div>
-
+                <form action="/client/content/order/cartOrder" method="get" onsubmit="return handleFormSubmit();">
+<!--                    onsubmit은 sumit속성을 추가-->
                 <table class="cart_table">
                     <tr>
                         <th><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></th>
@@ -49,9 +50,9 @@
                         <td>2000원</td>
                         <td class="cart_numbrt_btn">
                             <div class="quantity-container" data-product-id="1">
-                                <button class="quantity-button decrease-button" onclick="updateQuantity('1', -1)">-</button>
+                                <button type="button" class="quantity-button decrease-button" onclick="updateQuantity('1', -1)">-</button>
                                 <span class="quantity-display" id="quantity-display-1">1</span>
-                                <button class="quantity-button increase-button" onclick="updateQuantity('1', 1)">+</button>
+                                <button type="button" class="quantity-button increase-button" onclick="updateQuantity('1', 1)">+</button>
                             </div>
 
                         </td>
@@ -66,9 +67,9 @@
                         <td>2000원</td>
                         <td class="cart_numbrt_btn">
                             <div class="quantity-container" data-product-id="2">
-                                <button class="quantity-button decrease-button" onclick="updateQuantity('2', -1)">-</button>
+                                <button type="button" class="quantity-button decrease-button" onclick="updateQuantity('2', -1)">-</button>
                                 <span class="quantity-display" id="quantity-display-2">1</span>
-                                <button class="quantity-button increase-button" onclick="updateQuantity('2', 1)">+</button>
+                                <button type="button" class="quantity-button increase-button" onclick="updateQuantity('2', 1)">+</button>
                             </div>
                         </td>
                         <td>무료</td>
@@ -82,9 +83,9 @@
                         <td>2000원</td>
                         <td class="cart_numbrt_btn">
                             <div class="quantity-container" data-product-id="3">
-                                <button class="quantity-button decrease-button" onclick="updateQuantity('3', -1)">-</button>
+                                <button type="button" class="quantity-button decrease-button" onclick="updateQuantity('3', -1)">-</button>
                                 <span class="quantity-display" id="quantity-display-3">1</span>
-                                <button class="quantity-button increase-button" onclick="updateQuantity('3', 1)">+</button>
+                                <button type="button" class="quantity-button increase-button" onclick="updateQuantity('3', 1)">+</button>
                             </div>
                         </td>
                         <td>무료</td>
@@ -117,9 +118,15 @@
                         <a th:href="@{/clientOrder/cartOrder}"><span class="select_order_btn">선택상품주문하기</span></a>
 <!--                        form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
                             비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
-                            여기서는 굳이 비동기처리까지할 필요가 없고 폼태그로 넘겨주면된다. -->
+                            여기서는 굳이 비동기처리까지할 필요가 없고 폼태그로 넘겨주면된다.
+                            체크박스에 담긴 물품을 넘겨줘야하므로 체크박스에 해당하는 테이블부터 버튼까지 넘겨줬다.-->
                     </div>
+
+
                 </div>
+
+
+
 
                 <br>
                 <br>
@@ -151,22 +158,28 @@
                 <br>
                 <br>
                 <div class="select_all_btn2">
-                    <a href="./cartOrder.html">
-                        <button class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</button>
+                    <a th:href="@{/clientOrder/cartOrder}">
+                        <span class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</span>
                     </a>
+
                 </div>
+
+
+                    <input type="hidden" name="selectedItems" id="selectedItems" />
+<!--                폼 내부에 사용자가 선택한 상품 정보를 저장할 숨겨진 입력 필드를 추가    -->
+                </form>
                 <br>
                 <br>
                 <br>
 
-                <div class="quickmenu">
-                    <ul>
-                        <li><a href="#">이벤트</a></li>
-                        <li><a href="#">문의게시판</a></li>
-                        <li><a href="#">게시판</a></li>
-                        <li><a href="#">마이페이지</a></li>
-                    </ul>
-                </div>
+<!--                <div class="quickmenu">-->
+<!--                    <ul>-->
+<!--                        <li><a href="#">이벤트</a></li>-->
+<!--                        <li><a href="#">문의게시판</a></li>-->
+<!--                        <li><a href="#">게시판</a></li>-->
+<!--                        <li><a href="#">마이페이지</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
 
             </div>
            </section>

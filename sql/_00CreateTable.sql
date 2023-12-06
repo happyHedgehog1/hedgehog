@@ -213,6 +213,7 @@ CREATE TABLE `tbl_member`
     `gender`        CHAR(1) DEFAULT 'M' NOT NULL,
     `email_consent` CHAR(1) DEFAULT 'Y' NOT NULL,
     `point`         INTEGER DEFAULT 0   NOT NULL,
+    `cumulative_amount` INTEGER DEFAULT 0 NOT NULL,
     PRIMARY KEY (`member_code`)
 );
 
@@ -366,7 +367,7 @@ CREATE TABLE `tbl_user`
     `user_code`       INTEGER  NOT NULL auto_increment,
     `id`              VARCHAR(30),
     `password`        VARCHAR(100),
-    `classify`        VARCHAR(30) DEFAULT 'N',
+    `classify`        VARCHAR(30),
     `name`            VARCHAR(30),
     `connection_date` DATETIME,
     `creation_date`   DATETIME NOT NULL,
