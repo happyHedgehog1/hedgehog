@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminMember.model.dao.adminMemberMapper">
+    <resultMap id="memberResultMap" type="adminAllMemberDTO">
+        <id property="member_code" column="member_code"/>
+        <result property="birthday" column="birthday"/>
+        <result property="gender" column="gender"/>
+        <result property="email_consent" column="email_consent"/>
+        <result property="point" column="point"/>
+        <result property="cumulative_amount" column="cumulative_amount"/>
+        <association property="customer" resultMap="adminCustomerDTOResultMap"/>
+        <association property="user" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+    
+    <resultMap id="adminCustomerDTOResultMap" type="adminCustomerDTO">
+        <id property="customer_code" column="customer_code"/>
+        <result property="member_state" column="member_state"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="certification_number" column="certification_number"/>
+    </resultMap>
+
+
+    <resultMap id="adminUserDTOResultMap" type="adminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="classify" column="classify"/>
+        <result property="name" column="name"/>
+        <result property="connection_date" column="connection_date"/>
+        <result property="creation_date" column="creation_date"/>
+        <result property="withdraw_state" column="withdraw_state"/>
+    </resultMap>
+
+    <select id="selectAllMemberList" resultMap="memberResultMap">
+
+    </select>
+</mapper>

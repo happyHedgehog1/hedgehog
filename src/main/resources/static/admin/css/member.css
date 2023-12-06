@@ -294,6 +294,13 @@ input[type=checkbox]{
 }
 
 
+.proSearchBottomtr>td{
+    height: 60px;
+    margin: auto;
+    text-align: center;
+}
+
+
             
 
 

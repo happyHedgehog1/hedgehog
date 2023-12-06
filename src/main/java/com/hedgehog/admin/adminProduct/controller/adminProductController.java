@@ -73,7 +73,7 @@ public class adminProductController {
         log.info(productList.toString());
 
         mv.addObject("productList", productList);
-        mv.setViewName("admin/content/product/productSerch");
+        mv.setViewName("admin/content/product/productserch");
 
         return mv;
     }

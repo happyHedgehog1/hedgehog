@@ -15,106 +15,119 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-        <section class="background">
-          <div class="page-body">
+    <section class="background">
+        <div class="page-body">
             <div class="main-head">
-              <h2>회원관리</h2>
+                <h2>회원관리</h2>
             </div>
             <div class="page-top">
-            <div class="tbl-setting">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <th>가입일</th>
-                    <td>
+                <form id="memberSearchForm"
+                      th:action="@{/member/membersearch}"
+                      method="get"
+                      style="display: inline-block">
+                    <div class="tbl-setting">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>가입일</th>
+                                <td>
 
-                      <ul>
-                        <li>
-                          <div>
-                            
-                            <input type="date" id="date1" class="box1">
-                            <span class="tilde">~</span>
-                            
-                            <input type="date" id="date2" class="box1">
+                                    <ul>
+                                        <li>
+                                            <div>
+
+                                                <input type="date" id="date1" class="box1">
+                                                <span class="tilde">~</span>
+
+                                                <input type="date" id="date2" class="box1">
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class>고객 정보</th>
+                                <td>
+                                    <ul class>
+                                        <li class>
+                                            <select class="box" name="memKeyword" id="memKeyword">
+                                                <option value="">-- 키워드 --</option>
+                                                <option value="user_id">아이디</option>
+                                                <option value="user_name">이름</option>
+                                                <option value="user_mobile">휴대폰번호</option>
+                                                <option value="user_email">이메일</option>
+                                            </select>
+                                            <input class="box" type="text" name="search_keyword" value=""/>
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>마케팅 수신 동의</th>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <select class="box" name="memAgree" id="memAgree">
+                                                <option value=>전체</option>
+                                                <option value=>동의</option>
+                                                <option value=>동의안함</option>
+                                            </select>
+                                            <input type="checkbox"/><span>구매 제한 회원</span>
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="btn-c">
+                        <button class="btn" type="button">검색</button>
+                    </div>
+                </form>  <!-- 여기 폼 사용 -->
+
+
+            </div>
+            <div class="pc-switch">
+                <div class="sect-hd">
+                    <h3>회원 검색 결과</h3>
+                    <span>( 검색고객 : <span class="usersCnt">0</span>명 )</span>
+                </div>
+                <div class="sect-cont">
+
+                    <div class="tbl-side">
+                        <div class="f-r">
+                            <select class="box" name="memCount" id="memCount" style="width:120px">
+                                <option value="10">10개</option>
+                                <option value="30">30개</option>
+                                <option value="50">50개</option>
+                                <option value="100">100개</option>
+                            </select>
+
+                            <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">회원
+                                탈퇴</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">구매
+                                제한</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-users-mileage" style="width:140px;">적립금
+                                관리</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-all-sms-send" style="width:140px;">검색회원
+                                메일발송</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-sms-send" style="width:140px;">선택회원
+                                메일발송</a>
+
                         </div>
-                          
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class>고객 정보</th>
-                    <td>
-                      <ul class>
-                        <li class>
-                          <select class="box">
-                            <option value="">-- 키워드 --</option>
-                            <option value="user_id">아이디</option>
-                            <option value="user_name">이름</option>
-                            <option value="user_mobile">휴대폰번호</option>
-                            <option value="user_email">이메일</option>
-                          </select>
-                          <input class="box" type="text" name="search_keyword" value="" />
-                        </li>
-                    
-                      </ul>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>마케팅 수신 동의</th>
-                    <td>
-                      <ul>
-                        <li>
-                          <select class="box">
-                            <option value=>전체</option>
-                            <option value=>동의</option>
-                            <option value=>동의안함</option>
-                          </select>
-                          <input type="checkbox"/><span>구매 제한 회원</span>
-                        </li>
-                        
-                      </ul>
-                    </td>
-                  </tr>
-                  
-                </tbody>
-              </table>
-            </div>
-            <div class="btn-c">
-              <button class="btn" type="button">검색</button>
-            </div>
-          </div>
-          <div class="pc-switch">
-            <div class="sect-hd">
-                <h3>회원 검색 결과</h3>
-                <span>( 검색고객 : <span class="usersCnt">0</span>명 )</span>
-            </div>
-            <div class="sect-cont">
-          
-          <div class="tbl-side">
-            <div class="f-r">
-              <select class="box" name="offset" style="width:120px">
-                <option value="10">10개</option>
-                <option value="30">30개</option>
-                <option value="50">50개</option>
-                <option value="100">100개</option>
-              </select>
+                    </div>
 
-                        <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">회원 탈퇴</a>
-                        <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">구매 제한</a>
-                        <a href="javascript:;" class="btn-black ml-10 btn-users-mileage" style="width:140px;">적립금 관리</a>
-                        <a href="javascript:;" class="btn-black ml-10 btn-all-sms-send" style="width:140px;">검색회원 메일발송</a>
-                        <a href="javascript:;" class="btn-black ml-10 btn-sms-send" style="width:140px;">선택회원 메일발송</a>
+                    <div class="tbl-list tbl-extend mt-20">
+                        <table>
 
-            </div>
-          </div>
-          
-          <div class="tbl-list tbl-extend mt-20">
-                    <table>
-                       
-                        <thead>
+                            <thead>
                             <tr class="searchResult">
-                                <th><label class="single"><input type="checkbox" name="chk_all_users"><span></span></label></th>
+                                <th><label class="single"><input type="checkbox"
+                                                                 name="chk_all_users"><span></span></label></th>
                                 <th>No</th>
                                 <th>아이디</th>
                                 <th>이름</th>
@@ -127,102 +140,36 @@
                                 <th>최근로그인</th>
                                 <th class="aa">관리</th>
                             </tr>
-                            <tr class="searchBottom_tr">
-                                <td class="searchBottomCheck">
-                                    <li>
-                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                    </li>
-                                </td>
-                                <td>
-                                    <li>1</li>
-                                </td>
-                                <td>
-                                    <li>도라에몽</li>
-                                </td>
-                                <td>
-                                    <li>노진구</li>
-                                </td>
-                                <td>
-                                    <li>010-2222-2222</li>
-                                </td>
-                                <td>
-                                    <li>ohgiraffers@naver.com</li>
-                                </td>
-                                <td>
-                                    <li>2,200,000</li>
-                                </td>
-                                <td>
-                                    <li>11,000</li>
-                                </td>
-                                <td>
-                                    <li>Y</li>
-                                </td>
-                                <td>
-                                    <li>2019-01-20</li>
-                                </td>
-                                <td>
-                                    <li>2023-12-25</li>
-                                </td>
-                                <td>
-                                    <li>정상</li>
-                                </td>
-                            </tr>
-                            <tr class="searchBottom_tr">
-                                <td class="searchBottomCheck">
-                                    <li>
-                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                    </li>
-                                </td>
-                                <td>
-                                    <li>1</li>
-                                </td>
-                                <td>
-                                    <li>스폰지밥</li>
-                                </td>
-                                <td>
-                                    <li>뚱이</li>
-                                </td>
-                                <td>
-                                    <li>010-2222-2222</li>
-                                </td>
-                                <td>
-                                    <li>ohgiraffers@naver.com</li>
-                                </td>
-                                <td>
-                                    <li>2,200,000</li>
-                                </td>
-                                <td>
-                                    <li>11,000</li>
-                                </td>
-                                <td>
-                                    <li>Y</li>
-                                </td>
-                                <td>
-                                    <li>2019-01-20</li>
-                                </td>
-                                <td>
-                                    <li>2023-12-25</li>
-                                </td>
-                                <td>
-                                    <li>탈퇴</li>
-                                </td>
-                            </tr>
-                        </thead>
-<!--                        <tbody class="usersList">-->
-<!--                            <tr>-->
-<!--                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>-->
-<!--                            </tr>-->
-<!--                        </tbody>-->
-                    </table>
-               
-            
+                            <tr class="proSearchBottomtr"
+                                th:each=" member : ${ memberList }"
+                            >
+                                <td th:text="${ member.memberNo}"></td>
+                                <td th:text="${ member.memberId}"></td>
+                                <td th:text="${ member.name}"></td>
+                                <td th:text="${ member.phone}"></td>
+                                <td th:text="${ member.email}"></td>
+                                <td th:text="${ member.cumulative_amount}"></td>
+                                <td th:text="${ member.point}"></td>
+                                <td th:text="${ member.email_consent}"></td>
+                                <td th:text="${ member.creation_date}"></td>
+                                <td th:text="${ member.connection_date}"></td>
+                                <td th:text="${ member.withdraw_state}"></td>
+                            </thead>
+                            <!--                        <tbody class="usersList">-->
+                            <!--                            <tr>-->
+                            <!--                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>-->
+                            <!--                            </tr>-->
+                            <!--                        </tbody>-->
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
-          </div>
-          </div>
-          </div>
-        </section>
-      </div>
+    </section>
+    </div>
     </div>
 </th:block>
-  </body>
+</body>
 </html>
