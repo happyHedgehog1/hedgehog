@@ -4,3 +4,19 @@ spring:
     url: jdbc:mysql://mysql.coffit.today:3306/oneinfurniture
     username: oneinfurniture
     password: oneinfurniture1234
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: oneinfurniture@gmail.com
+    password: vgnt fqdk woha rvvj
+    properties:
+      mail:
+        smtp.auth: true
+        starttls.enable: true
+
+
+
+mybatis:
+  mapper-locations: mybatis/mapper/*.xml
+
+
