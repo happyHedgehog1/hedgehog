@@ -1,32 +1,30 @@
 
 
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.coffit.today/thymeleafspringboot
+    url: jdbc:mysql://mysql.coffit.today/oneinfurniture
     username: oneinfurniture
     password: oneinfurniture1234
 
-    spring:
-      servlet:
-        multipart:
-          enabled: true
-          max-file-size: 10MB
-          max-request-size: 10MB
-          location: C:/images/
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: C:/images/
 
-    image:
-      image-dir: img
+  image:
+    image-dir: ima
 
-    mybatis:
-      # mapper.xml location Setting
-      mapper-locations: mybatis/mapper/*.xml
-      # alias Setting
-      type-aliases-package: com.hedgehog
-      configuration:
-        map-underscore-to-camel-case: true
+  mybatis:
+    # mapper.xml 위치 설정
+    mapper-locations: mybatis/mapper/*.xml
+    # 별칭 설정
+    type-aliases-package: com.hedgehog
+    configuration:
+      map-underscore-to-camel-case: true
 
-    logging:
-      level:
-        root: info
+  logging:
+    level:
+      root: info
