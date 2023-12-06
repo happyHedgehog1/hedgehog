@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/basket")
 public class BasketController {
 
-    @GetMapping(value = {"/", "/cart"})
+//    @GetMapping(value = {"/", "/cart"})
+    @GetMapping("/cart")
     public String cart() {
         return "client/content/basket/cart.html";
     }

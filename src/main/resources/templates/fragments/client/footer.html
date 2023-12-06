@@ -6,9 +6,9 @@
   <footer th:fragment="footerFragment">
     <div id="footer_wrap">
       <ul class="footer_text1">
-        <li><a href="#">이용약관</a></li>
-        <li><a href="#">개인정보처리방침</a></li>
-        <li><a href="#">공지사항</a></li>
+        <li><a th:href="@{/agreement/termsAndConditions}">이용약관</a></li>
+        <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
+        <li><a th:href="@{/board/boardNotice}">공지사항</a></li>
       </ul>
       <div class="footer_text2">
         <ul >

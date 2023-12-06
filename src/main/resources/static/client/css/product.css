@@ -431,3 +431,25 @@ span{
 .modal_option{
   height: 30px;
 }
+
+/* 스크롤 버튼 */
+
+
+.top{
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
+
+.top a{
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-image: url("/client/images/btn.png");
+  background-repeat: no-repeat;
+  transition: 0.5s;
+}
+.top a:hover{
+  background-image: url("/client/images/btn2.png");
+  height: 70px;
+}
