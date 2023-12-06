@@ -1,15 +1,17 @@
 package com.hedgehog.admin.adminProduct.controller;
-
+import com.google.gson.Gson;
 import com.hedgehog.admin.adminProduct.model.dto.adminProductDTO;
 import com.hedgehog.admin.adminProduct.model.dto.adminProductForm;
 import com.hedgehog.admin.adminProduct.model.service.adminProductServiceImpl;
+import com.hedgehog.admin.exception.AdminProductAddException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,60 +26,66 @@ public class adminProductController {
         this.adminProductServiceImpl = adminProductService;
     }
 
+    @PostMapping("/productAdd")
+    private String productAdd(@ModelAttribute adminProductDTO product, RedirectAttributes rttr) throws AdminProductAddException {
 
-//    @GetMapping(value = "/productserach")
-//    public ModelAndView productsearch(@RequestParam(required = false) String prdCondition,
-//                                      @RequestParam(required = false) String serachCondition,
-//                                      @RequestParam(required = false) String serachValue,
-//                                      @RequestParam(required = false) String prdSerchStartPrice,
-//                                      @RequestParam(required = false) String prdSerchEndPrice,
-//                                      @RequestParam(required = false) String category1,
-//                                      @RequestParam(required = false) String category2,
-//                                      @RequestParam(required = false) String proSearchStartDay,
-//                                      @RequestParam(required = false) String proSearchEndDay,
-//                                      ModelAndView mv){
-//        log.info("productsearch ====================== start");
-//
-//        adminProductForm form = new adminProductForm();
-//        form.setPrdCondition(prdCondition);
-//        form.setSerachCondition(serachCondition);
-//        form.setSerachValue(serachValue);
-//        form.setPrdSerchStartPrice(prdSerchStartPrice);
-//        form.setPrdSerchEndPrice(prdSerchEndPrice);
-//        form.setCategory1(category1);
-//        form.setCategory2(category2);
-//        form.setProSearchStartDay(proSearchStartDay);
-//        form.setProSearchEndDay(proSearchEndDay);
-//
-//        log.info(form.toString());
-//
-//        List<adminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
-//        log.info("=================================productList" + productList);
-//
-//        // Add results to the model
-//        mv.addObject("productList", productList);
-//
-//
-//
-//
-//        mv.setViewName("admin/content/product/productSerch");
-//
-//
-//        return mv;
-//
-//    }
+        log.info("=============productAdd 시작~~~~~~~~~");
 
-    @GetMapping("/productserach")
-    public ModelAndView productList(ModelAndView mv){
-        List<adminProductDTO> productList = adminProductServiceImpl.selectAllProductList();
-        log.info(productList.toString());
+        adminProductServiceImpl.productAdd(product);
 
-        mv.addObject("productList", productList);
-        mv.setViewName("admin/content/product/productserch");
+        rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
 
-        return mv;
+        log.info("=============product 끗~~~~~~~~~~~~~~~");
+        return "redirect:admin/content/product/productAdd";
     }
 
+
+
+    /**
+     * 상품 조회하는 메소드
+     * @param form html에서 form 데이터로 전달받은 객체를 선언한 DTO
+     * @return 조회된 리스트, 총 상품수, 판매중인 상품수, 판매중지 상태인 상품수를 반환
+     */
+    @GetMapping(value = "/productserach")
+    public ModelAndView productsearch(@ModelAttribute adminProductForm form) {
+        log.info("productsearch ====================== start");
+
+        log.info(form.toString());
+
+        List<adminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
+        log.info("=================================productList" + productList);
+
+        int totalResult = productList.size();
+        int countY = 0;
+        int countN = 0;
+        for (int i = 0; i < productList.size(); i++) {
+            char orderableStatus = productList.get(i).getOrderableStatus();
+            log.info(String.valueOf(orderableStatus));
+
+            if ('Y' == orderableStatus) {
+                countY++;
+
+            }
+            if('N' == orderableStatus){
+                countN++;
+            }
+
+        }
+        log.info("=============================countY" + countY);
+        log.info("=============================countN" + countN);
+
+        ModelAndView modelAndView = new ModelAndView("admin/content/product/productSerch");
+        modelAndView.addObject("productList", productList); // 모델에 productList를 추가
+        modelAndView.addObject("totalResult", totalResult);
+        modelAndView.addObject("countY", countY);
+        modelAndView.addObject("countN", countN);
+
+
+
+        log.info("totalResult" + String.valueOf(totalResult));
+
+        return modelAndView;
+    }
 
 
 
@@ -94,6 +102,8 @@ public class adminProductController {
      */
     @GetMapping("/productAdd")
     public String productadd(){ return "admin/content/product/productAdd";}
+
+
 
 
 

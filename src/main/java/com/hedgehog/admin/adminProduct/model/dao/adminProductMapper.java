@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminProduct.model.dao;
 
 import com.hedgehog.admin.adminProduct.model.dto.adminProductDTO;
+import com.hedgehog.admin.adminProduct.model.dto.adminProductForm;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,4 +14,12 @@ public interface adminProductMapper {
 
 
     List<adminProductDTO> selectAllProductList();
+
+    List<adminProductDTO> searchProduct(adminProductForm form);
+
+    int addProduct(adminProductDTO product);
+
+    int addOption(adminProductDTO product);
+
+    int addImg(adminProductDTO product);
 }

@@ -54,16 +54,16 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="serachCondition" id="serachCondition" >
-                                                            <option value="0" selected>상품명</option>
-                                                            <option value="1">상품번호</option>
+                                                        <select name="serachCondition" id="serachCondition">
+                                                            <option value="name" selected>상품명</option>
+                                                            <option value="number">상품번호</option>
                                                         </select>
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;
                                                     </li>                                                    
                                                     <li>
-                                                        <input type="text" name="serachValue" id="serachValue">
+                                                        <input type="search" name="serachValue" id="serachValue">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -73,13 +73,13 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="number" name="prdSerchStartPrice" id="prdSerchStartPrice">
+                                                        <input type="number" name="prdSerchStartPrice" id="prdSerchStartPrice" value="0">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;~
                                                     </li>                                                    
                                                     <li class="w200">
-                                                        <input type="number" name="prdSerchEndPrice" id="prdSerchEndPrice">
+                                                        <input type="number" name="prdSerchEndPrice" id="prdSerchEndPrice" value="0">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -90,9 +90,9 @@
                                                 <ul class="arrAlign">
                                                     <li class="w200">
                                                         <select name="category1" id="category1" >
-                                                            <option value="0" selected>상위 분류 선택</option>
-                                                            <option value="1">의자</option>
-                                                            <option value="2">테이블</option>
+                                                            <option value="" selected>상위 분류 선택</option>
+                                                            <option value="uppercategory">의자</option>
+                                                            <option value="cateogory">테이블</option>
                                                         </select>
                                                     </li>
                                                     <li class="w25">
@@ -138,11 +138,11 @@
                         <div class="bottomResult">
                             <div class="bottomResultTitle"><h3>상품 검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 3 </span>
+                                <span class="colorRed" th:text="${totalResult}"></span>
                                 <span> / 판매중 : </span>
-                                <span class="colorRed"> 2 </span>
+                                <span class="colorRed" th:text="${countY}"> </span>
                                 <span> / 품절 : </span>
-                                <span class="colorRed"> 1 </span>
+                                <span class="colorRed" th:text="${countN}"> </span>
                                 <span> ) </span></div>
                         </div>
                         <div class="tblWrapper">
@@ -170,7 +170,7 @@
                                     <td th:text="${ product.orderableStatus }"></td>
                                     <td th:text="${ product.option.stock }"></td>
                                     <td th:text="${ product.option.sales }"></td>
-                                    <td th:text="${ product.registrationDate }"></td>
+                                    <td th:text="${#dates.format(product.registrationDate, 'yyyy.MM.dd HH:mm')}"></td>
 
                                 </tr>
                             </tbody>
@@ -201,6 +201,8 @@ location.href = "" ;
 }
 }
 }
+
+
 </script>
 
 </body>
