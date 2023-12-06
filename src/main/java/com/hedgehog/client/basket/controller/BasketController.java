@@ -12,7 +12,7 @@ public class BasketController {
 //    @GetMapping(value = {"/", "/cart"})
     @GetMapping("/cart")
     public String cart() {
-        return "client/content/basket/cart.html";
+        return "client/content/basket/cart";
     }
 
 }

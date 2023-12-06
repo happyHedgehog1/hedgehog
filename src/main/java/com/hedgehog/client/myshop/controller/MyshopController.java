@@ -37,4 +37,11 @@ public class MyshopController {
         return "/client/content/myshop/orderDeliveryinfo";
     }
 
+    @GetMapping("/withdrawalReason")
+    public String withdrawalReason() {
+        return "/client/content/myshop/withdrawalReason";
+    }
+
+
+
     }

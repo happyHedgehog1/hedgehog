@@ -95,9 +95,19 @@
               </tr>
             </table>
             <div id="bottom_buttons">
+
+              <a th:href="@{'/myshop/withdrawalReason'}">
               <input type="button" name="withdrawal_button" id="withdrawal_button" value="회원탈퇴">
+              </a>
+
+              <a th:href="@{'/myshop/mypage'}">
               <input type="button" onclick="goMyPage()" id="go_back_button" value="뒤로가기">
+              </a>
+
+
               <input type="submit" name="regist_button" id="regist_button" value="회원수정하기">
+
+
             </div>
           </form>
         </div>

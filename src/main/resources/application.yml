@@ -4,3 +4,5 @@ spring:
     url: jdbc:mysql://mysql.coffit.today:3306/oneinfurniture
     username: oneinfurniture
     password: oneinfurniture1234
+
+

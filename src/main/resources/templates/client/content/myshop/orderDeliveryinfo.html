@@ -22,7 +22,11 @@
         <div id="contents">
           <div id="contents_menu">
             <div>주문/배송내역</div>
-            <div onclick="location.href='cancelPaybackInfo.html'">취소/환불내역</div>
+
+            <div onclick="location.href='/client/content/myshop/cancelPaybackInfo.html'"><a th:href="@{'/myshop/cancelPaybackInfo'}">
+              <div>취소/환불내역</div>
+            </a></div>
+
           </div>
           <form action="/url" id="search">
             <div id="form_wrap">
