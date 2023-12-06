@@ -1,5 +1,6 @@
 package com.hedgehog.client.auth.controller;
 
+import com.hedgehog.client.auth.model.dto.RegistrationForm;
 import com.hedgehog.client.auth.model.service.AuthServiceImpl;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import lombok.extern.slf4j.Slf4j;
@@ -35,17 +36,27 @@ public class AuthController {
     }
 
     @PostMapping("/regist")
-    public String registUser() {
-        return "";
+    public String registMember(@ModelAttribute RegistrationForm registrationForm, Model model) {
+        System.out.println(registrationForm);
+
+        boolean registrationSuccess = true;
+
+        if (registrationSuccess) {
+            model.addAttribute("message", "Registration successful!");
+        } else {
+            model.addAttribute("message", "Registration failed. Please try again.");
+            return "redirect:/";
+        }
+
+        return "redirect:/auth/login";
     }
 
     @PostMapping(value = "/checkId", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public Map<String, Object> checkId(@RequestParam String userId, Model model) {
+    public Map<String, Object> checkId(@RequestParam String userId) {
         Map<String, Object> response = new HashMap<>();
         boolean isDuplicated = authService.selectUserById(userId);
         response.put("result", isDuplicated ? "fail" : "success");
-        model.addAttribute("isIdDuplicated", isDuplicated);
         return response;
     }
 
@@ -68,13 +79,11 @@ public class AuthController {
     @PostMapping(value = "/emailCertify", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public Map<String, Object> checkEmail(@RequestParam int inputCertifiedCode,
-                                          @RequestParam String certifiedKey,
-                                          Model model) {
+                                          @RequestParam String certifiedKey) {
         Map<String, Object> response = new HashMap<>();
         boolean isDuplicated = authService.certifyEmail(inputCertifiedCode, certifiedKey); // Member 부분에서
 
         response.put("result", isDuplicated ? "fail" : "success");
-        model.addAttribute("isEmailDuplicated", isDuplicated);
         return response;
     }
 

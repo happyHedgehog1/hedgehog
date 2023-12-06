@@ -48,20 +48,20 @@
 
                     <table id="contents_table">
                         <tr>
-                            <th>성명</th>
+                            <th>이름</th>
                             <td colspan="2"><input type="text" name="name" id="name"></td>
                         </tr>
                         <tr>
-                            <th>생일</th>
+                            <th>생년월일</th>
                             <td colspan="2"><input type="date" name="birthday" id="birthday"></td>
                         </tr>
                         <tr>
                             <th>성별</th>
                             <td colspan="2">
                                 <label for="male">남</label>
-                                <input type="radio" name="gender" id="male">
+                                <input type="radio" name="gender" id="male" value="male">
                                 <label for="female">여</label>
-                                <input type="radio" name="gender" id="female">
+                                <input type="radio" name="gender" id="female" value="female">
                             </td>
                         </tr>
                         <tr>
@@ -85,10 +85,10 @@
                                             method: "POST",
                                             data: {userId: userId},
                                             success: function (result) {
-                                                if (result.result === "success") { // 아이디가 있으면.
+                                                if (result.result === "success") { // 아이디가 없으면
                                                     $('#check_text').css('display', 'block');
                                                     $('#check_text').text('중복체크 완료')
-                                                } else { // 아이디가 없으면.
+                                                } else { // 아이디가 있으면
                                                     $('#id_check_button').css('display', 'inline');
                                                     $('#check_text').css('display', 'block');
                                                     $('#check_text').text('아이디가 있습니다.')
@@ -110,14 +110,14 @@
                         </tr>
                         <tr>
                             <th>비밀번호</th>
-                            <td><input type="text" input="password" id="password"></td>
+                            <td><input type="password" id="userPwd" name="userPwd"></td>
                             <td>공백없는 8~20자리의 영문/숫자/특수문자<br>
                                 <span id="warning">특수문자는 !@#$%^&* 사용가능</span>
                             </td>
                         </tr>
                         <tr>
                             <th>비밀번호확인</th>
-                            <td colspan="2"><input type="text" input="password2" id="password2"></td>
+                            <td colspan="2"><input type="password" input="password2" id="password2"></td>
                         </tr>
                         <tr id="email_row">
                             <th>이메일</th>
@@ -130,6 +130,7 @@
                                     <div>인증번호</div>
                                     <input type="text" id="email_authentication_number"
                                            name="email_authentication_number">
+                                    <input id="hidden_certified_key" name="hidden_certified_key" hidden>
                                     &nbsp;
                                     <input type="button" id="email_authentication_button" value="인증하기">
                                     &nbsp;
@@ -138,7 +139,6 @@
                                     <img src="/client/images/icon/reload.png" alt="시간연장" id="reload">
                                 </div>
                                 <div id="email_message"></div>
-                                <input id="hidden_certified_key" hidden>
                                 <script>
                                     let countdownTimer = null;
 
@@ -208,7 +208,7 @@
                                         $.ajax({
                                             url: "/auth/emailCertify",
                                             method: "POST",
-                                            data: {inputCertifiedCode: inputCertifiedCode,certifiedKey:certifiedKey},
+                                            data: {inputCertifiedCode: inputCertifiedCode, certifiedKey: certifiedKey},
                                             success: function (result) {
                                                 if (result.result === "success") {
                                                     $("#email_input_wrap").css('display', 'none');
@@ -256,6 +256,14 @@
                     <div id="bottom_buttons">
                         <input type="submit" name="regist_button" id="regist_button" value="회원가입">
                     </div>
+                    <script th:inline="javascript">
+                        <![CDATA[
+                        var message = [[${message}]];
+                        if (message) {
+                            alert(message);
+                        }
+                        ]]>
+                    </script>
                 </form>
             </div>
         </div>

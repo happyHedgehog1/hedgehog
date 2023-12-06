@@ -1,4 +1,4 @@
-package com.hedgehog.client.list.model.sercive;
-
-public interface ListService {
-}
+//package com.hedgehog.client.list.model.sercive;
+//
+//public interface ListService {
+//}
