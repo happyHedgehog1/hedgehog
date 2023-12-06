@@ -1,8 +1,8 @@
 package com.hedgehog.client.list.controller;
 import com.hedgehog.client.list.model.dto.ListDTO;
 import com.hedgehog.client.list.model.sercive.ListServiceImpl;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 public class ListController {
 
-    @Value("${im")
+    @Value("${image.image-dir}")
     private String IMAGE_DIR;
 
     @Value("${spring.servlet.multipart.location}")
@@ -30,18 +30,18 @@ public class ListController {
     @GetMapping("/list")
     public ModelAndView selectCategoryList(ModelAndView mv) {
 
-        log.info("");
-        log.info("");
-        log.info("[ListController] ========================== start");
-
-        List<ListDTO> category = listServiceImpl.selectCategoryList();
-
-        log.info("category : " + category);
-
-        mv.addObject("category", category);
-        mv.setViewName("client/list/category");
-
-        log.info("[ListController] ========================== end");
+//        log.info("");
+//        log.info("");
+//        log.info("[ListController] ========================== start");
+//
+//        List<ListDTO> category = listServiceImpl.selectCategoryList();
+//
+//        log.info("category : " + category);
+//
+//        mv.addObject("category", category);
+//        mv.setViewName("client/list/category");
+//
+//        log.info("[ListController] ========================== end");
 
         return mv;
 
@@ -71,7 +71,7 @@ public class ListController {
 //        return "category";
 //
 //    }
-     데이터베이스에서 필요정보를 객체로 받아서 결과페이지로 넘겨준다.
+//     데이터베이스에서 필요정보를 객체로 받아서 결과페이지로 넘겨준다.
 
     @GetMapping("/category")
     public String getCategory(){
