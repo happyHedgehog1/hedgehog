@@ -1,0 +1,1 @@
+여기에 boardMapper.xml 같은 파일 작성하시면 됩니다.
