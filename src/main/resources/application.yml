@@ -1,7 +1,7 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.coffit.today/oneinfurniture
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://mysql.coffit.today/oneinfurniture
     username: oneinfurniture
     password: oneinfurniture1234
 

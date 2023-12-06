@@ -5,15 +5,17 @@ import com.hedgehog.admin.adminProduct.model.dto.adminProductForm;
 import com.hedgehog.admin.adminProduct.model.service.adminProductServiceImpl;
 import com.hedgehog.admin.exception.AdminProductAddException;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 @RequestMapping("/product")
@@ -25,6 +27,103 @@ public class adminProductController {
     public adminProductController(adminProductServiceImpl adminProductService) {
         this.adminProductServiceImpl = adminProductService;
     }
+
+//    @Value("img")
+//    private String IMAGE_DIR;
+//
+//    @Value("C:/hedgehog/")
+//    private String ROOT_LOCATION;
+//
+//    @PostMapping("/thumbnailRegist")
+//    private String productImgAdd(@RequestParam("thumbnail") MultipartFile thumbnail,
+//                                 @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
+//                                 @RequestParam("pro_img") MultipartFile pro_img,
+//                                 RedirectAttributes rttr)
+//    {
+//        log.info("===========================섬네일 넣기~~~~~~~~~");
+//        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+//
+//        String fileUploadDirectory = rootLocation + "/upload/original";
+//        String thumbnailDirectory = rootLocation + "/upload/thumbnail";
+//
+//        File directory = new File(fileUploadDirectory);
+//        File directory2 = new File(thumbnailDirectory);
+//
+//        log.info("=================fileUploadDirectory" + directory);
+//        log.info("=================thumbnailDirectory" + directory2);
+//
+//        if(!directory.exists() || !directory2.exists()){
+//
+//            log.info("============폴더 생성 : " + directory.mkdirs());
+//            log.info("=========== 폴더 생성 : " + directory2.mkdirs());
+//
+//        }
+//
+//        List<Map<String, String>> fileList = new ArrayList<>();
+//
+//        List<MultipartFile> paramFileList = new ArrayList<>();
+//        paramFileList.add(thumbnail);
+//        log.info("=============대표 사진" + thumbnail);
+//
+//        for (MultipartFile sub_thumbnail : sub_thumbnails) {
+//            paramFileList.add(sub_thumbnail);
+//            log.info("=============상품 사진" + sub_thumbnail);
+//
+//        }
+//        paramFileList.add(pro_img);
+//        log.info("=============제품 상세 사진" + pro_img);
+//
+//        for(MultipartFile paramFile : paramFileList){
+//            if (paramFile.getSize() > 0){
+//                String originFileName = paramFile.getOriginalFilename();
+//
+//                log.info("================originFileName : " + originFileName);
+//
+//                String ext = originFileName.substring(originFileName.lastIndexOf("."));
+//                String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+//
+//                log.info("================변경한 이름 " + savedFileName);
+//
+//                log.info("================paramFile : " + fileUploadDirectory + "/" + savedFileName);
+//                    paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
+//
+//                    Map<String, String> fileMap = new HashMap<>();
+//                    fileMap.put("originFileName", originFileName);
+//                    fileMap.put("savedFileName", savedFileName);
+//                    fileMap.put("savePath", fileUploadDirectory);
+//
+//                    int width = 0;
+//                    int height = 0;
+//
+//                    String fieldName = paramFile.getName();
+//                    log.info("=================필드 name " + fieldName);
+//
+//                    if ("thumbnail".equals(fieldName) || "sub_thumbnail".equals(fieldName)) {
+//                        fileMap.put("fileType", "thumbnail");
+//                        width = 640;
+//                        height = 640;
+//
+//                    } else {
+//                        fileMap.put("fileType", "BODY");
+//                        width = 860;
+//                        height = 7500;
+//                    }
+//
+//                    Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
+//                            .toFile(thumbnailDirectory + "/thumbnail_" + savedFileName);
+//
+//                    fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
+//
+//                    fileList.add(fileMap);
+//
+//                    log.info("===================fileList" + fileList);
+//
+//
+//                }
+//            }
+//        }
+//
+//    }
 
     @PostMapping("/productAdd")
     private String productAdd(@ModelAttribute adminProductDTO product, RedirectAttributes rttr) throws AdminProductAddException {
