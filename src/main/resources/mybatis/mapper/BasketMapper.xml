@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hedgehog.client.basket.model.dao.BoardMapper">
+<mapper namespace="com.hedgehog.client.basket.model.dao.BasketMapper">
 
     <resultMap id="BasketResultMap" type="BasketDTO">
         <id property="cartCode" column="cart_code"/>
@@ -55,18 +55,61 @@
     <!--        <result property="certificationNumber" column="certification_number"/>-->
     <!--    </resultMap>-->
 
-<!--    <select id="selectBasket" resultMap="BasketResultMap">-->
-<!--        select-->
-<!--              img_code,-->
-<!--              product_name,-->
-<!--              price,-->
-<!--              amount,-->
-<!--              delivery_charge-->
+    <select id="selectBasket" resultMap="BasketResultMap" >
+
+<!--        <![CDATA[]]> -->
+
+        SELECT
+            C.img_code,
+            B.product_name,
+            B.price,
+            (B.price * 0.01) AS 적립금,
+            A.amount,
+            B.delivery_charge,
+            (B.price + B.delivery_charge) AS 합계
+        FROM
+            tbl_cart A
+                JOIN
+            tbl_product B ON A.product_code = B.product_code
+                JOIN
+            tbl_product_img C ON A.product_code = C.product_code
+        GROUP BY
+            C.img_code, B.product_name, B.price, A.amount, B.delivery_charge, (B.price + B.delivery_charge)
+
+
+    </select>
 
 
 
-<!--    </select>-->
+    <resultMap id="CartSelectResultMap" type="CartSelectDTO">
+        <result property="imgCode" column="img_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="price" column="price"/>
+        <result property="savedMoney" column="적립금"/>
+        <result property="amount" column="amount"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="productSum" column="합계"/>
+    </resultMap>
 
 
+
+    <select id="selectCartList" resultMap="CartSelectResultMap">
+        SELECT
+            C.img_code,
+            B.product_name,
+            B.price,
+            (B.price * 0.01) AS 적립금,
+            A.amount,
+            B.delivery_charge,
+            (B.price + B.delivery_charge) AS 합계
+        FROM
+            tbl_cart A
+                JOIN
+            tbl_product B ON A.product_code = B.product_code
+                JOIN
+            tbl_product_img C ON A.product_code = C.product_code
+        GROUP BY
+            C.img_code, B.product_name, B.price, A.amount, B.delivery_charge, (B.price + B.delivery_charge)
+    </select>
 
 </mapper>

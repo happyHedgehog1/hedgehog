@@ -28,6 +28,7 @@ public class adminProductController {
         this.adminProductServiceImpl = adminProductService;
     }
 
+
 //    @Value("img")
 //    private String IMAGE_DIR;
 //

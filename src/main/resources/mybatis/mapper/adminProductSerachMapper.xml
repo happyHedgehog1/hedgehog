@@ -46,16 +46,17 @@
 <!--</select>-->
 
     <select id="searchProduct" resultMap="productResultMap">
-        SELECT
-            product_code,
-            product_name,
-            price,
-            orderable_status,
-            stock,
-            sales_volume,
-            registration_date
-        FROM (
-                SELECT
+
+                <where> SELECT
+                    product_code,
+                    product_name,
+                    price,
+                    orderable_status,
+                    stock,
+                    sales_volume,
+                    registration_date
+                    FROM (
+                    SELECT
                     A.product_code,
                     A.product_name,
                     A.price,
@@ -63,10 +64,9 @@
                     A.registration_date,
                     SUM(B.stock) as stock,
                     SUM(B.sales_volume) as sales_volume
-                FROM
+                    FROM
                     tbl_product A JOIN
                     tbl_option_list B ON A.product_code = B.product_code
-                <where>
                     <if test="prdCondition == 'conditionY'">
                     A.orderable_status = 'Y'
                     </if>

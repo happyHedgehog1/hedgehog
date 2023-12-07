@@ -2,6 +2,12 @@ package com.hedgehog.client.basket.model.dto;
 
 import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
+
 
 public class BasketDTO {
 

@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // 선택된 상품 정보를 담을 배열을 생성합니다.
         const selectedItems = [];
 
+
         // 체크박스 요소들을 가져옵니다.
         const checkboxes = document.querySelectorAll('.cart_table input[type="checkbox"]:checked');
 
@@ -115,22 +116,3 @@ document.addEventListener('DOMContentLoaded', function () {
         orderForm.appendChild(hiddenInput);
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-// $(document).ready(function(){
-//     var currentPosition = parseInt($(".quickmenu").css("top"));
-//     $(window).scroll(function() {
-//         var position = $(window).scrollTop();
-//         $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},800);
-//     });
-// });

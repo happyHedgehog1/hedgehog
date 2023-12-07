@@ -1,7 +1,13 @@
 package com.hedgehog.client.basket.model.dto;
 
-import java.util.Date;
+import lombok.*;
 
+import java.util.Date;
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
 public class ProductImgDTO {
     private int imgCode;
     private String imageClassification;
