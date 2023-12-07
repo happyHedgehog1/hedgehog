@@ -41,7 +41,6 @@
                                                     <li class="w200">
                                                         <select name="prdCondition" id="prdCondition" >
                                                             <option value="" selected>판매상태 목록</option>
-                                                            <option value="conditionAll" >판매상태 전체</option>
                                                             <option value="conditionY">판매중</option>
                                                             <option value="conditionN">판매종료</option>
                                                         </select>
@@ -63,7 +62,7 @@
                                                         &nbsp;
                                                     </li>                                                    
                                                     <li>
-                                                        <input type="search" name="serachValue" id="serachValue">
+                                                        <input type="search" name="searchValue" id="searchValue">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -89,20 +88,20 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="category1" id="category1" >
-                                                            <option value="" selected>상위 분류 선택</option>
-                                                            <option value="uppercategory">의자</option>
-                                                            <option value="cateogory">테이블</option>
+                                                        <select name="upperCategoryCode" id="upperCategoryCode" onchange="setSelectBox(this)">
+                                                            <option value="0" selected>상위 카테고리</option>
+                                                            <option value="1" >침실</option>
+                                                            <option value="2" >거실</option>
+                                                            <option value="3" >서재</option>
+                                                            <option value="4" >주방</option>
                                                         </select>
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;
                                                     </li>  
                                                     <li class="w200">
-                                                        <select name="category2" id="category2" >
-                                                            <option value="0" selected>하위 분류 선택</option>
-                                                            <option value="1">침실</option>
-                                                            <option value="2">거실</option>
+                                                        <select name="subCategoryName" id="subCategoryName">
+
                                                         </select>
                                                     </li>
                                                 </ul>    

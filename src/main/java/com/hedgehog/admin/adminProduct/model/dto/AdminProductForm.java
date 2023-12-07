@@ -7,14 +7,15 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class adminProductForm {
+public class AdminProductForm {
     private String prdCondition;
     private String serachCondition;
-    private String serachValue;
+    private String searchValue;
     private String prdSerchStartPrice;
     private String prdSerchEndPrice;
-    private String category1;
-    private String category2;
+    private String upperCategoryCode;
+    private int subCategoryName;
     private String proSearchStartDay;
     private String proSearchEndDay;
+    private int productCode;
 }
