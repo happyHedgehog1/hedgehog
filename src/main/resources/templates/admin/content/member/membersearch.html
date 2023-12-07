@@ -10,7 +10,9 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" th:href="@{/admin/css/member.css}" type="text/css">
 
-    <script th:src="@{/admin/js/seach.js}"></script>
+
+    <script th:src="@{/admin/js/member.js}"></script>
+
 
 </head>
 <body>
@@ -23,8 +25,7 @@
             <div class="page-top">
                 <form id="memberSearchForm"
                       th:action="@{/member/membersearch}"
-                      method="get"
-                      style="display: inline-block">
+                      method="get">
                     <div class="tbl-setting">
                         <table class="table">
                             <tbody>
@@ -47,10 +48,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class>고객 정보</th>
+                                <th>고객 정보</th>
                                 <td>
-                                    <ul class>
-                                        <li class>
+                                    <ul>
+                                        <li>
                                             <select class="box" name="memKeyword" id="memKeyword">
                                                 <option value="">-- 키워드 --</option>
                                                 <option value="user_id">아이디</option>
@@ -85,7 +86,7 @@
                         </table>
                     </div>
                     <div class="btn-c">
-                        <button class="btn" type="button">검색</button>
+                        <button class="btn" type="button" onclick="searchMembers()">검색</button>
                     </div>
                 </form>  <!-- 여기 폼 사용 -->
 
@@ -140,21 +141,25 @@
                                 <th>최근로그인</th>
                                 <th class="aa">관리</th>
                             </tr>
-                            <tr class="proSearchBottomtr"
-                                th:each=" member : ${ memberList }"
-                            >
-                                <td th:text="${ member.memberNo}"></td>
-                                <td th:text="${ member.memberId}"></td>
-                                <td th:text="${ member.name}"></td>
-                                <td th:text="${ member.phone}"></td>
-                                <td th:text="${ member.email}"></td>
+                            </thead>
+                            <tbody>
+                            <tr class="proSearchBottomtr" th:each=" member : ${ memberList }">
+                                <td>
+                                    <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                </td>
+                                <td th:text="${ member.member_code}"></td>
+                                <td th:text="${ member.user.id}"></td>
+                                <td th:text="${ member.user.name}"></td>
+                                <td th:text="${ member.customer.phone}"></td>
+                                <td th:text="${ member.customer.email}"></td>
                                 <td th:text="${ member.cumulative_amount}"></td>
                                 <td th:text="${ member.point}"></td>
                                 <td th:text="${ member.email_consent}"></td>
-                                <td th:text="${ member.creation_date}"></td>
-                                <td th:text="${ member.connection_date}"></td>
-                                <td th:text="${ member.withdraw_state}"></td>
-                            </thead>
+                                <td th:text="${ member.user.creation_date}"></td>
+                                <td th:text="${ member.user.connection_date}"></td>
+                                <td th:text="${ member.user.withdraw_state}"></td>
+                            </tr>
+                            </tbody>
                             <!--                        <tbody class="usersList">-->
                             <!--                            <tr>-->
                             <!--                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>-->

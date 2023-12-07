@@ -35,37 +35,44 @@
     </resultMap>
 
     <select id="selectAllMemberList" resultMap="memberResultMap">
-        SELECT memberNo,
-        memberId,
-        name,
-        phone,
-        email,
-        cumulative_amount,
-        point,
-        email_consent,
-        creation_date,
-        connection_date,
-        withdraw_state
-        FROM (SELECT A.member_code,
-        A.email_consent,
-        A.point,
-        A.cumulative_amount,
-        B.email,
-        B.phone,
-        C.memberId,
-        C.name,
-        C.creation_date,
-        C.connection_date,
-        C.withdraw_state
-        FROM tbl_member A
-        JOIN
-        tbl_customer B ON A.member_code = B.member_code
-        JOIN
-        tbl_user C ON B.user_code = C.user_code
-        <where>
-            <if test="memKeyword == 'name'">C.name LIKE CONCAT('%', #{search_keyword}, '%')
-            </if>
-              </where>
-              )AS subquery
+        SELECT
+            A.member_code,
+            A.email_consent,
+            A.point,
+            A.cumulative_amount,
+            B.email,
+            B.phone,
+            C.user_code,
+            C.name,
+            C.creation_date,
+            C.connection_date,
+            C.withdraw_state
+        FROM
+            tbl_member A
+                JOIN tbl_customer B ON A.member_code = B.customer_code
+                JOIN tbl_user C ON B.customer_code = C.user_code
+        <if test="date1 != null and date2 != null">
+            join_date BETWEEN #{date1} AND #{date2}
+        </if>
+        <if test="memKeyword != null and searchKeyword != null">
+            AND
+            <choose>
+                <when test="memKeyword == 'user_id'">
+                    user_id = #{searchKeyword}
+                </when>
+                <when test="memKeyword == 'user_name'">
+                    user_name = #{searchKeyword}
+                </when>
+                <when test="memKeyword == 'user_mobile'">
+                    user_mobile = #{searchKeyword}
+                </when>
+                <when test="memKeyword == 'user_email'">
+                    user_email = #{searchKeyword}
+                </when>
+            </choose>
+        </if>
+        <if test="memAgree != null">
+            AND mem_agree = #{memAgree}
+        </if>
     </select>
 </mapper>

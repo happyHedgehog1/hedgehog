@@ -133,6 +133,8 @@ h2 {
     color: #fff;
     font-size: 20px;
     text-align: center;
+    margin-right: 50px;
+    margin-top: 20px;
 }
 
 .main-head h2 {
@@ -257,9 +259,6 @@ input[type=checkbox]{
     vertical-align: middle;
 }
 
-.tbl-side{
-    margin-left: 600px;
-}
 
 .tbl-list.tbl-extend {
     position: relative;
@@ -308,3 +307,12 @@ input[type=checkbox]{
     border-collapse: collapse;
 }
 
+
+
+.table{
+    width: 100%;
+}
+
+.table th{
+    width: 100px;
+}
