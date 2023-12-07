@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/category")
-public class adminCategoryController {
+public class AdminCategoryController {
 
 
     @GetMapping("/categoryAdd")

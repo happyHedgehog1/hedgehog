@@ -1,11 +1,8 @@
 package com.hedgehog.admin.adminProduct.controller;
-import com.google.gson.Gson;
-import com.hedgehog.admin.adminProduct.model.dto.adminProductDTO;
-import com.hedgehog.admin.adminProduct.model.dto.adminProductForm;
-import com.hedgehog.admin.adminProduct.model.dto.optionDTO;
-import com.hedgehog.admin.adminProduct.model.dto.optionListDTO;
-import com.hedgehog.admin.adminProduct.model.service.adminProductServiceImpl;
+import com.hedgehog.admin.adminProduct.model.dto.*;
+import com.hedgehog.admin.adminProduct.model.service.AdminProductServiceImpl;
 import com.hedgehog.admin.exception.AdminProductAddException;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,23 +11,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 @Controller
 @RequestMapping("/product")
 @Slf4j
-public class adminProductController {
+public class AdminProductController {
 
-    private final adminProductServiceImpl adminProductServiceImpl;
+    private final AdminProductServiceImpl adminProductServiceImpl;
 
-    public adminProductController(adminProductServiceImpl adminProductService) {
+    public AdminProductController(AdminProductServiceImpl adminProductService) {
         this.adminProductServiceImpl = adminProductService;
     }
 
@@ -41,9 +32,10 @@ public class adminProductController {
     private String ROOT_LOCATION;
 
     @PostMapping("/productAdd")
-    private String productAdd(@ModelAttribute adminProductDTO product,
-                              @ModelAttribute optionDTO option,
-                              @ModelAttribute optionListDTO optionList,
+    private String productAdd(@ModelAttribute AdminProductDTO product,
+                              @ModelAttribute OptionDTO option,
+                              @ModelAttribute OptionListDTO optionList,
+                              @ModelAttribute AdminCategoryDTO categoryDTO,
                               @RequestParam("thumbnail") MultipartFile thumbnail,
                               @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
                               @RequestParam("proImg") MultipartFile proImg,
@@ -52,10 +44,11 @@ public class adminProductController {
 
 
 
-        log.info("=============productAdd 시작~~~~~~~~~");
+        log.info("********************=============productAdd 시작~~~~~~~~~");
         log.info("==========product" + product);
         log.info("==========option" + option);
         log.info("==========optionList" + optionList);
+        log.info("==========categoryDTO" + categoryDTO);
         log.info("==========thumbnail" + thumbnail);
         log.info("==========sub_thumbnail" + sub_thumbnails);
         log.info("==========proImg" + proImg);
@@ -164,12 +157,12 @@ public class adminProductController {
      * @return 조회된 리스트, 총 상품수, 판매중인 상품수, 판매중지 상태인 상품수를 반환
      */
     @GetMapping(value = "/productserach")
-    public ModelAndView productsearch(@ModelAttribute adminProductForm form) {
+    public ModelAndView productsearch(@ModelAttribute AdminProductForm form) {
         log.info("productsearch ====================== start");
 
         log.info(form.toString());
 
-        List<adminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
+        List<AdminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
         log.info("=================================productList" + productList);
 
         int totalResult = productList.size();
@@ -214,11 +207,23 @@ public class adminProductController {
 //    public String productsearch(){ return "admin/content/product/productSerch";}
 
     /**
-     * 상품등록 페이지 연결 메소드
-     * @return 관리자 상품등록 페이지
+     * ajax 이용 동적 select 메소드
+     * @return 선택한 상위 카테고리의 하위 카테고리 리스트들
      */
     @GetMapping("/productAdd")
     public String productadd(){ return "admin/content/product/productAdd";}
+
+    @GetMapping(value = "/category/{upperCategoryCode}", produces = "application/json; charset=UTF-8" )
+    @ResponseBody
+    public List<AdminCategoryDTO> getCateogoryList(HttpServletResponse res, @PathVariable("upperCategoryCode") int upperCategoryCode) throws IOException {
+        log.info("*************************" + upperCategoryCode);
+
+        List<AdminCategoryDTO> categoryList = adminProductServiceImpl.findOptionList(upperCategoryCode);
+        log.info("******************" + categoryList);
+
+
+        return categoryList;
+    }
 
 
 

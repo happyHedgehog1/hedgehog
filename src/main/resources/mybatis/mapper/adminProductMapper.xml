@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hedgehog.admin.adminProduct.model.dao.adminProductMapper">
+<mapper namespace="com.hedgehog.admin.adminProduct.model.dao.AdminProductMapper">
     <resultMap id="productResultMap" type="adminProductDTO">
         <id property="productCode" column="product_code"/>
         <result property="categoryCode" column="category_code"/>
@@ -26,6 +26,19 @@
         <result property="stock" column="stock"/>
         <result property="exposureStatus" column="exposure_status"/>
         <result property="sales" column="sales_volume"/>
+    </resultMap>
+
+    <resultMap id="optionResultMap" type="optionDTO">
+        <id property="optionCode" column="option_code"/>
+        <result property="optionName" column="name"/>
+    </resultMap>
+
+    <resultMap id="categoryResultMap" type="AdminCategoryDTO">
+        <id property="subCategoryName" column="category_code"/>
+        <result property="state" column="state"/>
+        <result property="name" column="name"/>
+        <result property="upperCategoryCode" column="upper_category_code"/>
+
     </resultMap>
 
 <!--<select id="selectAllProductList" resultMap="productResultMap">-->
@@ -53,49 +66,74 @@
             orderable_status,
             stock,
             sales_volume,
-            registration_date
+            registration_date,
+            category_code
         FROM (
-                SELECT
-                    A.product_code,
-                    A.product_name,
-                    A.price,
-                    A.orderable_status,
-                    A.registration_date,
-                    SUM(B.stock) as stock,
-                    SUM(B.sales_volume) as sales_volume
-                FROM
-                    tbl_product A JOIN
-                    tbl_option_list B ON A.product_code = B.product_code
-                <where>
-                    <if test="prdCondition == 'conditionY'">
-                    A.orderable_status = 'Y'
-                    </if>
-                    <if test="prdCondition == 'conditionN'">
-                        A.orderable_status = 'N'
-                    </if>
-                    <if test="serachCondition == 'name'">
-                        A.product_name LIKE CONCAT('%', #{serachValue}, '%')
-                    </if>
-                    <if test="serachCondition == 'number'">
-                        A.product_code LIKE CONCAT('%', #{serachValue}, '%')
-                    </if>
-                </where>
-                GROUP BY
-                    A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date
-            ) AS subquery
-
+        SELECT
+            A.product_code,
+            A.product_name,
+            A.price,
+            A.orderable_status,
+            A.registration_date,
+            A.category_code,
+            SUM(B.stock) as stock,
+            SUM(B.sales_volume) as sales_volume
+        FROM
+            tbl_product A
+        join tbl_category C on A.category_code = C.category_code
+        JOIN tbl_option_list B ON A.product_code = B.product_code
+        <where>
+            <if test="prdCondition == 'conditionY'">
+                AND A.orderable_status = 'Y'
+            </if>
+            <if test="prdCondition == 'conditionN'">
+                AND A.orderable_status = 'N'
+            </if>
+            <if test="searchValue != ''">
+            <if test="serachCondition == 'name'">
+                AND A.product_name LIKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            <if test="serachCondition == 'number'">
+                AND A.product_code LIKE CONCAT('%', #{searchValue}, '%')
+            </if>
+            </if>
+            <if test="subCategoryName != 0">
+                AND A.category_code = #{subCategoryName}
+            </if>
+            <if test="prdSerchStartPrice != 0 ">
+                <if test="prdSerchEndPrice != 0 ">
+                AND A.price BETWEEN #{prdSerchStartPrice} AND #{prdSerchEndPrice}
+                </if>
+                <if test="prdSerchEndPrice == 0">
+                AND A.price > #{prdSerchStartPrice}
+                </if>
+            </if>
+            <if test="proSearchStartDay != ''">
+                <if test="proSearchEndDay != ''">
+                AND A.registration_date BETWEEN #{proSearchStartDay} AND #{proSearchEndDay}
+                </if>
+                <if test="proSearchEndDay == ''">
+                    AND A.registration_date > #{proSearchStartDay}
+                </if>
+            </if>
+        </where>
+        GROUP BY
+        A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date
+        ) AS subquery
     </select>
+
     <insert id="addProduct">
         INSERT INTO tbl_product (
-                                 category_code,
                                  product_name,
                                  orderable_status,
                                  price,
                                  registration_date,
                                  delivery_charge,
                                  sales_start,
-                                 sales_end)
-        VALUES (#{categoryCode}, #{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd});
+                                 sales_end,
+                                 category_code,
+                                 product_code)
+        VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{subCategoryName}, null);
         <selectKey keyProperty="product_code" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -123,4 +161,28 @@
                                      )
         VALUES(#{productCode}, #{image_classification}, #{source_path}, #{convert_path}, #{source_name}, #{convert_name}, 'Y', #{create_date})
     </insert>
+    <select id="searchOption" resultMap="categoryResultMap">
+        SELECT
+            b.category_code,
+            b.name
+        from tbl_category b
+        inner join tbl_category a
+        on a.category_code=b.upper_category_code
+        <where>
+            <if test="upperCategoryCode == 1">
+                AND B.upper_category_code = 1
+            </if>
+            <if test="upperCategoryCode == 2">
+                AND B.upper_category_code = 2
+            </if>
+            <if test="upperCategoryCode == 3">
+                AND B.upper_category_code = 3
+            </if>
+            <if test="upperCategoryCode == 4">
+                AND B.upper_category_code = 4
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

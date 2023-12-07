@@ -1,16 +1,16 @@
 package com.hedgehog.admin.adminProduct.model.dto;
 
-public class optionListDTO {
+public class OptionListDTO {
     private int productCode;
     private String optionCode;
     private int stock;
     private String exposureStatus;
     private int sales;
 
-    public optionListDTO() {
+    public OptionListDTO() {
     }
 
-    public optionListDTO(int productCode, String optionCode, int stock, String exposureStatus, int sales) {
+    public OptionListDTO(int productCode, String optionCode, int stock, String exposureStatus, int sales) {
         this.productCode = productCode;
         this.optionCode = optionCode;
         this.stock = stock;
@@ -60,7 +60,7 @@ public class optionListDTO {
 
     @Override
     public String toString() {
-        return "optionListDTO{" +
+        return "OptionListDTO{" +
                 "productCode=" + productCode +
                 ", optionCode='" + optionCode + '\'' +
                 ", stock=" + stock +

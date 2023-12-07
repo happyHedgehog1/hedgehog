@@ -1,18 +1,16 @@
 package com.hedgehog.admin.adminProduct.model.dto;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class adminProductDTO {
+public class AdminProductDTO {
 private int productCode;
-private int categoryCode;
+private int subCategoryName;
 private String productName;
 private char orderableStatus;
 private int price;
@@ -24,7 +22,7 @@ private String salesStart;
 private String salesEnd;
 private int reviews;
 private int grade;
-private optionListDTO option;
+private OptionListDTO option;
 
 
 

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class optionDTO {
-    private String optionCode;
+public class OptionDTO {
+    private int optionCode;
     private String optionName;
 }
