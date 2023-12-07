@@ -32,8 +32,15 @@ public class LoginDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        GrantedAuthority userAuthority = new SimpleGrantedAuthority(UserRole.MEMBER.getRole());
+        GrantedAuthority userAuthority = null;
+        UserRole loginUserRole = loginUserDTO.getRole();
+        if(loginUserRole.getRole().equals(UserRole.MEMBER.getRole())) {
+            userAuthority = new SimpleGrantedAuthority(UserRole.MEMBER.getRole());
+        }else if(loginUserRole.getRole().equals(UserRole.ADMIN.getRole())){
+            userAuthority = new SimpleGrantedAuthority(UserRole.ADMIN.getRole());
+        }else if(loginUserRole.getRole().equals(UserRole.SUPER_ADMIN.getRole())){
+            userAuthority = new SimpleGrantedAuthority(UserRole.SUPER_ADMIN.getRole());
+        }
         authorities.add(userAuthority);
 
         return authorities;

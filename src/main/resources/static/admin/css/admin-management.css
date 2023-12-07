@@ -221,7 +221,7 @@ td {
     border-right: #bdc5cd 1px solid;
 }
 
-#btnChangePass {
+.btnChangePass {
     width: 120px;
     height: 40px;
     color: white;
@@ -231,7 +231,7 @@ td {
 }
 
 
-button#btnChangePass:active {
+.btnChangePass:active {
     background-color: #3F464F;
     border: 0;
     font-size: 20px;

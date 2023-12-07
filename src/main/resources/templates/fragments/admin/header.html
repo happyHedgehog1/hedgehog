@@ -9,14 +9,20 @@
 <body>
 <header th:fragment="headerFragment">
 
-<div class="logobackground">
-    <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
-    <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>
-    <div class="logout"><a href="#">
-        <h1 style="padding-right: 10px;"><img th:src="@{/admin/images/logout.png}" alt="logout"></h1>
-        <h4>로그아웃</h4></a>
+    <div class="logobackground">
+        <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+        <h2><a th:href="@{/adminmain/main}">관리자 페이지</a></h2>
+        <div class="wrap">
+            <a th:href="@{/}">
+                <h1>
+                    <img th:src="@{/admin/images/main.png}" alt="main"></h1>
+                <h4>메인화면</h4></a>
+            <a th:href="@{/auth/logout}">
+                <h1>
+                    <img th:src="@{/admin/images/logout.png}" alt="logout"></h1>
+                <h4>로그아웃</h4></a>
+        </div>
     </div>
-</div>
 </header>
 </body>
 </html>
