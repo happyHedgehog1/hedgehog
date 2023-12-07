@@ -20,6 +20,23 @@ public class LoginUserDTO {
     // 권한리스트 테이블과 권한목록 테이블
     private UserRole role; // 권한목록 부분의 권한명
 
+    public LoginUserDTO() {
+        System.out.println("여기서 생겼냐1");
+    }
+
+    public LoginUserDTO(int userCode, String userId, String userPwd, String name, String classify, Timestamp connectionDate, Timestamp creationDate, String withdrawState, UserRole role) {
+        System.out.println("여기서 생겼냐2");
+        this.userCode = userCode;
+        this.userId = userId;
+        this.userPwd = userPwd;
+        this.name = name;
+        this.classify = classify;
+        this.connectionDate = connectionDate;
+        this.creationDate = creationDate;
+        this.withdrawState = withdrawState;
+        this.role = role;
+    }
+
     public int getUserCode() {
         return userCode;
     }

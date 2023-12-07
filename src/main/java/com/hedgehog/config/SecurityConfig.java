@@ -60,8 +60,8 @@ public class SecurityConfig {
                             login.loginPage("/auth/login");
                             login.usernameParameter("userId");
                             login.passwordParameter("userPwd");
-                            login.defaultSuccessUrl("/");
                             login.failureHandler(authFailHandler);
+                            login.defaultSuccessUrl("/");
                         })
                 .logout( // 로그아웃 설정
                         logout -> {

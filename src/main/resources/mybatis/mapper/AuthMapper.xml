@@ -77,4 +77,9 @@
         WHERE A.withdraw_state = 'N'
           AND A.id = #{username};
     </select>
+    <update id="updateConnectionDate">
+        UPDATE tbl_user
+        SET connection_date = NOW()
+        WHERE user_code = #{userCode}
+    </update>
 </mapper>

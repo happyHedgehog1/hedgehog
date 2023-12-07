@@ -25,6 +25,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         /*로그인 실패시 어떠한 메시지를 응답할 건지. 물론 기본적으로 부모의 메서드를 사용하지만 거기에 추가기능을 넣은 개념*/
         String errorMessage;
+
         if (exception instanceof BadCredentialsException) {
             errorMessage = "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.";
         } else if (exception instanceof InternalAuthenticationServiceException) {

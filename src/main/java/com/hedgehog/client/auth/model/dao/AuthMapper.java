@@ -27,4 +27,6 @@ public interface AuthMapper {
     int insertMember(Integer userCode, MemberDTO newMember);
 
     LoginUserDTO findByUsername(String username);
+
+    int updateConnectionDate(int userCode);
 }
