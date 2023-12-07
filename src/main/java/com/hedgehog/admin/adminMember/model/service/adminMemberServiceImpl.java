@@ -19,14 +19,19 @@ public class adminMemberServiceImpl implements adminMemberService{
 
     @Override
     public List<adminAllMemberDTO> selectAllMemberList() {
-        List<adminAllMemberDTO> memberList = mapper.selectAllMemberList();
-        return memberList;
+        return mapper.selectAllMemberList();
     }
 
     @Override
     public List<adminAllMemberDTO> searchMembers(Map<String, Object> paramMap) {
-        return null;
+        return mapper.selectMembers(paramMap);
     }
+
+
+//    @Override
+//    public List<adminAllMemberDTO> searchMembers(Map<String, Object> paramMap) {
+//        return null;
+//    }
 
 
 }

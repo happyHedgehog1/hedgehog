@@ -10,6 +10,7 @@ import java.util.Map;
 public interface adminMemberMapper {
 
 
+    List<adminAllMemberDTO> selectMembers(Map<String, Object> paramMap);
 
     List<adminAllMemberDTO> selectAllMemberList();
 }

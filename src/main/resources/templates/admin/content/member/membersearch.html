@@ -25,7 +25,8 @@
             <div class="page-top">
                 <form id="memberSearchForm"
                       th:action="@{/member/membersearch}"
-                      method="get">
+                      method="get"
+                      onsubmit="return submitForm()">
                     <div class="tbl-setting">
                         <table class="table">
                             <tbody>
@@ -70,10 +71,10 @@
                                 <td>
                                     <ul>
                                         <li>
-                                            <select class="box" name="memAgree" id="memAgree">
-                                                <option value=>전체</option>
-                                                <option value=>동의</option>
-                                                <option value=>동의안함</option>
+                                            <select class="box" name="memagree" id="memagree">
+                                                <option value="">전체</option>
+                                                <option value="agree">동의</option>
+                                                <option value="disagree">동의안함</option>
                                             </select>
                                             <input type="checkbox"/><span>구매 제한 회원</span>
                                         </li>
@@ -86,7 +87,7 @@
                         </table>
                     </div>
                     <div class="btn-c">
-                        <button class="btn" type="button" onclick="searchMembers()">검색</button>
+                        <button class="btn" type="submit" >검색</button>
                     </div>
                 </form>  <!-- 여기 폼 사용 -->
 

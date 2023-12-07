@@ -34,45 +34,133 @@
         <result property="withdraw_state" column="withdraw_state"/>
     </resultMap>
 
-    <select id="selectAllMemberList" resultMap="memberResultMap">
+<!--    <select id="selectAllMemberList" resultMap="memberResultMap">-->
+<!--        SELECT-->
+<!--            A.member_code,-->
+<!--            A.email_consent,-->
+<!--            A.point,-->
+<!--            A.cumulative_amount,-->
+<!--            B.email,-->
+<!--            B.phone,-->
+<!--            C.user_code,-->
+<!--            C.name,-->
+<!--            C.creation_date,-->
+<!--            C.connection_date,-->
+<!--            C.withdraw_state-->
+<!--        FROM-->
+<!--            tbl_member A-->
+<!--                JOIN tbl_customer B ON A.member_code = B.customer_code-->
+<!--                JOIN tbl_user C ON B.customer_code = C.user_code-->
+<!--        <if test="date1 != null and date2 != null">-->
+<!--            join_date BETWEEN #{date1} AND #{date2}-->
+<!--        </if>-->
+<!--        <if test="memKeyword != null and searchKeyword != null">-->
+<!--            AND-->
+<!--            <choose>-->
+<!--                <when test="memKeyword == 'user_id'">-->
+<!--                    user_id = #{searchKeyword}-->
+<!--                </when>-->
+<!--                <when test="memKeyword == 'user_name'">-->
+<!--                    user_name = #{searchKeyword}-->
+<!--                </when>-->
+<!--                <when test="memKeyword == 'user_mobile'">-->
+<!--                    user_mobile = #{searchKeyword}-->
+<!--                </when>-->
+<!--                <when test="memKeyword == 'user_email'">-->
+<!--                    user_email = #{searchKeyword}-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--        <if test="memAgree != null">-->
+<!--            AND mem_agree = #{memAgree}-->
+<!--        </if>-->
+<!--    </select>-->
+
+<!--    <select id="selectMembers" resultMap="memberResultMap">-->
+<!--        SELECT-->
+<!--        A.member_code,-->
+<!--        A.email_consent,-->
+<!--        A.point,-->
+<!--        A.cumulative_amount,-->
+<!--        B.email,-->
+<!--        B.phone,-->
+<!--        C.user_code,-->
+<!--        C.name,-->
+<!--        C.creation_date,-->
+<!--        C.connection_date,-->
+<!--        C.withdraw_state-->
+<!--        FROM-->
+<!--        tbl_member A-->
+<!--        JOIN tbl_customer B ON A.member_code = B.customer_code-->
+<!--        JOIN tbl_user C ON B.customer_code = C.user_code-->
+<!--        <where>-->
+<!--        <if test="date1 != null and date2 != null">-->
+<!--            WHERE join_date BETWEEN #{date1} AND #{date2}-->
+<!--        </if>-->
+<!--        <if test="memKeyword != null and searchKeyword != null">-->
+<!--                <if test="memKeyword == 'user_id'">-->
+<!--                    and C.user_id = #{search_keyword}-->
+<!--                </if>-->
+<!--                <if test="memKeyword == 'user_name'">-->
+<!--                    C.user_name = #{search_keyword}-->
+<!--                </if>-->
+<!--                <if test="memKeyword == 'user_mobile'">-->
+<!--                    C.phone = #{search_keyword}-->
+<!--                </if>-->
+<!--                <if test="memKeyword == 'user_email'">-->
+<!--                    C.user_email = #{search_keyword}-->
+<!--                </if>-->
+<!--              </if>-->
+<!--        <if test="memagree != null">-->
+<!--            AND A.mem_agree = #{memAgree}-->
+<!--        </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+
+    <select id="selectMembers" resultMap="memberResultMap">
         SELECT
-            A.member_code,
-            A.email_consent,
-            A.point,
-            A.cumulative_amount,
-            B.email,
-            B.phone,
-            C.user_code,
-            C.name,
-            C.creation_date,
-            C.connection_date,
-            C.withdraw_state
+        A.member_code,
+        A.email_consent,
+        A.point,
+        A.cumulative_amount,
+        B.email,
+        B.phone,
+        C.user_code,
+        C.name,
+        C.creation_date,
+        C.connection_date,
+        C.withdraw_state
         FROM
-            tbl_member A
-                JOIN tbl_customer B ON A.member_code = B.customer_code
-                JOIN tbl_user C ON B.customer_code = C.user_code
-        <if test="date1 != null and date2 != null">
-            join_date BETWEEN #{date1} AND #{date2}
-        </if>
-        <if test="memKeyword != null and searchKeyword != null">
-            AND
-            <choose>
-                <when test="memKeyword == 'user_id'">
-                    user_id = #{searchKeyword}
-                </when>
-                <when test="memKeyword == 'user_name'">
-                    user_name = #{searchKeyword}
-                </when>
-                <when test="memKeyword == 'user_mobile'">
-                    user_mobile = #{searchKeyword}
-                </when>
-                <when test="memKeyword == 'user_email'">
-                    user_email = #{searchKeyword}
-                </when>
-            </choose>
-        </if>
-        <if test="memAgree != null">
-            AND mem_agree = #{memAgree}
-        </if>
+        tbl_member A
+        JOIN tbl_customer B ON A.member_code = B.customer_code
+        JOIN tbl_user C ON B.customer_code = C.user_code
+        <where>
+            <if test="date1 != null and date2 != null">
+                AND C.join_date BETWEEN #{date1} AND #{date2}
+            </if>
+            <if test="memKeyword != null and searchKeyword != null">
+                AND (
+                <choose>
+                    <when test="memKeyword == 'user_id'">
+                        CONCAT('', C.id) LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="memKeyword == 'user_name'">
+                        CONCAT('', C.name) LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="memKeyword == 'user_mobile'">
+                        CONCAT('', C.phone) LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="memKeyword == 'user_email'">
+                        CONCAT('', C.email) LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+                )
+            </if>
+            <if test="memAgree != null">
+                AND A.mem_agree = #{memAgree}
+            </if>
+        </where>
     </select>
+
 </mapper>
