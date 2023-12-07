@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminManagement.model.dao.AdminManagementMapper">
+    <resultMap id="AdminResultMap" type="com.hedgehog.admin.adminManagement.model.dto.AdminDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="connectionDate" column="connection_date"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="withdrawState" column="withdraw_state"/>
+        <result property="authorityName" column="authority_name"/>
+    </resultMap>
+    <select id="getAdminList" resultMap="AdminResultMap">
+        SELECT
+            A.user_code,
+            A.id,
+            A.name user_name,
+            A.connection_date,
+            A.creation_date,
+            A.withdraw_state,
+            C.name authority_name
+        FROM tbl_user A
+        JOIN tbl_authority_list B ON A.user_code = B.user_code
+        JOIN tbl_authority C ON B.authority_code = C.authority_code
+        WHERE A.classify='관리자'
+        ORDER BY A.withdraw_state='N'
+    </select>
+</mapper>
