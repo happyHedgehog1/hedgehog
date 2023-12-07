@@ -17,4 +17,5 @@ public class AdminProductForm {
     private int subCategoryName;
     private String proSearchStartDay;
     private String proSearchEndDay;
+    private int productCode;
 }

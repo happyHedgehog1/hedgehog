@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.admin.adminProduct.model.dao.AdminProductMapper">
-    <resultMap id="productResultMap" type="adminProductDTO">
+    <resultMap id="productResultMap" type="AdminProductDTO">
         <id property="productCode" column="product_code"/>
-        <result property="categoryCode" column="category_code"/>
+        <result property="subCategoryName" column="category_code"/>
         <result property="productName" column="product_name"/>
         <result property="orderableStatus" column="orderable_status"/>
         <result property="price" column="price"/>
@@ -20,7 +20,7 @@
         <association property="option" resultMap="optionListResultMap"/>
     </resultMap>
 
-    <resultMap id="optionListResultMap" type="optionListDTO">
+    <resultMap id="optionListResultMap" type="OptionListDTO">
         <id property="productCode" column="product_code"/>
         <result property="optionCode" column="option_code"/>
         <result property="stock" column="stock"/>
@@ -28,7 +28,7 @@
         <result property="sales" column="sales_volume"/>
     </resultMap>
 
-    <resultMap id="optionResultMap" type="optionDTO">
+    <resultMap id="optionResultMap" type="OptionDTO">
         <id property="optionCode" column="option_code"/>
         <result property="optionName" column="name"/>
     </resultMap>
@@ -40,23 +40,6 @@
         <result property="upperCategoryCode" column="upper_category_code"/>
 
     </resultMap>
-
-<!--<select id="selectAllProductList" resultMap="productResultMap">-->
-<!--    SELECT-->
-<!--        A.product_code,-->
-<!--        A.product_name,-->
-<!--        A.price,-->
-<!--        A.orderable_status,-->
-<!--        A.registration_date,-->
-<!--        SUM(b.stock) as stock,-->
-<!--        SUM(B.sales_volume) as sales_volume-->
-<!--    FROM-->
-<!--        tbl_product A-->
-<!--            JOIN-->
-<!--        tbl_option_list B ON A.product_code = B.product_code-->
-<!--    GROUP BY-->
-<!--        A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date;-->
-<!--</select>-->
 
     <select id="searchProduct" resultMap="productResultMap">
         SELECT
@@ -122,19 +105,19 @@
         ) AS subquery
     </select>
 
-    <insert id="addProduct">
+    <insert id="addProduct" useGeneratedKeys="true" keyProperty="productCode">
         INSERT INTO tbl_product (
-                                 product_name,
-                                 orderable_status,
-                                 price,
-                                 registration_date,
-                                 delivery_charge,
-                                 sales_start,
-                                 sales_end,
-                                 category_code,
-                                 product_code)
+                    product_name,
+                    orderable_status,
+                    price,
+                    registration_date,
+                    delivery_charge,
+                    sales_start,
+                    sales_end,
+                    category_code,
+                    product_code)
         VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{subCategoryName}, null);
-        <selectKey keyProperty="product_code" resultType="int" order="AFTER">
+        <selectKey keyProperty="productCode" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
@@ -143,10 +126,10 @@
                                      product_code,
                                      option_code,
                                      stock,
-                                     exposure_status,
-                                     sales_volume)
+                                     exposure_status
+                                     )
         VALUES
-            (#{productCode}, #{optionCode}, #{stock}, 'Y', #{salesVolume})
+            (#{productCode}, #{optionCode}, #{stock}, 'Y')
     </insert>
     <insert id="addImg">
         INSERT INTO tbl_product_img (

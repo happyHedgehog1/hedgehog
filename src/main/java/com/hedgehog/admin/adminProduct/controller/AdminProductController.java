@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -32,10 +33,7 @@ public class AdminProductController {
     private String ROOT_LOCATION;
 
     @PostMapping("/productAdd")
-    private String productAdd(@ModelAttribute AdminProductDTO product,
-                              @ModelAttribute OptionDTO option,
-                              @ModelAttribute OptionListDTO optionList,
-                              @ModelAttribute AdminCategoryDTO categoryDTO,
+    private String productAdd(@ModelAttribute AdminProductAddForm product,
                               @RequestParam("thumbnail") MultipartFile thumbnail,
                               @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
                               @RequestParam("proImg") MultipartFile proImg,
@@ -46,14 +44,30 @@ public class AdminProductController {
 
         log.info("********************=============productAdd 시작~~~~~~~~~");
         log.info("==========product" + product);
-        log.info("==========option" + option);
-        log.info("==========optionList" + optionList);
-        log.info("==========categoryDTO" + categoryDTO);
         log.info("==========thumbnail" + thumbnail);
         log.info("==========sub_thumbnail" + sub_thumbnails);
         log.info("==========proImg" + proImg);
 
         adminProductServiceImpl.productAdd(product);
+
+        log.info("=================사진 등록 시작~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+
+        String fileUploadDirectory = rootLocation + "/upload/original";
+        String thumnailDirectory = rootLocation + "/upload/thumbnail";
+
+        File directory = new File(fileUploadDirectory);
+        File directory2 = new File(thumnailDirectory);
+
+        log.info("~~~~~~~~~~~~~~~~~~~~~fileUploadDirectory" + fileUploadDirectory);
+        log.info("****************************thumnailDirectory" + thumnailDirectory);
+
+        if(!directory.exists() || !directory2.exists()){
+            log.info("*************************** 폴더 생성" + directory.mkdirs());
+            log.info("*************************** 폴더 생성2" + directory2.mkdirs());
+        }
+
 
         rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
 
@@ -61,91 +75,6 @@ public class AdminProductController {
         return "redirect:admin/content/product/productAdd";
     }
 
-
-//        log.info("===========================섬네일 넣기~~~~~~~~~");
-//        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
-//
-//        String fileUploadDirectory = rootLocation + "/upload/original";
-//        String thumbnailDirectory = rootLocation + "/upload/thumbnail";
-//
-//        File directory = new File(fileUploadDirectory);
-//        File directory2 = new File(thumbnailDirectory);
-//
-//        log.info("=================fileUploadDirectory" + directory);
-//        log.info("=================thumbnailDirectory" + directory2);
-//
-//        if(!directory.exists() || !directory2.exists()){
-//
-//            log.info("============폴더 생성 : " + directory.mkdirs());
-//            log.info("=========== 폴더 생성 : " + directory2.mkdirs());
-//
-//        }
-//
-//        List<Map<String, String>> fileList = new ArrayList<>();
-//
-//        List<MultipartFile> paramFileList = new ArrayList<>();
-//        paramFileList.add(thumbnail);
-//        log.info("=============대표 사진" + thumbnail);
-//
-//        for (MultipartFile sub_thumbnail : sub_thumbnails) {
-//            paramFileList.add(sub_thumbnail);
-//            log.info("=============상품 사진" + sub_thumbnail);
-//
-//        }
-//        paramFileList.add(pro_img);
-//        log.info("=============제품 상세 사진" + pro_img);
-//
-//        for(MultipartFile paramFile : paramFileList){
-//            if (paramFile.getSize() > 0){
-//                String originFileName = paramFile.getOriginalFilename();
-//
-//                log.info("================originFileName : " + originFileName);
-//
-//                String ext = originFileName.substring(originFileName.lastIndexOf("."));
-//                String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
-//
-//                log.info("================변경한 이름 " + savedFileName);
-//
-//                log.info("================paramFile : " + fileUploadDirectory + "/" + savedFileName);
-//                    paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
-//
-//                    Map<String, String> fileMap = new HashMap<>();
-//                    fileMap.put("originFileName", originFileName);
-//                    fileMap.put("savedFileName", savedFileName);
-//                    fileMap.put("savePath", fileUploadDirectory);
-//
-//                    int width = 0;
-//                    int height = 0;
-//
-//                    String fieldName = paramFile.getName();
-//                    log.info("=================필드 name " + fieldName);
-//
-//                    if ("thumbnail".equals(fieldName) || "sub_thumbnail".equals(fieldName)) {
-//                        fileMap.put("fileType", "thumbnail");
-//                        width = 640;
-//                        height = 640;
-//
-//                    } else {
-//                        fileMap.put("fileType", "BODY");
-//                        width = 860;
-//                        height = 7500;
-//                    }
-//
-//                    Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
-//                            .toFile(thumbnailDirectory + "/thumbnail_" + savedFileName);
-//
-//                    fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
-//
-//                    fileList.add(fileMap);
-//
-//                    log.info("===================fileList" + fileList);
-//
-//
-//                }
-//            }
-//        }
-//
-//    }
 
 
 

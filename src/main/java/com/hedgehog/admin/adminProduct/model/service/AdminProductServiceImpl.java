@@ -1,10 +1,7 @@
 package com.hedgehog.admin.adminProduct.model.service;
 
 import com.hedgehog.admin.adminProduct.model.dao.AdminProductMapper;
-import com.hedgehog.admin.adminProduct.model.dto.AdminCategoryDTO;
-import com.hedgehog.admin.adminProduct.model.dto.AdminProductForm;
-import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
-import com.hedgehog.admin.adminProduct.model.dto.OptionDTO;
+import com.hedgehog.admin.adminProduct.model.dto.*;
 import com.hedgehog.admin.exception.AdminProductAddException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,7 +36,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     @Override
     @Transactional
-    public void productAdd(AdminProductDTO product) throws AdminProductAddException {
+    public void productAdd(AdminProductAddForm product) throws AdminProductAddException {
         log.info("=================================" + product.toString());
 
         int addProduct = mapper.addProduct(product);
