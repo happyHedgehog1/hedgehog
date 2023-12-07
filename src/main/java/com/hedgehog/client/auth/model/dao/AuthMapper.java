@@ -1,5 +1,7 @@
 package com.hedgehog.client.auth.model.dao;
 
+import com.hedgehog.client.auth.model.dto.LoginUserDTO;
+import com.hedgehog.client.auth.model.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -13,4 +15,16 @@ public interface AuthMapper {
     int selectLastInsertCertifiedNumber();
 
     int certifyEmail(int inputCertifiedCode, String certifiedKey);
+
+    int insertUser(MemberDTO newMember);
+
+    Integer selectUserCode();
+
+    int insertAuthorityList(Integer userCode);
+
+    int insertCustomer(Integer userCode, MemberDTO newMember);
+
+    int insertMember(Integer userCode, MemberDTO newMember);
+
+    LoginUserDTO findByUsername(String username);
 }

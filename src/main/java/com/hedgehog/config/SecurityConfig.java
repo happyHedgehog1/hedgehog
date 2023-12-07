@@ -57,7 +57,7 @@ public class SecurityConfig {
                         })
                 .formLogin( // 로그인 설정
                         login -> {
-                            login.loginPage("/login/login");
+                            login.loginPage("/auth/login");
                             login.usernameParameter("userId");
                             login.passwordParameter("userPwd");
                             login.defaultSuccessUrl("/");
@@ -65,9 +65,9 @@ public class SecurityConfig {
                         })
                 .logout( // 로그아웃 설정
                         logout -> {
-                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
                             logout.deleteCookies("JSESSIONID");
                             logout.invalidateHttpSession(true);
+                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
                             logout.logoutSuccessUrl("/");
                         })
                 .sessionManagement( // 세션설정

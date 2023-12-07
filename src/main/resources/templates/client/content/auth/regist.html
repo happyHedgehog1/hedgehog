@@ -49,7 +49,7 @@
                     <table id="contents_table">
                         <tr>
                             <th>이름</th>
-                            <td colspan="2"><input type="text" name="name" id="name"></td>
+                            <td colspan="2"><input type="text" name="name" id="name" maxlength="30" ></td>
                         </tr>
                         <tr>
                             <th>생년월일</th>
@@ -59,15 +59,15 @@
                             <th>성별</th>
                             <td colspan="2">
                                 <label for="male">남</label>
-                                <input type="radio" name="gender" id="male" value="male">
+                                <input type="radio" name="gender" id="male" value="M">
                                 <label for="female">여</label>
-                                <input type="radio" name="gender" id="female" value="female">
+                                <input type="radio" name="gender" id="female" value="F">
                             </td>
                         </tr>
                         <tr>
                             <th>아이디</th>
                             <td>
-                                <input type="text" name="userId" id="userId">
+                                <input type="text" name="userId" id="userId" maxlength="20">
                                 <input type="button" value="중복체크" id="id_check_button">
                                 <div id="check_text"></div>
                             </td>
@@ -110,27 +110,27 @@
                         </tr>
                         <tr>
                             <th>비밀번호</th>
-                            <td><input type="password" id="userPwd" name="userPwd"></td>
-                            <td>공백없는 8~20자리의 영문/숫자/특수문자<br>
+                            <td><input type="password" id="userPwd" name="userPwd" maxlength="13"></td>
+                            <td>공백없는 7~13자리의 영문/숫자/특수문자<br>
                                 <span id="warning">특수문자는 !@#$%^&* 사용가능</span>
                             </td>
                         </tr>
                         <tr>
                             <th>비밀번호확인</th>
-                            <td colspan="2"><input type="password" input="password2" id="password2"></td>
+                            <td colspan="2"><input type="password" input="password2" id="password2" maxlength="13"></td>
                         </tr>
                         <tr id="email_row">
                             <th>이메일</th>
                             <td colspan="2">
                                 <div id="email_input_wrap">
-                                    <input type="text" name="email" id="email">
+                                    <input type="email" name="email" id="email">
                                     <input id="email_button" value="이메일인증" type="button">
                                 </div>
                                 <div id="email_authentication">
                                     <div>인증번호</div>
                                     <input type="text" id="email_authentication_number"
-                                           name="email_authentication_number">
-                                    <input id="hidden_certified_key" name="hidden_certified_key" hidden>
+                                           name="emailAuthenticationNumber">
+                                    <input type="text" id="hidden_certified_key" name="hiddenCertifiedKey" hidden>
                                     &nbsp;
                                     <input type="button" id="email_authentication_button" value="인증하기">
                                     &nbsp;
@@ -239,8 +239,8 @@
                                 </script>
                                 <div>
                                     email 서비스를 받으시겠습니까?&nbsp;
-                                    <input type="radio" name="email_service" id="email_yes"><label for="email_yes">&nbsp;예</label>
-                                    <input type="radio" name="email_service" id="email_no"><label for="email_yes">&nbsp아니오</label>
+                                    <input type="radio" name="emailService" id="email_yes" value="Y"><label for="email_yes">&nbsp;예</label>
+                                    <input type="radio" name="emailService" id="email_no" value="N"><label for="email_yes">&nbsp;아니오</label>
                                 </div>
                                 <div>
                                     주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
