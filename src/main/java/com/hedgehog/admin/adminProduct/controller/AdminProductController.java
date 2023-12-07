@@ -2,8 +2,10 @@ package com.hedgehog.admin.adminProduct.controller;
 import com.hedgehog.admin.adminProduct.model.dto.*;
 import com.hedgehog.admin.adminProduct.model.service.AdminProductServiceImpl;
 import com.hedgehog.admin.exception.AdminProductAddException;
+import com.hedgehog.admin.exception.ThumbnailRegistException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Controller
@@ -37,7 +40,7 @@ public class AdminProductController {
                               @RequestParam("thumbnail") MultipartFile thumbnail,
                               @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
                               @RequestParam("proImg") MultipartFile proImg,
-                              RedirectAttributes rttr) throws AdminProductAddException {
+                              RedirectAttributes rttr) throws UnsupportedEncodingException, ThumbnailRegistException {
 
 
 
@@ -48,7 +51,6 @@ public class AdminProductController {
         log.info("==========sub_thumbnail" + sub_thumbnails);
         log.info("==========proImg" + proImg);
 
-        adminProductServiceImpl.productAdd(product);
 
         log.info("=================사진 등록 시작~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
@@ -68,11 +70,119 @@ public class AdminProductController {
             log.info("*************************** 폴더 생성2" + directory2.mkdirs());
         }
 
+        List<Map<String, String>> fileList = new ArrayList<>();
+
+        List<MultipartFile> paramFileList = new ArrayList<>();
+        paramFileList.add(thumbnail);
+        log.info("=======================thumbnail" + thumbnail);
+        for (int i = 0; i < sub_thumbnails.size(); i++){
+            paramFileList.add(sub_thumbnails.get(i));
+            log.info("=====================sub_thumbnails" + sub_thumbnails.get(i));
+        }
+        paramFileList.add(proImg);
+        log.info("============proImg" + proImg);
+        try {
+        for(MultipartFile paramFile : paramFileList) {
+            if (paramFile.getSize() > 0) {
+                String originFileName = paramFile.getOriginalFilename();
+
+                log.info("~~~~~~~~~~~~~~~~~~~~~originFileName" + originFileName);
+
+                String ext = originFileName.substring(originFileName.lastIndexOf("."));
+                String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+
+                log.info("++++++++++++++++++변경한 이름" + savedFileName);
+
+                log.info("+++++++++++++++ paramFile : " + fileUploadDirectory + "/" + savedFileName);
+
+                    paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
+
+
+                Map<String, String> fileMap = new HashMap<>();
+                fileMap.put("oringFileMap", originFileName);
+                fileMap.put("savedFileName", savedFileName);
+                fileMap.put("savePath", fileUploadDirectory);
+
+                int width = 0;
+                int height = 0;
+
+                String fieldName = paramFile.getName();
+                log.info("***********************필드 name" + fieldName);
+
+                if ("thumbnail".equals(fieldName) || "sub_thumbnails".equals(fieldName)) {
+                    fileMap.put("fileType", "TITLE");
+
+                    width = 640;
+                    height = 640;
+                } else {
+                    fileMap.put("fileType", "BODY");
+                    width = 860;
+                    height = 7500;
+                }
+
+                Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
+                        .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
+
+                fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
+
+                fileList.add(fileMap);
+            }
+        }
+
+        log.info("****************************fileList" + fileList);
+
+        product.setAttachmentList(new ArrayList<AttachmentDTO>());
+        List<AttachmentDTO> list = product.getAttachmentList();
+        for(int i = 0; i < fileList.size(); i++){
+            Map<String , String > file = fileList.get(i);
+
+            AttachmentDTO tempFileInfo = new AttachmentDTO();
+            tempFileInfo.setOriginalName(file.get("originFileName"));
+            tempFileInfo.setSavedName(file.get("savedFileName"));
+            tempFileInfo.setSavePath(file.get("savePath"));
+            tempFileInfo.setFileType(file.get("fileType"));
+            tempFileInfo.setThumbnailPath(file.get("thumbnailPath"));
+
+            list.add(tempFileInfo);
+
+        }
+
+        log.info("------------------thumbnail" + thumbnail);
+
+        adminProductServiceImpl.productAdd(product);
+
+
+
+
 
         rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
+        } catch (IOException | AdminProductAddException e) {
+            e.printStackTrace();
 
+
+        int cnt = 0;
+        for(int i = 0; i < fileList.size(); i++) {
+            Map<String, String> file = fileList.get(i);
+            File deleteFile = new File(fileUploadDirectory + "/" + file.get("savedFileName"));
+            boolean isDeleted1 = deleteFile.delete();
+
+            File deleteThumbnail = new File(thumnailDirectory + "/thumbnail_" + file.get("savedFileName"));
+            boolean isDeleted2 = deleteThumbnail.delete();
+
+            if (isDeleted1 && isDeleted2) {
+                cnt++;
+            }
+
+            if (cnt == fileList.size()) {
+                log.info("*******************업로드 실패한 사진 삭제~~~~~~~~~");
+                e.printStackTrace();
+            } else {
+                e.printStackTrace();
+            }
+        }
+        }
         log.info("=============product 끗~~~~~~~~~~~~~~~");
-        return "redirect:admin/content/product/productAdd";
+        return "redirect:product/productAddPage";
     }
 
 
@@ -139,7 +249,7 @@ public class AdminProductController {
      * ajax 이용 동적 select 메소드
      * @return 선택한 상위 카테고리의 하위 카테고리 리스트들
      */
-    @GetMapping("/productAdd")
+    @GetMapping("/productAddPage")
     public String productadd(){ return "admin/content/product/productAdd";}
 
     @GetMapping(value = "/category/{upperCategoryCode}", produces = "application/json; charset=UTF-8" )

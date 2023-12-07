@@ -39,12 +39,30 @@ public class AdminProductServiceImpl implements AdminProductService {
     public void productAdd(AdminProductAddForm product) throws AdminProductAddException {
         log.info("=================================" + product.toString());
 
+        int result = 0;
+
+//        상품테이블 insert
         int addProduct = mapper.addProduct(product);
+
+//        옵션테이블 insert
         int addOption = mapper.addOption(product);
-        int addImg = mapper.addImg(product);
+
+//        옵션리스트 테이블 insert
+        int addOptionList = mapper.addOptionList(product);
+
+        List<AttachmentDTO> attachmentList = product.getAttachmentList();
+
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentList.get(i).setProductCode(product.getProductCode());
+        }
+
+        int attachmentResult = 0;
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentResult += mapper.addImg(attachmentList.get(i));
+        }
 
 
-        if (!(addProduct > 0) || !(addOption > 0) || !(addImg > 0)) {
+        if (!(addProduct > 0) || !(addOption > 0) || !(attachmentResult > 0) || !(addOptionList > 0)) {
             throw new AdminProductAddException("상품 등록에 실패하셨습니다.");
         }
     }

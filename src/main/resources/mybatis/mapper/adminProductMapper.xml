@@ -41,6 +41,17 @@
 
     </resultMap>
 
+    <resultMap id="AttachmentDTO" type="attachmentResultMap">
+        <id property="no" column="img_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="originalName" column="source_name"/>
+        <result property="thumbnailPath" column="source_path"/>
+        <result property="savedName" column="convert_name"/>
+        <result property="savePath" column="convert_path"/>
+        <result property="fileType" column="image_classification"/>
+        <result property="status" column="image_status"/>
+    </resultMap>
+
     <select id="searchProduct" resultMap="productResultMap">
         SELECT
             product_code,
@@ -117,11 +128,11 @@
                     category_code,
                     product_code)
         VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{subCategoryName}, null);
-        <selectKey keyProperty="productCode" resultType="int" order="AFTER">
+        <selectKey keyColumn="productCode" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
-    <insert id="addOption">
+    <insert id="addOptionList">
         INSERT INTO tbl_option_list (
                                      product_code,
                                      option_code,
@@ -131,18 +142,25 @@
         VALUES
             (#{productCode}, #{optionCode}, #{stock}, 'Y')
     </insert>
+    <insert id="addOption">
+        INSERT INTO tbl_option (
+            option_code,
+            name
+        )
+        VALUES
+            (#{optionCode}, #{optionName})
+    </insert>
     <insert id="addImg">
-        INSERT INTO tbl_product_img (
-                                     product_code,
-                                     image_classification,
-                                     source_path,
-                                     convert_path,
-                                     source_name,
-                                     convert_name,
-                                     image_status,
-                                     create_date,
-                                     )
-        VALUES(#{productCode}, #{image_classification}, #{source_path}, #{convert_path}, #{source_name}, #{convert_name}, 'Y', #{create_date})
+        INSERT
+        INTO TBL_PRODUCT_IMG (
+                                source_name,
+                                convert_name,
+                                convert_path,
+                                image_classification,
+                                source_path,
+                                img_code
+        )
+        VALUES  (#{ originalName }, #{ savedName }, #{ savePath }, #{ fileType }, #{ thumbnailPath }, null)
     </insert>
     <select id="searchOption" resultMap="categoryResultMap">
         SELECT
@@ -166,6 +184,8 @@
             </if>
         </where>
     </select>
+
+
 
 
 </mapper>

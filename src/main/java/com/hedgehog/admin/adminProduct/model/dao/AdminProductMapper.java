@@ -19,7 +19,9 @@ public interface AdminProductMapper {
 
     int addOption(AdminProductAddForm product);
 
-    int addImg(AdminProductAddForm product);
+    int addImg(AttachmentDTO attachmentList);
 
     List<AdminCategoryDTO> searchOption(int upperCategoryCode);
+
+    int addOptionList(AdminProductAddForm product);
 }
