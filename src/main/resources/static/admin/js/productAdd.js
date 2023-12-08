@@ -38,8 +38,8 @@ $(document).ready(function () {
             var newOpList = $("<tr class='optionList'>" +
                 "<th colspan='2'>" +
                 "<ul class='arrAlign'>" +
-                "<li class='w400'><input type='text' name='optionCode' style='width: 350px;' value='예시 : 색상'></li>" +
-                "<li class='w400'><input type='text' name='optionName' style='width: 350px;' value='예시 : 갈색'></li>" +
+                "<li class='w400'><input type='text' name='optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
+                "<li class='w400'><input type='text' name='optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
                 "<li class='w200'><input type='number' name='sales' style='width: 125px;' value='0'> 원</li>" +
                 "<li class='w200'><input type='number' name='stock' style='width: 125px;' value='0'> 개</li>" +
                 "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
@@ -84,6 +84,7 @@ $(function(){
 
         image.style.width = '200px';
 
+
         // 이전 이미지를 제거하고 새로운 이미지를 추가
         $("#thumbnailPreview").empty().append(image);
     });
@@ -94,7 +95,7 @@ $(function () {
         const files = event.target.files;
 
         // 최대 5개까지만 허용
-        if (files.length > 5) {
+        if (files.length > 3) {
             alert("최대 5개의 이미지만 선택할 수 있습니다.");
             // 선택된 파일 초기화
             $("#sub_thumbnail").val('');
@@ -105,7 +106,7 @@ $(function () {
         var thumbnailContainer = $("#subThumbnailPreview");
 
         // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
-        if (thumbnailContainer.children('img').length + files.length > 5) {
+        if (thumbnailContainer.children('img').length + files.length > 3) {
             var excessCount = thumbnailContainer.children('img').length + files.length - 5;
             thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
         }
@@ -117,7 +118,7 @@ $(function () {
 
             image.src = ImageTempUrl;
 
-            image.style.width = '40px';
+            image.style.width = '100px';
 
             // 새로운 이미지를 뒤로 추가
             thumbnailContainer.append(image);

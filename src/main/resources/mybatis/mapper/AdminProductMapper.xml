@@ -18,6 +18,9 @@
         <result property="grade" column="grade"/>
         <result property="salesEnd" column="sales_end"/>
         <association property="option" resultMap="optionListResultMap"/>
+        <association property="attachment" resultMap="attachmentResultMap"/>
+        <association property="optionDTO" resultMap="optionResultMap"/>
+        <association property="category" resultMap="categoryResultMap"/>
     </resultMap>
 
     <resultMap id="optionListResultMap" type="OptionListDTO">
@@ -38,10 +41,9 @@
         <result property="state" column="state"/>
         <result property="name" column="name"/>
         <result property="upperCategoryCode" column="upper_category_code"/>
-
     </resultMap>
 
-    <resultMap id="AttachmentDTO" type="attachmentResultMap">
+    <resultMap id="attachmentResultMap" type="AttachmentDTO">
         <id property="no" column="img_code"/>
         <result property="productCode" column="product_code"/>
         <result property="originalName" column="source_name"/>
@@ -116,7 +118,7 @@
         ) AS subquery
     </select>
 
-    <insert id="addProduct" useGeneratedKeys="true" keyProperty="productCode">
+    <insert id="addProduct">
         INSERT INTO tbl_product (
                     product_name,
                     orderable_status,
@@ -125,22 +127,35 @@
                     delivery_charge,
                     sales_start,
                     sales_end,
-                    category_code,
-                    product_code)
-        VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{subCategoryName}, null);
-        <selectKey keyColumn="productCode" resultType="int">
-            SELECT LAST_INSERT_ID()
+                    category_code)
+        VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{subCategoryName})
+        <selectKey keyColumn="productCode" resultType="_int" order="AFTER" keyProperty="productCode">
+            SELECT LAST_INSERT_ID() AS productCode
         </selectKey>
     </insert>
     <insert id="addOptionList">
         INSERT INTO tbl_option_list (
-                                     product_code,
-                                     option_code,
-                                     stock,
-                                     exposure_status
-                                     )
+            product_code,
+            option_code,
+            stock,
+            exposure_status
+        )
         VALUES
             (#{productCode}, #{optionCode}, #{stock}, 'Y')
+    </insert>
+
+    <insert id="addImg">
+        INSERT
+        INTO TBL_PRODUCT_IMG (
+            product_code,
+            source_name,
+            convert_name,
+            convert_path,
+            image_classification,
+            source_path,
+            create_date
+        )
+        VALUES  (#{productCode}, #{ originalName }, #{ savedName }, #{ savePath }, #{ fileType }, #{ thumbnailPath }, now())
     </insert>
     <insert id="addOption">
         INSERT INTO tbl_option (
@@ -150,18 +165,7 @@
         VALUES
             (#{optionCode}, #{optionName})
     </insert>
-    <insert id="addImg">
-        INSERT
-        INTO TBL_PRODUCT_IMG (
-                                source_name,
-                                convert_name,
-                                convert_path,
-                                image_classification,
-                                source_path,
-                                img_code
-        )
-        VALUES  (#{ originalName }, #{ savedName }, #{ savePath }, #{ fileType }, #{ thumbnailPath }, null)
-    </insert>
+
     <select id="searchOption" resultMap="categoryResultMap">
         SELECT
             b.category_code,
@@ -185,6 +189,12 @@
         </where>
     </select>
 
+    <select id="searchOptionCode" resultMap="optionResultMap">
+        SELECT
+            option_code
+        FROM tbl_option
+        where option_code = #{optionCode};
+    </select>
 
 
 

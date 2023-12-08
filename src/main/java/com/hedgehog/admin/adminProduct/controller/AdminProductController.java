@@ -36,20 +36,28 @@ public class AdminProductController {
     private String ROOT_LOCATION;
 
     @PostMapping("/productAdd")
-    private String productAdd(@ModelAttribute AdminProductAddForm product,
+    private String productAdd(@ModelAttribute AdminProductDTO product,
+                              @ModelAttribute OptionDTO optionDTO,
+                              @ModelAttribute OptionListDTO option,
+                              @ModelAttribute AdminCategoryDTO category,
                               @RequestParam("thumbnail") MultipartFile thumbnail,
                               @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
                               @RequestParam("proImg") MultipartFile proImg,
                               RedirectAttributes rttr) throws UnsupportedEncodingException, ThumbnailRegistException {
 
-
-
-
         log.info("********************=============productAdd 시작~~~~~~~~~");
         log.info("==========product" + product);
+        log.info("===========optionList" + option);
+        log.info("=============option" + optionDTO);
+        log.info("================adminCategory" + category);
         log.info("==========thumbnail" + thumbnail);
         log.info("==========sub_thumbnail" + sub_thumbnails);
         log.info("==========proImg" + proImg);
+
+
+        product.setOptionDTO(optionDTO);
+        product.setCategory(category);
+        product.setOption(option);
 
 
         log.info("=================사진 등록 시작~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -99,7 +107,7 @@ public class AdminProductController {
 
 
                 Map<String, String> fileMap = new HashMap<>();
-                fileMap.put("oringFileMap", originFileName);
+                fileMap.put("originFileName", originFileName);
                 fileMap.put("savedFileName", savedFileName);
                 fileMap.put("savePath", fileUploadDirectory);
 
@@ -131,8 +139,8 @@ public class AdminProductController {
 
         log.info("****************************fileList" + fileList);
 
-        product.setAttachmentList(new ArrayList<AttachmentDTO>());
-        List<AttachmentDTO> list = product.getAttachmentList();
+        product.setAttachment(new ArrayList<AttachmentDTO>());
+        List<AttachmentDTO> list = product.getAttachment();
         for(int i = 0; i < fileList.size(); i++){
             Map<String , String > file = fileList.get(i);
 
@@ -149,7 +157,21 @@ public class AdminProductController {
 
         log.info("------------------thumbnail" + thumbnail);
 
-        adminProductServiceImpl.productAdd(product);
+
+            OptionDTO optionCode = adminProductServiceImpl.searchOption(optionDTO);
+            log.info("****************조회한 optionCode" + optionCode);
+            log.info("=============다른 DTO 추가한 product" + product);
+
+
+            if(optionCode != null && optionCode.getOptionCode() != optionDTO.getOptionCode()) {
+                log.info("*************************중복 옵션 코드 있을때 실행하는 메소드~~~~~~~~~~~");
+                adminProductServiceImpl.productAddExcludeOptionCode(product);
+            } else if(optionCode == null) {
+                log.info("-------------------------중복 옵션 코드 없을때 실행하는 메소드~~~~~~~~~~~");
+                adminProductServiceImpl.productAdd(product);
+            }
+
+
 
 
 
@@ -182,7 +204,7 @@ public class AdminProductController {
         }
         }
         log.info("=============product 끗~~~~~~~~~~~~~~~");
-        return "redirect:product/productAddPage";
+        return "redirect:productAddPage";
     }
 
 
@@ -208,14 +230,14 @@ public class AdminProductController {
         int countY = 0;
         int countN = 0;
         for (int i = 0; i < productList.size(); i++) {
-            char orderableStatus = productList.get(i).getOrderableStatus();
-            log.info(String.valueOf(orderableStatus));
+            String orderableStatus = productList.get(i).getOrderableStatus();
+            log.info(orderableStatus);
 
-            if ('Y' == orderableStatus) {
+            if (orderableStatus.equals("Y")) {
                 countY++;
 
             }
-            if('N' == orderableStatus){
+            if(orderableStatus.equals("N")){
                 countN++;
             }
 
@@ -245,13 +267,13 @@ public class AdminProductController {
 //    @GetMapping("/productserachPage")
 //    public String productsearch(){ return "admin/content/product/productSerch";}
 
+
+    @GetMapping("/productAddPage")
+    public String productadd(){ return "admin/content/product/productAdd";}
     /**
      * ajax 이용 동적 select 메소드
      * @return 선택한 상위 카테고리의 하위 카테고리 리스트들
      */
-    @GetMapping("/productAddPage")
-    public String productadd(){ return "admin/content/product/productAdd";}
-
     @GetMapping(value = "/category/{upperCategoryCode}", produces = "application/json; charset=UTF-8" )
     @ResponseBody
     public List<AdminCategoryDTO> getCateogoryList(HttpServletResponse res, @PathVariable("upperCategoryCode") int upperCategoryCode) throws IOException {

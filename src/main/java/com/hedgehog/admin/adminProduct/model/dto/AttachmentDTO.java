@@ -15,5 +15,5 @@ public class AttachmentDTO {
     private String savePath;
     private String fileType;
     private String thumbnailPath;
-    private char status;
+    private String status;
 }

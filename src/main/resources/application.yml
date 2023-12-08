@@ -18,13 +18,13 @@ spring:
       enabled: false
     livereload:
       enabled: true
-#  freemarker:
-#    cache: false
-#  thymeleaf:
-#    prefix: classpath:/templates/
-#    suffix: .html
-#    cache: false
-#    check-template-location: true
+  freemarker:
+    cache: false
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    check-template-location: true
 #  web:
 #    resources:
 #      static-locations: C:/thymeleaf-springboot/
