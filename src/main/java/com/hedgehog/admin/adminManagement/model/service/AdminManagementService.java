@@ -7,6 +7,7 @@ import com.hedgehog.admin.adminManagement.model.dto.AdminRegistrationForm;
 import com.hedgehog.admin.adminManagement.model.dto.ChangePwdForm;
 import com.hedgehog.client.auth.model.dao.AuthMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ public class AdminManagementService {
     private final AdminManagementMapper mapper;
     private final AuthMapper authMapper;
 
+    @Autowired
     public AdminManagementService(AdminManagementMapper mapper, AuthMapper authMapper) {
         this.mapper = mapper;
         this.authMapper = authMapper;

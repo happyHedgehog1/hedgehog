@@ -41,7 +41,7 @@ public class AdminManagementController {
         return "admin/content/adminManagement/adminManagement";
     }
 
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public ResponseEntity<String> deleteAdmin(@RequestParam int userCode) {
         boolean success = adminManagementService.deleteAdmin(userCode);
         if (success) {

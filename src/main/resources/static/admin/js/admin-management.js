@@ -36,6 +36,7 @@ function deleteAdmin(tag) {
             data: {userCode: userCode},
             success: function (response) {
                 console.log("삭제 성공:", response);
+                location.href="/adminManagement/adminManagement"
             },
             error: function (error) {
                 console.log(error);
