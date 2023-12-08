@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품등록</title>
+    <title>탈퇴회원조회</title>
     <link rel="stylesheet" th:href="@{/admin/css/unregister.css}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/admin/js/seach.js}"></script>
@@ -23,6 +23,10 @@
                         <div class="box"></div>
                     </div>
                     <div class="sectTopWrapper">
+                        <form id="unregisterForm"
+                              th:action="@{/member/unregister}"
+                              method="get"
+                              style="display: inline-block">
                         <div class="sectTop">
                             <table class="tblTop">
                                 <colgroup>
@@ -75,6 +79,7 @@
                             <div>
                                 <button id="btnSearch"> 검색 </button>
                             </div>
+                        </form>
                             <div><br><br></div>
                         </div>    
                     </div>
@@ -105,100 +110,9 @@
                                             <th>구분</th>
                                             <th>탈퇴사유</th>                                                 
                                 </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr>    
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li class="colorRed">강제탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
+                                <tr class="searchBottom_tr"
+                                th:each="unregister : ${ unregisterList}">
+                                <td th:text="${ member.user.id}"></td>
                                 </tr> 
                             </tbody>
                         </table>
