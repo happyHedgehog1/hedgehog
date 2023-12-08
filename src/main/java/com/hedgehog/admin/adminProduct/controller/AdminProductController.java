@@ -71,8 +71,12 @@ public class AdminProductController {
 
         rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
 
+
         log.info("=============product 끗~~~~~~~~~~~~~~~");
         return "redirect:admin/content/product/productAdd";
+
+
+
     }
 
 

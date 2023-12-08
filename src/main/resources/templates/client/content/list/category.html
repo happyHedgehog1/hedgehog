@@ -26,7 +26,7 @@
             <th:block th:each="category : ${ categoryList }">
                 <ul class="gallery_list">
                     <li>
-                        <img th:src="@{|/thumbPath${categoryList.getSourcePath[0].getSourcePath()}|}">
+                        <img th:src="${thumbnailPath}" alt="Thumbnail Image">
                     </li>
                     <li class="gallery_list_text">
                         <ul class="gallery_list_text1">
@@ -57,7 +57,7 @@
                     <li class="gallery_list_text">
                     <ul class="gallery_list_text1">
                         <li>1인가구</li>
-                        <li th:text="${}">☆4.5(3)</li>
+                        <li>☆4.5(3)</li>
                     </ul>
                     <ul class="gallery_list_text2">
                         <li>상품제목</li>
