@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class AdminCategoryDTO {
     private int subCategoryName;
-    private char state;
+    private String state;
     private String name;
     private int upperCategoryCode;
 }

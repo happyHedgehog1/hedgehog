@@ -11,7 +11,12 @@ public interface AdminProductService {
 
     List<AdminProductDTO> searchProduct(AdminProductForm form);
 
-    public void productAdd(AdminProductAddForm product) throws AdminProductAddException;
+    public void productAdd(AdminProductDTO product) throws AdminProductAddException;
 
     List<AdminCategoryDTO> findOptionList(int categoryCode);
+
+    OptionDTO searchOption(OptionDTO optionDTO);
+
+    public void productAddExcludeOptionCode(AdminProductDTO product) throws AdminProductAddException;
+
 }

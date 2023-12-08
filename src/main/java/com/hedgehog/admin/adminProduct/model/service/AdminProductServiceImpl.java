@@ -26,7 +26,11 @@ public class AdminProductServiceImpl implements AdminProductService {
 //    }
 
 
-
+    /**
+     * 상품 조회 메소드
+     * @param form
+     * @return
+     */
     @Override
     public List<AdminProductDTO> searchProduct(AdminProductForm form) {
         List<AdminProductDTO> productList = mapper.searchProduct(form);
@@ -36,15 +40,34 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     @Override
     @Transactional
-    public void productAdd(AdminProductAddForm product) throws AdminProductAddException {
+    public void productAdd(AdminProductDTO product) throws AdminProductAddException {
         log.info("=================================" + product.toString());
 
+        int result = 0;
+
+//        상품테이블 insert
         int addProduct = mapper.addProduct(product);
-        int addOption = mapper.addOption(product);
-        int addImg = mapper.addImg(product);
+
+//        옵션테이블에 같은 옵션 코드가 없을때만 insert한다
+
+        int addOption = mapper.addOption(product.getOptionDTO());
+
+//        옵션리스트 테이블 insert
+        int addOptionList = mapper.addOptionList(product.getOption());
+
+        List<AttachmentDTO> attachmentList = product.getAttachment();
+
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentList.get(i).setProductCode(product.getProductCode());
+        }
+
+        int attachmentResult = 0;
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentResult += mapper.addImg(attachmentList.get(i));
+        }
 
 
-        if (!(addProduct > 0) || !(addOption > 0) || !(addImg > 0)) {
+        if (!(addProduct > 0) || !(addOption > 0) || !(attachmentResult > 0) || !(addOptionList > 0)) {
             throw new AdminProductAddException("상품 등록에 실패하셨습니다.");
         }
     }
@@ -56,6 +79,52 @@ public class AdminProductServiceImpl implements AdminProductService {
         return findCategory;
 
     }
+
+    @Override
+    public OptionDTO searchOption(OptionDTO optionDTO) {
+        OptionDTO resultOptionCode = mapper.searchOptionCode(optionDTO);
+        if (optionDTO != null) {
+            return resultOptionCode;
+        } else {
+            return new OptionDTO();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void productAddExcludeOptionCode(AdminProductDTO product) throws AdminProductAddException {
+        log.info("=================================" + product.toString());
+
+        int result = 0;
+
+//        상품테이블 insert
+        int addProduct = mapper.addProduct(product);
+
+        log.info("==========================================> product : {}", product);
+        product.getOption().setProductCode(product.getProductCode());
+
+//        옵션리스트 테이블 insert
+        int addOptionList = mapper.addOptionList(product.getOption());
+
+        List<AttachmentDTO> attachmentList = product.getAttachment();
+
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentList.get(i).setProductCode(product.getProductCode());
+            log.info("==========================================> product : {}", product);
+
+        }
+
+        int attachmentResult = 0;
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentResult += mapper.addImg(attachmentList.get(i));
+        }
+
+
+        if (!(addProduct > 0) || !(attachmentResult > 0) || !(addOptionList > 0)) {
+            throw new AdminProductAddException("상품 등록에 실패하셨습니다.");
+        }
+    }
+
 
 
 }
