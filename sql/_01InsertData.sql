@@ -10,25 +10,29 @@ VALUES ('GUEST');
 /*사용자 + 권한리스트 + 고객 + 회원 + 탈퇴이력관리 */
 /*1번 user는 1번 권한(슈퍼관리자)*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('root', '1234', '슈퍼관리자이름', '관리자', '2023-12-03 17:29:49', '2010-11-05 14:12:59', 'N');
+VALUES ('superAdmin', '$2a$10$iUv35CbwmBxNJYctt2ob2empFmX/v4oA182xcolfqemN4KEInxDwi', '슈퍼관리자이름', '관리자',
+        '2023-12-03 17:29:49', '2010-11-05 14:12:59', 'N');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (1, 1);
 
 /*2번 user는 2번 권한(일반관리자)*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('root01', '1234', '관리자이름1', '관리자', '2023-12-02 17:29:49', '2015-11-05 14:12:59', 'N');
+VALUES ('admin0001', '$2a$10$VBRWd4b9vLh7ga38WWUJyebXNrA4rPfXs1CQAJ/jt2SEV.z52McZK', '관리자이름1', '관리자',
+        '2023-12-02 17:29:49', '2015-11-05 14:12:59', 'N');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (2, 2);
 
 /*3번 user는 2번 권한(일반관리자)*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('root02', '1234', '관리자이름2', '관리자', '2023-12-03 15:29:49', '2017-11-05 14:12:59', 'N');
+VALUES ('admin0002', '$2a$10$2KW3LI7deMqH4VyYvotQ.Oy.lqRhI.WwQvLBErRbtdTs0epPgfq.6', '관리자이름2', '관리자',
+        '2023-12-03 15:29:49', '2017-11-05 14:12:59', 'N');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (2, 3);
 
 /*4번 user는 2번 권한(일반관리자). 탈퇴상태 => 슈퍼관리자가 탈퇴처리 하면 즉시 탈퇴*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('root03', '1234', '관리자이름3', '관리자', '2019-11-05 17:29:49', '2018-11-05 14:12:59', 'Y');
+VALUES ('admin0003', '$2a$10$rMj9obCbMt/u3g204DH4.uD42CFHXtCwCTnixkP77vqy7AaM7JkPa', '관리자이름3', '관리자',
+        '2019-11-05 17:29:49', '2018-11-05 14:12:59', 'Y');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (2, 4);
 INSERT INTO tbl_withdraw(user_code, state, cause, commit_date)
@@ -36,21 +40,27 @@ VALUES (4, 'Y', '관리자 탈퇴', '2019-11-05 17:40:50');
 
 /*5번 user는 3번 권한(회원)*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('member01', '1234', '고객이름1', '고객', '2023-12-02 15:41:33', '2015-01-02 19:23:10', 'N');
+VALUES ('member0001', '$2a$10$h.Ff4ETX.u42ZzFHp2tziO6hnhKnBue0UmTC0MUAU4yAHFQ9z6Jfm', '고객이름1', '고객',
+        '2023-12-02 15:41:33', '2015-01-02 19:23:10', 'N');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (3, 5);
-INSERT INTO tbl_customer(customer_code, email, member_state, phone) /*5번 user*/
-VALUES (5, 'mmail5@gmail.com', 'Y', '01000000005');
+INSERT INTO tbl_certified(code)
+VALUES (111111);
+INSERT INTO tbl_customer(customer_code, email, member_state, phone, certification_number) /*5번 user*/
+VALUES (5, 'mmail5@gmail.com', 'Y', '01000000005', 1);
 INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point, cumulative_amount)
 VALUES (5, '1998-04-21', 'M', 'Y', 3000, 548000);
 
 /*6번 user는 3번 권한(회원). 탈퇴상태는 아니지만 예전에 탈퇴이력은 있음*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('member02', '1234', '고객이름2', '고객', '2023-12-01 15:41:33', '2017-03-05 19:23:10', 'N');
+VALUES ('member0002', '$2a$10$/6r5rjw3keZTy7BaqD1mmOlRUOdVolq0qgC2/Vc6gpnglNW2Ftssm', '고객이름2', '고객',
+        '2023-12-01 15:41:33', '2017-03-05 19:23:10', 'N');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (3, 6);
-INSERT INTO tbl_customer(customer_code, email, member_state, phone)
-VALUES (6, 'mmail6@gmail.com', 'Y', '01000000006');
+INSERT INTO tbl_certified(code)
+VALUES (111111);
+INSERT INTO tbl_customer(customer_code, email, member_state, phone, certification_number)
+VALUES (6, 'mmail6@gmail.com', 'Y', '01000000006', 2);
 INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point, cumulative_amount)
 VALUES (6, '1988-01-01', 'F', 'Y', 0, 336000);
 INSERT INTO tbl_withdraw(user_code, state, cause, apply_date, cancel_date)
@@ -58,11 +68,14 @@ VALUES (6, 'N', '사이트가 맘에 들지 않는다.', '2019-11-05 17:40:50', 
 
 /*7번 user는 3번 권한(회원). 탈퇴 신청후 1주일동안 반응이 없어서 탈퇴처리된 상태*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('member03', '1234', '고객이름3', '고객', '2021-05-03 15:41:33', '2016-03-05 19:23:10', 'Y');
+VALUES ('member0003', '$2a$10$9gTfoy7PSg79bBMpRT.bC.I.RLG5yoy7tM9x8azp8exHR.JvOuFWu', '고객이름3', '고객',
+        '2021-05-03 15:41:33', '2016-03-05 19:23:10', 'Y');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (3, 7);
-INSERT INTO tbl_customer(customer_code, email, member_state, phone)
-VALUES (7, 'mmail7@gmail.com', 'Y', '01000000007');
+INSERT INTO tbl_certified(code)
+VALUES (111111);
+INSERT INTO tbl_customer(customer_code, email, member_state, phone, certification_number)
+VALUES (7, 'mmail7@gmail.com', 'Y', '01000000007', 3);
 INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point)
 VALUES (7, '1986-03-02', 'M', 'Y', 1500);
 INSERT INTO tbl_withdraw(user_code, state, cause, apply_date, cancel_date)
@@ -70,11 +83,14 @@ VALUES (7, 'Y', '서비스가 불친절하다.', '2022-11-03 15:50:50', '2022-11
 
 /*8번 user는 3번 권한(회원). 강제퇴장된 경우*/
 INSERT INTO tbl_user(id, password, name, classify, connection_date, creation_date, withdraw_state)
-VALUES ('member04', '1234', '고객이름4', '고객', '2023-05-03 15:41:33', '2019-12-05 19:23:10', 'Y');
+VALUES ('member0004', '$2a$10$gt3rzNHtJhA19ealAFR.heUfoNmHKiC5epxGr1LpWZY5J3WZW664G', '고객이름4', '고객',
+        '2023-05-03 15:41:33', '2019-12-05 19:23:10', 'Y');
 INSERT INTO tbl_authority_list(authority_code, user_code)
 VALUES (3, 8);
-INSERT INTO tbl_customer(customer_code, email, member_state, phone)
-VALUES (8, 'mmail8@gmail.com', 'Y', '01000000008');
+INSERT INTO tbl_certified(code)
+VALUES (111111);
+INSERT INTO tbl_customer(customer_code, email, member_state, phone, certification_number)
+VALUES (8, 'mmail8@gmail.com', 'Y', '01000000008', 4);
 INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point)
 VALUES (8, '1989-03-02', 'M', 'Y', 1500);
 INSERT INTO tbl_withdraw(user_code, state, cause, cancel_date)

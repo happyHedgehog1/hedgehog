@@ -160,7 +160,7 @@ tbody td:nth-child(3):hover {
 
 }
 
-#review_content{
+.review_content{
     padding-left: 10px;
 }
 
@@ -172,18 +172,20 @@ tbody td:nth-child(3):hover {
     
 }
 
-#content {
+.content {
     flex: 1; 
 }
 
-#img_and_btn{
+.img_and_btn{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: end;
     justify-content: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
-#review_img{
+.review_img{
     height: 100px;
 }
 

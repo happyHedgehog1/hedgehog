@@ -7,91 +7,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자관리</title>
-    <link rel="stylesheet" th:href="@{/admin/css/adimin-management.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/admin/css/admin-management.css}" type="text/css">
 
 </head>
 <body>
 <th:block layout:fragment="content">
-                <div class="pageBody">
-                    <div class="mainHd">
-                        <div class="topTitle">
-                        <h4>관리자 관리</h4>
-                        <br>
+    <div class="pageBody">
+        <div class="mainHd">
+            <div class="topTitle">
+                <h4>관리자 관리</h4>
+                <br>
+            </div>
+        </div>
+        <div class="sectTop">
+            <div>
+                <button id="btnAdminAdd">관리자 등록</button>
+            </div>
+            <table>
+                <!--                <colgroup>-->
+                <!--                    <col style="width: 20%;">-->
+                <!--                    <col style="width: 20%;">-->
+                <!--                    <col style="width: 20%;">-->
+                <!--                    <col style="width: 20%;">-->
+                <!--                    <col style="width: 20%;">-->
+                <!--                </colgroup>-->
+                <tbody>
+                <tr>
+                    <th>권한</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>최근로그인</th>
+                    <th>생성날짜</th>
+                    <th>탈퇴여부</th>
+                    <th>비밀번호</th>
+                    <th>삭제</th>
+                </tr>
+                <tr th:each="admin : ${adminList}">
+                    <td th:text="${admin.userCode}" style="display:none"></td>
+                    <td th:text="${admin.authorityName}" th:if="${admin.authorityName}=='SUPER_ADMIN'"
+                        style="font-weight: bold;text-decoration:underline;"></td>
+                    <td th:text="${admin.authorityName}" th:unless="${admin.authorityName}=='SUPER_ADMIN'"></td>
+                    <td th:text="${admin.id}"></td>
+                    <td th:text="${admin.userName}"></td>
+                    <td th:text="${admin.connectionDate}"></td>
+                    <td th:text="${admin.creationDate}"></td>
+                    <td th:if="${admin.withdrawState}=='Y'" style="color:red;font-weight: bold">탈퇴</td>
+                    <td th:if="${admin.withdrawState}=='N'"></td>
+                    <td>
+                        <button th:if="${admin.withdrawState}=='N'" class="btnChangePass">변경</button>
+                    </td>
+                    <td>
+                        <button th:if="${admin.withdrawState}=='N' and ${admin.authorityName}=='ADMIN'" id="btnDeleteAdmin" onclick="deleteAdmin(this)">삭제</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modalContent">
+                <span id="closeAdminModal">&times;</span>
+                <form th:action="@{/adminManagement/registAdmin}" method="post" id="registForm">
+                    <div class="modalInput">
+                        <div class="title">
+                            <h3>관리자 등록</h3>
+                        </div>
+                        <div>
+                            <input type="text" name="adminAddId" id="adminAddId" placeholder="등록할 아이디 입력">
+                            <input type="button" id="id_check_button" value="아이디중복검사">
+                            <script>
+                                let regexId = /[a-zA-Z\d]{8,20}$/;
+                                $('#id_check_button').click(function () {
+                                        $('#id_check_button').css('display', 'none');
+                                        $('#adminAddId').prop('readonly', true);
+                                        const userId = $('#adminAddId').val();
+                                        const isValid = regexId.test(userId);
+                                        if (isValid) {
+                                            $.ajax({
+                                                url: "/auth/checkId",
+                                                method: "POST",
+                                                data: {userId: userId},
+                                                success: function (result) {
+                                                    if (result.result === "success") { // 아이디가 없으면
+                                                        $('#check_text').text('아이디 중복체크 완료');
+                                                    } else { // 아이디가 있으면
+                                                        $('#id_check_button').css('display', 'inline');
+                                                        $('#check_text').text('아이디가 있습니다.')
+                                                        $('#adminAddId').prop('readonly', false);
+                                                    }
+                                                },
+                                                error: function (error) {
+                                                    console.log(error);
+                                                    alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                                                    location.href = '/';
+                                                }
+                                            })
+                                        } else {
+                                            $('#check_text').html('규칙에 맞지 않습니다<br>다시입력해주세요.');
+                                            $('#adminAddId').prop('readonly', false);
+                                            $('#id_check_button').css('display', 'inline');
+                                        }
+                                    }
+                                );
+                            </script>
+                        </div>
+                        <div>
+                            <input type="password" name="adminAddPass" id="adminAddPass" placeholder="등록할 비밀번호 입력"
+                                   maxlength="13">
+                        </div>
+                        <div>
+                            <input type="text" name="adminAddName" id="adminAddName" placeholder="등록할 관리자 이름 입력">
+                        </div>
+                        <div id="check_text"></div>
+                        <div>
+                            <input type="submit" id="regist_admin" value="관리자 등록 신청">
                         </div>
                     </div>
-                        <div class="sectTop">
-                            <div><button id="btnAdminAdd">관리자 등록</button></div>
-                            <table>
-                                <colgroup>
-                                <col style="width: 20%;">
-                                <col style="width: 20%;">
-                                <col style="width: 20%;">
-                                <col style="width: 20%;">
-                                <col style="width: 20%;">
-                                </colgroup>
-                                <tbody>
-                                    <tr>
-                                        <th>아이디</th>
-                                        <th>이름</th>
-                                        <th>비밀번호 변경</th>
-                                        <th>최근 로그인 시간</th>
-                                        <th>관리자 삭제</th>
-                                    </tr>
-                                    <tr>
-                                        <td>masteradmin</td>
-                                        <td>마스터 관리자</td>
-                                        <td><button id="btnChangePass">변경</button></td>
-                                        <td id="currentTime">&nbsp;</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>admin1</td>
-                                        <td>등록된 관리자1</td>
-                                        <td><button id="btnChangePass">변경</button></td>
-                                        <td id="currentTime">&nbsp;</td>
-                                        <td><button id="btnDeleteAdmin">삭제</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal" id="myModal">
-                            <div class="modalContent">
-                                <span id="closeAdminModal">&times;</span>
-                                <div class="modalInput">
-                                    <div class="title">
-                                        <h3>관리자 등록</h3>
-                                    </div>
-                                    <div>
-                                        <input type="text" name="adminAddId" id="adminAddId" placeholder="등록할 아이디 입력">
-                                    </div>
-                                    <div>
-                                        <input type="password" name="adminAddPass" id="adminAddPass" placeholder="등록할 비밀번호 입력">
-                                    </div>
-                                    <div>
-                                        <input type="text" name="adminAddName" id="adminAddName" placeholder="등록할 관리자 이름 입력">
-                                    </div>
-                                    <div>
-                                        <button id="btnModalAdminAdd">관리자 등록 신청</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="passChangeModal" id="passChange">
-                            <div class="modalContent">
-                                <span id="closePassModal">&times;</span>
-                                <div class="modalInput">
-                                    <div class="passChangModalTitle">
-                                        비밀번호 변경
-                                    </div>
-                                        <input type="password" name="adminUpdatePass" id="adminUpdatePass" placeholder="변경할 비밀번호 입력">
-                                    </div>
-                                    <div>
-                                        <button id="btnModalAdminAdd">관리자 등록 신청</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            <script th:src="@{/admin/js/admin-management.js}"></script>
+                </form>
+            </div>
+        </div>
+        <div class="passChangeModal" id="passChange">
+            <div class="modalContent">
+                <span id="closePassModal">&times;</span>
+                <div class="modalInput">
+                    <div class="passChangModalTitle">
+                        비밀번호 변경
+                    </div>
+                    <input type="password" name="adminUpdatePass" id="adminUpdatePass" placeholder="변경할 비밀번호 입력">
+                </div>
+                <div>
+                    <input type="submit" id="adminPasswordChange" value="비밀번호 변경">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/admin/js/admin-management.js}"></script>
+    <script th:if="${errorMessage}">
+        alert([[${errorMessage}]]);
+    </script>
 </th:block>
 </body>
 </html>

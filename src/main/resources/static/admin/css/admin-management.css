@@ -1,10 +1,10 @@
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     list-style-type: none;
-    
+
 }
 
 a:link, a:visited {
@@ -12,7 +12,6 @@ a:link, a:visited {
     color: black;
 
 }
-
 
 
 #wrap {
@@ -29,7 +28,7 @@ header {
 
 }
 
-.logobackground{
+.logobackground {
     display: flex;
     padding: 20px;
     text-align: center;
@@ -37,25 +36,24 @@ header {
     height: 170px;
 }
 
-.logoimg img{
+.logoimg img {
     width: 130px;
     margin-left: 40px;
 }
 
-.logout{
-margin-left: auto;
+.logout {
+    margin-left: auto;
 
 }
 
-.logout a{
+.logout a {
     color: black;
 }
 
-.logoimg img{
+.logoimg img {
     width: 130px;
     margin-left: 40px;
 }
-
 
 
 h2 {
@@ -63,7 +61,6 @@ h2 {
     font-size: 40px;
     line-height: 110px;
 }
-
 
 
 /* 왼측 카테고리 */
@@ -75,7 +72,7 @@ h2 {
 }
 
 
-.left_nav{
+.left_nav {
     background-color: #747E8A;
     text-align: center;
     width: 250px;
@@ -83,7 +80,7 @@ h2 {
 
 }
 
-.left_nav li{
+.left_nav li {
     border-bottom: 1px solid rgb(92, 92, 92);
 
 }
@@ -95,7 +92,7 @@ h2 {
     display: block;
 }
 
-.prodList a{
+.prodList a {
     color: inherit;
     height: 100%;
     width: 100%;
@@ -103,27 +100,27 @@ h2 {
     padding: 25px 0;
 }
 
-.sub_ProdList li a{
+.sub_ProdList li a {
     background-color: #747E8A;
     transition: 150ms;
 }
 
-.sub_ProdList li:hover a{
+.sub_ProdList li:hover a {
     background-color: tomato;
 }
 
-.prodList .sub_ProdList{
+.prodList .sub_ProdList {
     display: none;
     transition: 200ms;
 }
 
-.prodList:hover .sub_ProdList{
+.prodList:hover .sub_ProdList {
     display: block;
     height: 100%;
 }
 
 
-.pageBody{
+.pageBody {
     position: relative;
     padding-left: 70px;
     padding-top: 50px;
@@ -135,33 +132,34 @@ h2 {
 
 }
 
-.tbl_top{
+.tbl_top {
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
 
 }
 
-.topTitle{
+.topTitle {
     font-size: 25px;
 }
 
-.mainHd{
+.mainHd {
     position: relative;
 }
 
-.sectTop{
+.sectTop {
     position: relative;
     padding: 20px 20px 00px 20px;
     border: 3px solid #bdc5cd;
     background-color: white;
     height: 700px;
 }
+
 .w250 {
     width: 200px !important;
 }
 
-.w25{
+.w25 {
     width: 25px !important;
 }
 
@@ -170,11 +168,11 @@ h2 {
 
 }
 
-.w140{
+.w140 {
     width: 140px !important;
 }
 
-#btnAdminAdd{
+#btnAdminAdd {
     width: 160px;
     height: 50px;
     color: white;
@@ -185,7 +183,7 @@ h2 {
 }
 
 
-button#btnAdminAdd:active {
+#btnAdminAdd:active {
     background-color: #3F464F;
     border: 0;
     font-size: 20px;
@@ -193,29 +191,29 @@ button#btnAdminAdd:active {
     width: 160px;
     height: 50px;
     color: white;
-  }
+}
 
 
-.arr-align li{
+.arr-align li {
     float: left;
     padding-right: 10px;
     box-sizing: border-box;
 }
 
-table{
+table {
     width: 100%;
     border: #bdc5cd 1px solid;
     border-collapse: collapse;
 }
 
-th{
+th {
     font-size: 18px;
     height: 80px;
     background-color: #bdc5cd;
-    
+
 }
 
-td{
+td {
     text-align: center;
     height: 80px;
     font-size: 17px;
@@ -223,7 +221,7 @@ td{
     border-right: #bdc5cd 1px solid;
 }
 
-#btnChangePass{
+.btnChangePass {
     width: 120px;
     height: 40px;
     color: white;
@@ -233,16 +231,16 @@ td{
 }
 
 
-button#btnChangePass:active {
+.btnChangePass:active {
     background-color: #3F464F;
     border: 0;
     font-size: 20px;
     width: 120px;
     height: 40px;
     color: white;
-  }
+}
 
-  #btnDeleteAdmin{
+#btnDeleteAdmin {
     width: 120px;
     height: 40px;
     color: white;
@@ -259,10 +257,10 @@ button#btnDeleteAdmin:active {
     width: 120px;
     height: 40px;
     color: white;
-  }
+}
 
 
-  .modal {
+.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -290,52 +288,55 @@ button#btnDeleteAdmin:active {
     top: 0px;
     right: 20px;
     font-size: 50px;
-    
-}
-.modalInput{
-    text-align: center;
-    
+
 }
 
-.title{
+.modalInput {
+    text-align: center;
+
+}
+
+.title {
     padding-top: 30px;
     font-size: 20px;
     height: 100px;
 }
-.modalInput>div{
+
+.modalInput > div {
     padding-top: 60px;
     height: 40px;
     vertical-align: middle;
-    
-    
+
+
 }
-.modalInput input{
+
+.modalInput input {
     height: 40px;
-    width: 200px;
-    padding-left: 10px;
+    width: 230px;
     text-align: center;
 }
 
-#btnModalAdminAdd{
+#adminPasswordChange, #regist_admin {
     width: 200px;
     height: 40px;
     color: white;
     background-color: #A7727D;
     border: 0;
     font-size: 20px;
+    margin-top: 40px;
 }
 
-
-button#btnModalAdminAdd:active {
+#adminPasswordChange:active,
+#regist_admin:active {
     background-color: #3F464F;
     border: 0;
     font-size: 20px;
     width: 200px;
     height: 40px;
     color: white;
-  }
+}
 
-  .passChangeModal {
+.passChangeModal {
     display: none;
     position: fixed;
     top: 0;
@@ -354,7 +355,7 @@ button#btnModalAdminAdd:active {
     top: 0px;
     right: 20px;
     font-size: 50px;
-    
+
 }
 
 .passChangeModal .modalContent {
@@ -369,16 +370,21 @@ button#btnModalAdminAdd:active {
     align-items: center;
 }
 
-.passChangModalTitle{
+.passChangModalTitle {
     margin: 30px;
     font-size: 30px;
     font-weight: bold;
 }
 
-#adminUpdatePass{
+#adminUpdatePass {
     margin-top: 50px;
 }
-
-#btnModalAdminAdd{
-    margin-top: 40px;
+#check_text{
+    color:red;
+    font-weight: bolder;
+}
+#email_authentication {
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
 }
