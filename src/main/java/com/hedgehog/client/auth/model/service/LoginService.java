@@ -1,6 +1,7 @@
 package com.hedgehog.client.auth.model.service;
 
 import com.hedgehog.client.auth.model.dto.LoginDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class LoginService implements UserDetailsService {
     }
 
     @Override
-    public LoginDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return authService.findByUserId(username);
     }
 }

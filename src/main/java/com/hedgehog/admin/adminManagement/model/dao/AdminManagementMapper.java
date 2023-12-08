@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminManagement.model.dao;
 
 import com.hedgehog.admin.adminManagement.model.dto.AdminDTO;
 import com.hedgehog.admin.adminManagement.model.dto.AdminRegistrationForm;
+import com.hedgehog.admin.adminManagement.model.dto.ChangePwdForm;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface AdminManagementMapper {
 
 
     int updateAdminWithdraw(int userCode);
+
+    int updateAdminPwd(ChangePwdForm newPwdForm);
 }

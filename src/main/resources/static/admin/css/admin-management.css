@@ -182,14 +182,22 @@ h2 {
     margin-bottom: 20px;
 }
 
+#btnChangeMyPwd {
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: #A7727D;
+    border: 0;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
 
-#btnAdminAdd:active {
+#btnAdminAdd:active,
+#btnChangeMyPwd:active{
     background-color: #3F464F;
     border: 0;
     font-size: 20px;
     margin-bottom: 20px;
-    width: 160px;
-    height: 50px;
     color: white;
 }
 
@@ -240,7 +248,7 @@ td {
     color: white;
 }
 
-#btnDeleteAdmin {
+.btnDeleteAdmin {
     width: 120px;
     height: 40px;
     color: white;
@@ -250,7 +258,7 @@ td {
 }
 
 
-button#btnDeleteAdmin:active {
+.btnDeleteAdmin:active {
     background-color: #3F464F;
     border: 0;
     font-size: 20px;
@@ -306,8 +314,6 @@ button#btnDeleteAdmin:active {
     padding-top: 60px;
     height: 40px;
     vertical-align: middle;
-
-
 }
 
 .modalInput input {
@@ -316,14 +322,13 @@ button#btnDeleteAdmin:active {
     text-align: center;
 }
 
-#adminPasswordChange, #regist_admin {
+#adminPasswordChange, #regist_admin,#id_check_button {
     width: 200px;
     height: 40px;
     color: white;
     background-color: #A7727D;
     border: 0;
     font-size: 20px;
-    margin-top: 40px;
 }
 
 #adminPasswordChange:active,
@@ -363,7 +368,7 @@ button#btnDeleteAdmin:active {
     padding: 20px;
     border-radius: 5px;
     width: 600px;
-    height: 500px;
+    height: 600px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -379,12 +384,20 @@ button#btnDeleteAdmin:active {
 #adminUpdatePass {
     margin-top: 50px;
 }
-#check_text{
-    color:red;
+
+#check_text {
+    color: red;
     font-weight: bolder;
 }
+
 #email_authentication {
     display: flex;
     align-items: center;
     margin-left: 3px;
+}
+
+.modalButtonWrap {
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }

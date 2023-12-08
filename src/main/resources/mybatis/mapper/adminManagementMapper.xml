@@ -49,4 +49,9 @@
         SET withdraw_state='Y'
         WHERE user_code=#{userCode}
     </update>
+    <update id="updateAdminPwd">
+        update tbl_user
+        SET password=#{adminUpdatePass}
+        WHERE user_code=#{userCode}
+    </update>
 </mapper>

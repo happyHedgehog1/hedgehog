@@ -4,6 +4,7 @@ import com.hedgehog.admin.adminManagement.controller.AdminManagementController;
 import com.hedgehog.admin.adminManagement.model.dao.AdminManagementMapper;
 import com.hedgehog.admin.adminManagement.model.dto.AdminDTO;
 import com.hedgehog.admin.adminManagement.model.dto.AdminRegistrationForm;
+import com.hedgehog.admin.adminManagement.model.dto.ChangePwdForm;
 import com.hedgehog.client.auth.model.dao.AuthMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -75,5 +76,10 @@ public class AdminManagementService {
             return false;
         }
         return true;
+    }
+
+    public boolean updatePwd(ChangePwdForm newPwdForm) {
+        boolean success = mapper.updateAdminPwd(newPwdForm)==1;
+        return success;
     }
 }

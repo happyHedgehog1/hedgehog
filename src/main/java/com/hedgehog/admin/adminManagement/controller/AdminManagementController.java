@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminManagement.controller;
 
 import com.hedgehog.admin.adminManagement.model.dto.AdminDTO;
 import com.hedgehog.admin.adminManagement.model.dto.AdminRegistrationForm;
+import com.hedgehog.admin.adminManagement.model.dto.ChangePwdForm;
 import com.hedgehog.admin.adminManagement.model.service.AdminManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,19 +28,7 @@ public class AdminManagementController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/registAdmin")
-    public String registAdmin(@ModelAttribute AdminRegistrationForm registrationForm, Model model) {
-        AdminRegistrationForm newForm = new AdminRegistrationForm(registrationForm.getAdminAddId(),
-                passwordEncoder.encode(registrationForm.getAdminAddPass()),
-                registrationForm.getAdminAddName());
-        boolean isSuccess = adminManagementService.registAdmin(newForm);
-        if (isSuccess) {
-            return "redirect:/adminManagement/adminManagement";
-        } else {
-            model.addAttribute("errorMessage", "등록에 실패했습니다. 유효한 데이터를 입력해주세요.");
-            return "forward:/adminManagement/adminManagement";
-        }
-    }
+
 
     /**
      * @return 관리자 관리 페이지 연결 메소드
@@ -59,6 +48,31 @@ public class AdminManagementController {
             return new ResponseEntity<>("삭제가 완료되었습니다.", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("삭제를 실패했습니다.", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("/registAdmin")
+    public String registAdmin(@ModelAttribute AdminRegistrationForm registrationForm, Model model) {
+        AdminRegistrationForm newForm = new AdminRegistrationForm(registrationForm.getAdminAddId(),
+                passwordEncoder.encode(registrationForm.getAdminAddPass()),
+                registrationForm.getAdminAddName());
+        boolean isSuccess = adminManagementService.registAdmin(newForm);
+        if (isSuccess) {
+            return "redirect:/adminManagement/adminManagement";
+        } else {
+            model.addAttribute("errorMessage", "등록에 실패했습니다. 유효한 데이터를 입력해주세요.");
+            return "forward:/adminManagement/adminManagement";
+        }
+    }
+    @PostMapping("/changePassword")
+    public String adminManagement(@ModelAttribute ChangePwdForm pwdForm, Model model) {
+        ChangePwdForm newPwdForm = new ChangePwdForm(pwdForm.getUserCode(), passwordEncoder.encode(pwdForm.getAdminUpdatePass()));
+        System.out.println(newPwdForm);
+        boolean success = adminManagementService.updatePwd(newPwdForm);
+        if(success) {
+            return "redirect:/adminManagement/adminManagement";
+        }else{
+            model.addAttribute("errorMessage","비밀번호 변경에 실패했습니다.");
+            return "forward:/adminManagement/adminManagement";
         }
     }
 }
