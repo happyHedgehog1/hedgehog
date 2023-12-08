@@ -4,84 +4,51 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.client.basket.model.dao.BasketMapper">
 
-    <resultMap id="BasketResultMap" type="BasketDTO">
-        <id property="cartCode" column="cart_code"/>
-        <result property="amount" column="amount"/>
-        <result property="customerCode" column="customer_code"/>
-        <result property="optionCode" column="option_code"/>
-        <association property="productCode" resultMap="productResultMap"/>
-        <association property="imgCode" resultMap="productImgResultMap"/>
-    </resultMap>
+<!--    <resultMap id="BasketResultMap" type="BasketDTO">-->
+<!--        <id property="cartCode" column="cart_code"/>-->
+<!--        <result property="amount" column="amount"/>-->
+<!--        <result property="customerCode" column="customer_code"/>-->
+<!--        <result property="optionCode" column="option_code"/>-->
+<!--        <association property="productCode" resultMap="productResultMap"/>-->
+<!--        <association property="imgCode" resultMap="productImgResultMap"/>-->
+<!--    </resultMap>-->
 
 
 
-    <resultMap id="productResultMap" type="ProductDTO">
-        <id property="productCode" column="product_code"/>
-        <result property="categoryCode" column="category_code"/>
-        <result property="productName" column="product_name"/>
-        <result property="orderableStatus" column="orderable_status"/>
-        <result property="price" column="price"/>
-        <result property="registrationDate" column="registration_date"/>
-        <result property="modificationDate" column="modification_date"/>
-        <result property="eventProgressionStatus" column="event_progressionstatus"/>
-        <result property="deliveryCharge" column="delivery_charge"/>
-        <result property="salesStart" column="sales_start"/>
-        <result property="reviews" column="reviews"/>
-        <result property="grade" column="grade"/>
-        <result property="salesEnd" column="sales_end"/>
-        <association property="imgCode" resultMap="productImgResultMap"/>
-    </resultMap>
+<!--    <resultMap id="productResultMap" type="ProductDTO">-->
+<!--        <id property="productCode" column="product_code"/>-->
+<!--        <result property="categoryCode" column="category_code"/>-->
+<!--        <result property="productName" column="product_name"/>-->
+<!--        <result property="orderableStatus" column="orderable_status"/>-->
+<!--        <result property="price" column="price"/>-->
+<!--        <result property="registrationDate" column="registration_date"/>-->
+<!--        <result property="modificationDate" column="modification_date"/>-->
+<!--        <result property="eventProgressionStatus" column="event_progressionstatus"/>-->
+<!--        <result property="deliveryCharge" column="delivery_charge"/>-->
+<!--        <result property="salesStart" column="sales_start"/>-->
+<!--        <result property="reviews" column="reviews"/>-->
+<!--        <result property="grade" column="grade"/>-->
+<!--        <result property="salesEnd" column="sales_end"/>-->
+<!--        <association property="imgCode" resultMap="productImgResultMap"/>-->
+<!--    </resultMap>-->
 
-    <resultMap id="productImgResultMap" type="ProductImgDTO">
-        <id property="imgCode" column="img_code"/>
-        <result property="imageClassification" column="image_classification"/>
-        <result property="sourcePath" column="source_path"/>
-        <result property="convertPath" column="convert_path"/>
-        <result property="sourceName" column="source_name"/>
-        <result property="convertName" column="convert_name"/>
-        <result property="imageStatus" column="image_status"/>
-        <result property="createDate" column="create_date"/>
-        <result property="modifyDate" column="modify_date"/>
-        <result property="productCode" column="product_code"/>
-    </resultMap>
-
-
-
-    <!--    <resultMap id="CustomerResultMap" type="CustomerDTO">-->
-    <!--        <id property="customerCode" column="customer_code"/>-->
-    <!--        <result property="memberStatus" column="member-status"/>-->
-    <!--        <result property="email" column="email"/>-->
-    <!--        <result property="phone" column="phone"/>-->
-    <!--        <result property="certificationNumber" column="certification_number"/>-->
-    <!--    </resultMap>-->
-
-    <select id="selectBasket" resultMap="BasketResultMap" >
-
-<!--        <![CDATA[]]> -->
-
-        SELECT
-            C.img_code,
-            B.product_name,
-            B.price,
-            (B.price * 0.01) AS 적립금,
-            A.amount,
-            B.delivery_charge,
-            (B.price + B.delivery_charge) AS 합계
-        FROM
-            tbl_cart A
-                JOIN
-            tbl_product B ON A.product_code = B.product_code
-                JOIN
-            tbl_product_img C ON A.product_code = C.product_code
-        GROUP BY
-            C.img_code, B.product_name, B.price, A.amount, B.delivery_charge, (B.price + B.delivery_charge)
-
-
-    </select>
+<!--    <resultMap id="productImgResultMap" type="ProductImgDTO">-->
+<!--        <id property="imgCode" column="img_code"/>-->
+<!--        <result property="imageClassification" column="image_classification"/>-->
+<!--        <result property="sourcePath" column="source_path"/>-->
+<!--        <result property="convertPath" column="convert_path"/>-->
+<!--        <result property="sourceName" column="source_name"/>-->
+<!--        <result property="convertName" column="convert_name"/>-->
+<!--        <result property="imageStatus" column="image_status"/>-->
+<!--        <result property="createDate" column="create_date"/>-->
+<!--        <result property="modifyDate" column="modify_date"/>-->
+<!--        <result property="productCode" column="product_code"/>-->
+<!--    </resultMap>-->
 
 
 
     <resultMap id="CartSelectResultMap" type="CartSelectDTO">
+        <id property="productCode" column="product_code"/>
         <result property="imgCode" column="img_code"/>
         <result property="productName" column="product_name"/>
         <result property="price" column="price"/>
@@ -94,22 +61,22 @@
 
 
     <select id="selectCartList" resultMap="CartSelectResultMap">
-        SELECT
+        SELECT DISTINCT
+            A.product_code,
             C.img_code,
-            B.product_name,
-            B.price,
-            (B.price * 0.01) AS 적립금,
-            A.amount,
-            B.delivery_charge,
-            (B.price + B.delivery_charge) AS 합계
+            A.product_name,
+            A.price,
+            (A.price * 0.01) AS 적립금,
+            B.amount,
+            A.delivery_charge,
+            (A.price * B.amount + A.delivery_charge) AS 합계
         FROM
-            tbl_cart A
-                JOIN
-            tbl_product B ON A.product_code = B.product_code
-                JOIN
+            tbl_product A
+                LEFT JOIN
+            tbl_cart B ON A.product_code = B.product_code
+                LEFT JOIN
             tbl_product_img C ON A.product_code = C.product_code
-        GROUP BY
-            C.img_code, B.product_name, B.price, A.amount, B.delivery_charge, (B.price + B.delivery_charge)
+        group by A.product_code
     </select>
 
 </mapper>

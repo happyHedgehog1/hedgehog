@@ -6,6 +6,7 @@ import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.basket.model.service.BasketService;
 import com.hedgehog.client.basket.model.service.BasketServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +25,12 @@ public class BasketController {
     private final BasketService basketService;//서비스 주입받아서 사용
     //서비스 계층에서ㅓ 정의된 메소드 호출해서 비즈니스로직을 수행
 
+    @Autowired
     public BasketController(BasketService basketService) {
         this.basketService = basketService;
 //의존성 주입
     }
+
 
 //    @GetMapping("/cart")
 //    public ModelAndView cartselect(@ModelAttribute CartSelectDTO cartSelect) {
@@ -61,13 +64,11 @@ public class BasketController {
 
     @GetMapping("/cart")
     public String selectCartList(Model model) {
-        try {
+
             List<CartSelectDTO> cartItemList = basketService.selectCartList();
             model.addAttribute("cartItemList", cartItemList);
-        } catch (Exception e) {
-            log.error("장바구니 상품 조회 중 오류 발생", e);
-            model.addAttribute("error", "장바구니 상품 조회 중 오류가 발생했습니다.");
-        }
+
+
 
         log.info("장바구니 상품 조회 완료");
         return "client/content/basket/cart";
