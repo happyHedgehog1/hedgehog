@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,12 +30,55 @@ public class AdminProductController {
         this.adminProductServiceImpl = adminProductService;
     }
 
+//    @PostMapping("/productRegist")
+//    public String productRegist(@ModelAttribute AdminProductDTO product,
+//                                RedirectAttributes rttr){
+//
+//        log.info("***************************상품 수정 시작");
+//
+//        adminProductServiceImpl.registProduct(product);
+//
+//        rttr.addFlashAttribute("message", "상품 수정에 성공하셨습니다.")
+//        return "redirect:/product/productModify";
+//    }
+
+    @GetMapping("/productDetail")
+    public String selectProductDetail(@RequestParam int productCode, Model model){
+        log.info("");
+        log.info("");
+        log.info("selectProductDetail~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~product : {}", productCode);
+
+////        AdminProductDTO product = adminProductServiceImpl.selectProductDetail(productCode);
+//        log.info("=====================================product : " + product);
+//        model.addAttribute("product", product);
+
+        return "";
+
+
+
+    }
+
     @Value("img")
     private String IMAGE_DIR;
 
     @Value("C:/images/")
     private String ROOT_LOCATION;
 
+    /**
+     * 상품 등록 메소드
+     * @param product 상품 DTO
+     * @param optionDTO 옵션 DTO
+     * @param option 옵션 List DTO
+     * @param category 카테고리 DTO
+     * @param thumbnail 대표썸네일
+     * @param sub_thumbnails 제품관점이미지
+     * @param proImg 제품 상세페이지 이미지
+     * @param rttr 성공 실패시 메세지
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws ThumbnailRegistException
+     */
     @PostMapping("/productAdd")
     private String productAdd(@ModelAttribute AdminProductDTO product,
                               @ModelAttribute OptionDTO optionDTO,
@@ -115,21 +159,25 @@ public class AdminProductController {
                 int height = 0;
 
                 String fieldName = paramFile.getName();
-                log.info("***********************필드 name" + fieldName);
-
-                if ("thumbnail".equals(fieldName) || "sub_thumbnails".equals(fieldName)) {
-                    fileMap.put("fileType", "TITLE");
+                log.info("***********************필드 name {} ", fieldName);
+                log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
+                if ("thumbnail".equals(fieldName)) {
+                    fileMap.put("fileType", "Thumbnails");
 
                     width = 640;
                     height = 640;
-                } else {
-                    fileMap.put("fileType", "BODY");
+                } else if("sub_thumbnail".equals(fieldName)) {
+                    fileMap.put("fileType", "sub_thumbnail");
+                    width = 640;
+                    height = 640;
+                } else if("proImg".equals(fieldName)){
+                    fileMap.put("fileType", "proImg");
                     width = 860;
                     height = 7500;
                 }
 
                 Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
-                        .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
+                        .toFile(thumnailDirectory + "/thumbnail" + savedFileName);
 
                 fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
 

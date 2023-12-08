@@ -153,9 +153,10 @@
             convert_path,
             image_classification,
             source_path,
-            create_date
+            create_date,
+            image_status
         )
-        VALUES  (#{productCode}, #{ originalName }, #{ savedName }, #{ savePath }, #{ fileType }, #{ thumbnailPath }, now())
+        VALUES  (#{productCode}, #{ originalName }, #{ savedName }, #{ savePath }, #{ fileType }, #{ thumbnailPath }, now(), 'Y' )
     </insert>
     <insert id="addOption">
         INSERT INTO tbl_option (

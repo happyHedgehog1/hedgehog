@@ -38,9 +38,9 @@ $(document).ready(function () {
             var newOpList = $("<tr class='optionList'>" +
                 "<th colspan='2'>" +
                 "<ul class='arrAlign'>" +
+                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</div></li>"+
                 "<li class='w400'><input type='text' name='optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
                 "<li class='w400'><input type='text' name='optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
-                "<li class='w200'><input type='number' name='sales' style='width: 125px;' value='0'> 원</li>" +
                 "<li class='w200'><input type='number' name='stock' style='width: 125px;' value='0'> 개</li>" +
                 "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
                 "</ul>" +
@@ -70,6 +70,8 @@ $(document).ready(function () {
         reader.onload = function(e) {
         };
         reader.readAsBinaryString(f);
+
+
     }
 });
 
@@ -94,9 +96,9 @@ $(function () {
     $("#sub_thumbnail").change(function (event) {
         const files = event.target.files;
 
-        // 최대 5개까지만 허용
+        // 최대 3개까지만 허용
         if (files.length > 3) {
-            alert("최대 5개의 이미지만 선택할 수 있습니다.");
+            alert("최대 3개의 이미지만 선택할 수 있습니다.");
             // 선택된 파일 초기화
             $("#sub_thumbnail").val('');
             return;
@@ -201,4 +203,6 @@ function setSelectBox(select) {
             console.error('Error fetching data: ', error);
         }
     });
+
+
 }
