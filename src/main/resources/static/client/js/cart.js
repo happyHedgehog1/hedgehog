@@ -58,11 +58,61 @@ $(document).ready(function() {
     });
 });
 
+// function submitForm() {
+//     // 선택된 체크박스들을 저장할 배열
+//     var selectedItems = [];
+//
+//     // 모든 체크박스에 대해 반복
+//     var checkboxes = document.getElementsByName('cartcheckbox');
+//     for (var i = 0; i < checkboxes.length; i++) {
+//         if (checkboxes[i].checked) {
+//             // 체크된 체크박스의 값을 배열에 추가
+//             selectedItems.push(checkboxes[i].value);
+//         }
+//     }
+//
+//     // 폼에 추가 데이터를 넣거나 수정할 수 있으면 여기서 처리
+//
+//     // 폼 전송
+//     document.getElementById('cart_order_form').submit();
+//
+//
+// }
 
-$(document).ready(function(){
-    var currentPosition = parseInt($(".quickmenu").css("top"));
-    $(window).scroll(function() {
-        var position = $(window).scrollTop();
-        $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},800);
+
+//체크박스에서 체크된 것만 주문성작성 페이지로 넘기기 위한 js
+document.addEventListener('DOMContentLoaded', function () {
+    // 주문서 작성 폼 요소를 가져옵니다.
+    const orderForm = document.querySelector('.cart_order_form');
+
+    // 폼이 제출될 때의 이벤트를 처리합니다.
+    orderForm.addEventListener('submit', function (event) {
+        // 선택된 상품 정보를 담을 배열을 생성합니다.
+        const selectedItems = [];
+
+
+        // 체크박스 요소들을 가져옵니다.
+        const checkboxes = document.querySelectorAll('.cart_table input[type="checkbox"]:checked');
+
+        // 각 체크된 상품에 대해 정보를 추출합니다.
+        checkboxes.forEach(function (checkbox) {
+            const row = checkbox.closest('tr');
+            const itemName = row.querySelector('td:nth-child(2)').textContent.trim();
+            const itemQuantity = row.querySelector('td:nth-child(5)').textContent.trim();
+
+            // 정보를 객체로 저장하고 배열에 추가합니다.
+            const itemInfo = {
+                name: itemName,
+                quantity: itemQuantity,
+            };
+            selectedItems.push(itemInfo);
+        });
+
+        // 추출한 정보를 문자열로 변환하여 폼 데이터로 추가합니다.
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'selectedItems';
+        hiddenInput.value = JSON.stringify(selectedItems);
+        orderForm.appendChild(hiddenInput);
     });
 });

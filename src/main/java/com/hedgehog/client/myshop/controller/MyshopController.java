@@ -8,21 +8,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/myshop")
 public class MyshopController {
 
-    @GetMapping("mypage")
+    @GetMapping("/mypage")
     public String mypage() {
-        return "/client/content/myshop/mypageMember.html";
+        return "/client/content/myshop/mypageMember";
     }
 
-    @GetMapping("memberInfoChange")
+    @GetMapping("/memberInfoChange")
     public String infoChange() {
-        return "/client/content/myshop/memberInfoChange.html";
+        return "/client/content/myshop/memberInfoChange";
     }
-    @GetMapping("mypageGuest")
-    public String guest() {
-        return "/client/content/myshop/mypageGuest.html";
-    }
-    @GetMapping("info")
+
+    @GetMapping("/info")
     public String memberInfo() {
-        return "/client/content/myshop/memberInfo.html";
+        return "/client/content/myshop/memberInfo";
     }
-}
+
+//    details에서 Myshop으로 옮긴것들
+    @GetMapping("/cancelPaybackInfo")
+    public String cancelPaybackInfo() {
+        return "/client/content/myshop/cancelPaybackInfo";
+    }
+    @GetMapping("/orderDetails")
+    public String orderDetails() {
+        return "/client/content/myshop/orderDetails";
+    }
+    @GetMapping("/orderDeliveryinfo")
+    public String orderDeliveryinfo() {
+        return "/client/content/myshop/orderDeliveryinfo";
+    }
+
+    @GetMapping("/withdrawalReason")
+    public String withdrawalReason() {
+        return "/client/content/myshop/withdrawalReason";
+    }
+
+
+
+    }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.auth.model.dao.AuthMapper">
+    <select id="selectUserById" resultType="string">
+        SELECT
+            A.ID
+        FROM TBL_USER A
+        WHERE A.ID = #{userId}
+    </select>
+    <select id="selectMemberByEmail" resultType="string">
+        SELECT
+            A.email
+        FROM TBL_CUSTOMER A
+        WHERE A.member_state = 'Y'
+        AND A.email = #{email}
+    </select>
+    <insert id="insertCode" parameterType="string">
+        INSERT INTO tbl_certified(code)
+        VALUES(#{randomCode});
+    </insert>
+    <select id="selectLastInsertCertifiedNumber" resultType="_int">
+        SELECT LAST_INSERT_ID()
+        FROM tbl_certified LIMIT 1
+    </select>
+    <select id="certifyEmail">
+        SELECT COUNT(*)
+        FROM tbl_certified A
+        WHERE A.certification_number = #{certifiedKey}
+        AND A.code=#{inputCertifiedCode}
+    </select>
+    <insert id="insertUser">
+        INSERT INTO tbl_user(id,password,classify,name,creation_date,withdraw_state)
+        VALUES(#{userId},#{userPwd},'고객',#{name},NOW(),'N')
+    </insert>
+    <select id="selectUserCode" resultType="_int">
+        SELECT LAST_INSERT_ID()
+        FROM tbl_user LIMIT 1
+    </select>
+    <insert id="insertAuthorityList">
+        INSERT INTO tbl_authority_list(authority_code, user_code)
+        VALUES(3,#{userCode})
+    </insert>
+    <insert id="insertCustomer">
+        INSERT INTO tbl_customer (customer_code,email, phone,certification_number)
+        VALUES(#{userCode},#{newMember.email},#{newMember.phone},#{newMember.hiddenCertifiedKey})
+    </insert>
+    <insert id="insertMember">
+        INSERT INTO tbl_member(member_code, birthday, gender, email_consent)
+        VALUES (#{userCode}, #{newMember.birthday}, #{newMember.gender}, #{newMember.emailService})
+    </insert>
+    <resultMap id="loginUserResultMap" type="com.hedgehog.client.auth.model.dto.LoginUserDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="id"/>
+        <result property="userPwd" column="password"/>
+        <result property="name" column="user_name"/>
+        <result property="classify" column="classify"/>
+        <result property="connectionDate" column="connection_date"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="withdrawState" column="withdraw_state"/>
+        <result property="role" column="role_name"/>
+    </resultMap>
+    <select id="findByUsername" resultMap="loginUserResultMap">
+        SELECT A.user_code,
+               A.id,
+               A.password,
+               A.name AS user_name,
+               A.classify,
+               A.connection_date,
+               A.creation_date,
+               A.withdraw_state,
+               C.name AS role_name
+        FROM tbl_user A
+                 JOIN tbl_authority_list B ON B.user_code = A.user_code
+                 JOIN tbl_authority C ON C.authority_code = B.authority_code
+        WHERE A.withdraw_state = 'N'
+          AND A.id = #{username};
+    </select>
+    <update id="updateConnectionDate">
+        UPDATE tbl_user
+        SET connection_date = NOW()
+        WHERE user_code = #{userCode}
+    </update>
+</mapper>

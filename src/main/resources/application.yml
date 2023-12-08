@@ -1,6 +1,11 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+<<<<<<<<< Temporary merge branch 1
+    url: jdbc:mysql://mysql.coffit.today:3306/oneinfurniture
+    username: oneinfurniture
+    password: oneinfurniture1234
+=========
     url: jdbc:mysql://mysql.coffit.today/oneinfurniture
     username: oneinfurniture
     password: oneinfurniture1234
@@ -14,5 +19,4 @@ mybatis:
 logging:
   level:
     root: info
-
-
+>>>>>>>>> Temporary merge branch 2
