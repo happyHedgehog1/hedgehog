@@ -3,6 +3,7 @@ package com.hedgehog.client.auth.model.service;
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.MemberDTO;
 import com.hedgehog.common.common.exception.UserCertifiedException;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface AuthService {
 
@@ -18,5 +19,5 @@ public interface AuthService {
     /*회원가입용메서드*/
     boolean registMember(MemberDTO newMember);
 
-    LoginDetails findByUserId(String username);
+    UserDetails findByUserId(String username);
 }

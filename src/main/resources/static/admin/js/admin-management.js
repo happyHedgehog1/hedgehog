@@ -47,3 +47,7 @@ function deleteAdmin(tag) {
         alert("삭제하지 않습니다.");
     }
 }
+function inputPrimaryKey(tag){
+    const userRowChildren = tag.parentNode.parentNode.children;
+    $('#userCode').val(userRowChildren[0].innerText);
+}

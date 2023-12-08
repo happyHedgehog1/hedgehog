@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.sql.Timestamp;
 
-
+@NoArgsConstructor@AllArgsConstructor@Getter@Setter@ToString
 public class LoginUserDTO {
     // 사용자 테이블
     private int userCode;
@@ -19,92 +19,5 @@ public class LoginUserDTO {
 
     // 권한리스트 테이블과 권한목록 테이블
     private UserRole role; // 권한목록 부분의 권한명
-
-    public LoginUserDTO() {
-    }
-
-    public LoginUserDTO(int userCode, String userId, String userPwd, String name, String classify, Timestamp connectionDate, Timestamp creationDate, String withdrawState, UserRole role) {
-        this.userCode = userCode;
-        this.userId = userId;
-        this.userPwd = userPwd;
-        this.name = name;
-        this.classify = classify;
-        this.connectionDate = connectionDate;
-        this.creationDate = creationDate;
-        this.withdrawState = withdrawState;
-        this.role = role;
-    }
-
-    public int getUserCode() {
-        return userCode;
-    }
-
-    public void setUserCode(int userCode) {
-        this.userCode = userCode;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserPwd() {
-        return userPwd;
-    }
-
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getClassify() {
-        return classify;
-    }
-
-    public void setClassify(String classify) {
-        this.classify = classify;
-    }
-
-    public Timestamp getConnectionDate() {
-        return connectionDate;
-    }
-
-    public void setConnectionDate(Timestamp connectionDate) {
-        this.connectionDate = connectionDate;
-    }
-
-    public Timestamp getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getWithdrawState() {
-        return withdrawState;
-    }
-
-    public void setWithdrawState(String withdrawState) {
-        this.withdrawState = withdrawState;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
 
 }

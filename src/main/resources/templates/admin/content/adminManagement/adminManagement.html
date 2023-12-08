@@ -21,7 +21,7 @@
         </div>
         <div class="sectTop">
             <div>
-                <button id="btnAdminAdd">관리자 등록</button>
+                <button sec:authorize="hasAuthority('SUPER_ADMIN')" id="btnAdminAdd">관리자 등록</button>
             </div>
             <table>
                 <!--                <colgroup>-->
@@ -38,12 +38,34 @@
                     <th>이름</th>
                     <th>최근로그인</th>
                     <th>생성날짜</th>
-                    <th>탈퇴여부</th>
+                    <th sec:authorize="hasAuthority('SUPER_ADMIN')">탈퇴여부</th>
                     <th>비밀번호</th>
                     <th>삭제</th>
                 </tr>
-                <tr th:each="admin : ${adminList}">
-                    <td th:text="${admin.userCode}" style="display:none"></td>
+                <tr sec:authorize="hasAuthority('ADMIN')"
+                    th:if="${T(org.springframework.security.core.context.SecurityContextHolder).getContext().authentication.principal.loginUserDTO.userCode}==${admin.userCode}"
+                    th:each="admin:${adminList}">
+                    <td th:text="${admin.userCode}" style="display:none;"></td>
+                    <td th:text="${admin.authorityName}" th:if="${admin.authorityName}=='SUPER_ADMIN'"
+                        style="font-weight: bold;text-decoration:underline;"></td>
+                    <td th:text="${admin.authorityName}" th:unless="${admin.authorityName}=='SUPER_ADMIN'"></td>
+                    <td th:text="${admin.id}"></td>
+                    <td th:text="${admin.userName}"></td>
+                    <td th:text="${admin.connectionDate}"></td>
+                    <td th:text="${admin.creationDate}"></td>
+                    <td>
+                        <button th:if="${admin.withdrawState}=='N'" class="btnChangePass"
+                                onclick="inputPrimaryKey(this)">변경
+                        </button>
+                    </td>
+                    <td>
+                        <button th:if="${admin.withdrawState}=='N' and ${admin.authorityName}=='ADMIN'"
+                                class="btnDeleteAdmin" onclick="deleteAdmin(this)">삭제
+                        </button>
+                    </td>
+                </tr>
+                <tr sec:authorize="hasAuthority('SUPER_ADMIN')" th:each="admin:${adminList}">
+                    <td th:text="${admin.userCode}" style="display:none;"></td>
                     <td th:text="${admin.authorityName}" th:if="${admin.authorityName}=='SUPER_ADMIN'"
                         style="font-weight: bold;text-decoration:underline;"></td>
                     <td th:text="${admin.authorityName}" th:unless="${admin.authorityName}=='SUPER_ADMIN'"></td>
@@ -54,10 +76,14 @@
                     <td th:if="${admin.withdrawState}=='Y'" style="color:red;font-weight: bold">탈퇴</td>
                     <td th:if="${admin.withdrawState}=='N'"></td>
                     <td>
-                        <button th:if="${admin.withdrawState}=='N'" class="btnChangePass">변경</button>
+                        <button th:if="${admin.withdrawState}=='N'" class="btnChangePass"
+                                onclick="inputPrimaryKey(this)">변경
+                        </button>
                     </td>
                     <td>
-                        <button th:if="${admin.withdrawState}=='N' and ${admin.authorityName}=='ADMIN'" id="btnDeleteAdmin" onclick="deleteAdmin(this)">삭제</button>
+                        <button th:if="${admin.withdrawState}=='N' and ${admin.authorityName}=='ADMIN'"
+                                class="btnDeleteAdmin" onclick="deleteAdmin(this)">삭제
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -73,43 +99,45 @@
                         </div>
                         <div>
                             <input type="text" name="adminAddId" id="adminAddId" placeholder="등록할 아이디 입력">
-                            <input type="button" id="id_check_button" value="아이디중복검사">
-                            <script>
-                                let regexId = /[a-zA-Z\d]{8,20}$/;
-                                $('#id_check_button').click(function () {
-                                        $('#id_check_button').css('display', 'none');
-                                        $('#adminAddId').prop('readonly', true);
-                                        const userId = $('#adminAddId').val();
-                                        const isValid = regexId.test(userId);
-                                        if (isValid) {
-                                            $.ajax({
-                                                url: "/auth/checkId",
-                                                method: "POST",
-                                                data: {userId: userId},
-                                                success: function (result) {
-                                                    if (result.result === "success") { // 아이디가 없으면
-                                                        $('#check_text').text('아이디 중복체크 완료');
-                                                    } else { // 아이디가 있으면
-                                                        $('#id_check_button').css('display', 'inline');
-                                                        $('#check_text').text('아이디가 있습니다.')
-                                                        $('#adminAddId').prop('readonly', false);
-                                                    }
-                                                },
-                                                error: function (error) {
-                                                    console.log(error);
-                                                    alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
-                                                    location.href = '/';
-                                                }
-                                            })
-                                        } else {
-                                            $('#check_text').html('규칙에 맞지 않습니다<br>다시입력해주세요.');
-                                            $('#adminAddId').prop('readonly', false);
-                                            $('#id_check_button').css('display', 'inline');
-                                        }
-                                    }
-                                );
-                            </script>
                         </div>
+                        <div>
+                            <input type="button" id="id_check_button" value="아이디중복검사">
+                        </div>
+                        <script>
+                            let regexId = /[a-zA-Z\d]{8,20}$/;
+                            $('#id_check_button').click(function () {
+                                    $('#id_check_button').css('display', 'none');
+                                    $('#adminAddId').prop('readonly', true);
+                                    const userId = $('#adminAddId').val();
+                                    const isValid = regexId.test(userId);
+                                    if (isValid) {
+                                        $.ajax({
+                                            url: "/auth/checkId",
+                                            method: "POST",
+                                            data: {userId: userId},
+                                            success: function (result) {
+                                                if (result.result === "success") { // 아이디가 없으면
+                                                    $('#check_text').text('아이디 중복체크 완료');
+                                                } else { // 아이디가 있으면
+                                                    $('#id_check_button').css('display', 'inline');
+                                                    $('#check_text').text('아이디가 있습니다.')
+                                                    $('#adminAddId').prop('readonly', false);
+                                                }
+                                            },
+                                            error: function (error) {
+                                                console.log(error);
+                                                alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                                                location.href = '/';
+                                            }
+                                        })
+                                    } else {
+                                        $('#check_text').html('규칙에 맞지 않습니다<br>다시입력해주세요.');
+                                        $('#adminAddId').prop('readonly', false);
+                                        $('#id_check_button').css('display', 'inline');
+                                    }
+                                }
+                            );
+                        </script>
                         <div>
                             <input type="password" name="adminAddPass" id="adminAddPass" placeholder="등록할 비밀번호 입력"
                                    maxlength="13">
@@ -128,15 +156,18 @@
         <div class="passChangeModal" id="passChange">
             <div class="modalContent">
                 <span id="closePassModal">&times;</span>
-                <div class="modalInput">
-                    <div class="passChangModalTitle">
-                        비밀번호 변경
+                <form method="post" th:action="@{/adminManagement/changePassword}">
+                    <div class="modalInput">
+                        <div class="passChangModalTitle">
+                            비밀번호 변경
+                        </div>
+                        <input type="text" name="userCode" id="userCode" hidden>
+                        <input type="password" name="adminUpdatePass" id="adminUpdatePass" placeholder="변경할 비밀번호 입력">
                     </div>
-                    <input type="password" name="adminUpdatePass" id="adminUpdatePass" placeholder="변경할 비밀번호 입력">
-                </div>
-                <div>
-                    <input type="submit" id="adminPasswordChange" value="비밀번호 변경">
-                </div>
+                    <div class="modalButtonWrap">
+                        <input type="submit" id="adminPasswordChange" value="비밀번호 변경">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
