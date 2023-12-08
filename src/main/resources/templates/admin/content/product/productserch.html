@@ -179,30 +179,6 @@
 
                 </div>
 </th:block>
-<script>
-/* 게시글 리스트에서 해당 게시글에 마우스를 올릴 떄에 대한 스타일 처리 */
-if (document.querySelectorAll("#list td")) {
-const $tds = document.querySelectorAll("#list td");
-for (let i = 0; i < $tds.length; i++) {
-
-$tds[i].onmouseenter = function() {
-this.parentNode.style.backgroundColor = "orangered";
-this.parentNode.style.cursor = "pointer";
-}
-
-$tds[i].onmouseout = function() {
-this.parentNode.style.backgroundColor = "black";
-}
-
-$tds[i].onclick = function() {
-const no = this.parentNode.children[0].innerText;
-location.href = "" ;
-}
-}
-}
-
-
-</script>
 
 </body>
 </html>

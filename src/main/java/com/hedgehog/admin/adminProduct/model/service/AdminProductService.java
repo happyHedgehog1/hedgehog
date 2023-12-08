@@ -19,4 +19,5 @@ public interface AdminProductService {
 
     public void productAddExcludeOptionCode(AdminProductDTO product) throws AdminProductAddException;
 
+    public AdminProductDTO selectProductDetail(int productCode);
 }

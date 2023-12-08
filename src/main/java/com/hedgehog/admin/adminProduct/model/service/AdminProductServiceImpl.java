@@ -125,6 +125,21 @@ public class AdminProductServiceImpl implements AdminProductService {
         }
     }
 
+    @Override
+    public AdminProductDTO selectProductDetail(int productCode) {
+        log.info("");
+        log.info("");
+        log.info("selectProductDetail -------------------------- 시작~~~~~~~~~");
+
+        AdminProductDTO productDTO = null;
+
+
+            productDTO = mapper.selectProductDetail(productCode);
+
+
+
+return productDTO;
+    }
 
 
 }

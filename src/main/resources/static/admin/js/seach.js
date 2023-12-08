@@ -53,7 +53,9 @@
                 };
             }
         }
-
+        /**
+         * 상품조회 온클릭 메소드
+         */
         if (document.querySelectorAll("#productSearch td")) {
             const $tdsProduct = document.querySelectorAll("#productSearch td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -69,9 +71,8 @@
                 }
 
                 $tdsProduct[i].onclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    // location.href = "/product/productAdd?no=" + no;
-                    location.href = "/product/productAdd";
+                    const productCode = this.parentNode.children[0].innerText;
+                    location.href = "/product/productDetail?productCode=" + productCode;
 
 
                 };

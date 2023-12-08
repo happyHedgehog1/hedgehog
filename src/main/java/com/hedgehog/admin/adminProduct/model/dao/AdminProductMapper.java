@@ -27,4 +27,5 @@ public interface AdminProductMapper {
     //옵션 코드 조회용 메소드
     OptionDTO searchOptionCode(OptionDTO optionDTO);
 
+    AdminProductDTO selectProductDetail(int productCode);
 }

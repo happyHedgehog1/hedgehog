@@ -196,6 +196,60 @@
         FROM tbl_option
         where option_code = #{optionCode};
     </select>
+    <select id="selectProductDetail" parameterType="int" resultMap="productResultMap">
+        SELECT
+            product_code,
+            orderable_status,
+            sales_start,
+            sales_end,
+            product_name,
+            price,
+            delivery_charge,
+            upper_category_code,
+            category_code,
+            option_code,
+            name,
+            stock,
+            img_code,
+            source_name,
+            source_path,
+            convert_name,
+            convert_path,
+            image_classification
+        FROM (
+                 SELECT
+                     A.product_code,
+                     A.orderable_status,
+                     A.sales_start,
+                     A.sales_end,
+                     A.product_name,
+                     A.price,
+                     A.delivery_charge,
+                     B.upper_category_code,
+                     B.category_code,
+                     C.option_code,
+                     C.name,
+                     D.stock,
+                     F.img_code,
+                     F.source_name,
+                     F.source_path,
+                     F.convert_name,
+                     F.convert_path,
+                     F.image_classification
+                 FROM tbl_product A
+                          JOIN tbl_category B ON A.category_code = B.category_code
+                          JOIN tbl_option_list D ON A.product_code = D.product_code
+                          JOIN tbl_option C ON D.option_code = C.option_code
+                          JOIN tbl_product_img F ON A.product_code = F.product_code
+                 WHERE A.product_code = #{productCode}
+                 GROUP BY
+                     A.product_code, A.orderable_status, A.sales_start, A.sales_end, A.product_name,
+                     A.price, A.delivery_charge, B.upper_category_code, B.category_code, C.option_code,
+                     C.name, D.stock, F.img_code, F.source_name, F.source_path, F.convert_name,
+                     F.convert_path, F.image_classification
+             ) AS sub;
+    </select>
+
 
 
 

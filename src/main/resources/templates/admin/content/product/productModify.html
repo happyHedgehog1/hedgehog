@@ -23,7 +23,7 @@
                         <div><button id="btnSubmitAdd">상품일괄등록</button></div>
                     </div>
                 </div>
-                <form id="productAdd" th:action="@{/product/productAdd}" method="post" enctype="multipart/form-data">
+                <form id="productAdd" th:action="@{/product/productRegist}" method="post" enctype="multipart/form-data">
                 <div class="sectTopWrapper">
                     <div class="sectTop">
                         <table>
@@ -57,13 +57,13 @@
                                 <td>
                                     <ul class="arrAlign">
                                         <li class="w250">
-                                            <input type="date" name="salesStart" id="salesStart" style="width: 200px;">
+                                            <input type="date" name="salesStart" id="salesStart" style="width: 200px;" th:value="${product.salesStart}">
                                         </li>
                                         <li class="w50">
                                             &nbsp;~
                                         </li>
                                         <li class="w250">
-                                            <input type="date" name="salesEnd" id="salesEnd" style="width: 200px;">
+                                            <input type="date" name="salesEnd" id="salesEnd" style="width: 200px;" th:value="${product.salesEnd}">
                                         </li>
                                     </ul>
                                 </td>
@@ -73,7 +73,7 @@
                                 <td>
                                     <ul class="arrAlign">
                                         <li class="w250">
-                                            <input type="text" name="productName" id="productName" style="width: 200px;">
+                                            <input type="text" name="productName" id="productName" style="width: 200px;" th:value="${product.productName}">
                                         </li>
                                     </ul>
                                 </td>
@@ -83,7 +83,7 @@
                                 <td>
                                     <ul class="arrAlign">
                                         <li class="w250">
-                                            <input type="number" name="price" id="price" style="width: 200px;">
+                                            <input type="number" name="price" id="price" style="width: 200px;" th:value="${product.price}">
                                         </li>
                                     </ul>
                                 </td>
@@ -118,7 +118,7 @@
                                     <ul class="arrAlign">
                                         <li>
                                             <label for="deliveryCharge">기본 배송비</label>
-                                            <input type="number" name="deliveryCharge" id="deliveryCharge" style="width: 125px;" value="0">
+                                            <input type="number" name="deliveryCharge" id="deliveryCharge" style="width: 125px;" th:value="${product.deliveryCharge}">
                                             원
                                         </li>
                                         <li>
@@ -155,13 +155,13 @@
                                             <div id="colorPreview">미리보기</div>
                                         </li>
                                         <li class="w400">
-                                            <input type="text" name="optionCode" id="optionCode" style="width: 350px;" placeholder="#FFFFFF 형식으로 작성해주세요">
+                                            <input type="text" name="optionCode" id="optionCode" style="width: 350px;" th:value="${product.option.optionCode}">
                                         </li>
                                         <li class="w400">
-                                            <input type="text" name="optionName" id="optionName" style="width: 350px;" placeholder="예시 : 흰색">
+                                            <input type="text" name="optionName" id="optionName" style="width: 350px;" th:value="${product.optionDTO.optionName}">
                                         </li>
                                         <li class="w200">
-                                            <input type="number" name="stock" id="stock" style="width: 125px;" value="0">
+                                            <input type="number" name="stock" id="stock" style="width: 125px;" th:value="${product.option.stock}">
                                             개
                                         </li>
                                         <li class="w140" style="padding-top: 5px;">
@@ -188,8 +188,8 @@
                                     <div class="img-file1">
                                         <label for="thumbnail">대표이미지 지정</label>
                                         <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
-                                        <div id="thumbnailPreview">
-                                            <img id="previewImage1" alt="">
+                                        <div id="thumbnailPreview" th:if="${product.attachment[0].thumbnailPath != null}">
+                                            <img id="previewImage1" th:src="@{|/thumbPath${product.attachment[0].getSavePath()}|}">
                                         </div>
                                     </div>
                                     <div class="img-file2">
@@ -288,7 +288,7 @@
 
 
                         </div>
-                        <input th:type="submit" value="상품등록" id="modalBtnPrdAdd"/>
+                        <input th:type="submit" value="상품수정" id="modalBtnPrdAdd"/>
                     </div>
                 </div>
             </div>

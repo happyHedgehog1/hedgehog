@@ -49,11 +49,11 @@ public class AdminProductController {
         log.info("selectProductDetail~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
         log.info("~~~~~~~~~~~~~~~~product : {}", productCode);
 
-////        AdminProductDTO product = adminProductServiceImpl.selectProductDetail(productCode);
-//        log.info("=====================================product : " + product);
-//        model.addAttribute("product", product);
+        AdminProductDTO product = adminProductServiceImpl.selectProductDetail(productCode);
+        log.info("=====================================product : " + product);
+        model.addAttribute("product", product);
 
-        return "";
+        return "admin/content/product/productModify";
 
 
 
