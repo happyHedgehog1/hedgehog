@@ -1,10 +1,12 @@
 package com.hedgehog.admin.adminMember.controller;
 
 import com.hedgehog.admin.adminMember.model.dto.adminAllMemberDTO;
+import com.hedgehog.admin.adminMember.model.dto.adminMemberForm;
 import com.hedgehog.admin.adminMember.model.service.adminMemberServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,35 +28,40 @@ public class adminMemberController {
 
 
     /**
-     *
      * @return 회원조회 페이지 연결 메소드
      */
 
     @GetMapping("/membersearch")
-    public ModelAndView membersearch(ModelAndView mv,
-                                     @RequestParam(name = "date1", required = false) String date1,
-                                     @RequestParam(name = "date2", required = false) String date2,
-                                     @RequestParam(name = "memKeyword", required = false) String memKeyword,
-                                     @RequestParam(name = "searchKeyword", required = false) String searchKeyword,
-                                     @RequestParam(name = "memAgree", required = false) String memAgree) {
+    public ModelAndView membersearch(@ModelAttribute adminMemberForm form) {
+        log.info("membersearch========start=============");
+        log.info(form.toString());
 
-        // 필요한 경우, 여기서 입력 값의 유효성 검사 수행
+        List<adminAllMemberDTO> memberList = adminMemberServiceimpl.selectMember(form);
+        log.info("memberList=====================" + memberList);
 
-        // 검색을 위한 매개변수 맵 구성
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("date1", date1);
-        paramMap.put("date2", date2);
-        paramMap.put("memKeyword", memKeyword);
-        paramMap.put("searchKeyword", searchKeyword);
-        paramMap.put("memAgree", memAgree);
+        int totalResult = memberList.size();
+        int countY = 0;
+        int countN = 0;
+        for (int i = 0; i < memberList.size(); i++) {
+            String email_consent = memberList.get(i).getEmail_consent();
+            if ("Y".equals(String.valueOf(email_consent))) {
+                countY++;
+            }
+            if ("N".equals(String.valueOf(email_consent))) {
+                countN++;
+            }
+        }
+        log.info("=============================countY" + countY);
+        log.info("=============================countN" + countN);
+        ModelAndView modelAndView = new ModelAndView("admin/content/member/membersearch");
+        modelAndView.addObject("memberList", memberList);
+        modelAndView.addObject("totalResult", totalResult);
+        modelAndView.addObject("countY", countY);
+        modelAndView.addObject("countN", countN);
 
-        // 서비스에서 실제 검색 수행
-        List<adminAllMemberDTO> memberList = adminMemberServiceimpl.searchMembers(paramMap);
+        log.info("totalResult" + String.valueOf(totalResult));
 
-        // 결과를 ModelAndView에 추가하고 뷰 설정
-        mv.addObject("memberList", memberList);
-        mv.setViewName("admin/content/member/membersearch");
-        return mv;
+        return modelAndView;
     }
 
 //    @GetMapping("/membersearch")
@@ -69,14 +76,15 @@ public class adminMemberController {
 //    }
 
 
-    /**
-     *
-     * @return 탈퇴 회원 조회 페이지 연결 메소드
-     */
-    @GetMapping("/unregister")
-    public String unregisterList(){
-        return "admin/content/member/unregister.html";
+        /**
+         *
+         * @return 탈퇴 회원 조회 페이지 연결 메소드
+         */
+        @GetMapping("/unregister")
+        public String unregisterList () {
+            return "admin/content/member/unregister.html";
+        }
+
+
     }
 
-
-}

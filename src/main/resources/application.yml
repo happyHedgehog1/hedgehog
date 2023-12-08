@@ -1,17 +1,41 @@
+#server:
+#  port: 8001
+
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-<<<<<<<<< Temporary merge branch 1
-    url: jdbc:mysql://mysql.coffit.today:3306/oneinfurniture
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://mysql.coffit.today/oneinfurniture
     username: oneinfurniture
     password: oneinfurniture1234
-=========
-    url: jdbc:mysql://mysql.coffit.today/oneinfurniture
-    username: oneinfurniture
-    password: oneinfurniture1234
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: C:/images/
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: true
+#  freemarker:
+#    cache: false
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+#    cache: false
+#    check-template-location: true
+#  web:
+#    resources:
+#      static-locations: C:/thymeleaf-springboot/
+
+image:
+  image-dir: img
 
 mybatis:
-  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  # mapper.xml location Setting
+  mapper-locations: mybatis/mapper/*.xml
+  # alias Setting
   type-aliases-package: com.hedgehog
   configuration:
     map-underscore-to-camel-case: true
@@ -19,4 +43,3 @@ mybatis:
 logging:
   level:
     root: info
->>>>>>>>> Temporary merge branch 2

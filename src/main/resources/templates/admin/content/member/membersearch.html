@@ -6,12 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품분류관리</title>
+    <title>전체회원관리</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" th:href="@{/admin/css/member.css}" type="text/css">
-
-
-    <script th:src="@{/admin/js/member.js}"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
 
 
 </head>
@@ -26,7 +24,7 @@
                 <form id="memberSearchForm"
                       th:action="@{/member/membersearch}"
                       method="get"
-                      onsubmit="return submitForm()">
+                      style="display: inline-block">
                     <div class="tbl-setting">
                         <table class="table">
                             <tbody>
@@ -38,10 +36,10 @@
                                         <li>
                                             <div>
 
-                                                <input type="date" id="date1" class="box1">
+                                                <input type="date" name="dateStart" id="dateStart" class="box1">
                                                 <span class="tilde">~</span>
 
-                                                <input type="date" id="date2" class="box1">
+                                                <input type="date" name="dateEnd" id="dateEnd" class="box1">
                                             </div>
 
                                         </li>
@@ -60,7 +58,7 @@
                                                 <option value="user_mobile">휴대폰번호</option>
                                                 <option value="user_email">이메일</option>
                                             </select>
-                                            <input class="box" type="text" name="search_keyword" id="search_keyword"/>
+                                            <input class="box" type="text" name="searchKeyword" id="searchKeyword"/>
                                         </li>
 
                                     </ul>
@@ -71,12 +69,12 @@
                                 <td>
                                     <ul>
                                         <li>
-                                            <select class="box" name="memagree" id="memagree">
+                                            <select class="box" name="memAgree" id="memAgree">
                                                 <option value="">전체</option>
                                                 <option value="agree">동의</option>
                                                 <option value="disagree">동의안함</option>
                                             </select>
-                                            <input type="checkbox"/><span>구매 제한 회원</span>
+
                                         </li>
 
                                     </ul>
@@ -146,7 +144,7 @@
                             <tbody>
                             <tr class="proSearchBottomtr" th:each=" member : ${ memberList }">
                                 <td>
-                                    <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
                                 </td>
                                 <td th:text="${ member.member_code}"></td>
                                 <td th:text="${ member.user.id}"></td>
