@@ -371,9 +371,12 @@ CREATE TABLE `tbl_user`
     `name`            VARCHAR(30),
     `connection_date` DATETIME,
     `creation_date`   DATETIME NOT NULL,
-    `withdraw_state`  CHAR(1),
+    `withdraw_state`  CHAR(1) default 'N',
     PRIMARY KEY (`user_code`)
 );
+
+# alter table tbl_user
+# modify column withdraw_state char(1) default 'N';
 
 
 CREATE TABLE `tbl_withdraw`

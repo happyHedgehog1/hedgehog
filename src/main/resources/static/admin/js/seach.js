@@ -226,3 +226,32 @@
         }
     });
 
+    function setSelectBox(select) {
+        for (let i = 0; i < $('#upperCategoryCode').children().length; i++) {
+            if ($('#upperCategoryCode').children().eq(i).is(':selected')) {
+                var upperCategoryCode = $('#upperCategoryCode').children().eq(i).val();
+                // 선택된 값에 대한 로직 수행
+                console.log('Selected upperCategoryCode:', upperCategoryCode);
+            }
+        }
+
+
+        // Ajax를 이용하여 서버에서 데이터 가져오기
+        $.ajax({
+            url: '/product/category/' + upperCategoryCode,
+            type: 'GET',
+            success: function (data) {
+                // 서버에서 받은 데이터를 이용하여 동적으로 콘텐츠 생성
+                var subCategorySelect = $("#subCategoryName");
+                subCategorySelect.empty(); // 기존 옵션 제거
+
+                // 서버에서 받은 데이터를 이용하여 옵션 추가
+                for (var i = 0; i < data.length; i++) {
+                    subCategorySelect.append('<option value="' + data[i].subCategoryName + '">' + data[i].name + '</option>');
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching data: ', error);
+            }
+        });
+    }

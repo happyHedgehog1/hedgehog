@@ -1,4 +1,4 @@
-package com.hedgehog.client.list.model.dto;
-
-public class ListDTO {
-}
+//package com.hedgehog.client.list.model.dto;
+//
+//public class ListDTO {
+//}
