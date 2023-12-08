@@ -312,7 +312,7 @@ button#btnDeleteAdmin:active {
 
 .modalInput input {
     height: 40px;
-    width: 200px;
+    width: 230px;
     text-align: center;
 }
 
@@ -378,4 +378,13 @@ button#btnDeleteAdmin:active {
 
 #adminUpdatePass {
     margin-top: 50px;
+}
+#check_text{
+    color:red;
+    font-weight: bolder;
+}
+#email_authentication {
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
 }

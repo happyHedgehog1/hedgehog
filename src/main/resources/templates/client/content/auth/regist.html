@@ -71,12 +71,13 @@
                                 <input type="button" value="중복체크" id="id_check_button">
                                 <div id="check_text"></div>
                             </td>
-                            <td>공백없는 8~20자리의 영문/숫자<br>(적어도 하나의 숫자와 영문자)</td>
+                            <td>공백없는 8~20자리의 영문/숫자<br></td>
                             <script>
-                                let regexId = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
+                                let regexId = /[a-zA-Z\d]{8,20}$/;
                                 $('#id_check_button').click(function () {
                                     $('#id_check_button').css('display', 'none');
                                     $('#check_text').css('display', 'none');
+                                    $('#userId').prop('readonly', true);
                                     const userId = $('#userId').val();
                                     const isValid = regexId.test(userId);
                                     if (isValid) {
@@ -92,6 +93,7 @@
                                                     $('#id_check_button').css('display', 'inline');
                                                     $('#check_text').css('display', 'block');
                                                     $('#check_text').text('아이디가 있습니다.')
+                                                    $('#userId').prop('readonly', false);
                                                 }
                                             },
                                             error: function (error) {
@@ -104,6 +106,7 @@
                                         $('#id_check_button').css('display', 'inline');
                                         $('#check_text').css('display', 'block');
                                         $('#check_text').html('규칙에 맞지 않습니다<br>다시입력해주세요.');
+                                        $('#userId').prop('readonly', false);
                                     }
                                 });
                             </script>
@@ -162,6 +165,7 @@
                                     $('#email_button').click(function () {
                                         $('#email_button').css('display', 'none');
                                         const email = $('#email').val(); // 입력한 email 값
+                                        $('#adminAddEmail').prop('readonly',true);
                                         const isValid = regexEmail.test(email); // email이 정규식에 맞는가.
                                         if (isValid) {
                                             $.ajax({
@@ -184,6 +188,7 @@
                                                         });
                                                     } else {
                                                         $('#email_button').css('display', '');
+                                                        $('#adminAddEmail').prop('readonly',false);
                                                         $('#email_message').html('이미 있는 이메일입니다.<br>다시 입력해주세요.');
                                                     }
                                                 },
@@ -195,6 +200,7 @@
                                             })
                                         } else {
                                             $('#email_button').css('display', '');
+                                            $('#adminAddEmail').prop('readonly',false);
                                             $('#email_message').html('이메일 규칙에 맞지 않습니다.<br>다시시도해주세요.');
                                         }
                                     })
@@ -257,12 +263,10 @@
                         <input type="submit" name="regist_button" id="regist_button" value="회원가입">
                     </div>
                     <script th:inline="javascript">
-                        <![CDATA[
                         var message = [[${message}]];
                         if (message) {
                             alert(message);
                         }
-                        ]]>
                     </script>
                 </form>
             </div>

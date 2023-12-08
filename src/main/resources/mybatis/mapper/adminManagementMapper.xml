@@ -25,6 +25,28 @@
         JOIN tbl_authority_list B ON A.user_code = B.user_code
         JOIN tbl_authority C ON B.authority_code = C.authority_code
         WHERE A.classify='관리자'
-        ORDER BY A.withdraw_state='N'
+        ORDER BY C.name='ADMIN', A.withdraw_state='Y', A.connection_date DESC;
     </select>
+    <insert id="insertAdmin">
+        INSERT INTO tbl_user(id, password, classify, name, creation_date)
+        VALUES (#{adminAddId}, #{adminAddPass}, '관리자', #{adminAddName}, NOW())
+    </insert>
+    <insert id="insertAuthorityList">
+        INSERT INTO tbl_authority_list(authority_code, user_code)
+        VALUES (2, #{userCode})
+    </insert>
+    <insert id="insertWithdrawTbl">
+        INSERT INTO tbl_withdraw(user_code,state,cause,commit_date)
+        VALUES(#{userCode},'Y','관리자 탈퇴',NOW())
+    </insert>
+    <select id="selectWithdrawCode">
+        SELECT last_insert_id()
+        FROM tbl_withdraw
+        LIMIT 1
+    </select>
+    <update id="updateAdminWithdraw">
+        update tbl_user
+        SET withdraw_state='Y'
+        WHERE user_code=#{userCode}
+    </update>
 </mapper>

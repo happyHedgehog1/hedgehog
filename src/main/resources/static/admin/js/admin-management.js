@@ -1,39 +1,49 @@
-// function updateCurrentTime() {
-//     var currentTimeElement = document.getElement("currentTime");
-//     var currentTime = new Date();
-//     var hours = currentTime.getHours();
-//     var minutes = currentTime.getMinutes();
-//     var seconds = currentTime.getSeconds();
-//
-//     // 시, 분, 초가 한 자리 숫자일 경우 앞에 0을 추가
-//     hours = (hours < 10) ? "0" + hours : hours;
-//     minutes = (minutes < 10) ? "0" + minutes : minutes;
-//     seconds = (seconds < 10) ? "0" + seconds : seconds;
-//
-//     // 시간을 HTML 요소에 업데이트
-//     currentTimeElement.textContent = hours + ":" + minutes + ":" + seconds;
-// }
-//
-// // 페이지 로드 시 초기 업데이트
-// updateCurrentTime();
-
-
 // 관리자 등록 모달 메뉴 열기
 document.getElementById("btnAdminAdd").addEventListener("click", function () {
     document.getElementById("myModal").style.display = "flex";
 });
-
 // 관리자 등록 모달 닫기
 document.getElementById("closeAdminModal").addEventListener("click", function () {
     document.getElementById("myModal").style.display = "none";
 });
+// 관리자 등록 모달 메뉴 회색화면 부분 눌러도 닫히도록
+// document.getElementById("myModal").addEventListener("click", function (event) {
+//     if (event.target.id === 'myModal')
+//         document.getElementById("myModal").style.display = "none";
+// });
 
 // 비밀번호 변경 모달 메뉴 열기
 [...document.querySelectorAll('.btnChangePass')].forEach(e => e.addEventListener("click", function () {
     document.getElementById("passChange").style.display = "flex";
 }));
-
 // 비밀번호 변경 모달 닫기
 document.getElementById("closePassModal").addEventListener("click", function () {
     document.getElementById("passChange").style.display = "none";
 });
+// 비밀번호 변경 모달 메뉴 회색화면 부분 눌러도 닫히도록
+// document.getElementById("passChange").addEventListener("click", function (event) {
+//     if (event.target.id === 'passChange')
+//         document.getElementById("passChange").style.display = "none";
+// });
+function deleteAdmin(tag) {
+    const userRowChildren = tag.parentNode.parentNode.children;
+    const userCode = parseInt(userRowChildren[0].innerText);
+    const isDelete = window.confirm(userRowChildren[2].innerText + " 을(를) 삭제하시겠습니까?");
+    if (isDelete) {
+        $.ajax({
+            type: "POST",
+            url: "/adminManagement/delete",
+            data: {userCode: userCode},
+            success: function (response) {
+                console.log("삭제 성공:", response);
+            },
+            error: function (error) {
+                console.log(error);
+                alert("예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.");
+                location.href = '/';
+            }
+        })
+    }else{
+        alert("삭제하지 않습니다.");
+    }
+}
