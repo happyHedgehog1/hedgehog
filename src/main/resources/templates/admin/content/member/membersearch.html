@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminlayout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체회원관리</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" th:href="@{/admin/css/member.css}" type="text/css">
+    <script th:src="@{/admin/js/seach.js}"></script>
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="background">
+        <div class="page-body">
+            <div class="main-head">
+                <h2>회원관리</h2>
+            </div>
+            <div class="page-top">
+                <form id="memberSearchForm"
+                      th:action="@{/member/membersearch}"
+                      method="get"
+                      style="display: inline-block">
+                    <div class="tbl-setting">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>가입일</th>
+                                <td>
+
+                                    <ul>
+                                        <li>
+                                            <div>
+
+                                                <input type="date" name="dateStart" id="dateStart" class="box1">
+                                                <span class="tilde">~</span>
+
+                                                <input type="date" name="dateEnd" id="dateEnd" class="box1">
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>고객 정보</th>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <select class="box" name="memKeyword" id="memKeyword">
+                                                <option value="">-- 키워드 --</option>
+                                                <option value="user_id">아이디</option>
+                                                <option value="user_name">이름</option>
+                                                <option value="user_mobile">휴대폰번호</option>
+                                                <option value="user_email">이메일</option>
+                                            </select>
+                                            <input class="box" type="text" name="searchKeyword" id="searchKeyword"/>
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>마케팅 수신 동의</th>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <select class="box" name="memAgree" id="memAgree">
+                                                <option value="">전체</option>
+                                                <option value="agree">동의</option>
+                                                <option value="disagree">동의안함</option>
+                                            </select>
+
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="btn-c">
+                        <button class="btn" type="submit" >검색</button>
+                    </div>
+                </form>  <!-- 여기 폼 사용 -->
+
+
+            </div>
+            <div class="pc-switch">
+                <div class="sect-hd">
+                    <h3>회원 검색 결과</h3>
+                    <span>( 검색고객 : <span class="usersCnt">0</span>명 )</span>
+                </div>
+                <div class="sect-cont">
+
+                    <div class="tbl-side">
+                        <div class="f-r">
+                            <select class="box" name="memCount" id="memCount" style="width:120px">
+                                <option value="10">10개</option>
+                                <option value="30">30개</option>
+                                <option value="50">50개</option>
+                                <option value="100">100개</option>
+                            </select>
+
+                            <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">회원
+                                탈퇴</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">구매
+                                제한</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-users-mileage" style="width:140px;">적립금
+                                관리</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-all-sms-send" style="width:140px;">검색회원
+                                메일발송</a>
+                            <a href="javascript:;" class="btn-black ml-10 btn-sms-send" style="width:140px;">선택회원
+                                메일발송</a>
+
+                        </div>
+                    </div>
+
+                    <div class="tbl-list tbl-extend mt-20">
+                        <table>
+
+                            <thead>
+                            <tr class="searchResult">
+                                <th><label class="single"><input type="checkbox"
+                                                                 name="chk_all_users"><span></span></label></th>
+                                <th>No</th>
+                                <th>아이디</th>
+                                <th>이름</th>
+                                <th>휴대폰번호</th>
+                                <th>이메일</th>
+                                <th>누적 결제금액</th>
+                                <th>적립금</th>
+                                <th>마케팅<br> 수신동의</th>
+                                <th>회원가입일</th>
+                                <th>최근로그인</th>
+                                <th class="aa">관리</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="proSearchBottomtr" th:each=" member : ${ memberList }">
+                                <td>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                </td>
+                                <td th:text="${ member.member_code}"></td>
+                                <td th:text="${ member.user.id}"></td>
+                                <td th:text="${ member.user.name}"></td>
+                                <td th:text="${ member.customer.phone}"></td>
+                                <td th:text="${ member.customer.email}"></td>
+                                <td th:text="${ member.cumulative_amount}"></td>
+                                <td th:text="${ member.point}"></td>
+                                <td th:text="${ member.email_consent}"></td>
+                                <td th:text="${ member.user.creation_date}"></td>
+                                <td th:text="${ member.user.connection_date}"></td>
+                                <td th:text="${ member.user.withdraw_state}"></td>
+                            </tr>
+                            </tbody>
+                            <!--                        <tbody class="usersList">-->
+                            <!--                            <tr>-->
+                            <!--                                <td colspan="12">검색 조건을 확인하신 후 검색 버튼을 클릭하세요.</td>-->
+                            <!--                            </tr>-->
+                            <!--                        </tbody>-->
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    </div>
+</th:block>
+</body>
+</html>
