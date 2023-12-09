@@ -38,7 +38,7 @@
                                     <ul class="arrAlign">
                                         <li class="w200">
                                             <label>
-                                                <input type="radio" name="orderableStatus" value="Y" checked><span> 판매</span>
+                                                <input type="radio" name="orderableStatus" value="Y" th:checked="${product.orderableStatus == 'Y'}"><span> 판매</span>
                                             </label>
                                         </li>
                                         <li class="w25">
@@ -46,7 +46,7 @@
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="radio" name="orderableStatus" value="N"><span> 판매 중지</span>
+                                                <input type="radio" name="orderableStatus" value="N" th:checked="${product.orderableStatus == 'N'}"><span> 판매 중지</span>
                                             </label>
                                         </li>
                                     </ul>
@@ -57,13 +57,13 @@
                                 <td>
                                     <ul class="arrAlign">
                                         <li class="w250">
-                                            <input type="date" name="salesStart" id="salesStart" style="width: 200px;" th:value="${product.salesStart}">
+                                            <input type="date" name="salesStart" id="salesStart" style="width: 200px;" th:value="${product.salesStart.substring(0,10)}">
                                         </li>
                                         <li class="w50">
                                             &nbsp;~
                                         </li>
                                         <li class="w250">
-                                            <input type="date" name="salesEnd" id="salesEnd" style="width: 200px;" th:value="${product.salesEnd}">
+                                            <input type="date" name="salesEnd" id="salesEnd" style="width: 200px;" th:value="${product.salesEnd.substring(0,10)}">
                                         </li>
                                     </ul>
                                 </td>
@@ -94,11 +94,11 @@
                                     <ul class="arrAlign">
                                         <li class="w250">
                                             <select name="upperCategoryCode" id="upperCategoryCode" onchange="setSelectBox(this)">
-                                                <option value="0" selected>상위 카테고리</option>
-                                                <option value="1" >침실</option>
-                                                <option value="2" >거실</option>
-                                                <option value="3" >서재</option>
-                                                <option value="4" >주방</option>
+                                                <option value="0" th:selected="${product.category.upperCategoryCode == 0}">상위 카테고리</option>
+                                                <option value="1" th:selected="${product.category.upperCategoryCode == 1}">침실</option>
+                                                <option value="2" th:selected="${product.category.upperCategoryCode == 2}">거실</option>
+                                                <option value="3" th:selected="${product.category.upperCategoryCode == 3}">서재</option>
+                                                <option value="4" th:selected="${product.category.upperCategoryCode == 4}">주방</option>
                                             </select>
                                         </li>
                                         <li class="w50">
@@ -106,7 +106,6 @@
                                         </li>
                                         <li class="w250">
                                             <select name="subCategoryName" id="subCategoryName">
-
                                             </select>
                                         </li>
                                     </ul>
@@ -294,7 +293,59 @@
             </div>
     </div>
 </div>
+    <script th:inline="javascript">
+        //이렇게 쓰면 위에 변수들을 가져올수있다
+
+        var selectedSubCategory = /*[[${product.category.subCategoryName}]]*/ null;
+        // null 쓰는 이위는 subCategoryName의 값이 없으면 null값을 넣어준다는 의미
+        // 안쓰면 값이 없을때 오류가 뜰수도있음
+
+        function setSelectBox(select) {
+            var upperCategoryCode = select.val();
+
+            // Ajax를 이용하여 서버에서 데이터 가져오기
+            $.ajax({
+                url: '/product/category/' + upperCategoryCode,
+                type: 'GET',
+                success: function (data) {
+                    // 서버에서 받은 데이터를 이용하여 동적으로 콘텐츠 생성
+                    var subCategorySelect = $("#subCategoryName");
+
+                    // 기존 옵션 제거
+                    subCategorySelect.empty();
+
+                    // 서버에서 받은 데이터를 이용하여 옵션 추가
+                    for (var i = 0; i < data.length; i++) {
+                        var option = $('<option></option>')
+                            .attr('value', data[i].subCategoryName)
+                            .text(data[i].name);
+
+                        // 만약 현재 옵션이 선택된 상태이면 선택 속성 추가
+                        if (data[i].subCategoryName === selectedSubCategory) {
+                            option.attr('selected', 'selected');
+                        }
+
+                        subCategorySelect.append(option);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching data: ', error);
+                }
+            });
+        }
+
+        // 페이지 로딩 시 초기 서브 카테고리 설정
+        $(document).ready(function () {
+            setSelectBox($('#upperCategoryCode'));
+
+            // 상위 카테고리가 변경될 때마다 서브 카테고리 업데이트
+            $('#upperCategoryCode').change(function () {
+                setSelectBox($(this));
+            });
+        });
+    </script>
 </th:block>
+
 </body>
 </html>
 

@@ -51,6 +51,7 @@ public class AdminProductController {
 
         AdminProductDTO product = adminProductServiceImpl.selectProductDetail(productCode);
         log.info("=====================================product : " + product);
+
         model.addAttribute("product", product);
 
         return "admin/content/product/productModify";
@@ -203,6 +204,7 @@ public class AdminProductController {
 
         }
 
+
         log.info("------------------thumbnail" + thumbnail);
 
 
@@ -242,6 +244,7 @@ public class AdminProductController {
             if (isDeleted1 && isDeleted2) {
                 cnt++;
             }
+        }
 
             if (cnt == fileList.size()) {
                 log.info("*******************업로드 실패한 사진 삭제~~~~~~~~~");
@@ -250,7 +253,7 @@ public class AdminProductController {
                 e.printStackTrace();
             }
         }
-        }
+
         log.info("=============product 끗~~~~~~~~~~~~~~~");
         return "redirect:productAddPage";
     }
