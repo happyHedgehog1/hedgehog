@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class adminMemberForm {
+public class  adminMemberForm {
 
     private String dateStart;
     private String dateEnd;

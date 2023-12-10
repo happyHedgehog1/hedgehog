@@ -36,6 +36,7 @@
 
 
 
+
     <select id="selectMember" resultMap="memberResultMap">
         SELECT
         A.member_code,
@@ -97,3 +98,4 @@
 
 
 </mapper>
+
