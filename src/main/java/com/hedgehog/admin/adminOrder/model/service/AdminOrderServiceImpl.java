@@ -35,7 +35,7 @@ public class AdminOrderServiceImpl implements AdminOrderService{
         log.info(" orderState result =================================== ", result);
 
         if(!(result > 0)) {
-            throw new OrderStateUpdateException("공지사항 수정에 실패하셨습니다.");
+            throw new OrderStateUpdateException("상태 변경에 실패하셨습니다.");
         }
     }
 

@@ -51,35 +51,51 @@
                                                 <ul class="arrAlign">
                                                     <li class="w200">
                                                         <select name="unregisterCondition" id="unregisterCondition" >
-                                                            <option value="0" selected>전체</option>
-                                                            <option value="yes">일반탈퇴</option>
-                                                            <option value="no">강제탈퇴</option>
+                                                            <option value="" selected>전체</option>
+                                                            <option value="withdrawal">일반탈퇴</option>
+                                                            <option value="forcedWithdrawal">강제탈퇴</option>
+                                                            <option value="plannedWithdrawal">탈퇴예정</option>
                                                         </select>
                                                     </li>
                                                 </ul>    
                                             </td>   
                                     </tr> 
                                     <tr>        
-                                        <th>기간</th>    
+                                        <th>탈퇴 신청일 조회</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="date" name="startDay" id="startDay">
+                                                        <input type="date" name="applyStartDay" id="applyStartDay">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;
                                                     </li>  
                                                     <li class="w200">
-                                                        <input type="date" name="endDay" id="endDay">
+                                                        <input type="date" name="applyEndDay" id="applyEndDay">
                                                     </li>
                                                 </ul>    
                                             </td>   
-                                    </tr> 
+                                    </tr>
+                                <tr>
+                                    <th>탈퇴 완료일 조회</th>
+                                    <td>
+                                        <ul class="arrAlign">
+                                            <li class="w200">
+                                                <input type="date" name="commitStartDay" id="commitStartDay">
+                                            </li>
+                                            <li class="w25">
+                                                &nbsp;
+                                            </li>
+                                            <li class="w200">
+                                                <input type="date" name="commitEndDay" id="commitEndDay">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
                                 </tbody>    
                             </table>
                             <div>
                                 <button type="submit" id="btnSearch"> 검색 </button>
-                            </div>
                             </div>
                         </form>
                             <div><br><br></div>
@@ -87,12 +103,15 @@
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
+                        <form id="stateUpdate"
+                              th:action="@{/unregister/stateUpdate}"
+                              method="post">
                         <div class="bottomResult">
                             <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 5 </span> 건 / 일반탈퇴 :
-                                <span class="colorRed"> 4 </span>건 / 강제탈퇴 :
-                                <span class="colorRed"> 1 </span>건 )
+                                <span class="colorRed" th:text="${totalResult}"> </span> 건 / 일반탈퇴 :
+                                <span class="colorRed" th:text="${countY}">  </span>건 / 강제탈퇴 :
+                                <span class="colorRed" th:text="${countN}">  </span>건 )
                             </div>
                         </div>
                         <div class="tblWrapper">
@@ -116,7 +135,7 @@
                                 <tr class="searchBottom_tr"
                                 th:each="unregister : ${ unregisterList}">
                                     <td>
-                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${ unregister.getUser_code() }">
                                     </td>
 
                                     <td th:text="${ unregister.id}"></td>
@@ -129,6 +148,14 @@
                             </tbody>
                         </table>
                         </div>
+                            <div class="bottom">
+                                <select name="selectCommit" id="selectCommit" >
+                                    <option value="adminWithdrawal" selected>탈퇴 승인</option>
+
+                                </select>
+                                <button id="btnCommit" type="submit">적용</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 </th:block>

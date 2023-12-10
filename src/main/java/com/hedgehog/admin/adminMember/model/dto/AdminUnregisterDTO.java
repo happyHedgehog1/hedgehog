@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class adminUnregisterDTO {
+public class AdminUnregisterDTO {
     private int withdraw_code;
     private int user_code;
     private String apply_date;
@@ -15,7 +15,7 @@ public class adminUnregisterDTO {
     private String cause;
     private String state;
     private String cancel_date;
-    private adminUserDTO user;
+    private AdminUserDTO user;
     private String id;
 
 

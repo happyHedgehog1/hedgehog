@@ -1,12 +1,16 @@
-package com.hedgehog.admin.adminMember.model.service;
+package com.hedgehog.admin.adminMember.model.dao;
 
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-public interface adminMemberService {
-//    List<adminAllMemberDTO> selectAllMemberList();
+@Mapper
+public interface AdminMemberMapper {
+
 
     List<AdminAllMemberDTO> selectMember(AdminMemberForm form);
+
+    List<AdminAllMemberDTO> selectAllMemberList();
 }

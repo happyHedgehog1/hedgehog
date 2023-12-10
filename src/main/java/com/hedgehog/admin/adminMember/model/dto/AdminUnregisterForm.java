@@ -7,11 +7,13 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-public class adminUnregisterForm {
+public class AdminUnregisterForm {
 
     private String idSearch;
     private String searchId;
     private String unregisterCondition;
-    private String startDay;
-    private String endDay;
+    private String applyStartDay;
+    private String applyEndDay;
+    private String commitStartDay;
+    private String commitEndDay;
 }

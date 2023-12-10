@@ -1,6 +1,6 @@
 package com.hedgehog.admin.adminMember.model.service;
 
-import com.hedgehog.admin.adminMember.model.dao.adminMemberMapper;
+import com.hedgehog.admin.adminMember.model.dao.AdminMemberMapper;
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +10,10 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class adminMemberServiceImpl implements adminMemberService{
-    private final adminMemberMapper mapper;
+public class AdminMemberServiceImpl implements AdminMemberService {
+    private final AdminMemberMapper mapper;
 
-    public adminMemberServiceImpl(adminMemberMapper mapper) {
+    public AdminMemberServiceImpl(AdminMemberMapper mapper) {
         this.mapper = mapper;
     }
 

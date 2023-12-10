@@ -2,7 +2,7 @@ package com.hedgehog.admin.adminMember.controller;
 
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
-import com.hedgehog.admin.adminMember.model.service.adminMemberServiceImpl;
+import com.hedgehog.admin.adminMember.model.service.AdminMemberServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/member")
 @Slf4j
-public class adminMemberController {
+public class AdminMemberController {
 
-    private final adminMemberServiceImpl adminMemberServiceimpl;
+    private final AdminMemberServiceImpl adminMemberServiceimpl;
 
-    public adminMemberController(adminMemberServiceImpl adminMemberService) {
+    public AdminMemberController(AdminMemberServiceImpl adminMemberService) {
         this.adminMemberServiceimpl = adminMemberService;
     }
 
@@ -79,7 +79,7 @@ public class adminMemberController {
          */
         @GetMapping("/unregister")
         public String unregisterList () {
-            return "admin/content/member/unregister.html";
+            return "admin/content/member/unregister";
         }
 
 
