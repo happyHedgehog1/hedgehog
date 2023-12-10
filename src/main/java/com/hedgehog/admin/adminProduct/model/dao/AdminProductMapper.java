@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminProduct.model.dao;
 
 import com.hedgehog.admin.adminProduct.model.dto.*;
+import com.hedgehog.admin.exception.AdminProductAddException;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

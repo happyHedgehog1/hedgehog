@@ -46,7 +46,6 @@
 <!--    </resultMap>-->
 
 
-
     <resultMap id="CartSelectResultMap" type="CartSelectDTO">
         <id property="productCode" column="product_code"/>
         <result property="imgCode" column="img_code"/>
@@ -78,5 +77,34 @@
             tbl_product_img C ON A.product_code = C.product_code
         group by A.product_code
     </select>
+
+
+
+
+    <resultMap id="selectCartSumResultMap" type="CartSumDTO">
+        <id property="cartCode" column="cart_code"/>
+        <result property="amount" column="amount"/>
+        <result property="price" column="price"/>
+        <result property="productCode" column="product_code"/>
+        <result property="deliveryCharge" column="delivery_Charge"/>
+    </resultMap>
+
+
+    <select id="selectCartSum" resultMap="selectCartSumResultMap">
+        select
+            A.cart_code,
+            A.amount,
+            B.price,
+            A.product_code,
+            B.delivery_charge
+        FROM
+            tbl_cart A
+                left Join
+            tbl_product B ON A.product_code = B.product_code
+    </select>
+
+
+
+
 
 </mapper>

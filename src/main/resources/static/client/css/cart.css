@@ -80,23 +80,20 @@ td {
 
 .total_price {
   display: flex;
-  justify-self: center;
-  min-width: 450px;
+  min-width: 100%;
   background-color: #f2f2f2;
   border: 1px solid #d09191;
   border-radius: 10px;
   padding: 5px;
   width: 450px;
+  height: 120px;
   justify-content: center;
-  align-items: center;
 
 
 }
-.total_price_contain{
-  display: flex;
-  justify-content: flex-end;
 
-}
+
+
 .select_cart{
   display: grid;
   grid-template-columns: auto auto  ;
@@ -160,12 +157,15 @@ td {
   width: 180px;
   background-color: #fff;
   height: 40px;
-  color: #000;
+  color: #F5F5F5;
   align-items: center;
   background-color: #A7727D;
   text-align: center;
 
-
+}
+.select_all_btn:hover{
+  cursor: pointer;
+  background-color: #c59e9e;
 
 }
 .select_all_btn2{
@@ -173,22 +173,10 @@ td {
   justify-content: flex-end;
 }
 
-.sum_box{
-  display: grid;
-  border: 1px solid #e1dbdb;
-  background-color: #d8d0d2;
-  border-radius: 30px;
-  grid-template-columns: auto auto auto ;
-  box-sizing: border-box;
-  height: 140px;
-
-
-  color: #FFFFFF;
-}
 .sum_text{
   display: grid;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   padding-right: 20px;
 }
 .sum_text2{

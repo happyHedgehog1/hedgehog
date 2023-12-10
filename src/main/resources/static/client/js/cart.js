@@ -1,31 +1,4 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     // 감소 버튼에 대한 이벤트 리스너 등록
-//     var decreaseButtons = document.querySelectorAll('.decrease-button');
-//
-//     decreaseButtons.forEach(function (button) {
-//
-//         button.addEventListener('click', function () {
-//             var nextElement = this.nextElementSibling;
-//             if (nextElement){
-//                 console.log(nextElement.innerText);
-//             }else {
-//                 console.log("최쇠 수량은 1개 입니다.")
-//             }
-//             // var productCode = button.getAttribute('data-product-code');
-//             // updateQuantity(-1, productCode);
-//             console.log(this)
-//         });
-//     });
-//
-//     // 증가 버튼에 대한 이벤트 리스너 등록
-//     var increaseButtons = document.querySelectorAll('.increase-button');
-//     increaseButtons.forEach(function (button) {
-//         // button.addEventListener('click', function () {
-//         //     var productCode = button.getAttribute('data-product-code');
-//         //     updateQuantity(1, productCode);
-//         // });
-//     });
-// });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     // 감소 버튼에 대한 이벤트 리스너 등록
@@ -43,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 수량 표시 업데이트
             quantityElement.innerText = newQuantity;
+
         });
     });
 
@@ -61,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 수량 표시 업데이트
             quantityElement.innerText = newQuantity;
+
+
         });
     });
 });
@@ -92,12 +68,21 @@ function updateQuantity(change, productCode) {
 
 
 
+// 체크박스 수량 수정 //
+
+
+
+
+
+
 
 
 function handleFormSubmit() {
     // 폼 제출 전에 수행할 작업 추가 (필요한 경우)
     return true; // true를 반환하면 폼이 제출됩니다.
 }
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -117,16 +102,33 @@ document.addEventListener("DOMContentLoaded", function () {
             checkbox.checked = headerCheckbox.checked;
         });
     });
+
 });
 
+// function selectAllItems() {
+//     // 모든 cartcheckbox 요소들을 가져옴
+//     var checkboxes = document.querySelectorAll('.cartcheckbox1');
+//     var headerCheckbox = document.getElementById('headerCheckbox');
+//     // 전체상품주문하기 버튼이 클릭되었을 때 각 체크박스의 상태를 변경
+//     checkboxes.forEach(function (checkbox) {
+//         checkbox.checked = headerCheckbox.checked;
+//         // checkbox.checked = true;
+//     });
+//         updateTotalPrice();
+//     window.location.href = '/clientOrder/cartOrder';
+// }
 function selectAllItems() {
     // 모든 cartcheckbox 요소들을 가져옴
-    var checkboxes = document.querySelectorAll('.cartcheckbox');
+    var checkboxes = document.querySelectorAll('.cartcheckbox1');
 
     // 전체상품주문하기 버튼이 클릭되었을 때 각 체크박스의 상태를 변경
+    var headerCheckbox = document.getElementById('headerCheckbox');
     checkboxes.forEach(function (checkbox) {
-        checkbox.checked = true;
+        checkbox.checked = headerCheckbox.checked;
     });
+
+    updateTotalPrice();
+    // window.location.href = '/clientOrder/cartOrder';
 }
 
 
@@ -148,63 +150,92 @@ $(document).ready(function() {
     });
 });
 
-// function submitForm() {
-//     // 선택된 체크박스들을 저장할 배열
-//     var selectedItems = [];
-//
-//     // 모든 체크박스에 대해 반복
-//     var checkboxes = document.getElementsByName('cartcheckbox');
-//     for (var i = 0; i < checkboxes.length; i++) {
-//         if (checkboxes[i].checked) {
-//             // 체크된 체크박스의 값을 배열에 추가
-//             selectedItems.push(checkboxes[i].value);
-//         }
-//     }
-//
-//     // 폼에 추가 데이터를 넣거나 수정할 수 있으면 여기서 처리
-//
-//     // 폼 전송
-//     document.getElementById('cart_order_form').submit();
-//
-//
-// }
+
+// 체크박스 상태 변경 시에 호출되도록 이벤트 리스너 등록
+document.addEventListener('change', function (event) {
+    var target = event.target;
+
+    // 체크박스가 변경된 경우에만 업데이트 함수 호출
+    if (target.type === 'checkbox' && target.classList.contains('cartcheckbox')) {
+        // 체크된 체크박스가 변경되면 총 가격 및 선택된 상품 가격 업데이트
+        updateTotalPrice();
+    }
+});
 
 
-// 체크박스에서 체크된 것만 주문성작성 페이지로 넘기기 위한 js
-// document.addEventListener('DOMContentLoaded', function () {
-//     // 주문서 작성 폼 요소를 가져옵니다.
-//     const orderForm = document.querySelector('.cart_order_form');
-//
-//     // 폼이 제출될 때의 이벤트를 처리합니다.
-//     orderForm.addEventListener('submit', function (event) {
-//         // 선택된 상품 정보를 담을 배열을 생성합니다.
-//         const selectedItems = [];
-//
-//
-//         // 체크박스 요소들을 가져옵니다.
-//         const checkboxes = document.querySelectorAll('.cart_table input[type="checkbox"]:checked');
-//
-//         // 각 체크된 상품에 대해 정보를 추출합니다.
-//         checkboxes.forEach(function (checkbox) {
-//             const row = checkbox.closest('tr');
-//             const itemName = row.querySelector('td:nth-child(2)').textContent.trim();
-//             const itemQuantity = row.querySelector('td:nth-child(5)').textContent.trim();
-//
-//             // 정보를 객체로 저장하고 배열에 추가합니다.
-//             const itemInfo = {
-//                 name: itemName,
-//                 quantity: itemQuantity,
-//             };
-//             selectedItems.push(itemInfo);
-//
-//         });
-//
-//         // // 추출한 정보를 문자열로 변환하여 폼 데이터로 추가합니다.
-//         // const hiddenInput = document.createElement('input');
-//         // hiddenInput.type = 'hidden';
-//         // hiddenInput.name = 'selectedItems';
-//         // hiddenInput.value = JSON.stringify(selectedItems);
-//         // orderForm.appendChild(hiddenInput);
-//
-//     });
+
+function updateTotalPrice() {
+    // 모든 체크된 체크박스 가져오기
+    var checkedCheckboxes = document.querySelectorAll('.cart_table input.cartcheckbox:checked');
+
+    // 총 상품 구매 금액 및 배송비를 저장할 변수 초기화
+    var totalProductAmount = 0;
+    var totalDeliveryCharge = 0;
+
+    // 선택된 상품의 가격을 나타낼 요소
+    // var selectedItemsPriceElement = document.getElementById('selectedItemsPrice');
+
+    // 선택된 상품의 가격을 저장할 변수 초기화
+    var selectedItemsPrice = 0;
+
+    // 각 체크된 체크박스에 대해 상품 가격 * 수량과 배송비를 계산하여 합계에 더하기
+    checkedCheckboxes.forEach(function (checkbox) {
+        var row = checkbox.closest('tr');
+        var price = parseFloat(row.querySelector('td:nth-child(4)').textContent.replace('원', '').replace(',', ''));
+        var deliveryCharge = parseFloat(row.querySelector('td:nth-child(7)').textContent.replace('원', '').replace(',', ''));
+        var quantity = parseInt(row.querySelector('td:nth-child(6) .quantity-display').textContent);
+        totalProductAmount += price * quantity;
+
+        // 배송비를 상품의 배송비로 변경
+        totalDeliveryCharge += deliveryCharge;
+
+        // 선택된 상품의 가격 계산
+        selectedItemsPrice += price * quantity;
+    });
+
+    // 총 상품 구매 금액이 10만원 이상인 경우 배송비를 0으로 설정
+    if (totalProductAmount >= 100000) {
+        totalDeliveryCharge = 0;
+    }
+
+    // 전체 합계를 계산하여 HTML에 표시
+    var totalSumElement = document.getElementById('totalPrice');
+    totalSumElement.textContent = totalProductAmount.toLocaleString() + '원';
+
+    var deliveryChargeElement = document.getElementById('deliveryCharge');
+    deliveryChargeElement.textContent = totalDeliveryCharge.toLocaleString() + '원';
+
+    var totalOrderElement = document.getElementById('totalOrder');
+    totalOrderElement.textContent = (totalProductAmount + totalDeliveryCharge).toLocaleString() + '원';
+
+    // 선택된 상품의 가격을 HTML에 표시
+    // selectedItemsPriceElement.textContent = selectedItemsPrice.toLocaleString() + '원';
+
+}
+
+// 페이지 로딩 시에도 한 번 호출
+document.addEventListener('DOMContentLoaded', function () {
+    updateTotalPrice();
+});
+
+// 수량 조절 버튼 클릭 시에도 호출
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('quantity-button')) {
+        updateTotalPrice();
+    }
+});
+
+// 전체상품주문하기 체크박스 변경 시에도 호출
+// document.getElementById('headerCheckbox').addEventListener('change', function () {
+//     updateTotalPrice();
 // });
+
+var checkboxes = document.querySelectorAll('.cartcheckbox');
+checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        // 선택된 상품의 가격 업데이트
+        updateTotalPrice();
+
+    });
+});
+//체크박스에 클릭 이벤트 핸들러 추가 위에

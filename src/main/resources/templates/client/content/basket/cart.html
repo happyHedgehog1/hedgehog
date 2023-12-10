@@ -34,8 +34,7 @@
                     <table class="cart_table">
                         <thead>
                         <tr>
-                            <th><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></th>
-<!--                            <th>상품코드</th>-->
+                            <th><input class="cartcheckbox" id="headerCheckbox" type="checkbox" name="cartcheckbox1"></th>
                             <th>이미지</th>
                             <th>상품명</th>
                             <th>판매가</th>
@@ -63,13 +62,8 @@
                                     <button type="button" class="quantity-button decrease-button" data-product-code="${item.productCode}">-</button>
                                     <span class="quantity-display" id="quantity-display-${item.productCode}" th:text="${item.amount}">1</span>
                                     <button type="button" class="quantity-button increase-button" data-product-code="${item.productCode}">+</button>
-
-
-
                                 </div>
                             </td>
-
-
                             <td th:text="${item.deliveryCharge}">무료</td>
                             <td th:text="${item.productSum}">합계</td>
                         </tr>
@@ -77,17 +71,36 @@
                     </table>
 
                     <br>
+                    <br>
 
-                <div class="total_price_contain">
-                    <div class="total_price">
-                        <div>
-                            <div>상품구매금액 : <span th:text="${cartItemList}">0원</span>+ 배송비 <span id="deliveryPrice">0원</span></div>
-                            <div>합계 : <span id="totalPrice">0원</span> </div>
+
+                        <div class="total_price">
+
+                                <div class="sum_text">
+                                    <h1>합계</h1>
+                                    <h3>고객님의 총 주문 합계 금액 입니다.</h3>
+                                </div>
+
+
+                                <div class="sum_text2">
+                                    <h4>상품 합계금액</h4>
+                                    <h4>배송비</h4>
+                                    <h4>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h4>
+                                </div>
+
+
+                            <div class="sum_text3">
+                                <!-- 수정된 부분: id 추가 -->
+                                <span id="totalPrice" >0원</span>
+                                <div id="deliveryCharge">0원</div>
+                                <span id="totalOrder">0원</span>
+                            </div>
+
+
                         </div>
-                    </div>
-                </div>
 
-                <br>
+                    <br>
+                    <br>
                 <hr>
                 <br>
                 <br>
@@ -102,50 +115,18 @@
                         <a th:href="@{/clientOrder/cartOrder}"><span class="select_order_btn">선택상품주문하기</span></a>
 <!--                        form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
                             비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
-                            여기서는 굳이 비동기처리까지할 필요가 없고 폼태그로 넘겨주면된다.
+                            여기서는 굳이 비동기 처리까지 할 필요가 없고 폼태그로 넘겨주면된다.
                             체크박스에 담긴 물품을 넘겨줘야하므로 체크박스에 해당하는 테이블부터 버튼까지 넘겨줬다.-->
                     </div>
 
 
                 </div>
 
-
-
-
                 <br>
-                <br>
+<!--                    <a th:href="@{/clientOrder/cartOrder}"></a>&ndash;&gt;-->
 
-                <div class="sum_box">
-                    <div class="sum_text">
-                        <h1>합계</h1>
-                        <h2>고객님의 총 주문 합계 금액 입니다.</h2>
-                    </div>
-
-                    <div class="sum_text_contain">
-                        <div class="sum_text2">
-                            <h3>상품 합계금액</h3>
-                            <h3>배송비</h3>
-                            <h3>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h3>
-                        </div>
-
-                        <div class="sum_text3">
-                            <h3>200,000원</h3>
-                            <h3>0원</h3>
-                            <h3>200,000원</h3>
-                        </div>
-
-
-
-                    </div>
-                </div>
-
-                <br>
-                <br>
                 <div class="select_all_btn2">
-                    <a th:href="@{/clientOrder/cartOrder}">
                         <span class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</span>
-                    </a>
-
                 </div>
 
 
