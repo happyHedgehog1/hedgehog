@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminMember.model.dao.adminUnregisterMapper">
+    <resultMap id="unregisterMap" type="adminUnregisterDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="withdraw_code" column="withdraw_code"/>
+        <result property="id" column="id"/>
+        <result property="apply_date" column="apply_date"/>
+        <result property="commit_date" column="commit_date"/>
+        <result property="cause" column="cause"/>
+        <result property="state" column="state"/>
+        <result property="cancel_date" column="cancel_date"/>
+        <association property="user" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+
+    <resultMap id="adminUserDTOResultMap" type="adminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="classify" column="classify"/>
+        <result property="name" column="name"/>
+        <result property="connection_date" column="connection_date"/>
+        <result property="creation_date" column="creation_date"/>
+        <result property="withdraw_state" column="withdraw_state"/>
+    </resultMap>
+
+    <select id="selectUnregister" resultMap="unregisterMap">
+        SELECT
+        A.id,
+        B.apply_date,
+        B.commit_date,
+        B.cause,
+        B.state
+        FROM
+        tbl_withdraw B
+        JOIN tbl_user A ON B.user_code = A.user_code
+        <where>
+            <if test="startDay != ''">
+                <if test="endDay != ''">
+                    AND B.apply_date BETWEEN #{startDay} AND #{endDay}
+                </if>
+                <if test="endDay == ''">
+                    AND B.apply_date > #{startDay}
+                </if>
+            </if>
+            <if test="unregisterCondition == 'yes'">
+                AND B.state = 'Y'
+            </if>
+            <if test="unregisterCondition == 'no'">
+                AND B.state = 'N'
+            </if>
+            <if test="idSearch != null and idSearch != ''">
+                AND A.id LIKE CONCAT('%', #{idSearch}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

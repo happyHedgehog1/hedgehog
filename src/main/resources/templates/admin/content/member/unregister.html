@@ -24,7 +24,8 @@
                     </div>
                     <div class="sectTopWrapper">
                         <form id="unregisterForm"
-                              th:action="@{/member/unregister}"
+                              name="unregisterForm"
+                              th:action="@{/unregister/unregisterSearch}"
                               method="get"
                               style="display: inline-block">
                         <div class="sectTop">
@@ -33,26 +34,26 @@
                                     <col class="w200">
                                     <col>
                                 </colgroup>
-                                <tbody>  
+                                <tbody>
+                                <tr>
+                                    <th>아이디</th>
+                                    <td>
+                                        <ul class="arrAlign">
+                                            <li class="w200">
+                                                <input type="search" name="searchId" id="searchId" />
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
                                     <tr>        
-                                        <th>아이디</th>    
-                                            <td>
-                                                <ul class="arrAlign">
-                                                    <li class="w200">
-                                                        <input type="text" name="seartId" id="seartId">
-                                                    </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr>   
-                                    <tr>        
-                                        <th>탈퇴유형</th>    
+                                        <th>탈퇴유형</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
                                                         <select name="unregisterCondition" id="unregisterCondition" >
                                                             <option value="0" selected>전체</option>
-                                                            <option value="1">일반탈퇴</option>
-                                                            <option value="2">강제탈퇴</option>
+                                                            <option value="yes">일반탈퇴</option>
+                                                            <option value="no">강제탈퇴</option>
                                                         </select>
                                                     </li>
                                                 </ul>    
@@ -77,11 +78,12 @@
                                 </tbody>    
                             </table>
                             <div>
-                                <button id="btnSearch"> 검색 </button>
+                                <button type="submit" id="btnSearch"> 검색 </button>
+                            </div>
                             </div>
                         </form>
                             <div><br><br></div>
-                        </div>    
+                        </div>
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
@@ -89,7 +91,7 @@
                             <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
                                 <span class="colorRed"> 5 </span> 건 / 일반탈퇴 :
-                                <span class="colorRed"> 4 </span>건 / 강제탈퇴 : 
+                                <span class="colorRed"> 4 </span>건 / 강제탈퇴 :
                                 <span class="colorRed"> 1 </span>건 )
                             </div>
                         </div>
@@ -103,17 +105,27 @@
 
                             </colgroup>
                             <tbody>
-                                        <tr class="searchResult">        
-                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                        <tr class="searchResult">
+                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>
                                             <th>아이디</th>
-                                            <th>회원탈퇴일</th>
-                                            <th>구분</th>
-                                            <th>탈퇴사유</th>                                                 
-                                </tr> 
+                                            <th>탈퇴신청일</th>
+                                            <th>탈퇴완료일</th>
+                                            <th>탈퇴사유</th>
+                                            <th>탈퇴여부</th>
+                                </tr>
                                 <tr class="searchBottom_tr"
                                 th:each="unregister : ${ unregisterList}">
-                                <td th:text="${ member.user.id}"></td>
-                                </tr> 
+                                    <td>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                    </td>
+
+                                    <td th:text="${ unregister.id}"></td>
+                                    <td th:text="${ unregister.apply_date}"></td>
+                                <td th:text="${ unregister.commit_date}"></td>
+                                <td th:text="${ unregister.cause}"></td>
+                                <td th:text="${ unregister.state}"></td>
+                                </tr>
+
                             </tbody>
                         </table>
                         </div>

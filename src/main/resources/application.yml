@@ -43,3 +43,10 @@ mybatis:
 logging:
   level:
     root: info
+
+#    재영
+    logging:
+      level:
+        org:
+          mybatis=DEBUG:
+#            재영
