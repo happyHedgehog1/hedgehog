@@ -24,9 +24,9 @@ public class AdminProductDTO {
     private String salesEnd;
     private int reviews;
     private int grade;
-    private OptionListDTO option;
+    private List<OptionListDTO> optionList;
     private List<AttachmentDTO> attachment;
-    private OptionDTO optionDTO;
+    private List<OptionDTO> optionDTO;
     private AdminCategoryDTO category;
 
 

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+
 @Controller
 @RequestMapping("/product")
 @Slf4j
@@ -69,9 +70,6 @@ public class AdminProductController {
     /**
      * 상품 등록 메소드
      * @param product 상품 DTO
-     * @param optionDTO 옵션 DTO
-     * @param option 옵션 List DTO
-     * @param category 카테고리 DTO
      * @param thumbnail 대표썸네일
      * @param sub_thumbnails 제품관점이미지
      * @param proImg 제품 상세페이지 이미지
@@ -82,9 +80,6 @@ public class AdminProductController {
      */
     @PostMapping("/productAdd")
     private String productAdd(@ModelAttribute AdminProductDTO product,
-                              @ModelAttribute OptionDTO optionDTO,
-                              @ModelAttribute OptionListDTO option,
-                              @ModelAttribute AdminCategoryDTO category,
                               @RequestParam("thumbnail") MultipartFile thumbnail,
                               @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
                               @RequestParam("proImg") MultipartFile proImg,
@@ -92,17 +87,11 @@ public class AdminProductController {
 
         log.info("********************=============productAdd 시작~~~~~~~~~");
         log.info("==========product" + product);
-        log.info("===========optionList" + option);
-        log.info("=============option" + optionDTO);
-        log.info("================adminCategory" + category);
+
         log.info("==========thumbnail" + thumbnail);
         log.info("==========sub_thumbnail" + sub_thumbnails);
         log.info("==========proImg" + proImg);
 
-
-        product.setOptionDTO(optionDTO);
-        product.setCategory(category);
-        product.setOption(option);
 
 
         log.info("=================사진 등록 시작~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -208,24 +197,8 @@ public class AdminProductController {
         log.info("------------------thumbnail" + thumbnail);
 
 
-            OptionDTO optionCode = adminProductServiceImpl.searchOption(optionDTO);
-            log.info("****************조회한 optionCode" + optionCode);
-            log.info("=============다른 DTO 추가한 product" + product);
-
-
-            if(optionCode != null && optionCode.getOptionCode() != optionDTO.getOptionCode()) {
-                log.info("*************************중복 옵션 코드 있을때 실행하는 메소드~~~~~~~~~~~");
-                adminProductServiceImpl.productAddExcludeOptionCode(product);
-            } else if(optionCode == null) {
-                log.info("-------------------------중복 옵션 코드 없을때 실행하는 메소드~~~~~~~~~~~");
-                adminProductServiceImpl.productAdd(product);
-            }
-
-
-
-
-
-
+//        상품등록 메소드
+        adminProductServiceImpl.productAdd(product);
 
         rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
         } catch (IOException | AdminProductAddException e) {
@@ -296,6 +269,7 @@ public class AdminProductController {
         log.info("=============================countY" + countY);
         log.info("=============================countN" + countN);
 
+
         ModelAndView modelAndView = new ModelAndView("admin/content/product/productSerch");
         modelAndView.addObject("productList", productList); // 모델에 productList를 추가
         modelAndView.addObject("totalResult", totalResult);
@@ -318,9 +292,12 @@ public class AdminProductController {
 //    @GetMapping("/productserachPage")
 //    public String productsearch(){ return "admin/content/product/productSerch";}
 
-
+    /**
+     * 상품등록 페이지 연결 메소드
+     * @return 상품 등록 페이지
+     */
     @GetMapping("/productAddPage")
-    public String productadd(){ return "admin/content/product/productAdd";}
+    public String productAddPage(){ return "admin/content/product/productAdd";}
     /**
      * ajax 이용 동적 select 메소드
      * @return 선택한 상위 카테고리의 하위 카테고리 리스트들
@@ -330,7 +307,7 @@ public class AdminProductController {
     public List<AdminCategoryDTO> getCateogoryList(HttpServletResponse res, @PathVariable("upperCategoryCode") int upperCategoryCode) throws IOException {
         log.info("*************************" + upperCategoryCode);
 
-        List<AdminCategoryDTO> categoryList = adminProductServiceImpl.findOptionList(upperCategoryCode);
+        List<AdminCategoryDTO> categoryList = adminProductServiceImpl.findCategoryList(upperCategoryCode);
         log.info("******************" + categoryList);
 
 

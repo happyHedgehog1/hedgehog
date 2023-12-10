@@ -1,19 +1,16 @@
 package com.hedgehog.admin.adminMember.controller;
 
-import com.hedgehog.admin.adminMember.model.dto.adminAllMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.adminMemberForm;
+import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import com.hedgehog.admin.adminMember.model.service.adminMemberServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/member")
@@ -32,11 +29,11 @@ public class adminMemberController {
      */
 
     @GetMapping("/membersearch")
-    public ModelAndView membersearch(@ModelAttribute adminMemberForm form) {
+    public ModelAndView membersearch(@ModelAttribute AdminMemberForm form) {
         log.info("membersearch========start=============");
         log.info(form.toString());
 
-        List<adminAllMemberDTO> memberList = adminMemberServiceimpl.selectMember(form);
+        List<AdminAllMemberDTO> memberList = adminMemberServiceimpl.selectMember(form);
         log.info("memberList=====================" + memberList);
 
         int totalResult = memberList.size();

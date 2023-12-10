@@ -2,13 +2,12 @@ package com.hedgehog.admin.adminMember.model.dto;
 
 import lombok.*;
 
-import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class adminUserDTO {
+public class AdminUserDTO {
 
     private int user_code;
     private String id;

@@ -17,9 +17,9 @@
         <result property="reviews" column="reviews"/>
         <result property="grade" column="grade"/>
         <result property="salesEnd" column="sales_end"/>
-        <association property="option" resultMap="optionListResultMap"/>
         <association property="attachment" resultMap="attachmentResultMap"/>
         <association property="optionDTO" resultMap="optionResultMap"/>
+        <association property="optionList" resultMap="optionListResultMap"/>
         <association property="category" resultMap="categoryResultMap"/>
     </resultMap>
 
@@ -115,6 +115,7 @@
         </where>
         GROUP BY
         A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date
+        order by product_code
         ) AS subquery
     </select>
 
@@ -128,7 +129,7 @@
                     sales_start,
                     sales_end,
                     category_code)
-        VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{subCategoryName})
+        VALUES (#{productName}, #{orderableStatus}, #{price}, NOW(), #{deliveryCharge}, #{salesStart}, #{salesEnd},#{category.subCategoryName})
         <selectKey keyColumn="productCode" resultType="_int" order="AFTER" keyProperty="productCode">
             SELECT LAST_INSERT_ID() AS productCode
         </selectKey>
@@ -159,15 +160,16 @@
         VALUES  (#{productCode}, #{ originalName }, #{ savedName }, #{ savePath }, #{ fileType }, #{ thumbnailPath }, now(), 'Y' )
     </insert>
     <insert id="addOption">
-        INSERT INTO tbl_option (
+        INSERT IGNORE INTO tbl_option (
             option_code,
             name
         )
         VALUES
             (#{optionCode}, #{optionName})
+
     </insert>
 
-    <select id="searchOption" resultMap="categoryResultMap">
+    <select id="searchCategory" resultMap="categoryResultMap">
         SELECT
             b.category_code,
             b.name
@@ -198,56 +200,33 @@
     </select>
     <select id="selectProductDetail" parameterType="int" resultMap="productResultMap">
         SELECT
-            product_code,
-            orderable_status,
-            sales_start,
-            sales_end,
-            product_name,
-            price,
-            delivery_charge,
-            upper_category_code,
-            category_code,
-            option_code,
-            name,
-            stock,
-            img_code,
-            source_name,
-            source_path,
-            convert_name,
-            convert_path,
-            image_classification
-        FROM (
-                 SELECT
-                     A.product_code,
-                     A.orderable_status,
-                     A.sales_start,
-                     A.sales_end,
-                     A.product_name,
-                     A.price,
-                     A.delivery_charge,
-                     B.upper_category_code,
-                     B.category_code,
-                     C.option_code,
-                     C.name,
-                     D.stock,
-                     F.img_code,
-                     F.source_name,
-                     F.source_path,
-                     F.convert_name,
-                     F.convert_path,
-                     F.image_classification
-                 FROM tbl_product A
-                          JOIN tbl_category B ON A.category_code = B.category_code
-                          JOIN tbl_option_list D ON A.product_code = D.product_code
-                          JOIN tbl_option C ON D.option_code = C.option_code
-                          JOIN tbl_product_img F ON A.product_code = F.product_code
+            A.product_code,
+            A.orderable_status,
+            A.sales_start,
+            A.sales_end,
+            A.product_name,
+            A.price,
+            A.delivery_charge,
+            B.upper_category_code,
+            B.category_code,
+            c.option_code,
+            C.name,
+            D.option_code,
+            D.product_code,
+            D.stock,
+            F.img_code,
+            F.source_name,
+            F.source_path,
+            F.convert_name,
+            F.convert_path,
+            F.image_classification
+        FROM tbl_product A
+                 JOIN tbl_category B ON A.category_code = B.category_code
+                 JOIN tbl_option_list D ON A.product_code = D.product_code
+                 JOIN tbl_option C ON C.option_code = D.option_code
+                 JOIN tbl_product_img F ON A.product_code = F.product_code
                  WHERE A.product_code = #{productCode}
-                 GROUP BY
-                     A.product_code, A.orderable_status, A.sales_start, A.sales_end, A.product_name,
-                     A.price, A.delivery_charge, B.upper_category_code, B.category_code, C.option_code,
-                     C.name, D.stock, F.img_code, F.source_name, F.source_path, F.convert_name,
-                     F.convert_path, F.image_classification
-             ) AS sub;
+
     </select>
 
 

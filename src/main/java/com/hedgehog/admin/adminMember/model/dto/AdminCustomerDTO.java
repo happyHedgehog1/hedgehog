@@ -1,6 +1,6 @@
 package com.hedgehog.admin.adminMember.model.dto;
 
-public class adminCustomerDTO {
+public class AdminCustomerDTO {
 
     private int customer_code;
     private String member_state;
@@ -8,7 +8,7 @@ public class adminCustomerDTO {
     private String phone;
     private String certification_number;
 
-    public adminCustomerDTO() {
+    public AdminCustomerDTO() {
     }
 
     public int getCustomer_code() {
@@ -51,7 +51,7 @@ public class adminCustomerDTO {
         this.certification_number = certification_number;
     }
 
-    public adminCustomerDTO(int customer_code, String member_state, String email, String phone, String certification_number) {
+    public AdminCustomerDTO(int customer_code, String member_state, String email, String phone, String certification_number) {
         this.customer_code = customer_code;
         this.member_state = member_state;
         this.email = email;

@@ -1,16 +1,13 @@
 package com.hedgehog.admin.adminMember.model.dto;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class adminMemberForm {
+public class AdminMemberForm {
 
     private String dateStart;
     private String dateEnd;

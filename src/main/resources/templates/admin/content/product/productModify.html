@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품등록</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
-    <script th:src="@{/admin/js/productAdd.js}"></script>
+    <script th:src="@{/admin/js/productModify.js}"></script>
 
     <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
 </head>
@@ -20,7 +20,6 @@
                 <div class="mainHd">
                     <div class="topTitle">
                         <h4>상품 등록</h4>
-                        <div><button id="btnSubmitAdd">상품일괄등록</button></div>
                     </div>
                 </div>
                 <form id="productAdd" th:action="@{/product/productRegist}" method="post" enctype="multipart/form-data">
@@ -126,7 +125,7 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <tr class="optionList">
+                            <tr>
                                 <th colspan="2" class="optionth">
                                     <ul class="arrAlign">
                                         <li class="w200">
@@ -147,20 +146,20 @@
                                     </ul>
                                 </th>
                             </tr>
-                            <tr class="optionList">
+                            <tr class="optionList" th:each="optionList : ${product.getOptionList()}">
                                 <th colspan="2" >
                                     <ul class="arrAlign">
                                         <li class="colorPreview" style="width: 200px">
                                             <div id="colorPreview">미리보기</div>
                                         </li>
                                         <li class="w400">
-                                            <input type="text" name="optionCode" id="optionCode" style="width: 350px;" th:value="${product.option.optionCode}">
+                                            <input type="text" name="optionCode" id="optionCode" style="width: 350px;" th:value="${optionList.getOptionCode()}">
                                         </li>
                                         <li class="w400">
-                                            <input type="text" name="optionName" id="optionName" style="width: 350px;" th:value="${product.optionDTO.optionName}">
+                                            <input type="text" name="optionName" id="optionName" style="width: 350px;" th:value="${product.getOptionDTO().get(optionListStat.index).getOptionName()}">
                                         </li>
                                         <li class="w200">
-                                            <input type="number" name="stock" id="stock" style="width: 125px;" th:value="${product.option.stock}">
+                                            <input type="number" name="stock" id="stock" style="width: 125px;" th:value="${optionList.getStock()}">
                                             개
                                         </li>
                                         <li class="w140" style="padding-top: 5px;">
@@ -188,7 +187,7 @@
                                         <label for="thumbnail">대표이미지 지정</label>
                                         <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
                                         <div id="thumbnailPreview" th:if="${product.attachment[0].thumbnailPath != null}">
-                                            <img id="previewImage1" th:src="@{|/thumbPath${product.attachment[0].getSavePath()}|}">
+                                            <img id="previewImage1" th:src="@{|/thumbPath${product.attachment[0].getThumbnailPath()}|}">
                                         </div>
                                     </div>
                                     <div class="img-file2">
@@ -213,83 +212,6 @@
                     </div>
                 </div>
                 </form>
-                <div class="modal" id="myModal">
-                    <div class="modalContent">
-                        <span id="closeModal">&times;</span>
-                        <div class="modalTbl">
-                            <table>
-                                <colgroup>
-                                    <col class="w400">
-                                    <col>
-                                </colgroup>
-                                <tr class="modalTblhd">
-                                    <th colspan="2">상품 일괄 업로드</th>
-                                </tr>
-                                <tr>
-                                    <th>양식 다운로드</th>
-                                    <td>
-                                        <img th:src="@{/admin/images/download.png}" alt="download" height="20px"><span><a th:href="@{/admin/uploadSampleFile/1infurniture_products_upload_sample.xlsx}"> 양식 파일 다운로드</a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>상품 일괄 업로드</th>
-                                    <td>
-                                        <div class="filebox">
-                                            <label for="file">파일찾기</label>
-                                            <input type="file" id="file">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                                <table class="modalInsideTbl">
-                                    <tr>
-                                        <th colspan="2" style="background-color: #ebebeb;">
-                                            <div class="modalResultTbl">
-                                                <div>시도 : 0</div>
-                                                <div class="colorBlue">등록 : 0</div>
-                                                <div class="colorRed">실패 : 0</div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="optionth">
-                                            <ul class="arrAlign">
-                                                <li class="w400">
-                                                    추가 옵션명
-                                                </li>
-                                                <li class="w400">
-                                                    옵션값
-                                                </li>
-                                                <li class="w200">
-                                                    옵션가격
-                                                </li>
-                                                <li class="w200">
-                                                    재고
-                                                </li>
-                                                <li class="w140">
-                                                    추가
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="modalResultTbl-tr" colspan="2">
-                                            <ul class="modalResultTbl">
-                                                결과값 출력
-                                            </ul>
-                                        </th>
-                                    </tr>
-                                </table>
-                                <div class="modalBottom">
-                                    <div><button id="btnSelectDelete">삭제</button></div>
-                                    <div class="moadlTblTotalResult">최종 등록 상품 수 : 0개</div></td>
-                                </div>
-
-
-                        </div>
-                        <input th:type="submit" value="상품수정" id="modalBtnPrdAdd"/>
-                    </div>
-                </div>
             </div>
     </div>
 </div>

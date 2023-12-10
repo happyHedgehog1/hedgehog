@@ -3,20 +3,20 @@ package com.hedgehog.admin.adminMember.model.dto;
 
 import java.util.Date;
 
-public class adminAllMemberDTO {
+public class AdminAllMemberDTO {
     private int member_code;
     private Date birthday;
     private String gender;
     private String email_consent;
     private int point;
     private int cumulative_amount;
-    private adminCustomerDTO customer;
-    private adminUserDTO user;
+    private AdminCustomerDTO customer;
+    private AdminUserDTO user;
 
-    public adminAllMemberDTO() {
+    public AdminAllMemberDTO() {
     }
 
-    public adminAllMemberDTO(int member_code, Date birthday, String gender, String email_consent, int point, int cumulative_amount, adminCustomerDTO customer, adminUserDTO user) {
+    public AdminAllMemberDTO(int member_code, Date birthday, String gender, String email_consent, int point, int cumulative_amount, AdminCustomerDTO customer, AdminUserDTO user) {
         this.member_code = member_code;
         this.birthday = birthday;
         this.gender = gender;
@@ -75,19 +75,19 @@ public class adminAllMemberDTO {
         this.cumulative_amount = cumulative_amount;
     }
 
-    public adminCustomerDTO getCustomer() {
+    public AdminCustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(adminCustomerDTO customer) {
+    public void setCustomer(AdminCustomerDTO customer) {
         this.customer = customer;
     }
 
-    public adminUserDTO getUser() {
+    public AdminUserDTO getUser() {
         return user;
     }
 
-    public void setUser(adminUserDTO user) {
+    public void setUser(AdminUserDTO user) {
         this.user = user;
     }
 

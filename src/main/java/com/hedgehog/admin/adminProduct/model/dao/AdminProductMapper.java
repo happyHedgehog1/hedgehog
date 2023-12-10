@@ -11,7 +11,7 @@ public interface AdminProductMapper {
 
 //    List<AdminProductDTO> searchProduct(AdminProductForm form);
 
-    List<AdminProductDTO> selectAllProductList();
+
     //조건에 따른 상품 조회 메소드
     List<AdminProductDTO> searchProduct(AdminProductForm form);
     //상품 등록시 product테이블 insert 메소드
@@ -20,12 +20,10 @@ public interface AdminProductMapper {
     int addOption(OptionDTO optionDTO);
     //상품 등록시 이미지 등록 메소드
     int addImg(AttachmentDTO attachmentDTO);
-    //상품 등록시 optionList 테이블 insert 메소드
-    int addOptionList(OptionListDTO optionListDTO);
     //ajax 이용하여 동적으로 서브 카테고리 불러오는 메소드
-    List<AdminCategoryDTO> searchOption(int upperCategoryCode);
-    //옵션 코드 조회용 메소드
-    OptionDTO searchOptionCode(OptionDTO optionDTO);
+    List<AdminCategoryDTO> searchCategory(int upperCategoryCode);
+
+    int addOptionList(OptionListDTO optionListDTO);
 
     AdminProductDTO selectProductDetail(int productCode);
 }

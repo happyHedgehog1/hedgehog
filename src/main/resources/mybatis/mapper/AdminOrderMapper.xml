@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminOrder.model.dao.AdminOrderMapper">
+    <resultMap id="orderResultMap" type="AdminOrderDTO">
+        <id property="orderCode" column="order_code"/>
+        <result property="customerCode" column="customer_code"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="sumPrice" column="sum_price"/>
+        <result property="pointUsage" column="point_usage"/>
+        <result property="state" column="state"/>
+        <result property="productCode" column="product_code"/>
+        <result property="totalCount" column="total_count"/>
+        <association property="orderDetail" resultMap="orderDetailResultMap"/>
+        <association property="userDTO" resultMap="adminUserResultMap"/>
+        <association property="productDTO" resultMap="productResultMap"/>
+        <association property="adminCustomerDTO" resultMap="customerResultMap"/>
+    </resultMap>
+    <resultMap id="orderDetailResultMap" type="AdminOrderDetailDTO">
+        <id property="orderDetailsCode" column="order_details_code"/>
+        <result property="count" column="count"/>
+        <result property="productCode" column="product_code"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="point" column="point"/>
+        <result property="reducedPrice" column="reduced_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="finalPrice" column="final_price"/>
+        <result property="optionCode" column="option_code"/>
+    </resultMap>
+    <resultMap id="adminUserResultMap" type="AdminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="name" column="name"/>
+        <result property="id" column="id"/>
+    </resultMap>
+    <resultMap id="productResultMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="subCategoryName" column="category_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="orderableStatus" column="orderable_status"/>
+        <result property="price" column="price"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="modificationDate" column="modification_date"/>
+        <result property="eventProgressionStatus" column="event_progressionstatus"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="salesStart" column="sales_start"/>
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+        <result property="salesEnd" column="sales_end"/>
+    </resultMap>
+    <resultMap id="customerResultMap" type="AdminCustomerDTO">
+        <id property="customer_code" column="customer_code"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
+    <select id="searchOrderList" resultMap="orderResultMap">
+        SELECT
+            A.creation_date,
+            A.order_code,
+            B.product_code,
+            B.product_name,
+            count(C.order_code) as total_count,
+            D.name,
+            A.state,
+            A.sum_price,
+            D.id,
+            E.phone
+        FROM TBL_ORDER A
+        JOIN tbl_product B on A.product_code = B.product_code
+        join tbl_order_details C on A.order_code = C.order_code
+        Join tbl_user D on A.customer_code = D.user_code
+        join tbl_customer E on A.customer_code = E.customer_code
+        <where>
+            <if test="state == 1">
+                AND A.state LIKE CONCAT('배송대기')
+            </if>
+            <if test="state == 2">
+                AND A.state LIKE CONCAT('배송중')
+            </if>
+            <if test="state == 3">
+                AND A.state LIKE CONCAT('배송완료')
+            </if>
+            <if test="state == 4">
+                AND A.state LIKE CONCAT('취소중')
+            </if>
+            <if test="state == 5">
+                AND A.state LIKE CONCAT('취소완료')
+            </if>
+            <if test="state == 6">
+                AND A.state LIKE CONCAT('환불중')
+            </if>
+            <if test="state == 7">
+                AND A.state LIKE CONCAT('환불완료')
+            </if>
+            <if test="keywordValue != ''">
+                <if test="keyword == 'orderCode'">
+                    AND A.order_code LIKE CONCAT('%', #{keywordValue}, '%')
+                </if>
+                <if test="keyword == 'name'">
+                    AND D.name LIKE CONCAT('%', #{keywordValue}, '%')
+                </if>
+                <if test="keyword == 'phone'">
+                    AND E.phone LIKE CONCAT('%', #{keywordValue}, '%')
+                </if>
+                <if test="keyword == 'productName'">
+                    AND B.product_name LIKE CONCAT('%', #{keywordValue}, '%')
+                </if>
+                <if test="keyword == 'productCode'">
+                    AND B.product_code LIKE CONCAT('%', #{keywordValue}, '%')
+                </if>
+                <if test="keyword == 'id'">
+                    AND D.id LIKE CONCAT('%', #{keywordValue}, '%')
+                </if>
+            </if>
+            <if test="searchStartDay != ''">
+                <if test="searchEndDay != ''">
+                    AND A.creation_date BETWEEN #{searchStartDay} AND #{searchEndDay}
+                </if>
+                <if test="searchEndDay == ''">
+                    AND A.creation_date > #{searchStartDay}
+                </if>
+            </if>
+        </where>
+        group by A.order_code
+    </select>
+    <update id="orderStateUpdate" parameterType="_int">
+        UPDATE TBL_ORDER
+        SET state =
+            <choose>
+                <when test="state == 1"> '배송대기'</when>
+                <when test="state == 2"> '배송중'</when>
+                <when test="state == 3"> '배송완료'</when>
+                <when test="state == 4"> '취소중'</when>
+                <when test="state == 5"> '취소완료'</when>
+                <when test="state == 6"> '환불중'</when>
+                <when test="state == 7"> '환불완료'</when>
+                <when test="state == 8"> '교환중'</when>
+                <when test="state == 9"> '교환완료'</when>
+            </choose>
+        WHERE order_code = #{orderCode}
+    </update>
+
+
+</mapper>

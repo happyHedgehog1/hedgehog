@@ -1,13 +1,12 @@
 package com.hedgehog.admin.adminMember.model.service;
 
 import com.hedgehog.admin.adminMember.model.dao.adminMemberMapper;
-import com.hedgehog.admin.adminMember.model.dto.adminAllMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.adminMemberForm;
+import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -21,8 +20,8 @@ public class adminMemberServiceImpl implements adminMemberService{
 
 
     @Override
-    public List<adminAllMemberDTO> selectMember(adminMemberForm form){
-        List<adminAllMemberDTO> memberList = mapper.selectMember(form);
+    public List<AdminAllMemberDTO> selectMember(AdminMemberForm form){
+        List<AdminAllMemberDTO> memberList = mapper.selectMember(form);
 
     return memberList;
     }

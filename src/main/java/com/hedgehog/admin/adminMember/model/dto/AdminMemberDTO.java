@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class adminMemberDTO {
+public class AdminMemberDTO {
     private int member_code;
     private Date birthday;
     private String gender;

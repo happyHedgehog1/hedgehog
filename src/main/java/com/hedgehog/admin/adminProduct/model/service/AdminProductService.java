@@ -13,11 +13,8 @@ public interface AdminProductService {
 
     public void productAdd(AdminProductDTO product) throws AdminProductAddException;
 
-    List<AdminCategoryDTO> findOptionList(int categoryCode);
+    List<AdminCategoryDTO> findCategoryList(int categoryCode);
 
-    OptionDTO searchOption(OptionDTO optionDTO);
-
-    public void productAddExcludeOptionCode(AdminProductDTO product) throws AdminProductAddException;
 
     public AdminProductDTO selectProductDetail(int productCode);
 }
