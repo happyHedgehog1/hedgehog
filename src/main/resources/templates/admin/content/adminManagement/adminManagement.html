@@ -84,6 +84,7 @@
                         <button th:if="${admin.withdrawState}=='N' and ${admin.authorityName}=='ADMIN'"
                                 class="btnDeleteAdmin" onclick="deleteAdmin(this)">삭제
                         </button>
+                        <div th:text="${admin.commitDate}" style="color:red;text-decoration: underline;font-weight: bold"></div>
                     </td>
                 </tr>
                 </tbody>

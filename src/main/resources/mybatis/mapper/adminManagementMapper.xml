@@ -11,6 +11,7 @@
         <result property="creationDate" column="creation_date"/>
         <result property="withdrawState" column="withdraw_state"/>
         <result property="authorityName" column="authority_name"/>
+        <result property="commitDate" column="commit_date"/>
     </resultMap>
     <select id="getAdminList" resultMap="AdminResultMap">
         SELECT
@@ -20,10 +21,12 @@
             A.connection_date,
             A.creation_date,
             A.withdraw_state,
-            C.name authority_name
+            C.name authority_name,
+            D.commit_date
         FROM tbl_user A
         JOIN tbl_authority_list B ON A.user_code = B.user_code
         JOIN tbl_authority C ON B.authority_code = C.authority_code
+        LEFT JOIN tbl_withdraw D ON A.user_code = D.user_code
         WHERE A.classify='관리자'
         ORDER BY C.name='ADMIN', A.withdraw_state='Y', A.connection_date DESC;
     </select>
