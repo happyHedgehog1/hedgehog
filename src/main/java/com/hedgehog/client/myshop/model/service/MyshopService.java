@@ -32,13 +32,8 @@ public class MyshopService {
     }
 
     @Transactional
-    public boolean modifyMember(MemberDTO member) {
-        /*Member를 modify 하려면 다음과 같은 과정을 거쳐야 한다.*/
-
-        // userId로 값 가져오기.
+    public boolean modifyMember(int userCode,MemberDTO member) {
         int result1 = myshopMapper.updateUser(member);
-        int userCode = myshopMapper.getUserCode(member.getUserId());
-        System.out.println(userCode);
         int result2 = myshopMapper.updateCustomer(userCode, member);
         int result3 = myshopMapper.updateMember(userCode, member);
         int result = result1 + result2 + result3;
