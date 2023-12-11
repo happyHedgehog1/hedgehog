@@ -50,8 +50,8 @@
                                 <input type="text" name="email" id="email" readonly th:value="${email}">
                             </div>
                             <div>
-                                email 수신거부 유무:
-                                <span th:text="${emailService=='Y'?'&nbsp;예':'&nbsp;아니오'}" style="color:red;"></span>
+                                email 수신여부:
+                                <span th:text="${emailService=='Y'?'&nbsp;수신가능':'&nbsp;수신거부'}" style="color:red;"></span>
                             </div>
                             <div>
                                 주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.

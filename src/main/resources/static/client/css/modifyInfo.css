@@ -7,6 +7,9 @@ section {
     justify-content: flex-start;
     min-height: 80.2vh;
 }
+#route_home,#route_mypage{
+    cursor: pointer;
+}
 
 #contents {
     align-self: center;
@@ -16,13 +19,13 @@ section {
     padding-bottom: 5em;
 }
 
-#regist {
+#modify {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#regist_header {
+#modify_header {
     text-align: center;
     margin-bottom: 1em;
 }
@@ -97,7 +100,7 @@ section {
 }
 
 #contents_table th {
-    min-width: 7em;
+    min-width: 8em;
 }
 
 #contents_table th,
@@ -200,10 +203,10 @@ input {
 #goback_button,
 #address_button,
 #remove_button,
-#regist_button,
 #email_authentication_button,
 #withdrawal_button,
-#go_back_button {
+#go_back_button,
+#modify_button{
     border-radius: 0.6em;
     padding-top: 0.3em;
     padding-bottom: 0.3em;
@@ -220,10 +223,10 @@ input {
 #goback_button:hover,
 #address_button:hover,
 #remove_button:hover,
-#regist_button:hover,
 #email_authentication_button:hover,
 #withdrawal_button:hover,
-#go_back_button:hover {
+#go_back_button:hover ,
+#modify_button:hover{
     background: white;
     color: black
 }
