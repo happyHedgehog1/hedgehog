@@ -9,6 +9,7 @@ import lombok.*;
 public class CartSumDTO {
 
 
+    private int userCode;
     private int cartCode;
     private int amount;
     private int price;

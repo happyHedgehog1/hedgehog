@@ -47,10 +47,13 @@
 <!--                        productId는 해당 코드에서 thymeleaf의 표현식을 위해서 동적으로 생성함 -->
                         <tbody>
                         <tr th:each="item : ${cartItemList}">
-                            <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox-${item.productCode}"></td>
+<!--                            -${item.productCode}"-->
+                            <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
 <!--                            체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
 
                             <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px" height="70px" onerror="this.src='/client/images/event.png'" ></td>
+
+
 
 
                             <td th:text="${item.productName}">상품명</td>
@@ -126,7 +129,7 @@
 <!--                    <a th:href="@{/clientOrder/cartOrder}"></a>&ndash;&gt;-->
 
                 <div class="select_all_btn2">
-                        <span class="select_all_btn"  onclick="selectAllItems()">전체상품주문하기</span>
+                        <span class="select_all_btn" id="selectAllItems">전체상품주문하기</span>
                 </div>
 
 
