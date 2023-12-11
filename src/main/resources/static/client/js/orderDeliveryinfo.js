@@ -5,7 +5,7 @@ const goMyPage = () => {
     // 비회원은 주문번호를 통해서 바로 detail 화면으로 들어가서
     // 여기 접속 가능한 고객은
     // 회원뿐이다.
-    location.href = "../html/mypageMember.html";
+    location.href = "../html/mypage.html";
 };
 
 const dateButtonContainer = document.getElementById("quick_date_buttons");

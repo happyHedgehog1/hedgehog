@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/client/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<th:block layout:fragment="content">
+    <script th:src="@{/client/js/info.js}"></script>
+    <link rel="stylesheet" th:href="@{/client/css/info.css}">
+
+    <section>
+        <div id="main_category_route">
+            <ul class="route_list">
+                <li id="route_home" onclick="location.href='/'">
+                    <img th:src="@{/client/images/icon/home.png}" alt="메인화면">
+                </li>
+                <li>&gt;</li>
+                <li id="route_mypage" onclick="location.href='mypage'">마이페이지</li>
+                <li>&gt;</li>
+                <li>회원정보</li>
+            </ul>
+            <div id="contents">
+                <h1 id="info_header">회원정보</h1>
+                <table id="contents_table">
+                    <tr>
+                        <th>이름</th>
+                        <td colspan="2"><input type="text" name="name" id="name" readonly th:value="${name}"></td>
+                    </tr>
+                    <tr>
+                        <th>생년일일</th>
+                        <td colspan="2"><input type="date" name="birthday" id="birthday" readonly
+                                               th:value="${birthday}"></td>
+                    </tr>
+                    <tr>
+                        <th>성별</th>
+                        <td colspan="2">
+                            <th:block th:text="${gender}=='M'?'남자':'여자'"></th:block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>아이디</th>
+                        <td>
+                            <input type="text" name="userId" id="userId" maxlength="20" readonly th:value="${userId}">
+                        </td>
+                    </tr>
+                    <tr id="email_row">
+                        <th>이메일</th>
+                        <td colspan="2">
+                            <div>
+                                <input type="text" name="email" id="email" readonly th:value="${email}">
+                            </div>
+                            <div>
+                                email 수신거부 유무:
+                                <span th:text="${emailService=='Y'?'&nbsp;예':'&nbsp;아니오'}" style="color:red;"></span>
+                            </div>
+                            <div>
+                                주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>휴대전화</th>
+                        <td colspan="2"><input type="text" id="phone" name="phone" readonly th:value="${phone}"></td>
+                    </tr>
+                </table>
+                <div id="bottom_buttons">
+                    <input type="button" name="regist_button" id="regist_button" value="뒤로가기" onclick="location.href='mypage'">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</th:block>
+</html>

@@ -7,77 +7,75 @@
     <th:block layout:fragment="content">
     <link rel="stylesheet" th:href="@{/client/css/mainCategory.css}">
 
-        <section>
+    <section>
         <div id="main_category_bed_contents">
 
             <ul class="route_list">
-            <li><img src="/static/images/icon/home.png" alt=""></li>
-            <li>&gt;</li>
-            <li th:text="${subject1}">침실</li>
-            <li>&gt;</li>
-            <li th:text="${subject2}">소파</li>
+                <li><img src="/static/images/icon/home.png" alt=""></li>
+                <li>&gt;</li>
+                <li>침실</li>
+                <li>&gt;</li>
+                <li>소파</li>
+<!--            <li><img src="/static/images/icon/home.png" alt=""></li>-->
+<!--            <li>&gt;</li>-->
+<!--            <li th:text="${subject1}">침실</li>-->
+<!--            <li>&gt;</li>-->
+<!--            <li th:text="${subject2}">소파</li>-->
             </ul>
+
+            <th:block th:each="category : ${ categoryList }">
+                <ul class="gallery_list">
+                    <li>
+                        <img th:src="${thumbnailPath}" alt="Thumbnail Image">
+                    </li>
+                    <li class="gallery_list_text">
+                        <ul class="gallery_list_text1">
+                            <li>1인가구</li>
+                            <li th:text="${}"></li>
+                        </ul>
+                        <ul class="gallery_list_text2">
+                            <li>상품제목</li>
+                            <li>252,000원</li>
+                        </ul>
+                    </li>
+
+
+                    <p>No. <label th:text="${ thumbnail.no }"></label> <span th:text="${ thumbnail.title }"></span><br>
+                        조회수 : <span th:text="${ thumbnail.count }"></span>
+                    </p>
+                </ul>
+            </th:block>
 
 
             <div class="gallery">
 
-            <ul class="gallery_list">
-                <li>
-                <a th:href="@{/product}"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></a>
-                </li>
-                <li class="gallery_list_text">
-                <ul class="gallery_list_text1">
-                    <li>1인가구</li>
-                    <li th:text="${}">☆4.5(3)</li>
+                <ul class="gallery_list">
+                    <li>
+                    <a th:href="@{/product}"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></a>
+                    </li>
+
+                    <li class="gallery_list_text">
+                    <ul class="gallery_list_text1">
+                        <li>1인가구</li>
+                        <li>☆4.5(3)</li>
+                    </ul>
+                    <ul class="gallery_list_text2">
+                        <li>상품제목</li>
+                        <li>252,000원</li>
+                    </ul>
+                    </li>
                 </ul>
-                <ul class="gallery_list_text2">
-                    <li>상품제목</li>
-                    <li>252,000원</li>
+
+
+                <ul class="page_number">
+                <li>1</li>
+                <li>2</li>
                 </ul>
-                </li>
-            </ul>
 
-                <div class="table-area">
-
-                    <table style="align: center" id="listArea">
-                        <tr>
-                            <th style="width: 100px">글번호</th>
-                            <th style="width: 100px">카테고리</th>
-                            <th style="width: 300px">글제목</th>
-                            <th style="width: 100px">작성자</th>
-                            <th style="width: 100px">조회수</th>
-                            <th style="width: 150px">작성일</th>
-                        </tr>
-
-                        <tr
-                                th:each="board : ${ boardList }"
-                        >
-                            <td th:text="${board.no}"></td>
-                            <td th:text="${board.category.name}"></td>
-                            <td th:text="${board.title}"></td>
-                            <td th:text="${board.writer.nickname}"></td>
-                            <td th:text="${board.count}"></td>
-                            <td th:text="${board.createdDate}"></td>
-                        </tr>
-                    </table>
-                </div>
 
             </div>
-<!--            <ul class="page_number">-->
-<!--            <li>1</li>-->
-<!--            <li>2</li>-->
-<!--            </ul>-->
-
-<!--            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}" class="page_number">-->
-<!--                <button-->
-<!--                        th:text="${ page }"-->
-<!--                        th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"-->
-<!--                        th:disabled="${ selectCriteria.pageNo eq page }">-->
-<!--                </button>-->
-<!--            </th:block>-->
-
         </div>
-        </section>
+    </section>
 
     </th:block>
 </html>

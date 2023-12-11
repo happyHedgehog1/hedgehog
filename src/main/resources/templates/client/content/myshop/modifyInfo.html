@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/client/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+  <th:block layout:fragment="content">
+  <script th:src="@{/client/js/modifyInfo.js}"></script>
+  <link rel="stylesheet" th:href="@{/client/css/modifyInfo.css}">
+
+    <section>
+      <div id="main_category_route">
+        <ul class="route_list">
+          <li onclick="location.href='./index1.html'"><img src="/client/images/icon/home.png" alt="홈으로가기"></li>
+          <li>&gt;</li>
+          <li onclick="goMyPage()">MY페이지</li>
+          <li>&gt;</li>
+          <li>회원정보변경</li>
+        </ul>
+        <div id="contents">
+          <form action="regist" id="regist">
+            <h1 id="regist_header">회원정보변경</h1>
+            <table id="contents_table">
+              <tr>
+                <th>성명</th>
+                <td colspan="2"><input type="text" name="name" id="name" readonly></td>
+              </tr>
+              <tr>
+                <th>생일</th>
+                <td colspan="2"><input type="date" name="date" id="date" readonly></td>
+              </tr>
+              <tr>
+                <th>성별</th>
+                <td colspan="2">
+                  <label for="male">남</label>
+                  <input type="radio" name="gender" id="male">
+                  <label for="female">여</label>
+                  <input type="radio" name="gender" id="female">
+                </td>
+              </tr>
+              <tr>
+                <th>아이디</th>
+                <td>
+                  <input type="text" name="id" id="id" readonly>
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호</th>
+                <td><input type="text" input="password" id="password"></td>
+                <td>공백없는 5~12자리의 영문/숫자<br>
+                  <span id="warning">특수문자 사용가능, 단 \, ', " 제외</span>
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호확인</th>
+                <td colspan="2"><input type="text" input="password2" id="password2"></td>
+              </tr>
+              <tr id="email_row">
+                <th>이메일</th>
+                <td colspan="2">
+                  <div><input type="text" name="email" id="email"><input id="email_button" value="이메일인증" type="button">
+                  </div>
+                  <div id="email_authentication">
+                    <div>인증번호</div>
+                    <input type="text" id="email_authentication_number" name="email_authentication_number">
+                    &nbsp;
+                    <input type="button" id="email_authentication_button" value="인증하기">
+                    &nbsp;
+                    <span id="reload_timer">05:00</span>
+                    &nbsp;
+                    <img src="../image/reloadButton/reload.png" alt="시간연장" id="reload">
+                  </div>
+                  <div id="email_count"></div>
+                  <div>
+                    email 서비스를 받으시겠습니까?&nbsp;
+                    <input type="radio" name="email_service" id="email_yes"><label for="email_service">&nbsp;예</label>
+                    <input type="radio" name="email_service" id="email_no"><label for="email_service">&nbsp아니오</label>
+                  </div>
+                  <div>
+                    주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>휴대전화</th>
+                <td colspan="2"><input type="text" id="phone" name="phone" placeholder="01011112222(- 생략)"></td>
+              </tr>
+              <tr id="address_row">
+                <th>주소</th>
+                <td colspan="2">
+                  <input type="text" id="address_col_1" readonly><input type="button" id="address_button" value=우편번호><br>
+                  <input type="text" id="address_col_2" readonly><br>
+                  <input type="text" id="address_col_3">
+                </td>
+              </tr>
+            </table>
+            <div id="bottom_buttons">
+
+              <a th:href="@{'/myshop/withdrawalReason'}">
+              <input type="button" name="withdrawal_button" id="withdrawal_button" value="회원탈퇴">
+              </a>
+
+              <a th:href="@{'/myshop/mypage'}">
+              <input type="button" onclick="goMyPage()" id="go_back_button" value="뒤로가기">
+              </a>
+
+
+              <input type="submit" name="regist_button" id="regist_button" value="회원수정하기">
+
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </section>
+
+  </th:block>
+</html>

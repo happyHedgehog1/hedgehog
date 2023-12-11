@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 public class AttachmentDTO {
-    private Long no;
-    private Long refBoardNo;
+    private int no;
+    private int productCode;
     private String originalName;
     private String savedName;
     private String savePath;

@@ -12,7 +12,7 @@
         <!-- 여기에 작성 -->
         <div id="main_category_route">
             <ul class="route_list">
-                <li onclick="location.href='/'"><img src="/client/images/icon/home.png" alt="홈으로가기"></li>
+                <li id="route_home" onclick="location.href='/'"><img src="/client/images/icon/home.png" alt="홈으로가기"></li>
                 <li>&gt;</li>
                 <li>회원가입</li>
             </ul>
@@ -246,7 +246,7 @@
                                 <div>
                                     email 서비스를 받으시겠습니까?&nbsp;
                                     <input type="radio" name="emailService" id="email_yes" value="Y"><label for="email_yes">&nbsp;예</label>
-                                    <input type="radio" name="emailService" id="email_no" value="N"><label for="email_yes">&nbsp;아니오</label>
+                                    <input type="radio" name="emailService" id="email_no" value="N"><label for="email_no">&nbsp;아니오</label>
                                 </div>
                                 <div>
                                     주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.

@@ -167,8 +167,10 @@
                                     <td th:text="${ product.productName }"></td>
                                     <td th:text="${ product.price }"></td>
                                     <td th:text="${ product.orderableStatus }"></td>
-                                    <td th:text="${ product.option.stock }"></td>
-                                    <td th:text="${ product.option.sales }"></td>
+                                    <td th:text="${ product.optionList != null and not #lists.isEmpty(product.optionList) ? product.optionList[0].sales : ''}"></td>
+<!--                                    productDTO에서 option을 List 로 선언함, sales 값이 null이거나 비어있으면 불러오지 못함,
+                                        null이 아니고 비어있지 않은 경우에만 첫 번째 값 가져오도록 선언 -->
+                                    <td th:text="${ product.optionList != null and not #lists.isEmpty(product.optionList) ? product.optionList[0].stock : ''}"></td>
                                     <td th:text="${#dates.format(product.registrationDate, 'yyyy.MM.dd HH:mm')}"></td>
 
                                 </tr>
@@ -179,30 +181,6 @@
 
                 </div>
 </th:block>
-<script>
-/* 게시글 리스트에서 해당 게시글에 마우스를 올릴 떄에 대한 스타일 처리 */
-if (document.querySelectorAll("#list td")) {
-const $tds = document.querySelectorAll("#list td");
-for (let i = 0; i < $tds.length; i++) {
-
-$tds[i].onmouseenter = function() {
-this.parentNode.style.backgroundColor = "orangered";
-this.parentNode.style.cursor = "pointer";
-}
-
-$tds[i].onmouseout = function() {
-this.parentNode.style.backgroundColor = "black";
-}
-
-$tds[i].onclick = function() {
-const no = this.parentNode.children[0].innerText;
-location.href = "" ;
-}
-}
-}
-
-
-</script>
 
 </body>
 </html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminManagement.model.dao.AdminManagementMapper">
+    <resultMap id="AdminResultMap" type="com.hedgehog.admin.adminManagement.model.dto.AdminDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="connectionDate" column="connection_date"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="withdrawState" column="withdraw_state"/>
+        <result property="authorityName" column="authority_name"/>
+        <result property="commitDate" column="commit_date"/>
+    </resultMap>
+    <select id="getAdminList" resultMap="AdminResultMap">
+        SELECT
+            A.user_code,
+            A.id,
+            A.name user_name,
+            A.connection_date,
+            A.creation_date,
+            A.withdraw_state,
+            C.name authority_name,
+            D.commit_date
+        FROM tbl_user A
+        JOIN tbl_authority_list B ON A.user_code = B.user_code
+        JOIN tbl_authority C ON B.authority_code = C.authority_code
+        LEFT JOIN tbl_withdraw D ON A.user_code = D.user_code
+        WHERE A.classify='관리자'
+        ORDER BY C.name='ADMIN', A.withdraw_state='Y', A.connection_date DESC;
+    </select>
+    <insert id="insertAdmin">
+        INSERT INTO tbl_user(id, password, classify, name, creation_date)
+        VALUES (#{adminAddId}, #{adminAddPass}, '관리자', #{adminAddName}, NOW())
+    </insert>
+    <insert id="insertAuthorityList">
+        INSERT INTO tbl_authority_list(authority_code, user_code)
+        VALUES (2, #{userCode})
+    </insert>
+    <insert id="insertWithdrawTbl">
+        INSERT INTO tbl_withdraw(user_code,state,cause,commit_date)
+        VALUES(#{userCode},'Y','관리자 탈퇴',NOW())
+    </insert>
+    <select id="selectWithdrawCode">
+        SELECT last_insert_id()
+        FROM tbl_withdraw
+        LIMIT 1
+    </select>
+    <update id="updateAdminWithdraw">
+        update tbl_user
+        SET withdraw_state='Y'
+        WHERE user_code=#{userCode}
+    </update>
+    <update id="updateAdminPwd">
+        update tbl_user
+        SET password=#{adminUpdatePass}
+        WHERE user_code=#{userCode}
+    </update>
+</mapper>

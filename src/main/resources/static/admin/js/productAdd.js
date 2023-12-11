@@ -27,6 +27,7 @@ $(document).ready(function () {
         }
     }
 });
+    var optionIndex = 1;
 
     $("body").on("click", "#img-add img", function (event) {
         console.log("클릭");
@@ -38,24 +39,26 @@ $(document).ready(function () {
             var newOpList = $("<tr class='optionList'>" +
                 "<th colspan='2'>" +
                 "<ul class='arrAlign'>" +
-                "<li class='w400'><input type='text' name='optionCode' style='width: 350px;' value='예시 : 색상'></li>" +
-                "<li class='w400'><input type='text' name='optionName' style='width: 350px;' value='예시 : 갈색'></li>" +
-                "<li class='w200'><input type='number' name='sales' style='width: 125px;' value='0'> 원</li>" +
-                "<li class='w200'><input type='number' name='stock' style='width: 125px;' value='0'> 개</li>" +
+                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</div></li>"+
+                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
+                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
+                "<li class='w200'><input type='number' name='optionList[" + optionIndex + "].stock' style='width: 125px;' value='0'> 개</li>" +
                 "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
                 "</ul>" +
                 "</th>" +
                 "</tr>");
 
             $(".optionList:last").after(newOpList);
+            optionIndex++;
         } else if (src.includes("delete.png")) {
             $(this).closest(".optionList").remove();
+            optionIndex--;
         }
     });
+
     $("body").on("click", "img[name='img-delete']", function(event) {
         $(this).closest("tr.optionList").remove();
     });
-
 
 
     $("#file").on("change", function(e){
@@ -70,6 +73,8 @@ $(document).ready(function () {
         reader.onload = function(e) {
         };
         reader.readAsBinaryString(f);
+
+
     }
 });
 
@@ -84,6 +89,7 @@ $(function(){
 
         image.style.width = '200px';
 
+
         // 이전 이미지를 제거하고 새로운 이미지를 추가
         $("#thumbnailPreview").empty().append(image);
     });
@@ -93,9 +99,9 @@ $(function () {
     $("#sub_thumbnail").change(function (event) {
         const files = event.target.files;
 
-        // 최대 5개까지만 허용
-        if (files.length > 5) {
-            alert("최대 5개의 이미지만 선택할 수 있습니다.");
+        // 최대 3개까지만 허용
+        if (files.length > 3) {
+            alert("최대 3개의 이미지만 선택할 수 있습니다.");
             // 선택된 파일 초기화
             $("#sub_thumbnail").val('');
             return;
@@ -105,7 +111,7 @@ $(function () {
         var thumbnailContainer = $("#subThumbnailPreview");
 
         // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
-        if (thumbnailContainer.children('img').length + files.length > 5) {
+        if (thumbnailContainer.children('img').length + files.length > 3) {
             var excessCount = thumbnailContainer.children('img').length + files.length - 5;
             thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
         }
@@ -117,7 +123,7 @@ $(function () {
 
             image.src = ImageTempUrl;
 
-            image.style.width = '40px';
+            image.style.width = '100px';
 
             // 새로운 이미지를 뒤로 추가
             thumbnailContainer.append(image);
@@ -144,43 +150,35 @@ $(function(){
 
 
 // 옵션 수량이 변경될 때 전체 재고 업데이트
-$("body").on("input", "input[name='stock']", function () {
-    updateTotalStock();
-});
-
-// 전체 재고를 업데이트하는 함수
-function updateTotalStock() {
-    var totalQuantity = 0;
-    $("input[name='stock']").each(function () {
-        var quantity = parseInt($(this).val()) || 0;
-        totalQuantity += quantity;
+    $("#productAdd").on("input", "input[name^='optionList'][name$='.stock']", function () {
+        updateTotalStock();
     });
 
-    // 전체 재고를 표시할 요소의 ID가 'totalStock'라고 가정합니다. 만약 다르다면 해당 요소의 ID로 바꿔주세요.
-    $("#totalStock").text(totalQuantity);
-}
+// 전체 재고를 업데이트하는 함수
+    function updateTotalStock() {
+        var totalQuantity = 0;
 
-// 페이지 로딩 시 초기 전체 재고를 설정하기 위해 updateTotalStock 함수를 호출합니다.
-updateTotalStock();
-});
+        $("input[name^='optionList'][name$='.stock']").each(function () {
+            var quantity = parseInt($(this).val()) || 0;
+            totalQuantity += quantity;
+        });
 
-//
-// $.ajax({
-//     type: 'GET',
-//     url: "/product/seletCategory",
-//     contentType: "application/json; charset=UTF-8",
-//     data: JSON.stringify({upperCategoryCode: upperCategoryCode}),
-//
-// })
-function setSelectBox(select) {
-    for (let i = 0; i < $('#upperCategoryCode').children().length; i++) {
-        if ($('#upperCategoryCode').children().eq(i).is(':selected')) {
-            var upperCategoryCode = $('#upperCategoryCode').children().eq(i).val();
-            // 선택된 값에 대한 로직 수행
-            console.log('Selected upperCategoryCode:', upperCategoryCode);
-        }
+        // 전체 stock 업데이트
+        $("#totalStock").text(totalQuantity);
     }
 
+// 페이지 로딩 시 초기 전체 재고를 설정하기 위해 updateTotalStock 함수를 호출합니다.
+    $(document).ready(function () {
+        // 페이지 로딩 시 초기 옵션 개수에 따라 재고 설정
+        updateTotalStock();
+    });});
+
+var selectedSubCategory = /*[[${product.category.subCategoryName}]]*/ null;
+// null 쓰는 이위는 subCategoryName의 값이 없으면 null값을 넣어준다는 의미
+// 안쓰면 값이 없을때 오류가 뜰수도있음
+
+function setSelectBox(select) {
+    var upperCategoryCode = select.val();
 
     // Ajax를 이용하여 서버에서 데이터 가져오기
     $.ajax({
@@ -189,11 +187,22 @@ function setSelectBox(select) {
         success: function (data) {
             // 서버에서 받은 데이터를 이용하여 동적으로 콘텐츠 생성
             var subCategorySelect = $("#subCategoryName");
-            subCategorySelect.empty(); // 기존 옵션 제거
+
+            // 기존 옵션 제거
+            subCategorySelect.empty();
 
             // 서버에서 받은 데이터를 이용하여 옵션 추가
             for (var i = 0; i < data.length; i++) {
-                subCategorySelect.append('<option value="' + data[i].subCategoryName + '">' + data[i].name + '</option>');
+                var option = $('<option></option>')
+                    .attr('value', data[i].subCategoryName)
+                    .text(data[i].name);
+
+                // 만약 현재 옵션이 선택된 상태이면 선택 속성 추가
+                if (data[i].subCategoryName === selectedSubCategory) {
+                    option.attr('selected', 'selected');
+                }
+
+                subCategorySelect.append(option);
             }
         },
         error: function (error) {
@@ -201,3 +210,51 @@ function setSelectBox(select) {
         }
     });
 }
+
+// 페이지 로딩 시 초기 서브 카테고리 설정
+$(document).ready(function () {
+    setSelectBox($('#upperCategoryCode'));
+
+    // 상위 카테고리가 변경될 때마다 서브 카테고리 업데이트
+    $('#upperCategoryCode').change(function () {
+        setSelectBox($(this));
+    });
+});
+
+
+if(message != null && message !== 'null') {
+    alert(message);
+}
+
+    // $("#btnAdd").on("click", function () {
+    //     var productName = document.getElementById($('#productName'));
+    //     var price = parseFloat(document.getElementById('price').value);
+    //     var upperCategoryCode = document.getElementById('upperCategoryCode');
+    //     var salesStart = document.getElementById('salesStart').value;
+    //     var salesEnd = document.getElementById('salesEnd').value;
+    //     var subCategoryName = document.getElementById($('#subCategoryName'));
+    //     var optionIndex = 0;  // 예시로 초기값을 0으로 설정
+    //     var optionCode = $("#optionDTO\\[" + optionIndex + "\\]\\.optionCode").val();
+    //     var optionName = $("#optionDTO\\[" + optionIndex + "\\]\\.optionName").val();
+    //     var Stock = $("#optionList\\[" + optionIndex + "\\]\\.stock").val();
+    //     var thumbnail = $("#thumbnail")[0].files[0]; // 파일을 가져오려면 [0].files[0]로 접근
+    //     var sub_thumbnail = $("#sub_thumbnail")[0].files; // 여러 파일을 가져오려면 [0].files로 접근
+    //     var proImg = $("#proImg")[0].files[0];
+    //     if (typeof price !== 'string'|| !price || price.value === '0') {
+    //         alert("상위 카테고리 코드는 문자열로 입력되어야 합니다.");
+    //         return;  // 함수 종료
+    //     }
+    //     if (isNaN(price) || !productName || upperCategoryCode === '' || salesStart === '' || salesStart.value === '' || salesEnd === '' ||price.trim() === "") {
+    //         alert("모든 정보를 입력해주세요");
+    //     } else {
+    //         // 폼 데이터에 변환된 값을 설정
+    //         $("#upperCategoryCode").val(upperCategoryCode);
+    //         $("#price").val(price);
+    //
+    //         // 서버로 데이터 전송
+    //         $("#productAdd").submit();
+    //     }
+    //
+    //
+    // })
+// }

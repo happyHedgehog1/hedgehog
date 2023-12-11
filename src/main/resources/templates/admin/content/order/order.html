@@ -22,6 +22,9 @@
                         <div class="box"></div>
                     </div>
                     <div class="sectTopWrapper">
+                        <form id="searchForm"
+                              th:action="@{/order/orderSearch}"
+                              method="get">
                         <div class="sectTop">
                             <table class="tblTop">
                                 <colgroup>
@@ -34,7 +37,7 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="prdCondition" id="prdCondition" >
+                                                        <select name="state" id="state" >
                                                             <option value="0" selected>주문상태 전체</option>
                                                             <option value="1">배송대기</option>
                                                             <option value="2">배송중</option>
@@ -43,8 +46,6 @@
                                                             <option value="5">취소완료</option>
                                                             <option value="6">환불중</option>
                                                             <option value="7">환불완료</option>
-                                                            <option value="8">교환중</option>
-                                                            <option value="9">교환완료</option>
                                                         </select>
                                                     </li>
                                                 </ul>    
@@ -55,53 +56,37 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="keyword" id="keyword" >
+                                                        <select name="keyword" id="keyword" style="width: 200px">
                                                             <option value="0" selected>검색 키워드 선택</option>
-                                                            <option value="1">주문번호</option>
-                                                            <option value="2">주문자</option>
-                                                            <option value="3">연락처</option>
-                                                            <option value="4">상품명</option>
-                                                            <option value="5">상품번호</option>
-                                                            <option value="6">회원아이디</option>
+                                                            <option value="orderCode">주문번호</option>
+                                                            <option value="name">주문자</option>
+                                                            <option value="phone">연락처</option>
+                                                            <option value="productName">상품명</option>
+                                                            <option value="productCode">상품번호</option>
+                                                            <option value="id">회원아이디</option>
                                                         </select>
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;
                                                     </li>                                                    
                                                     <li>
-                                                        <input type="text" name="pro_search" id="pro_search">
+                                                        <input type="text" name="keywordValue" id="keywordValue" style="width: 200px">
                                                     </li>
                                                 </ul>    
                                             </td>   
-                                    </tr>    
-                                    <tr>        
-                                        <th>판매가</th>    
-                                            <td>
-                                                <ul class="arrAlign">
-                                                    <li class="w200">
-                                                        <input type="text" name="SeartStartPrice" id="SeartStartPrice">
-                                                    </li>
-                                                    <li class="w25">
-                                                        &nbsp;~
-                                                    </li>                                                    
-                                                    <li class="w200">
-                                                        <input type="text" name="SeartEndPrice" id="SeartEndPrice">
-                                                    </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr>   
+                                    </tr>
                                     <tr>        
                                         <th>기간</th>    
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="date" name="searchStartDay" id="searchStartDay">
+                                                        <input type="date" name="searchStartDay" id="searchStartDay" style="width: 200px">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;
                                                     </li>  
                                                     <li class="w200">
-                                                        <input type="date" name="searchEndDay" id="searchEndDay">
+                                                        <input type="date" name="searchEndDay" id="searchEndDay" style="width: 200px">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -112,24 +97,24 @@
                                 <button id="btnSearch"> 검색 </button>
                             </div>
                             <div><br><br></div>
-                        </div>    
+                        </div>
+                        </form>
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
+                        <form id="stateUpdate"
+                              th:action="@{/order/stateUpdate}"
+                              method="post">
                         <div class="bottomResult">
-                            <div class="bottomResultTitle"><h3>상품 검색 결과</h3></div>
+                            <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 3 </span>
-                                <span> / 판매중 : </span>
-                                <span class="colorRed"> 2 </span>
-                                <span> / 품절 : </span>
-                                <span class="colorRed"> 1 </span>
-                                <span> ) </span></div>
+                                <span class="colorRed" th:text="${totalResult}">  </span>
+                                <span> 건 ) </span></div>
                         </div>
                         <div class="tblWrapper">
                         <table class="tblBottom" id="order">
                             <colgroup>
-                                <col class="w140">
+                                <col>
                                 <col>
                                 <col>
                                 <col>
@@ -137,7 +122,7 @@
                             </colgroup>
                             <tbody>
                                         <tr class="searchResult">
-                                            <th><li><input type="checkbox" name="resultCheckbox" id="resultCheckbox"></li></th>    
+                                            <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
                                             <th>주문일시</th>
                                             <th>주문번호</th>
                                             <th>상품번호</th>
@@ -146,197 +131,24 @@
                                             <th>주문자</th>
                                             <th>상태</th>
                                             <th>결제금액</th>                                                    
-                                </tr> 
-                                <tr class="searchBottom_tr">
+                                </tr>
+                                <tr class="searchBottom_tr"  th:each="order : ${ orderSearch }">
                                     <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${order.getOrderCode()}">
                                     </td>
-                                    <td>
-                                        <li>2023-11-22 09:18 </li>
-                                    </td>
-                                    <td>
-                                        <li>C1234567</li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>3</li>
-                                    </td>
-                                    <td>
-                                        <li>홍길동</li>
-                                    </td>
-                                    <td>
-                                        <li>배송중</li>
-                                    </td>
-                                    <td>
-                                        <li>800,000원</li>
-                                    </td>
+                                    <td th:text="${ order.getCreationDate() }"></td>
+                                    <td th:text="${ order.getOrderCode() }"></td>
+                                    <td th:text="${ order.getProductCode() }"></td>
+                                    <td th:text="${ order.getProductDTO().productName }">상품명</td>
+                                    <td th:text="${ order.getTotalCount() }"></td>
+                                    <td th:text="${ order.userDTO.getName() }"></td>
+                                    <td th:text="${ order.getState() }"></td>
+                                    <td th:text="${ order.getSumPrice() }"></td>
                                 </tr>   
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-22 09:18 </li>
-                                    </td>
-                                    <td>
-                                        <li>C1234567</li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>3</li>
-                                    </td>
-                                    <td>
-                                        <li>홍길동</li>
-                                    </td>
-                                    <td>
-                                        <li>배송중</li>
-                                    </td>
-                                    <td>
-                                        <li>800,000원</li>
-                                    </td>
-                                </tr>   
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-22 09:18 </li>
-                                    </td>
-                                    <td>
-                                        <li>C1234567</li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>3</li>
-                                    </td>
-                                    <td>
-                                        <li>홍길동</li>
-                                    </td>
-                                    <td>
-                                        <li>배송중</li>
-                                    </td>
-                                    <td>
-                                        <li>800,000원</li>
-                                    </td>
-                                </tr>   
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-22 09:18 </li>
-                                    </td>
-                                    <td>
-                                        <li>C1234567</li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>3</li>
-                                    </td>
-                                    <td>
-                                        <li>홍길동</li>
-                                    </td>
-                                    <td>
-                                        <li>배송중</li>
-                                    </td>
-                                    <td>
-                                        <li>800,000원</li>
-                                    </td>
-                                </tr>   
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-22 09:18 </li>
-                                    </td>
-                                    <td>
-                                        <li>C1234567</li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>3</li>
-                                    </td>
-                                    <td>
-                                        <li>홍길동</li>
-                                    </td>
-                                    <td>
-                                        <li>배송중</li>
-                                    </td>
-                                    <td>
-                                        <li>800,000원</li>
-                                    </td>
-                                </tr>   
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-22 09:18 </li>
-                                    </td>
-                                    <td>
-                                        <li>C1234567</li>
-                                    </td>
-                                    <td>
-                                        <li>c-2023-01</li>
-                                    </td>
-                                    <td>
-                                        <li>COOKY 패브릭 소파 1인</li>
-                                    </td>
-                                    <td>
-                                        <li>3</li>
-                                    </td>
-                                    <td>
-                                        <li>홍길동</li>
-                                    </td>
-                                    <td>
-                                        <li>배송중</li>
-                                    </td>
-                                    <td>
-                                        <li>800,000원</li>
-                                    </td>
-                                </tr>   
+
                             </tbody>
                         </table>
                         </div>
-
                         <div class="bottom">
                             <select name="selectCommit" id="selectCommit" >
                                 <option value="0" selected>일괄 처리</option>
@@ -350,10 +162,14 @@
                                 <option value="8">교환중</option>
                                 <option value="9">교환완료</option>
                             </select>
-                            <button id="btnCommit">적용</button>
+                            <button id="btnCommit" type="submit">적용</button>
                         </div>
+                        </form>
                     </div>
                 </div>
+                </div>
                 </th:block>
+
+
 </body>
 </html>

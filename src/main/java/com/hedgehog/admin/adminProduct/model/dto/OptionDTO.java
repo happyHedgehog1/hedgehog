@@ -8,6 +8,6 @@ import lombok.*;
 @Setter
 @ToString
 public class OptionDTO {
-    private int optionCode;
+    private String optionCode;
     private String optionName;
 }

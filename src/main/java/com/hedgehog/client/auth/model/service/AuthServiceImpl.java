@@ -7,6 +7,7 @@ import com.hedgehog.client.auth.model.dto.MemberDTO;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import groovy.util.logging.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public LoginDetails findByUserId(String username) {
+    public UserDetails findByUserId(String username) {
         LoginUserDTO user = mapper.findByUsername(username);
         if(Objects.isNull(user)){
             throw new UsernameNotFoundException("아이디를 잘못입력했습니다.");
@@ -112,9 +113,9 @@ public class AuthServiceImpl implements AuthService {
         boolean isUpdateConnectionDate = mapper.updateConnectionDate(userCode)==1;
         if(!isUpdateConnectionDate){
             // 데이터가 못들어간 경우
-            throw new InternalAuthenticationServiceException("현재 접속 성공한 아이디의 connection_date의 값을 넣지 못했습니다.");
+            throw new InternalAuthenticationServiceException("현재 아이디의 connection_date의 값을 넣지 못했습니다.");
         }
-        LoginDetails login = new LoginDetails(user);
+        UserDetails login = new LoginDetails(user);
 
         return login;
     }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminMember.model.dao.AdminUnregisterMapper">
+    <resultMap id="unregisterMap" type="AdminUnregisterDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="withdraw_code" column="withdraw_code"/>
+        <result property="id" column="id"/>
+        <result property="apply_date" column="apply_date"/>
+        <result property="commit_date" column="commit_date"/>
+        <result property="cause" column="cause"/>
+        <result property="state" column="state"/>
+        <result property="cancel_date" column="cancel_date"/>
+        <association property="user" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+
+    <resultMap id="adminUserDTOResultMap" type="AdminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="classify" column="classify"/>
+        <result property="name" column="name"/>
+        <result property="connection_date" column="connection_date"/>
+        <result property="creation_date" column="creation_date"/>
+        <result property="withdraw_state" column="withdraw_state"/>
+    </resultMap>
+
+    <select id="selectUnregister" resultMap="unregisterMap">
+        SELECT
+        A.user_code,
+        A.id,
+        B.apply_date,
+        B.commit_date,
+        B.cause,
+        B.state
+        FROM
+        tbl_withdraw B
+        JOIN tbl_user A ON B.user_code = A.user_code
+        <where>
+            <if test="applyStartDay != ''">
+                <if test="applyEndDay != ''">
+                    AND B.apply_date BETWEEN #{applyStartDay} AND #{applyEndDay}
+                </if>
+                <if test="applyEndDay == ''">
+                    AND B.apply_date > #{applyStartDay}
+                </if>
+            </if>
+            <if test="commitStartDay != ''">
+                <if test="commitEndDay != ''">
+                    AND B.commit_date BETWEEN #{commitStartDay} AND #{commitEndDay}
+                </if>
+                <if test="commitEndDay == ''">
+                    AND B.commit_date > #{commitStartDay}
+                </if>
+            </if>
+            <if test="unregisterCondition == 'withdrawal'">
+                AND (B.cause NOT LIKE CONCAT('%관리자%', '') AND B.cause NOT LIKE CONCAT('%강제%', ''))
+            </if>
+            <if test="unregisterCondition == 'forcedWithdrawal'">
+                AND B.cause LIKE CONCAT('%강제%', '') AND B.cause LIKE CONCAT('%관리자 승인%', '')
+            </if>
+            <if test="unregisterCondition == 'plannedWithdrawal'">
+                AND B.state = 'N'
+            </if>
+            <if test="idSearch != null and idSearch != ''">
+                AND A.id LIKE CONCAT('%', #{idSearch}, '%')
+            </if>
+        </where>
+    </select>
+    <update id="causeUpdate" parameterType="_int">
+        UPDATE tbl_withdraw
+        SET
+            cause = '관리자 승인 탈퇴',
+            cancel_date = now()
+        WHERE user_code = #{user_code}
+    </update>
+</mapper>

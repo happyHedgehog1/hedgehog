@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품등록</title>
+    <title>탈퇴회원조회</title>
     <link rel="stylesheet" th:href="@{/admin/css/unregister.css}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/admin/js/seach.js}"></script>
@@ -23,69 +23,95 @@
                         <div class="box"></div>
                     </div>
                     <div class="sectTopWrapper">
+                        <form id="unregisterForm"
+                              name="unregisterForm"
+                              th:action="@{/unregister/unregisterSearch}"
+                              method="get"
+                              style="display: inline-block">
                         <div class="sectTop">
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
                                     <col>
                                 </colgroup>
-                                <tbody>  
+                                <tbody>
+                                <tr>
+                                    <th>아이디</th>
+                                    <td>
+                                        <ul class="arrAlign">
+                                            <li class="w200">
+                                                <input type="search" name="searchId" id="searchId" />
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
                                     <tr>        
-                                        <th>아이디</th>    
-                                            <td>
-                                                <ul class="arrAlign">
-                                                    <li class="w200">
-                                                        <input type="text" name="seartId" id="seartId">
-                                                    </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr>   
-                                    <tr>        
-                                        <th>탈퇴유형</th>    
+                                        <th>탈퇴유형</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
                                                         <select name="unregisterCondition" id="unregisterCondition" >
-                                                            <option value="0" selected>전체</option>
-                                                            <option value="1">일반탈퇴</option>
-                                                            <option value="2">강제탈퇴</option>
+                                                            <option value="" selected>전체</option>
+                                                            <option value="withdrawal">일반탈퇴</option>
+                                                            <option value="forcedWithdrawal">강제탈퇴</option>
+                                                            <option value="plannedWithdrawal">탈퇴예정</option>
                                                         </select>
                                                     </li>
                                                 </ul>    
                                             </td>   
                                     </tr> 
                                     <tr>        
-                                        <th>기간</th>    
+                                        <th>탈퇴 신청일 조회</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="date" name="startDay" id="startDay">
+                                                        <input type="date" name="applyStartDay" id="applyStartDay">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;
                                                     </li>  
                                                     <li class="w200">
-                                                        <input type="date" name="endDay" id="endDay">
+                                                        <input type="date" name="applyEndDay" id="applyEndDay">
                                                     </li>
                                                 </ul>    
                                             </td>   
-                                    </tr> 
+                                    </tr>
+                                <tr>
+                                    <th>탈퇴 완료일 조회</th>
+                                    <td>
+                                        <ul class="arrAlign">
+                                            <li class="w200">
+                                                <input type="date" name="commitStartDay" id="commitStartDay">
+                                            </li>
+                                            <li class="w25">
+                                                &nbsp;
+                                            </li>
+                                            <li class="w200">
+                                                <input type="date" name="commitEndDay" id="commitEndDay">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
                                 </tbody>    
                             </table>
                             <div>
-                                <button id="btnSearch"> 검색 </button>
+                                <button type="submit" id="btnSearch"> 검색 </button>
                             </div>
+                        </form>
                             <div><br><br></div>
-                        </div>    
+                        </div>
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
+                        <form id="stateUpdate"
+                              th:action="@{/unregister/stateUpdate}"
+                              method="post">
                         <div class="bottomResult">
                             <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 5 </span> 건 / 일반탈퇴 :
-                                <span class="colorRed"> 4 </span>건 / 강제탈퇴 : 
-                                <span class="colorRed"> 1 </span>건 )
+                                <span class="colorRed" th:text="${totalResult}"> </span> 건 / 일반탈퇴 :
+                                <span class="colorRed" th:text="${countY}">  </span>건 / 강제탈퇴 :
+                                <span class="colorRed" th:text="${countN}">  </span>건 )
                             </div>
                         </div>
                         <div class="tblWrapper">
@@ -98,111 +124,38 @@
 
                             </colgroup>
                             <tbody>
-                                        <tr class="searchResult">        
-                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
+                                        <tr class="searchResult">
+                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>
                                             <th>아이디</th>
-                                            <th>회원탈퇴일</th>
-                                            <th>구분</th>
-                                            <th>탈퇴사유</th>                                                 
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
+                                            <th>탈퇴신청일</th>
+                                            <th>탈퇴완료일</th>
+                                            <th>탈퇴사유</th>
+                                            <th>탈퇴여부</th>
+                                </tr>
+                                <tr class="searchBottom_tr"
+                                th:each="unregister : ${ unregisterList}">
                                     <td>
-                                        <li>아이디1</li>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${ unregister.getUser_code() }">
                                     </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr>    
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li class="colorRed">강제탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
-                                <tr class="searchBottom_tr">
-                                    <td class="searchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>아이디1</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-11-20</li>
-                                    </td>
-                                    <td>
-                                        <li>일반탈퇴</li>
-                                    </td>
-                                    <td>
-                                        <li>직접 입력한 사유</li>
-                                    </td>
-                                </tr> 
+
+                                    <td th:text="${ unregister.id}"></td>
+                                    <td th:text="${ unregister.apply_date}"></td>
+                                <td th:text="${ unregister.commit_date}"></td>
+                                <td th:text="${ unregister.cause}"></td>
+                                <td th:text="${ unregister.state}"></td>
+                                </tr>
+
                             </tbody>
                         </table>
                         </div>
+                            <div class="bottom">
+                                <select name="selectCommit" id="selectCommit" >
+                                    <option value="adminWithdrawal" selected>탈퇴 승인</option>
+
+                                </select>
+                                <button id="btnCommit" type="submit">적용</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 </th:block>
