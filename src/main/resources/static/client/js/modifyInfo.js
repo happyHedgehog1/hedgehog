@@ -1,5 +1,5 @@
 const goMyPage = () => {
-    location.href = "../html/mypageMember.html";
+    location.href = "../html/mypage.html";
 };
 
 const agreeCheckImg = (checkImg) => {
