@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminService.model.dao.AdminInquiryMapper">
+    <resultMap id="inquiryResultMap" type="AdminInquiryDTO">
+        <id property="inquiry_code" column="inquiry_code"/>
+        <result property="member_code" column="member_code"/>
+        <result property="secret_state" column="secret_state"/>
+        <result property="password" column="password"/>
+        <result property="answer_state" column="answer_state"/>
+        <result property="write_date" column="write_date"/>
+        <result property="modify_date" column="modify_date"/>
+        <result property="post_type" column="post_type"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="state" column="state"/>
+        <association property="id" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+    <resultMap id="commentResultMap" type="AdminCommentDTO">
+    <id property="comment_code" column="comment_code"/>
+    <result property="inquiry_code" column="inquiry_code"/>
+    <result property="user_code" column="user_code"/>
+    <result property="write_date" column="write_date"/>
+    <result property="modify_date" column="modify_date"/>
+    <result property="content" column="content"/>
+    </resultMap>
+    <resultMap id="productResultMap" type="AdminProductDTO">
+    <id property="productCode" column="product_code"/>
+    <result property="subCategoryName" column="category_code"/>
+    <result property="productName" column="product_name"/>
+    <result property="orderableStatus" column="orderable_status"/>
+    <result property="price" column="price"/>
+    <result property="registrationDate" column="registration_date"/>
+    <result property="modificationDate" column="modification_date"/>
+    <result property="eventProgressionStatus" column="event_progressionstatus"/>
+    <result property="deliveryCharge" column="delivery_charge"/>
+    <result property="salesStart" column="sales_start"/>
+    <result property="reviews" column="reviews"/>
+    <result property="grade" column="grade"/>
+    <result property="salesEnd" column="sales_end"/>
+    </resultMap>
+    <resultMap id="adminUserDTOResultMap" type="AdminUserDTO">
+    <id property="user_code" column="user_code"/>
+        <result property="id" column="id"/>
+
+    </resultMap>
+
+
+    <select id="searchInquiry" resultMap="inquiryResultMap">
+        SELECT
+            A.answer_state,
+            A.post_type,
+            A.title,
+            B.id,
+            A.write_date
+        FROM
+            tbl_inquiry A
+        JOIN tbl_member C ON A.member_code = C.member_code
+        JOIN tbl_user B ON C.member_code = B.user_code
+        <where>
+            <if test="inqSearchStartDay != ''">
+                <if test="inqSearchEndDay != ''">
+                    AND A.write_date BETWEEN #{inqSearchStartDay} AND #{inqSearchEndDay}
+                </if>
+                <if test="inqSearchEndDay == ''">
+                    AND A.write_date > #{inqSearchStartDay}
+                </if>
+            </if>
+            <if test="inqCondition == 1">
+                AND A.post_type LIKE CONCAT('상품')
+            </if>
+            <if test="inqCondition == 2">
+                AND A.post_type LIKE CONCAT('배송')
+            </if>
+            <if test="inqCondition == 3">
+                AND A.post_type LIKE CONCAT('교환')
+            </if>
+            <if test="inqCondition == 4">
+                AND A.post_type LIKE CONCAT('반품')
+            </if>
+            <if test="inqCondition == 5">
+                AND A.post_type LIKE CONCAT('환불')
+            </if>
+            <if test="inqCondition == 6">
+                AND A.post_type LIKE CONCAT('기타')
+            </if>
+            <if test="Condition == 1">
+                AND A.answer_state LIKE CONCAT('Y')
+            </if>
+            <if test="Condition == 2">
+                AND A.answer_state LIKE CONCAT('N')
+            </if>
+        </where>
+    </select>
+</mapper>
