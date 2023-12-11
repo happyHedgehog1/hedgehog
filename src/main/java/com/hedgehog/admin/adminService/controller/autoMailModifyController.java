@@ -1,4 +1,4 @@
-package com.hedgehog.admin.adminservice.controller;
+package com.hedgehog.admin.adminService.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
