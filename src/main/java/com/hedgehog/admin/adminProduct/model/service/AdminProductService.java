@@ -17,4 +17,7 @@ public interface AdminProductService {
 
 
     public AdminProductDTO selectProductDetail(int productCode);
+
+    public void productUpdate(AdminProductDTO product) throws AdminProductAddException;
+
 }

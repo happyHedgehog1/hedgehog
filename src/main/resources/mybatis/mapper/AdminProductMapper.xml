@@ -17,18 +17,19 @@
         <result property="reviews" column="reviews"/>
         <result property="grade" column="grade"/>
         <result property="salesEnd" column="sales_end"/>
-        <association property="attachment" resultMap="attachmentResultMap"/>
-        <association property="optionDTO" resultMap="optionResultMap"/>
-        <association property="optionList" resultMap="optionListResultMap"/>
         <association property="category" resultMap="categoryResultMap"/>
+        <association property="optionList" resultMap="optionListResultMap"/>
+        <collection property="attachment" resultMap="attachmentResultMap"/>
+        <collection property="optionDTO" resultMap="optionResultMap"/>
     </resultMap>
 
     <resultMap id="optionListResultMap" type="OptionListDTO">
         <id property="productCode" column="product_code"/>
-        <result property="optionCode" column="option_code"/>
+        <id property="optionCode" column="option_code"/>
         <result property="stock" column="stock"/>
         <result property="exposureStatus" column="exposure_status"/>
         <result property="sales" column="sales_volume"/>
+        <association property="optionDTO" resultMap="optionResultMap" />
     </resultMap>
 
     <resultMap id="optionResultMap" type="OptionDTO">
@@ -63,6 +64,7 @@
             stock,
             sales_volume,
             registration_date,
+            modification_date,
             category_code
         FROM (
         SELECT
@@ -71,6 +73,7 @@
             A.price,
             A.orderable_status,
             A.registration_date,
+            A.modification_date,
             A.category_code,
             SUM(B.stock) as stock,
             SUM(B.sales_volume) as sales_volume
@@ -118,7 +121,6 @@
         order by product_code
         ) AS subquery
     </select>
-
     <insert id="addProduct">
         INSERT INTO tbl_product (
                     product_name,
@@ -144,7 +146,6 @@
         VALUES
             (#{productCode}, #{optionCode}, #{stock}, 'Y')
     </insert>
-
     <insert id="addImg">
         INSERT
         INTO TBL_PRODUCT_IMG (
@@ -168,7 +169,6 @@
             (#{optionCode}, #{optionName})
 
     </insert>
-
     <select id="searchCategory" resultMap="categoryResultMap">
         SELECT
             b.category_code,
@@ -191,7 +191,6 @@
             </if>
         </where>
     </select>
-
     <select id="searchOptionCode" resultMap="optionResultMap">
         SELECT
             option_code
@@ -226,10 +225,25 @@
                  JOIN tbl_option C ON C.option_code = D.option_code
                  JOIN tbl_product_img F ON A.product_code = F.product_code
                  WHERE A.product_code = #{productCode}
-
     </select>
-
-
-
-
+    <update id="productUpdate" parameterType="Map">
+        UPDATE TBL_PRODUCT
+        SET
+            product_name = #{productName, jdbcType=VARCHAR},
+            orderable_status = #{orderableStatus ,jdbcType=CHAR},
+            price = #{price, jdbcType=INTEGER},
+            delivery_charge = #{deliveryCharge ,jdbcType=INTEGER},
+            sales_start = #{salesStart ,jdbcType=TIMESTAMP},
+            sales_end = #{salesEnd ,jdbcType=TIMESTAMP},
+            category_code = #{subCategoryName ,jdbcType=INTEGER},
+            modification_date = now()
+        WHERE product_code = #{productCode, jdbcType=INTEGER}
+    </update>
+    <update id="optionListUpdate" parameterType="Map">
+        UPDATE tbl_option_list
+        SET
+            stock = #{stock, jdbcType=INTEGER},
+            option_code = #{optionCode, jdbcType=VARCHAR}
+        WHERE product_code = #{productCode, jdbcType=INTEGER}
+    </update>
 </mapper>

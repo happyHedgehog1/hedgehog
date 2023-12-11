@@ -64,13 +64,13 @@
                 AND (B.cause NOT LIKE CONCAT('%관리자%', '') AND B.cause NOT LIKE CONCAT('%강제%', ''))
             </if>
             <if test="unregisterCondition == 'forcedWithdrawal'">
-                AND B.cause LIKE CONCAT('%강제%', '') AND B.cause LIKE CONCAT('%관리자 승인%', '')
+                AND B.cause LIKE CONCAT('%강제%', '') OR B.cause LIKE CONCAT('%관리자 승인%', '')
             </if>
             <if test="unregisterCondition == 'plannedWithdrawal'">
                 AND B.state = 'N'
             </if>
-            <if test="idSearch != null and idSearch != ''">
-                AND A.id LIKE CONCAT('%', #{idSearch}, '%')
+            <if test="searchId != null and searchId != ''">
+                AND A.id LIKE CONCAT('%', #{searchId}, '%')
             </if>
         </where>
     </select>

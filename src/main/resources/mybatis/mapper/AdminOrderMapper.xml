@@ -12,10 +12,10 @@
         <result property="state" column="state"/>
         <result property="productCode" column="product_code"/>
         <result property="totalCount" column="total_count"/>
-        <association property="orderDetail" resultMap="orderDetailResultMap"/>
         <association property="userDTO" resultMap="adminUserResultMap"/>
         <association property="productDTO" resultMap="productResultMap"/>
         <association property="adminCustomerDTO" resultMap="customerResultMap"/>
+        <collection property="orderDetail" resultMap="orderDetailResultMap"/>
     </resultMap>
     <resultMap id="orderDetailResultMap" type="AdminOrderDetailDTO">
         <id property="orderDetailsCode" column="order_details_code"/>
@@ -31,8 +31,13 @@
     </resultMap>
     <resultMap id="adminUserResultMap" type="AdminUserDTO">
         <id property="user_code" column="user_code"/>
-        <result property="name" column="name"/>
         <result property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="classify" column="classify"/>
+        <result property="name" column="name"/>
+        <result property="connection_date" column="connection_date"/>
+        <result property="creation_date" column="creation_date"/>
+        <result property="withdraw_state" column="withdraw_state"/>
     </resultMap>
     <resultMap id="productResultMap" type="AdminProductDTO">
         <id property="productCode" column="product_code"/>
@@ -51,9 +56,11 @@
     </resultMap>
     <resultMap id="customerResultMap" type="AdminCustomerDTO">
         <id property="customer_code" column="customer_code"/>
+        <result property="member_state" column="member_state"/>
+        <result property="email" column="email"/>
         <result property="phone" column="phone"/>
+        <result property="certification_number" column="certification_number"/>
     </resultMap>
-
     <select id="searchOrderList" resultMap="orderResultMap">
         SELECT
             A.creation_date,
@@ -131,15 +138,36 @@
                 <when test="state == 1"> '배송대기'</when>
                 <when test="state == 2"> '배송중'</when>
                 <when test="state == 3"> '배송완료'</when>
-                <when test="state == 4"> '취소중'</when>
-                <when test="state == 5"> '취소완료'</when>
-                <when test="state == 6"> '환불중'</when>
-                <when test="state == 7"> '환불완료'</when>
-                <when test="state == 8"> '교환중'</when>
-                <when test="state == 9"> '교환완료'</when>
+                <when test="state == 4"> '취소완료'</when>
+                <when test="state == 5"> '환불완료'</when>
+                <when test="state == 6"> '교환완료'</when>
             </choose>
         WHERE order_code = #{orderCode}
     </update>
+    <select id="orderDetail" resultMap="orderResultMap">
+        SELECT
+            A.creation_date,
+            A.order_code,
+            B.product_code,
+            B.product_name,
+            D.name,
+            A.state,
+            A.sum_price,
+            D.id,
+            E.phone,
+            C.delivery_charge,
+            c.count,
+            c.point,
+            c.reduced_price,
+            c.cost_price,
+            c.final_price
+        FROM TBL_ORDER A
+                 JOIN tbl_product B on A.product_code = B.product_code
+                 join tbl_order_details C on A.order_code = C.order_code
+                 Join tbl_user D on A.customer_code = D.user_code
+                 join tbl_customer E on A.customer_code = E.customer_code
+        WHERE A.order_code = #{orderCode}
+    </select>
 
 
 </mapper>

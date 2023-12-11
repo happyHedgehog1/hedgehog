@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문내역 상세조회</title>
+    <link rel="stylesheet" th:href="@{/admin/css/autoMail/viewport/viewport.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
+</head>
+<body>
+<div id="wrap">
+    <header>
+        <div class="logobackground">
+            <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+            <h2>주문내역 상세조회</h2>
+        </div>
+    </header>
+    <div class="body">
+        <div class="wrap">
+            <div class="answer">.</div>
+            <table>
+                <tr>
+                    <th>주문일자</th>
+                    <th>주문코드</th>
+                    <th>상품명</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                    <th>주문일자</th>
+                </tr>
+                <tr th:each="order : ${ orderDetail }">
+                    <td th:text="${ order.creationDate }"></td>
+                    <td th:text="${ order.orderCode }"></td>
+                    <td th:text="${ order.productDTO.productName }"></td>
+                    <td th:text="${ order.state }"></td>
+                    <td th:text="${ order.sumPrice }"></td>
+<!--                    <td th:text="${ order.userDTO.id }"></td>-->
+<!--                    <td th:text="${ order.adminCustomerDTO.phone }"></td>-->
+<!--                    <td th:text="${ order.productDTO.deliveryCharge }"></td>-->
+<!--                    <td th:text="${ order.count }"></td>-->
+<!--                    <td th:text="${ order.point }"></td>-->
+<!--                    <td th:text="${ order.costPrice }"></td>-->
+<!--                    <td th:text="${ order.finalPrice }"></td>-->
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

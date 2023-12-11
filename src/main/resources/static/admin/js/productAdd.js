@@ -220,7 +220,7 @@ $(document).ready(function () {
         setSelectBox($(this));
     });
 });
-
+let message = null;
 
 if(message != null && message !== 'null') {
     alert(message);

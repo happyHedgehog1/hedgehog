@@ -11,4 +11,6 @@ public interface AdminOrderMapper {
     List<AdminOrderDTO> searchOrderList(AdminOrderForm form);
 
     int orderStateUpdate(AdminOrderDTO orderDTO);
+
+    public AdminOrderDTO orderDetail(int orderCode);
 }
