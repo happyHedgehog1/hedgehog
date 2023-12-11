@@ -4,7 +4,9 @@ import com.hedgehog.client.auth.model.dao.AuthMapper;
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.auth.model.dto.MemberDTO;
+import com.hedgehog.client.auth.model.dto.PostDTO;
 import com.hedgehog.common.common.exception.UserCertifiedException;
+import com.hedgehog.common.common.exception.UserRegistPostException;
 import groovy.util.logging.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -118,5 +121,14 @@ public class AuthServiceImpl implements AuthService {
         UserDetails login = new LoginDetails(user);
 
         return login;
+    }
+
+    @Override
+    public List<PostDTO> getRegistPosts() throws UserRegistPostException {
+        List<PostDTO> postList = mapper.getRegistPosts();
+        if(postList.size()!=2){
+            throw new UserRegistPostException("개인정보처리방침 또는 이용약관을 가져오지 못했습니다.");
+        }
+        return postList;
     }
 }

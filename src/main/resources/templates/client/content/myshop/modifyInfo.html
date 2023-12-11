@@ -4,116 +4,219 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <th:block layout:fragment="content">
-  <script th:src="@{/client/js/modifyInfo.js}"></script>
-  <link rel="stylesheet" th:href="@{/client/css/modifyInfo.css}">
+<th:block layout:fragment="content">
+    <script th:src="@{/client/js/modifyInfo.js}"></script>
+    <link rel="stylesheet" th:href="@{/client/css/modifyInfo.css}">
 
     <section>
-      <div id="main_category_route">
-        <ul class="route_list">
-          <li onclick="location.href='./index1.html'"><img src="/client/images/icon/home.png" alt="홈으로가기"></li>
-          <li>&gt;</li>
-          <li onclick="goMyPage()">MY페이지</li>
-          <li>&gt;</li>
-          <li>회원정보변경</li>
-        </ul>
-        <div id="contents">
-          <form action="regist" id="regist">
-            <h1 id="regist_header">회원정보변경</h1>
-            <table id="contents_table">
-              <tr>
-                <th>성명</th>
-                <td colspan="2"><input type="text" name="name" id="name" readonly></td>
-              </tr>
-              <tr>
-                <th>생일</th>
-                <td colspan="2"><input type="date" name="date" id="date" readonly></td>
-              </tr>
-              <tr>
-                <th>성별</th>
-                <td colspan="2">
-                  <label for="male">남</label>
-                  <input type="radio" name="gender" id="male">
-                  <label for="female">여</label>
-                  <input type="radio" name="gender" id="female">
-                </td>
-              </tr>
-              <tr>
-                <th>아이디</th>
-                <td>
-                  <input type="text" name="id" id="id" readonly>
-                </td>
-              </tr>
-              <tr>
-                <th>비밀번호</th>
-                <td><input type="text" input="password" id="password"></td>
-                <td>공백없는 5~12자리의 영문/숫자<br>
-                  <span id="warning">특수문자 사용가능, 단 \, ', " 제외</span>
-                </td>
-              </tr>
-              <tr>
-                <th>비밀번호확인</th>
-                <td colspan="2"><input type="text" input="password2" id="password2"></td>
-              </tr>
-              <tr id="email_row">
-                <th>이메일</th>
-                <td colspan="2">
-                  <div><input type="text" name="email" id="email"><input id="email_button" value="이메일인증" type="button">
-                  </div>
-                  <div id="email_authentication">
-                    <div>인증번호</div>
-                    <input type="text" id="email_authentication_number" name="email_authentication_number">
-                    &nbsp;
-                    <input type="button" id="email_authentication_button" value="인증하기">
-                    &nbsp;
-                    <span id="reload_timer">05:00</span>
-                    &nbsp;
-                    <img src="../image/reloadButton/reload.png" alt="시간연장" id="reload">
-                  </div>
-                  <div id="email_count"></div>
-                  <div>
-                    email 서비스를 받으시겠습니까?&nbsp;
-                    <input type="radio" name="email_service" id="email_yes"><label for="email_service">&nbsp;예</label>
-                    <input type="radio" name="email_service" id="email_no"><label for="email_service">&nbsp아니오</label>
-                  </div>
-                  <div>
-                    주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th>휴대전화</th>
-                <td colspan="2"><input type="text" id="phone" name="phone" placeholder="01011112222(- 생략)"></td>
-              </tr>
-              <tr id="address_row">
-                <th>주소</th>
-                <td colspan="2">
-                  <input type="text" id="address_col_1" readonly><input type="button" id="address_button" value=우편번호><br>
-                  <input type="text" id="address_col_2" readonly><br>
-                  <input type="text" id="address_col_3">
-                </td>
-              </tr>
-            </table>
-            <div id="bottom_buttons">
+        <div id="main_category_route">
+            <ul class="route_list">
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
+                <li>&gt;</li>
+                <li id="route_mypage" onclick="location.href='mypage'">MY페이지</li>
+                <li>&gt;</li>
+                <li>회원정보변경</li>
+            </ul>
+            <div id="contents">
+                <form th:action="@{/myshop/modifyInfo}" id="modify" method="post">
+                    <h1 id="modify_header">회원정보변경</h1>
+                    <table id="contents_table">
+                        <tr>
+                            <th>이름</th>
+                            <td colspan="2"><input type="text" name="name" id="name" maxlength="30" readonly
+                                                   th:value="${name}"></td>
+                        </tr>
+                        <tr>
+                            <th>생년월일</th>
+                            <td colspan="2"><input type="date" name="birthday" id="birthday" th:value="${birthday}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>성별</th>
+                            <td colspan="2">
+                                <label for="male">남</label>
+                                <input type="radio" name="gender" id="male" value="M" required
+                                       th:checked="${gender=='M'}">
+                                <label for="female">여</label>
+                                <input type="radio" name="gender" id="female" value="F" required
+                                       th:checked="${gender=='F'}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <input type="text" name="userId" id="userId" maxlength="20" readonly
+                                       th:value="${userId}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>변경할비밀번호</th>
+                            <td><input type="password" id="userPwd" name="userPwd" maxlength="13" required></td>
+                            <td>공백없는 7~13자리의 영문/숫자/특수문자<br>
+                                <span id="warning">특수문자는 !@#$%^&* 사용가능</span>
+                            </td>
+                        </tr>
+                        <tr id="email_row">
+                            <th>이메일</th>
+                            <td colspan="2">
+                                <div id="email_input_wrap">
+                                    <input type="email" name="email" id="email" required th:value="${email}">
+                                    <input id="email_button" value="이메일인증" type="button">
+                                </div>
+                                <div id="email_authentication">
+                                    <div>인증번호</div>
+                                    <input type="text" id="email_authentication_number"
+                                           name="emailAuthenticationNumber">
+                                    <input type="text" id="hidden_certified_key" name="hiddenCertifiedKey" hidden>
+                                    &nbsp;
+                                    <input type="button" id="email_authentication_button" value="인증하기">
+                                    &nbsp;
+                                    <span id="reload_timer">05:00</span>
+                                    &nbsp;
+                                    <img src="/client/images/icon/reload.png" alt="시간연장" id="reload">
+                                </div>
+                                <div id="email_message"></div>
+                                <script>
+                                    let countdownTimer = null;
 
-              <a th:href="@{'/myshop/withdrawalReason'}">
-              <input type="button" name="withdrawal_button" id="withdrawal_button" value="회원탈퇴">
-              </a>
+                                    function startCountdown() {
+                                        let timeRemaining = 299;
+                                        countdownTimer = setInterval(() => {
+                                            const minutes = Math.floor(timeRemaining / 60);
+                                            const seconds = timeRemaining % 60;
+                                            const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+                                            document.querySelector("#reload_timer").textContent = formattedTime;
+                                            if (timeRemaining <= -1) {
+                                                alert("시간초과로 새로고침됩니다.");
+                                                clearInterval(countdownTimer);
+                                                location.href = '/myshop/myinfo';
+                                            }
+                                            timeRemaining--;
+                                        }, 1000);
+                                    }
 
-              <a th:href="@{'/myshop/mypage'}">
-              <input type="button" onclick="goMyPage()" id="go_back_button" value="뒤로가기">
-              </a>
+                                    let regexEmail = /^[a-zA-Z0-9._$+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                                    $('#email_button').click(function () {
+                                        $('#email_button').css('display', 'none');
+                                        const email = $('#email').val(); // 입력한 email 값
+                                        $('#adminAddEmail').prop('readonly', true);
+                                        const isValid = regexEmail.test(email)  // email이 정규식에 맞는가.
+                                        if (isValid) {
+                                            $.ajax({
+                                                url: "/myshop/checkEmail",
+                                                method: "POST",
+                                                data: {email: email},
+                                                success: function (result) {
+                                                    if (result.result === "success") {
+                                                        $('#email_message').html('');
+                                                        $('#email_button').css('display', '');
+                                                        $('#email_button').val('인증완료');
+                                                        $(document).ready(() => $('#email_button').off("click"));
+                                                        $('#email_authentication').css('display', '');
+                                                        $('#hidden_certified_key').val(result.certifiedCode);
+                                                        startCountdown();
+                                                        $('#reload').click(() => {
+                                                            clearInterval(countdownTimer);
+                                                            $('#reload_timer').text("05:00");
+                                                            startCountdown();
+                                                        });
+                                                    } else if(result.result==="fail") {
+                                                        $('#email_button').css('display', '');
+                                                        $('#adminAddEmail').prop('readonly', false);
+                                                        $('#email_message').html('현재 이메일도 아니고, 이미 있는 이메일입니다.<br>다시 입력해주세요.');
+                                                    }else{
+                                                        $("#email_input_wrap").css('display', 'none');
+                                                        $("#email_authentication").css('display', 'none');
+                                                        $("#email_message").css('color', 'black');
+                                                        $('#email_message').html('회원정보와 이메일이 일치하기 때문에 인증을 생략합니다.')
+                                                        $('#hidden_certified_key').val(0);
+                                                    }
+                                                },
+                                                error: function (error) {
+                                                    console.log(error);
+                                                    alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                                                    location.href = '/';
+                                                }
+                                            })
+                                        } else {
+                                            $('#email_button').css('display', '');
+                                            $('#adminAddEmail').prop('readonly', false);
+                                            $('#email_message').html('이메일 규칙에 맞지 않습니다.<br>다시시도해주세요.');
+                                        }
+                                    })
+                                </script>
+                                <script>
+                                    $('#email_authentication_button').click(function () {
+                                        clearInterval(countdownTimer); // 일단 타이머 중지.
+                                        $(document).ready(() => $('#reload').off("click")); // reload 버튼도 중지
+                                        const inputCertifiedCode = $("#email_authentication_number").val();
+                                        const certifiedKey = $('#hidden_certified_key').val();
+                                        $.ajax({
+                                            url: "/myshop/emailCertify",
+                                            method: "POST",
+                                            data: {inputCertifiedCode: inputCertifiedCode, certifiedKey: certifiedKey},
+                                            success: function (result) {
+                                                if (result.result === "success") {
+                                                    $("#email_input_wrap").css('display', 'none');
+                                                    $("#email_authentication").css('display', 'none');
+                                                    $("#email_message").css('font-size', '1.25em');
+                                                    $("#email_message").css('color', 'black');
+                                                    $("#email_message").html('인증이 완료되었습니다.');
+                                                } else {
+                                                    /*실패하면 타이머 다시 작동하기.*/
+                                                    $("#email_message").html('다시 입력해주세요.');
+                                                    startCountdown();
+                                                    $('#reload').click(() => {
+                                                        clearInterval(countdownTimer);
+                                                        $('#reload_timer').text("05:00");
+                                                        startCountdown();
+                                                    });
+                                                }
+                                            },
+                                            error: function (error) {
+                                                console.log(error);
+                                                alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                                                location.href = '/';
+                                            }
+                                        });
 
 
-              <input type="submit" name="regist_button" id="regist_button" value="회원수정하기">
-
-
+                                    });
+                                </script>
+                                <div>
+                                    email 서비스를 받으시겠습니까?&nbsp;
+                                    <input type="radio" name="emailService" id="email_yes" value="Y" required
+                                           th:checked="${emailService=='Y'}"><label
+                                        for="email_yes">&nbsp;예</label>
+                                    <input type="radio" name="emailService" id="email_no" value="N" required
+                                           th:checked="${emailService=='N'}"><label
+                                        for="email_no">&nbsp;아니오</label>
+                                </div>
+                                <div>
+                                    주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>휴대전화</th>
+                            <td colspan="2"><input type="text" id="phone" name="phone" placeholder="01011112222(- 생략)"
+                                                   required th:value="${phone}">
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="bottom_buttons">
+                        <input type="button" name="withdrawal_button" id="withdrawal_button" value="회원삭제"
+                               onclick="location.href='//'">
+                        <input type="button" name="go_back_button" id="go_back_button" value="뒤로가기"
+                               onclick="location.href='/myshop/mypage'">
+                        <input type="submit" name="modify_button" id="modify_button" value="회원수정">
+                    </div>
+                </form>
             </div>
-          </form>
         </div>
-      </div>
 
     </section>
 
-  </th:block>
+</th:block>
 </html>

@@ -12,7 +12,8 @@
         <!-- 여기에 작성 -->
         <div id="main_category_route">
             <ul class="route_list">
-                <li id="route_home" onclick="location.href='/'"><img src="/client/images/icon/home.png" alt="홈으로가기"></li>
+                <li id="route_home" onclick="location.href='/'"><img src="/client/images/icon/home.png" alt="홈으로가기">
+                </li>
                 <li>&gt;</li>
                 <li>회원가입</li>
             </ul>
@@ -26,10 +27,10 @@
                                 <p>Default Content</p>
                             </div>
                             <div>
-                                <label for="agree1">동의하기</label>
+                                <p>동의하기</p>
                                 <img th:src="@{/client/images/icon/check_false.png}" alt="체크표시(false)" id="check_agree1"
                                      onclick="agreeCheckImg(this)">
-                                <input type="checkbox" id="agree1" name="agree1" onchange="agreeCheckbox(this)">
+                                <input type="checkbox" id="agree1" name="agree1">
                             </div>
                         </div>
                         <div id="privacyPolicyContainer">
@@ -38,10 +39,10 @@
                                 <p>Default Content</p>
                             </div>
                             <div>
-                                <label for="agree2">동의하기</label>
+                                <p>동의하기</p>
                                 <img th:src="@{/client/images/icon/check_false.png}" alt="체크표시(false)" id="check_agree2"
                                      onclick="agreeCheckImg(this)">
-                                <input type="checkbox" id="agree2" name="agree2" onchange="agreeCheckbox(this)">
+                                <input type="checkbox" id="agree2" name="agree2">
                             </div>
                         </div>
                     </div>
@@ -49,25 +50,25 @@
                     <table id="contents_table">
                         <tr>
                             <th>이름</th>
-                            <td colspan="2"><input type="text" name="name" id="name" maxlength="30" ></td>
+                            <td colspan="2"><input type="text" name="name" id="name" maxlength="30" required></td>
                         </tr>
                         <tr>
                             <th>생년월일</th>
-                            <td colspan="2"><input type="date" name="birthday" id="birthday"></td>
+                            <td colspan="2"><input type="date" name="birthday" id="birthday" required></td>
                         </tr>
                         <tr>
                             <th>성별</th>
                             <td colspan="2">
                                 <label for="male">남</label>
-                                <input type="radio" name="gender" id="male" value="M">
+                                <input type="radio" name="gender" id="male" value="M" required>
                                 <label for="female">여</label>
-                                <input type="radio" name="gender" id="female" value="F">
+                                <input type="radio" name="gender" id="female" value="F" required>
                             </td>
                         </tr>
                         <tr>
                             <th>아이디</th>
                             <td>
-                                <input type="text" name="userId" id="userId" maxlength="20">
+                                <input type="text" name="userId" id="userId" minlength="8" maxlength="20" required>
                                 <input type="button" value="중복체크" id="id_check_button">
                                 <div id="check_text"></div>
                             </td>
@@ -113,20 +114,21 @@
                         </tr>
                         <tr>
                             <th>비밀번호</th>
-                            <td><input type="password" id="userPwd" name="userPwd" maxlength="13"></td>
+                            <td><input type="password" id="userPwd" name="userPwd" maxlength="13" required></td>
                             <td>공백없는 7~13자리의 영문/숫자/특수문자<br>
                                 <span id="warning">특수문자는 !@#$%^&* 사용가능</span>
                             </td>
                         </tr>
                         <tr>
                             <th>비밀번호확인</th>
-                            <td colspan="2"><input type="password" input="password2" id="password2" maxlength="13"></td>
+                            <td colspan="2"><input type="password" input="password2" id="password2" maxlength="13"
+                                                   required></td>
                         </tr>
                         <tr id="email_row">
                             <th>이메일</th>
                             <td colspan="2">
                                 <div id="email_input_wrap">
-                                    <input type="email" name="email" id="email">
+                                    <input type="email" name="email" id="email" required>
                                     <input id="email_button" value="이메일인증" type="button">
                                 </div>
                                 <div id="email_authentication">
@@ -165,7 +167,7 @@
                                     $('#email_button').click(function () {
                                         $('#email_button').css('display', 'none');
                                         const email = $('#email').val(); // 입력한 email 값
-                                        $('#adminAddEmail').prop('readonly',true);
+                                        $('#adminAddEmail').prop('readonly', true);
                                         const isValid = regexEmail.test(email); // email이 정규식에 맞는가.
                                         if (isValid) {
                                             $.ajax({
@@ -188,7 +190,7 @@
                                                         });
                                                     } else {
                                                         $('#email_button').css('display', '');
-                                                        $('#adminAddEmail').prop('readonly',false);
+                                                        $('#adminAddEmail').prop('readonly', false);
                                                         $('#email_message').html('이미 있는 이메일입니다.<br>다시 입력해주세요.');
                                                     }
                                                 },
@@ -200,7 +202,7 @@
                                             })
                                         } else {
                                             $('#email_button').css('display', '');
-                                            $('#adminAddEmail').prop('readonly',false);
+                                            $('#adminAddEmail').prop('readonly', false);
                                             $('#email_message').html('이메일 규칙에 맞지 않습니다.<br>다시시도해주세요.');
                                         }
                                     })
@@ -245,8 +247,10 @@
                                 </script>
                                 <div>
                                     email 서비스를 받으시겠습니까?&nbsp;
-                                    <input type="radio" name="emailService" id="email_yes" value="Y"><label for="email_yes">&nbsp;예</label>
-                                    <input type="radio" name="emailService" id="email_no" value="N"><label for="email_no">&nbsp;아니오</label>
+                                    <input type="radio" name="emailService" id="email_yes" value="Y" required><label
+                                        for="email_yes">&nbsp;예</label>
+                                    <input type="radio" name="emailService" id="email_no" value="N" required><label
+                                        for="email_no">&nbsp;아니오</label>
                                 </div>
                                 <div>
                                     주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
@@ -255,19 +259,14 @@
                         </tr>
                         <tr>
                             <th>휴대전화</th>
-                            <td colspan="2"><input type="text" id="phone" name="phone" placeholder="01011112222(- 생략)">
+                            <td colspan="2"><input type="text" id="phone" name="phone" placeholder="01011112222(- 생략)"
+                                                   required>
                             </td>
                         </tr>
                     </table>
                     <div id="bottom_buttons">
                         <input type="submit" name="regist_button" id="regist_button" value="회원가입">
                     </div>
-                    <script th:inline="javascript">
-                        var message = [[${message}]];
-                        if (message) {
-                            alert(message);
-                        }
-                    </script>
                 </form>
             </div>
         </div>

@@ -2,15 +2,20 @@ package com.hedgehog.client.auth.controller;
 
 import com.hedgehog.client.auth.model.dto.MemberDTO;
 import com.hedgehog.client.auth.model.dto.RegistrationForm;
+import com.hedgehog.client.auth.model.dto.PostDTO;
 import com.hedgehog.client.auth.model.service.AuthServiceImpl;
 import com.hedgehog.common.common.exception.UserCertifiedException;
+import com.hedgehog.common.common.exception.UserRegistPostException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -33,12 +38,21 @@ public class AuthController {
     }
 
     @GetMapping("/regist")
-    public String registPage() {
-        return "/client/content/auth/regist";
+    public ModelAndView registPage(ModelAndView mv) throws UserRegistPostException {
+        List<PostDTO> postList = registService.getRegistPosts();
+        if (postList.get(0).getPostType().equals("공지사항")) {
+            mv.addObject("termsAndConditions", postList.get(0).getContent());
+            mv.addObject("privacyPolicy", postList.get(1).getContent());
+        } else {
+            mv.addObject("termsAndConditions", postList.get(0).getContent());
+            mv.addObject("privacyPolicy", postList.get(1).getContent());
+        }
+        mv.setViewName("/client/content/auth/regist");
+        return mv;
     }
 
     @PostMapping("/regist")
-    public String registMember(@ModelAttribute RegistrationForm registrationForm, Model model) {
+    public String registMember(@ModelAttribute RegistrationForm registrationForm, RedirectAttributes redirectAttributes) {
         System.out.println(registrationForm);
         MemberDTO newMember = new MemberDTO(
                 registrationForm.getUserId(),
@@ -54,13 +68,12 @@ public class AuthController {
         boolean registrationSuccess = registService.registMember(newMember);
 
         if (registrationSuccess) {
-            model.addAttribute("message", "Registration successful!");
+            redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
+            return "redirect:/auth/login";
         } else {
-            model.addAttribute("message", "Registration failed. Please try again.");
+            redirectAttributes.addFlashAttribute("message", "알 수 없는 오류로 회원가입에 실패했습니다. 메인화면으로 돌아갑니다.");
             return "redirect:/";
         }
-
-        return "redirect:/auth/login";
     }
 
     @PostMapping(value = "/checkId", produces = "application/json; charset=UTF-8")
