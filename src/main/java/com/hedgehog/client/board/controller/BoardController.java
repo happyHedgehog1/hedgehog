@@ -17,9 +17,9 @@ public class BoardController {
     public String questionInfo() {
         return "/client/content/board/questionInfo";
     }
-    @GetMapping("/reviewInfo.html")
+    @GetMapping("/reviewInfo")
     public String reviewInfo() {
-        return "/client/content/board/reviewInfo.html";
+        return "/client/content/board/reviewInfo";
     }
     @GetMapping("/noticeInfo")
     public String noticeInfo() {

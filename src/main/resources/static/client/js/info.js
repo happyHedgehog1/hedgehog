@@ -1,6 +1,3 @@
-const goMyPage = () => {
-    location.href = "../html/mypageMember.html";
-};
 const agreeCheckImg = (checkImg) => {
     const checkbox = checkImg.nextElementSibling;
     if (checkbox.checked === true) {

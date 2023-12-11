@@ -8,6 +8,10 @@ section {
     min-height: 80.2vh;
 }
 
+#route_home, #route_mypage {
+    cursor: pointer;
+}
+
 #contents {
     align-self: center;
     /* min-width는 선택 */
@@ -16,17 +20,10 @@ section {
     padding-bottom: 5em;
 }
 
-#regist {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#regist_header {
+#info_header {
     text-align: center;
     margin-bottom: 1em;
 }
-
 
 
 #agree_list {
@@ -36,7 +33,7 @@ section {
     max-width: 57em;
 }
 
-#agree_list>div {
+#agree_list > div {
     box-sizing: border-box;
 }
 
@@ -46,14 +43,14 @@ section {
     border: 1px solid #a7727d;
 }
 
-#termsAndConditionContainer>:first-child,
-#privacyPolicyContainer>:first-child {
+#termsAndConditionContainer > :first-child,
+#privacyPolicyContainer > :first-child {
     font-size: 1.1em;
     margin-bottom: 0.5em;
 }
 
-#termsAndConditionContainer>:nth-child(2),
-#privacyPolicyContainer>:nth-child(2) {
+#termsAndConditionContainer > :nth-child(2),
+#privacyPolicyContainer > :nth-child(2) {
     max-height: 15em;
     overflow-y: scroll;
     border: 1px solid #ccc;
@@ -62,8 +59,8 @@ section {
     margin-bottom: 0.5em;
 }
 
-#termsAndConditionContainer>:nth-child(3),
-#privacyPolicyContainer>:nth-child(3) {
+#termsAndConditionContainer > :nth-child(3),
+#privacyPolicyContainer > :nth-child(3) {
     display: flex;
     justify-content: flex-end;
     gap: 0.3em;
@@ -85,13 +82,8 @@ section {
     background-color: white;
 }
 
-#agree1,
-#agree2 {
-    display: none;
-}
-
 #contents_table {
-    max-width: 30em;
+    max-width: 50em;
     border-collapse: collapse;
     margin-top: 3em;
 }
@@ -105,18 +97,18 @@ section {
     padding: 5px 0px 5px 15px;
 }
 
-#contents_table td>input {
+#contents_table td > input {
     margin: 3px 0px 3px 5px;
 
 }
 
-#email_row td>div {
+#email_row td > div {
     margin: 4px 0px 4px 5px;
 }
 
-#email_row td>div:nth-child(3),
-#email_row td>div:nth-child(4),
-#email_row td>div:nth-child(5) {
+#email_row td > div:nth-child(3),
+#email_row td > div:nth-child(4),
+#email_row td > div:nth-child(5) {
     font-size: 0.8em;
 }
 
@@ -131,18 +123,17 @@ section {
 
 #contents_table td input[type=text],
 #contents_table td input[type=date] {
-    border: 1px solid gray;
+    border: 1px solid rgb(128, 128, 128);
     border-radius: 0.3em;
     height: 1.7em;
 }
 
-#contents_table td>input+label {
+#contents_table td > input + label {
     margin-left: 5px;
 }
 
 #contents_table th {
     max-width: 4em;
-    font-size: 1.21m;
     text-align: left;
 }
 
@@ -171,7 +162,7 @@ section {
     margin-left: 3px;
 }
 
-#email_authentication>div {
+#email_authentication > div {
     min-width: 4.3em;
 }
 
