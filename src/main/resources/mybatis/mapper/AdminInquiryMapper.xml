@@ -91,6 +91,18 @@
             <if test="Condition == 2">
                 AND A.answer_state LIKE CONCAT('N')
             </if>
+            <if test="inqSearch != ''">
+                <if test="inqKeyword == 1">
+                    AND  A.title LIKE CONCAT('%', #{inqSearch}, '%')
+                </if>
+                <if test="inqKeyword == 2">
+                    AND B.id LIKE CONCAT('%', #{inqSearch}, '%')
+                </if>
+
+            </if>
+
         </where>
     </select>
+
+
 </mapper>

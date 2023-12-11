@@ -89,7 +89,7 @@
                                                     <li class="w200">
                                                         <select name="inqKeyword" id="inqKeyword" >
                                                             <option value="0" selected>--검색 키워드--</option>
-                                                            <option value="1">상품명</option>
+                                                            <option value="1">제목</option>
                                                             <option value="2">작성자</option>
                                                         </select>
                                                     </li>
@@ -159,12 +159,13 @@
                             </tbody>
                         </table>
                         </div>
-                        <select name="" id="">
+                        <select name="inqSelect" id="inqSelect">
                             <option value="0">--공개 상태 전환--</option>
                             <option value="1">공개 전환</option>
                             <option value="2">비공개 전환</option>
                             
                         </select>
+                        <button id="btnCommit" type="submit">적용</button>
                     </div>
             <script th:src="@{/admin/js/Product-inquiry.js}"></script>
                 </div>
