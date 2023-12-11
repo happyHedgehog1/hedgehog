@@ -54,7 +54,7 @@
             }
         }
         /**
-         * 상품조회 온클릭 메소드
+         * 상품조회 온클릭
          */
         if (document.querySelectorAll("#productSearch td")) {
             const $tdsProduct = document.querySelectorAll("#productSearch td");
@@ -78,7 +78,9 @@
                 };
             }
         }
-
+        /**
+         * 탈퇴 회원 온클릭
+         */
         if (document.querySelectorAll("#unregister td")) {
             const $tdsProduct = document.querySelectorAll("#unregister td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -100,6 +102,9 @@
             }
         }
 
+        /**
+         * 회원 조회 온클릭
+         */
         if (document.querySelectorAll("#order td")) {
             const $tdsProduct = document.querySelectorAll("#order td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -117,12 +122,39 @@
                 $tdsProduct[i].ondblclick = function() {
                     const no = this.parentNode.children[0].innerText;
 
-                        window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    window.open("/product/detail", "_blank", "width=1500,height=1000");
                 };
             }
         }
 
-        if (document.querySelectorAll("#productInquiry td")) {
+        /**
+         * 주문 내역 조회 온클릭
+         */
+        if (document.querySelectorAll("#order td")) {
+            const $tdsProduct = document.querySelectorAll("#order td");
+            for (let i = 0; i < $tdsProduct.length; i++) {
+                $tdsProduct[i].onmouseenter = function() {
+                    this.parentNode.style.backgroundColor = "#A7727D";
+                    this.parentNode.style.color = "white";
+                    this.parentNode.style.cursor = "pointer";
+                }
+
+                $tdsProduct[i].onmouseout = function() {
+                    this.parentNode.style.backgroundColor = "white";
+                    this.parentNode.style.color = "black";
+                }
+
+                $tdsProduct[i].ondblclick = function () {
+                    const orderCode = this.parentNode.querySelector("td:nth-child(3)").innerText;
+
+                    const orderDetailUrl = "/order/orderDetail?orderCode=" + orderCode;
+                    window.open(orderDetailUrl, "_blank", "width=1500, height=1000");
+                };
+            }
+        }
+
+
+            if (document.querySelectorAll("#productInquiry td")) {
             const $tdsProduct = document.querySelectorAll("#productInquiry td");
             for (let i = 0; i < $tdsProduct.length; i++) {
                 $tdsProduct[i].onmouseenter = function() {

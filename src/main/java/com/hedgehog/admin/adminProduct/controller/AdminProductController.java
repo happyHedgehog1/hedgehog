@@ -31,18 +31,175 @@ public class AdminProductController {
         this.adminProductServiceImpl = adminProductService;
     }
 
-//    @PostMapping("/productRegist")
-//    public String productRegist(@ModelAttribute AdminProductDTO product,
-//                                RedirectAttributes rttr){
-//
-//        log.info("***************************상품 수정 시작");
-//
-//        adminProductServiceImpl.registProduct(product);
-//
-//        rttr.addFlashAttribute("message", "상품 수정에 성공하셨습니다.")
-//        return "redirect:/product/productModify";
-//    }
+    @Value("img")
+    private String IMAGE_DIR;
 
+    @Value("C:/hedgehog/")
+    private String ROOT_LOCATION;
+
+    /**
+     * 상품 수정 메소드
+     * @param product
+     * @param rttr
+     * @return
+     */
+    @PostMapping("/productRegist")
+    public String producUpdate(@ModelAttribute AdminProductDTO product,
+                                @RequestParam("thumbnail") MultipartFile thumbnail,
+                                @RequestParam("sub_thumbnail") List<MultipartFile> sub_thumbnails,
+                                @RequestParam("proImg") MultipartFile proImg,
+                                RedirectAttributes rttr){
+
+        log.info("***************************상품 수정 시작");
+        log.info("***************************product : "+product );
+        log.info("==========thumbnail" + thumbnail);
+        log.info("==========sub_thumbnail" + sub_thumbnails);
+        log.info("==========proImg" + proImg);
+
+        log.info("=================사진 등록 시작~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+
+        String fileUploadDirectory = rootLocation + "/upload/original";
+        String thumnailDirectory = rootLocation + "/upload/thumbnail";
+
+        File directory = new File(fileUploadDirectory);
+        File directory2 = new File(thumnailDirectory);
+
+        log.info("~~~~~~~~~~~~~~~~~~~~~fileUploadDirectory" + fileUploadDirectory);
+        log.info("****************************thumnailDirectory" + thumnailDirectory);
+
+        if(!directory.exists() || !directory2.exists()){
+            log.info("*************************** 폴더 생성" + directory.mkdirs());
+            log.info("*************************** 폴더 생성2" + directory2.mkdirs());
+        }
+
+        List<Map<String, String>> fileList = new ArrayList<>();
+
+        List<MultipartFile> paramFileList = new ArrayList<>();
+        paramFileList.add(thumbnail);
+        log.info("=======================thumbnail" + thumbnail);
+        for (int i = 0; i < sub_thumbnails.size(); i++){
+            paramFileList.add(sub_thumbnails.get(i));
+            log.info("=====================sub_thumbnails" + sub_thumbnails.get(i));
+        }
+        paramFileList.add(proImg);
+        log.info("============proImg" + proImg);
+        try {
+            for(MultipartFile paramFile : paramFileList) {
+                if (paramFile.getSize() > 0) {
+                    String originFileName = paramFile.getOriginalFilename();
+
+                    log.info("~~~~~~~~~~~~~~~~~~~~~originFileName" + originFileName);
+
+                    String ext = originFileName.substring(originFileName.lastIndexOf("."));
+                    String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+
+                    log.info("++++++++++++++++++변경한 이름" + savedFileName);
+
+                    log.info("+++++++++++++++ paramFile : " + fileUploadDirectory + "/" + savedFileName);
+
+                    paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
+
+
+                    Map<String, String> fileMap = new HashMap<>();
+                    fileMap.put("originFileName", originFileName);
+                    fileMap.put("savedFileName", savedFileName);
+                    fileMap.put("savePath", fileUploadDirectory);
+
+                    int width = 0;
+                    int height = 0;
+
+                    String fieldName = paramFile.getName();
+                    log.info("***********************필드 name {} ", fieldName);
+                    log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
+                    if ("thumbnail".equals(fieldName)) {
+                        fileMap.put("fileType", "Thumbnails");
+
+                        width = 640;
+                        height = 640;
+                    } else if("sub_thumbnail".equals(fieldName)) {
+                        fileMap.put("fileType", "sub_thumbnail");
+                        width = 640;
+                        height = 640;
+                    } else if("proImg".equals(fieldName)){
+                        fileMap.put("fileType", "proImg");
+                        width = 860;
+                        height = 7500;
+                    }
+
+                    Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
+                            .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
+
+                    fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
+
+                    fileList.add(fileMap);
+                }
+            }
+
+            log.info("****************************fileList" + fileList);
+
+            product.setAttachment(new ArrayList<AttachmentDTO>());
+            List<AttachmentDTO> list = product.getAttachment();
+            for(int i = 0; i < fileList.size(); i++){
+                Map<String , String > file = fileList.get(i);
+
+                AttachmentDTO tempFileInfo = new AttachmentDTO();
+                tempFileInfo.setOriginalName(file.get("originFileName"));
+                tempFileInfo.setSavedName(file.get("savedFileName"));
+                tempFileInfo.setSavePath(file.get("savePath"));
+                tempFileInfo.setFileType(file.get("fileType"));
+                tempFileInfo.setThumbnailPath(file.get("thumbnailPath"));
+
+                list.add(tempFileInfo);
+
+            }
+
+
+            log.info("------------------thumbnail" + thumbnail);
+        adminProductServiceImpl.productUpdate(product);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+
+            int cnt = 0;
+            for(int i = 0; i < fileList.size(); i++) {
+                Map<String, String> file = fileList.get(i);
+                File deleteFile = new File(fileUploadDirectory + "/" + file.get("savedFileName"));
+                boolean isDeleted1 = deleteFile.delete();
+
+                File deleteThumbnail = new File(thumnailDirectory + "/thumbnail_" + file.get("savedFileName"));
+                boolean isDeleted2 = deleteThumbnail.delete();
+
+                if (isDeleted1 && isDeleted2) {
+                    cnt++;
+                }
+            }
+
+            if (cnt == fileList.size()) {
+                log.info("*******************업로드 실패한 사진 삭제~~~~~~~~~");
+                e.printStackTrace();
+            } else {
+                e.printStackTrace();
+            }
+        } catch (AdminProductAddException e) {
+            e.printStackTrace();
+        }
+
+        log.info("=============product 수정 끗~~~~~~~~~~~~~~~");
+
+        rttr.addFlashAttribute("message", "상품 수정에 성공하셨습니다.");
+        return "redirect:productserach";
+    }
+
+    /**
+     * 상품 정보 가져와서 상품 수정 페이지로 연결
+     * @param productCode
+     * @param model
+     * @return
+     */
     @GetMapping("/productDetail")
     public String selectProductDetail(@RequestParam int productCode, Model model){
         log.info("");
@@ -60,12 +217,6 @@ public class AdminProductController {
 
 
     }
-
-    @Value("img")
-    private String IMAGE_DIR;
-
-    @Value("C:/images/")
-    private String ROOT_LOCATION;
 
     /**
      * 상품 등록 메소드
@@ -167,7 +318,7 @@ public class AdminProductController {
                 }
 
                 Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
-                        .toFile(thumnailDirectory + "/thumbnail" + savedFileName);
+                        .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
 
                 fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
 

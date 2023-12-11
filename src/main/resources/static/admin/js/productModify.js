@@ -1,32 +1,30 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-
-// 모달 메뉴 열기
-    document.getElementById("btnSubmitAdd").addEventListener("click", function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // 모달 메뉴 열기
+    document.getElementById("btnSubmitAdd").addEventListener("click", function () {
         document.getElementById("myModal").style.display = "flex";
     });
 
-// 모달 닫기
-    document.getElementById("closeModal").addEventListener("click", function() {
+    // 모달 닫기
+    document.getElementById("closeModal").addEventListener("click", function () {
         document.getElementById("myModal").style.display = "none";
     });
 
+    // 옵션 누르면 메뉴 생겼다 없어졌다가는 기능
+    $(document).ready(function () {
+        $('input[name="option"]').change(function () {
+            toggleOptionList();
+        });
 
-// 옵션 누르면 메뉴 생겼다 없어졌다가는 기능
-$(document).ready(function () {
-    $('input[name="option"]').change(function () {
-        toggleOptionList();
+        // 옵션 목록 토글 함수
+        function toggleOptionList() {
+            if ($('input[name="option"]:checked').val() === 'Y') {
+                $('.optionList').show();
+            } else {
+                $('.optionList').hide();
+            }
+        }
     });
 
-    // 옵션 목록 토글 함수
-    function toggleOptionList() {
-        if ($('input[name="option"]:checked').val() === 'Y') {
-            $('.optionList').show();
-        } else {
-            $('.optionList').hide();
-        }
-    }
-});
     var optionIndex = 1;
 
     $("body").on("click", "#img-add img", function (event) {
@@ -34,102 +32,109 @@ $(document).ready(function () {
         event.preventDefault(); // 링크의 기본 동작 방지
 
         var src = $(this).attr("src");
-        if (src.includes("add.png")) {
+        if (src.indexOf("add.png") !== -1) {
+            // 'delete.png'로 변경
+            $(this).attr("src", /*[[ @{/admin/images/delete.png} ]]*/);
+
             // 새로운 op-list 엘리먼트 생성
             var newOpList = $("<tr class='optionList'>" +
                 "<th colspan='2'>" +
                 "<ul class='arrAlign'>" +
-                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</li>"+
+                "<li className='colorPreview' style='width: 200px'>미리보기</li>" +
                 "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
                 "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
                 "<li class='w200'><input type='number' name='optionList[" + optionIndex + "].stock' style='width: 125px;' value='0'> 개</li>" +
-                "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
+                "<li class='w140' style='padding-top: 5px;'><img src='/*[[ @{/admin/images/delete.png} ]]*/' height='25px' name='img-delete'></li>" +
                 "</ul>" +
                 "</th>" +
                 "</tr>");
 
             $(".optionList:last").after(newOpList);
             optionIndex++;
-        } else if (src.includes("delete.png")) {
+        } else if (src.indexOf("delete.png") !== -1) {
+            // 'add.png'로 변경
+            $(this).attr("src", /*[[ @{/admin/images/add.png} ]]*/);
+
             $(this).closest(".optionList").remove();
             optionIndex--;
         }
+
+        // 이미지가 1일 때 add.png로 설정
+        if (optionIndex === 1) {
+            $(this).attr("src", /*[[ @{/admin/images/add.png} ]]*/);
+        }
     });
 
-    $("body").on("click", "img[name='img-delete']", function(event) {
+    $("body").on("click", "img[name='img-delete']", function (event) {
         $(this).closest("tr.optionList").remove();
     });
 
+    $("#file").on("change", function (e) {
 
-    $("#file").on("change", function(e){
+        var files = e.target.files; //input file 객체를 가져온다.
+        var i, f;
+        for (i = 0; i != files.length; ++i) {
+            f = files[i];
+            var reader = new FileReader(); //FileReader를 생성한다.
 
-    var files = e.target.files; //input file 객체를 가져온다.
-    var i,f;
-    for (i = 0; i != files.length; ++i) {
-        f = files[i];
-        var reader = new FileReader(); //FileReader를 생성한다.
-
-        //성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
-        reader.onload = function(e) {
-        };
-        reader.readAsBinaryString(f);
-
-
-    }
-});
-
-$(function(){
-    $("#thumbnail").change(function(event){
-        const file = event.target.files;
-
-        var image = new Image();
-        var ImageTempUrl = window.URL.createObjectURL(file[0]);
-
-        image.src = ImageTempUrl;
-
-        image.style.width = '200px';
-
-
-        // 이전 이미지를 제거하고 새로운 이미지를 추가
-        $("#thumbnailPreview").empty().append(image);
+            // 성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
+            reader.onload = function (e) {
+            };
+            reader.readAsBinaryString(f);
+        }
     });
-});
 
-$(function () {
-    $("#sub_thumbnail").change(function (event) {
-        const files = event.target.files;
+    $(function () {
+        $("#thumbnail").change(function (event) {
+            const file = event.target.files;
 
-        // 최대 3개까지만 허용
-        if (files.length > 3) {
-            alert("최대 3개의 이미지만 선택할 수 있습니다.");
-            // 선택된 파일 초기화
-            $("#sub_thumbnail").val('');
-            return;
-        }
-
-        // 미리보기를 담을 컨테이너 엘리먼트 가져오기
-        var thumbnailContainer = $("#subThumbnailPreview");
-
-        // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
-        if (thumbnailContainer.children('img').length + files.length > 3) {
-            var excessCount = thumbnailContainer.children('img').length + files.length - 5;
-            thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
-        }
-
-        // 새로 추가한 이미지를 배열에 추가
-        for (var i = 0; i < files.length; i++) {
             var image = new Image();
-            var ImageTempUrl = window.URL.createObjectURL(files[i]);
+            var ImageTempUrl = window.URL.createObjectURL(file[0]);
 
             image.src = ImageTempUrl;
 
-            image.style.width = '100px';
+            image.style.width = '200px';
 
-            // 새로운 이미지를 뒤로 추가
-            thumbnailContainer.append(image);
-        }
+            // 이전 이미지를 제거하고 새로운 이미지를 추가
+            $("#thumbnailPreview").empty().append(image);
+        });
     });
-});
+
+    $(function () {
+        $("#sub_thumbnail").change(function (event) {
+            const files = event.target.files;
+
+            // 최대 3개까지만 허용
+            if (files.length > 3) {
+                alert("최대 3개의 이미지만 선택할 수 있습니다.");
+                // 선택된 파일 초기화
+                $("#sub_thumbnail").val('');
+                return;
+            }
+
+            // 미리보기를 담을 컨테이너 엘리먼트 가져오기
+            var thumbnailContainer = $("#subThumbnailPreview");
+
+            // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
+            if (thumbnailContainer.children('img').length + files.length > 3) {
+                var excessCount = thumbnailContainer.children('img').length + files.length - 5;
+                thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
+            }
+
+            // 새로 추가한 이미지를 배열에 추가
+            for (var i = 0; i < files.length; i++) {
+                var image = new Image();
+                var ImageTempUrl = window.URL.createObjectURL(files[i]);
+
+                image.src = ImageTempUrl;
+
+                image.style.width = '100px';
+
+                // 새로운 이미지를 뒤로 추가
+                thumbnailContainer.append(image);
+            }
+        });
+    });
 
 $(function(){
     $("#proImg").change(function(event){
@@ -220,3 +225,24 @@ $(document).ready(function () {
         setSelectBox($(this));
     });
 });
+
+function previewThumbnail(defaultImage) {
+    var thumbnailInput = document.getElementById('thumbnail');
+    var thumbnailPreview = document.getElementById('previewImage1');
+
+    // 파일이 선택되었는지 확인
+    if (thumbnailInput.files && thumbnailInput.files[0]) {
+        var reader = new FileReader();
+
+        // 파일을 읽어서 미리보기 업데이트
+        reader.onload = function (e) {
+            thumbnailPreview.src = e.target.result;
+        };
+
+        // 파일을 읽어오기
+        reader.readAsDataURL(thumbnailInput.files[0]);
+    } else {
+        // 선택한 파일이 없을 경우 기본 이미지로 설정
+        thumbnailPreview.src = defaultImage;
+    }
+}

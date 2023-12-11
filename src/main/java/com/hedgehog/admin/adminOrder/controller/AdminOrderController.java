@@ -6,6 +6,7 @@ import com.hedgehog.admin.adminOrder.model.service.AdminOrderServiceImpl;
 import com.hedgehog.admin.exception.OrderStateUpdateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,6 +23,23 @@ public class AdminOrderController {
     public AdminOrderController(AdminOrderServiceImpl adminOrderService) {
         this.adminOrderService = adminOrderService;
     }
+
+    @GetMapping(value = "/orderDetail")
+    private String orderDetail(@RequestParam int orderCode, Model model){
+        log.info("");
+        log.info("");
+        log.info("selectProductDetail~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~orderCode : {}", orderCode);
+
+        AdminOrderDTO orderDetail = adminOrderService.orderDetail(orderCode);
+        log.info("~~~~~~~~~~~~~~~~orderDetail : {}", orderDetail);
+
+
+        model.addAttribute("orderDetail", orderDetail);
+        return "admin/content/order/orderDetail";
+
+    }
+
 
     @PostMapping(value = "/stateUpdate")
     private String orderStateUpdate(@RequestParam("resultCheckbox") List<String> selectedOrderCodes,
@@ -59,7 +77,7 @@ public class AdminOrderController {
         log.info(form.toString());
 
         List<AdminOrderDTO> orderSearch = adminOrderService.searchOrderList(form);
-        log.info("=================================eventList" + orderSearch);
+        log.info("=================================orderSearch" + orderSearch);
 
         int totalResult = orderSearch.size();
 

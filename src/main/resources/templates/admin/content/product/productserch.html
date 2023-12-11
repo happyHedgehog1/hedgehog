@@ -171,8 +171,11 @@
 <!--                                    productDTO에서 option을 List 로 선언함, sales 값이 null이거나 비어있으면 불러오지 못함,
                                         null이 아니고 비어있지 않은 경우에만 첫 번째 값 가져오도록 선언 -->
                                     <td th:text="${ product.optionList != null and not #lists.isEmpty(product.optionList) ? product.optionList[0].stock : ''}"></td>
-                                    <td th:text="${#dates.format(product.registrationDate, 'yyyy.MM.dd HH:mm')}"></td>
-
+                                    <td>
+                                        <span th:text="${#dates.format(product.registrationDate, 'yyyy.MM.dd HH:mm')}"></span>
+                                        <br>
+                                        <span th:if="${product.modificationDate != null}" th:text="${'(' + #dates.format(product.modificationDate, 'yyyy.MM.dd HH:mm') + ')'}"></span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -181,6 +184,11 @@
 
                 </div>
 </th:block>
-
+<script th:inline="javascript">
+    var message = [[${message}]];
+    if (message) {
+        alert(message);
+    }
+</script>
 </body>
 </html>

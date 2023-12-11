@@ -21,7 +21,6 @@ public class AdminOrderDTO {
     private int pointUsage;
     private String state;
     private int productCode;
-    private String name;
     private AdminUserDTO userDTO;
     private AdminProductDTO productDTO;
     private int totalCount;
