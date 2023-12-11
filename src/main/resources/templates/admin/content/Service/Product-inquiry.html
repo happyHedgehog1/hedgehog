@@ -19,8 +19,9 @@
                         <div class="topTitle">
                             <h4>게시판관리</h4>
                         </div>
+
                         <div class="topbtnWrapper">
-                            <div class="pageButton1"><a th:href="@{/Service/productInquiry}">상품 문의 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/productInquiryPage}">상품 문의 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/Product-review}">상품 후기 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/notice}">공지사항 관리</a></div>
@@ -29,6 +30,10 @@
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
+                            <form id="searchInquiry"
+                                  th:action="@{/Service/productInquiry}"
+                                  method="get"
+                                  style="display: inline-block">
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
@@ -57,7 +62,7 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="prdCondition" id="prdCondition" >
+                                                        <select name="inqCondition" id="inqCondition" >
                                                             <option value="0" selected>--문의유형 전체--</option>
                                                             <option value="1">상품</option>
                                                             <option value="2">배송</option>
@@ -102,7 +107,8 @@
                             <div>
                                 <button id="btnSearch"> 검색 </button>
                             </div>
-                        </div>    
+                            </form>
+                        </div>
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
@@ -128,161 +134,25 @@
                             <tbody>
                             <tr class="searchResult">
                                             <th>
-                                                <li>
-                                                <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                                </li>
+                                                <input type="checkbox" name="resultCheckbox" >
                                             </th>
                                             <th>답변여부</th>
-                                            <th>이미지</th>
                                             <th>유형</th>
-                                            <th>상품명</th>                                        
                                             <th>제목</th>
                                             <th>작성자</th>                                        
                                             <th>등록일</th>                                        
                                 </tr> 
-                                <tr class="proSearchBottomtr" >
+                                <tr class="proSearchBottomtr" th:each="inquiry : ${ inquiryList }" >
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${inquiry.inquiry_code}">
                                     </td>
-                                    <td>
-                                        <li>미답변</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>배송</li>
-                                    </td>
-                                    <td>
-                                        <li>딱딱돌침대</li>
-                                    </td>
-                                    <td>
-                                        <li>문의 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>미답변</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>배송</li>
-                                    </td>
-                                    <td>
-                                        <li>딱딱돌침대</li>
-                                    </td>
-                                    <td>
-                                        <li>문의 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>  
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>미답변</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>배송</li>
-                                    </td>
-                                    <td>
-                                        <li>딱딱돌침대</li>
-                                    </td>
-                                    <td>
-                                        <li>문의 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>  
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>미답변</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>배송</li>
-                                    </td>
-                                    <td>
-                                        <li>딱딱돌침대</li>
-                                    </td>
-                                    <td>
-                                        <li>문의 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>  
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>미답변</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>배송</li>
-                                    </td>
-                                    <td>
-                                        <li>딱딱돌침대</li>
-                                    </td>
-                                    <td>
-                                        <li>문의 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
+                                    <td th:text="${ inquiry.answer_state}"></td>
+                                    <td th:text="${ inquiry.post_type}"></td>
+                                    <td th:text="${ inquiry.title}"></td>
+                                    <td th:text="${ inquiry.id.id}"></td>
+                                    <td th:text="${ inquiry.write_date}"></td>
+
+
                                     
                                 </tr>  
                                
@@ -294,7 +164,7 @@
                             <option value="1">공개 전환</option>
                             <option value="2">비공개 전환</option>
                             
-                        
+                        </select>
                     </div>
             <script th:src="@{/admin/js/Product-inquiry.js}"></script>
                 </div>
