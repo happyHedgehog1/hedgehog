@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.myshop.model.dao.WithdrawalReasonMapper">
+   <insert id="saveImageInfo">
+      INSERT INTO _summernote_junkyeong(fileName, filePath, thumbnailFileName, thumbnailFilePath)
+      VALUES(#{fileName},#{filePath},#{thumbnailFileName},#{thumbnailFilePath})
+   </insert>
+</mapper>

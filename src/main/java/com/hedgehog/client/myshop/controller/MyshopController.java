@@ -121,7 +121,8 @@ public class MyshopController {
     }
 
     @PostMapping("/modifyInfo")
-    public String modifyInfo(@ModelAttribute ModifyForm modifyForm,
+    public String modifyInfo(@AuthenticationPrincipal LoginDetails loginDetails,
+                             @ModelAttribute ModifyForm modifyForm,
                              RedirectAttributes redirectAttributes) {
         MemberDTO member = new MemberDTO(
                 modifyForm.getUserId(),
@@ -134,7 +135,7 @@ public class MyshopController {
                 modifyForm.getHiddenCertifiedKey(), // 0인 경우는 인증이 이미 완료된거라 인증번호는 update 하면 안된다.
                 modifyForm.getEmailService());
 
-        boolean modifySuccess = myshopService.modifyMember(member);
+        boolean modifySuccess = myshopService.modifyMember(loginDetails.getLoginUserDTO().getUserCode(),member);
 
         if (modifySuccess) {
             redirectAttributes.addFlashAttribute("message", "회원정보 변경이 완료되었습니다.");

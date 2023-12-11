@@ -41,11 +41,6 @@
         SET password=#{userPwd}, name=#{name}
         WHERE id=#{userId};
     </update>
-    <select id="getUserCode">
-        SELECT user_code
-        FROM tbl_user
-        WHERE id=#{userId};
-    </select>
     <update id="updateCustomer">
         UPDATE tbl_customer
         SET
