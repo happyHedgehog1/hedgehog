@@ -31,4 +31,12 @@ public interface AdminProductMapper {
     int productUpdate(AdminProductDTO product);
 
     int optionListUpdate(OptionListDTO optionListDTO);
+
+    List<OptionListDTO> searchOptionList(AdminProductDTO product);
+
+    int deleteOptionList(OptionListDTO existingOptions);
+
+    int addOptionList2(OptionListDTO optionListDTO);
+
+    int updateImg(AttachmentDTO attachment);
 }

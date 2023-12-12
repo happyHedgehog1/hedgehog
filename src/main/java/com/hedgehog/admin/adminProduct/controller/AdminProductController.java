@@ -101,7 +101,6 @@ public class AdminProductController {
 
                     paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
 
-
                     Map<String, String> fileMap = new HashMap<>();
                     fileMap.put("originFileName", originFileName);
                     fileMap.put("savedFileName", savedFileName);
@@ -115,11 +114,19 @@ public class AdminProductController {
                     log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
                     if ("thumbnail".equals(fieldName)) {
                         fileMap.put("fileType", "Thumbnails");
-
                         width = 640;
                         height = 640;
                     } else if("sub_thumbnail".equals(fieldName)) {
-                        fileMap.put("fileType", "sub_thumbnail");
+                        int subThumbnailIndex = sub_thumbnails.indexOf(paramFile);
+                        if (subThumbnailIndex == 0) {
+                            fileMap.put("fileType", "sub_thumbnail_1");
+                        } else if (subThumbnailIndex == 1) {
+                            fileMap.put("fileType", "sub_thumbnail_2");
+                        } else if (subThumbnailIndex == 2) {
+                            fileMap.put("fileType", "sub_thumbnail_3");
+                        } else {
+                            fileMap.put("fileType", "sub_thumbnail");
+                        }
                         width = 640;
                         height = 640;
                     } else if("proImg".equals(fieldName)){
@@ -191,7 +198,8 @@ public class AdminProductController {
         log.info("=============product 수정 끗~~~~~~~~~~~~~~~");
 
         rttr.addFlashAttribute("message", "상품 수정에 성공하셨습니다.");
-        return "redirect:productserach";
+        int productCode = product.getProductCode();
+        return "redirect:/product/productDetail?productCode=" + productCode;
     }
 
     /**
@@ -275,58 +283,66 @@ public class AdminProductController {
         paramFileList.add(proImg);
         log.info("============proImg" + proImg);
         try {
-        for(MultipartFile paramFile : paramFileList) {
-            if (paramFile.getSize() > 0) {
-                String originFileName = paramFile.getOriginalFilename();
+            for(MultipartFile paramFile : paramFileList) {
+                if (paramFile.getSize() > 0) {
+                    String originFileName = paramFile.getOriginalFilename();
 
-                log.info("~~~~~~~~~~~~~~~~~~~~~originFileName" + originFileName);
+                    log.info("~~~~~~~~~~~~~~~~~~~~~originFileName" + originFileName);
 
-                String ext = originFileName.substring(originFileName.lastIndexOf("."));
-                String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+                    String ext = originFileName.substring(originFileName.lastIndexOf("."));
+                    String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
 
-                log.info("++++++++++++++++++변경한 이름" + savedFileName);
+                    log.info("++++++++++++++++++변경한 이름" + savedFileName);
 
-                log.info("+++++++++++++++ paramFile : " + fileUploadDirectory + "/" + savedFileName);
+                    log.info("+++++++++++++++ paramFile : " + fileUploadDirectory + "/" + savedFileName);
 
                     paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
 
+                    Map<String, String> fileMap = new HashMap<>();
+                    fileMap.put("originFileName", originFileName);
+                    fileMap.put("savedFileName", savedFileName);
+                    fileMap.put("savePath", fileUploadDirectory);
 
-                Map<String, String> fileMap = new HashMap<>();
-                fileMap.put("originFileName", originFileName);
-                fileMap.put("savedFileName", savedFileName);
-                fileMap.put("savePath", fileUploadDirectory);
+                    int width = 0;
+                    int height = 0;
 
-                int width = 0;
-                int height = 0;
+                    String fieldName = paramFile.getName();
+                    log.info("***********************필드 name {} ", fieldName);
+                    log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
+                    if ("thumbnail".equals(fieldName)) {
+                        fileMap.put("fileType", "Thumbnails");
+                        width = 640;
+                        height = 640;
+                    } else if("sub_thumbnail".equals(fieldName)) {
+                        int subThumbnailIndex = sub_thumbnails.indexOf(paramFile);
+                        if (subThumbnailIndex == 0) {
+                            fileMap.put("fileType", "sub_thumbnail_1");
+                        } else if (subThumbnailIndex == 1) {
+                            fileMap.put("fileType", "sub_thumbnail_2");
+                        } else if (subThumbnailIndex == 2) {
+                            fileMap.put("fileType", "sub_thumbnail_3");
+                        } else {
+                            fileMap.put("fileType", "sub_thumbnail");
+                        }
+                        width = 640;
+                        height = 640;
+                    } else if("proImg".equals(fieldName)){
+                        fileMap.put("fileType", "proImg");
+                        width = 860;
+                        height = 7500;
+                    }
 
-                String fieldName = paramFile.getName();
-                log.info("***********************필드 name {} ", fieldName);
-                log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
-                if ("thumbnail".equals(fieldName)) {
-                    fileMap.put("fileType", "Thumbnails");
+                    Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
+                            .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
 
-                    width = 640;
-                    height = 640;
-                } else if("sub_thumbnail".equals(fieldName)) {
-                    fileMap.put("fileType", "sub_thumbnail");
-                    width = 640;
-                    height = 640;
-                } else if("proImg".equals(fieldName)){
-                    fileMap.put("fileType", "proImg");
-                    width = 860;
-                    height = 7500;
+                    fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
+
+                    fileList.add(fileMap);
                 }
-
-                Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
-                        .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
-
-                fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
-
-                fileList.add(fileMap);
             }
-        }
 
-        log.info("****************************fileList" + fileList);
+
+            log.info("****************************fileList" + fileList);
 
         product.setAttachment(new ArrayList<AttachmentDTO>());
         List<AttachmentDTO> list = product.getAttachment();
@@ -381,9 +397,6 @@ public class AdminProductController {
         log.info("=============product 끗~~~~~~~~~~~~~~~");
         return "redirect:productAddPage";
     }
-
-
-
 
 
 

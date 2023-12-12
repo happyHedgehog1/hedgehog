@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
 import java.util.List;
 
 @Service
@@ -105,6 +106,11 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     }
 
+    /**
+     * 상품 수정시 상품 정보 productModify 페이지로 정보 뿌려주는 메소드
+     * @param productCode
+     * @return
+     */
     @Override
     public AdminProductDTO selectProductDetail(int productCode) {
         log.info("");
@@ -139,29 +145,30 @@ public class AdminProductServiceImpl implements AdminProductService {
             optionDTO.setOptionCode(product.getOptionList().get(i).getOptionCode());
             int addOption = mapper.addOption(optionDTO);
             updateOption += addOption;}
-//        옵션리스트 테이블 불러오기
-//        옵션리스트 테이블에 있으면 update
-//        옵션리스트 테이블에 없으면 optionDTO에 없는 optionCode는 지우고, 없는 값을 insert
-
         List<OptionListDTO> optionListDTO = product.getOptionList();
-        log.info("**********************여기까지 됨~~~~~~~~~~~~");
 
-        int addOptionListAddResult = 0;
-        int addOptionListUpdateResult = 0;
+        log.info("----------------------optionListDTO 됨~~~~~~~~" + optionListDTO);
 
-//        옵션리스트 테이블 insert
-        for(int i = 0; i < product.getOptionDTO().size(); i++) {
-            optionListDTO.get(i).setProductCode(product.getProductCode());
-            log.info("productCode:         "   + optionListDTO.get(i).getProductCode());
-            optionListDTO.get(i).setOptionCode(product.getOptionDTO().get(i).getOptionCode());
-            log.info("optioncode:         "   + optionListDTO.get(i).getOptionCode());
-            log.info("optionListDTO:         "   + optionListDTO.get(i));
 
-            int updateOptionList = mapper.optionListUpdate(optionListDTO.get(i));
+        for(int i = 0; i< optionListDTO.size(); i++){
+                log.info("********************** optionListDTO.get(i).getOptionCode()~~~~~~~~~~~~" + optionListDTO.get(i).getOptionCode());
+                optionListDTO.get(i).setProductCode(product.getProductCode());
 
-        }
+                    int addOptionList = mapper.addOptionList2(optionListDTO.get(i));
+
+                }
+
+
+
 
 //        사진테이블 update
+        for (AttachmentDTO attachment : product.getAttachment()) {
+            attachment.setProductCode(product.getProductCode());
+            if (!attachment.getOriginalName().isEmpty()) {
+                int updateImg = mapper.updateImg(attachment);
+
+            }
+        }
 
         if(!(updateProduct > 0)|| !(updateOption > 0)){
             throw new AdminProductAddException("상품 수정에 실패하였습니다.");

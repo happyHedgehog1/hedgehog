@@ -13,4 +13,14 @@ public interface AdminMemberMapper {
     List<AdminAllMemberDTO> selectMember(AdminMemberForm form);
 
     List<AdminAllMemberDTO> selectAllMemberList();
+
+
+    int updateMemberWithdrawState(AdminAllMemberDTO adminAllMemberDTO);
+
+    int insertWithdrawTable(AdminAllMemberDTO adminAllMemberDTO);
+
+    List<AdminAllMemberDTO> searchMember(AdminAllMemberDTO adminAllMemberDTO);
+
+
+    AdminAllMemberDTO memberDetail(int memberCode);
 }

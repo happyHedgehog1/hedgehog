@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminOrder.model.dto;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminCustomerDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminUserDTO;
 import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class AdminOrderDTO {
+public class AdminOrderDTO extends AdminAllMemberDTO {
     private List<AdminOrderDetailDTO> orderDetail;
     private int orderCode;
     private int customerCode;

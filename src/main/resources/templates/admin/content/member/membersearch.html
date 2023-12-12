@@ -88,46 +88,42 @@
                         <button class="btn" type="submit" >검색</button>
                     </div>
                 </form>  <!-- 여기 폼 사용 -->
-
-
             </div>
             <div class="pc-switch">
                 <div class="sect-hd">
                     <h3>회원 검색 결과</h3>
-                    <span>( 검색고객 : <span class="usersCnt">0</span>명 )</span>
+                    <span>( 검색고객 : <span class="usersCnt" th:text="${ totalResult }"></span>명 )</span>
                 </div>
                 <div class="sect-cont">
+                    <form id="memberWithdrawForm" th:action="@{/member/}" method="post">
 
                     <div class="tbl-side">
                         <div class="f-r">
-                            <select class="box" name="memCount" id="memCount" style="width:120px">
-                                <option value="10">10개</option>
-                                <option value="30">30개</option>
-                                <option value="50">50개</option>
-                                <option value="100">100개</option>
-                            </select>
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'memberWithdraw');">
+                                회원탈퇴
+                            </button>
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'point');">
+                                적립금관리
+                            </button>
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'searchAllMemberSendMail');">
+                                검색회원 메일발송
+                            </button>
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'selectMemberSendMail');">
+                                선택회원 메일발송
+                            </button>
 
-                            <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">회원
-                                탈퇴</a>
-                            <a href="javascript:;" class="btn-black ml-10 btn-buying-limit" style="width:140px;">구매
-                                제한</a>
-                            <a href="javascript:;" class="btn-black ml-10 btn-users-mileage" style="width:140px;">적립금
-                                관리</a>
-                            <a href="javascript:;" class="btn-black ml-10 btn-all-sms-send" style="width:140px;">검색회원
-                                메일발송</a>
-                            <a href="javascript:;" class="btn-black ml-10 btn-sms-send" style="width:140px;">선택회원
-                                메일발송</a>
 
                         </div>
                     </div>
-
                     <div class="tbl-list tbl-extend mt-20">
-                        <table>
-
-                            <thead>
+                        <table class="memberSearch" name="memberSearch">
+                            <tbody>
                             <tr class="searchResult" >
-                                <th><label class="single"><input type="checkbox"
-                                                                 name="chk_all_users"><span></span></label></th>
+                                <th>
+                                    <label class="single">
+                                        <input type="checkbox" name="chk_all_users"><span></span>
+                                    </label>
+                                </th>
                                 <th>No</th>
                                 <th>아이디</th>
                                 <th>이름</th>
@@ -136,27 +132,27 @@
                                 <th>누적 결제금액</th>
                                 <th>적립금</th>
                                 <th>마케팅<br> 수신동의</th>
-                                <th>회원가입일</th>
-                                <th>최근로그인</th>
-                                <th class="aa">관리</th>
+                                <th class="aa">회원가입일</th>
+                                <th class="aa">최근로그인</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="proSearchBottomtr" th:each=" member : ${ memberList }">
+                            <tr class="proSearchBottomtr" th:each=" member,  stat : ${ memberList }">
                                 <td>
-                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${ member.member_code }">
                                 </td>
-                                <td th:text="${ member.member_code}"></td>
+                                <td th:text="${ stat.index + 1}"></td>
                                 <td th:text="${ member.user.id}"></td>
                                 <td th:text="${ member.user.name}"></td>
-                                <td th:text="${ member.customer.phone}"></td>
+                                <td th:text="${#strings.concat(#strings.substring(member.customer.phone, 0, 3), '-', #strings.substring(member.customer.phone, 3, 7), '-', #strings.substring(member.customer.phone, 7))}"></td>
                                 <td th:text="${ member.customer.email}"></td>
-                                <td th:text="${ member.cumulative_amount}"></td>
-                                <td th:text="${ member.point}"></td>
+                                <td th:if="${member.cumulative_amount != null and member.cumulative_amount != 0}"
+                                    th:text="${#numbers.formatInteger(member.cumulative_amount, 3, 'COMMA') + '원'}"></td>
+                                <td th:if="${member.cumulative_amount == null or member.cumulative_amount == 0}">&nbsp;</td>
+                                <td th:if="${member.point != null and member.point != 0}"
+                                    th:text="${#numbers.formatInteger(member.point, 3, 'COMMA') + '원'}"></td>
+                                <td th:if="${member.point == null or member.point == 0}">&nbsp;</td>
                                 <td th:text="${ member.email_consent}"></td>
                                 <td th:text="${ member.user.creation_date}"></td>
                                 <td th:text="${ member.user.connection_date}"></td>
-                                <td th:text="${ member.user.withdraw_state}"></td>
                             </tr>
 
                             </tbody>
@@ -169,12 +165,21 @@
 
 
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-    </div>
-    </div>
+
+    <script>
+        function submitForm(formId, action) {
+            var form = document.getElementById(formId);
+            form.action = form.action + action;  // action을 동적으로 설정
+            form.submit();
+        }
+
+
+    </script>
 </th:block>
 </body>
 </html>
