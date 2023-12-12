@@ -11,4 +11,6 @@ public interface AdminOrderService {
     List<AdminOrderDTO> searchOrderList(AdminOrderForm form);
 
     public void orderStateUpdate(AdminOrderDTO orderDTO) throws OrderStateUpdateException;
+
+    public AdminOrderDTO orderDetail(int orderCode);
 }

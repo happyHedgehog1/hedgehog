@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/category")
 public class AdminCategoryController {
 
-
+    /**
+     * 상분 분류 페이지 연결 메소드
+     * @return
+     */
     @GetMapping("/categoryAdd")
     public String categoryadd(){ return "admin/content/product/categoryAdd.html";}
 

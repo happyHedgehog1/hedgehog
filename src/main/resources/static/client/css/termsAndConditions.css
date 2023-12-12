@@ -41,6 +41,7 @@ td {
     padding: 10px;
     /* br 태그 높이 */
     line-height: 200%;
+    max-width: 300px;
 }
 
 #bottom_button_wrap {

@@ -22,19 +22,19 @@
         <div class="main_category">
           <ul>
             <li>
-              <a th:href="@{'/list/category'}"><img src="/client/images/catergory_thumbnail/bedroom.jpg" alt=""></a>
+              <a th:href="@{'/list/productList/bed'}"><img src="/client/images/catergory_thumbnail/bedroom.jpg" alt=""></a>
               <span>침실</span>
             </li>
             <li>
-              <a th:href="@{'/list/category'}"><img src="/client/images/catergory_thumbnail/living_room.jpg" alt=""></a>
+              <a th:href="@{'/list/productList/sopa'}"><img src="/client/images/catergory_thumbnail/living_room.jpg" alt=""></a>
               <span>거실</span>
             </li>
             <li>
-              <a th:href="@{'/list/category'}"><img src="/client/images/catergory_thumbnail/study.jpg" alt=""></a>
+              <a th:href="@{'/list/productList/desk'}"><img src="/client/images/catergory_thumbnail/study.jpg" alt=""></a>
               <span>서재</span>
             </li>
             <li>
-              <a th:href="@{'/list/category'}"><img src="/client/images/catergory_thumbnail/kitchen.jpg" alt=""></a>
+              <a th:href="@{'/list/productList/kitchenTable'}"><img src="/client/images/catergory_thumbnail/kitchen.jpg" alt=""></a>
               <span>주방</span>
             </li>
         </ul>
@@ -91,7 +91,13 @@
               </ul>
             </div>
 
-      </section>
-
-  </th:block>
+    </section>
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+        localStorage.removeItem('summernoteContent');
+    </script>
+</th:block>
 </html>

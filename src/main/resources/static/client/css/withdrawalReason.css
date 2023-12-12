@@ -8,6 +8,12 @@ section {
     min-height: 80.2vh;
 }
 
+#route_home,
+#route_mypage,
+#route_modifyInfo {
+    cursor: pointer;
+}
+
 #bottom_buttons {
     display: flex;
     justify-content: flex-end;
@@ -16,21 +22,22 @@ section {
 
 #contents {
     align-self: center;
-    padding-top:3em;
+    padding-top: 3em;
 }
 
-#remove_info{
-    padding:10px;
+#remove_info {
+    padding: 10px;
     font-size: 0.8em;
-    color:#8e8e8e;
+    color: #8e8e8e;
 }
-#remove_info>li {
+
+#remove_info > li {
     list-style-type: disc;
     list-style-position: inside;
 }
 
 #password_input {
-    border: 1px solid gray;
+    border: 1px solid rgb(128, 128, 128);
     border-radius: 0.3em;
     padding: 5px;
     height: 1.7em;
@@ -45,10 +52,10 @@ section {
 #bottom_buttons {
     padding: 5px;
     margin-top: 1em;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
-#bottom_buttons>button:first-child {
+#bottom_buttons > button:first-child {
     border: 1.5px solid #A7727D;
     border-radius: 0.7em;
     padding-top: 0.7em;
@@ -58,7 +65,7 @@ section {
     color: black;
 }
 
-#bottom_buttons>button:last-child {
+#bottom_buttons > button:last-child {
     border-radius: 0.7em;
     padding-top: 0.7em;
     padding-bottom: 0.7em;
@@ -66,4 +73,25 @@ section {
     border: 0;
     background-color: #A7727D;
     color: white;
+}
+#mypage_button,
+#submit_button{
+    border-radius: 0.6em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding: 0.3em 0.5em;
+    border: 2px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+#mypage_button:hover ,
+#submit_button:hover{
+    background: white;
+    color: black
+}
+.note-modal{
+    padding-top:200px;
 }

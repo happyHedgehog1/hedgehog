@@ -2,7 +2,10 @@ package com.hedgehog.client.auth.model.dao;
 
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.auth.model.dto.MemberDTO;
+import com.hedgehog.client.auth.model.dto.PostDTO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface AuthMapper {
@@ -29,4 +32,6 @@ public interface AuthMapper {
     LoginUserDTO findByUsername(String username);
 
     int updateConnectionDate(int userCode);
+
+    List<PostDTO> getRegistPosts();
 }

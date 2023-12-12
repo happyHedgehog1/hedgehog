@@ -290,3 +290,53 @@ button#btnDelete:active {
   .w00{
     margin-left: 24px;
   }
+
+button#btnCommit {
+    width: 70px;
+    height: 30px;
+    margin-top: 30px;
+    color: white;
+    background-color: #A7727D;
+    border: 0;
+    font-size: 15px;
+
+}
+
+
+button#btnCommit:active {
+    background-color: #3F464F;
+    width: 70px;
+    height: 30px;
+    margin-top: 30px;
+    color: white;
+    border: 0;
+    font-size: 15px;
+
+}
+.bottom{
+    padding-left: 20px;
+}
+
+
+button#btnCommit {
+    width: 70px;
+    height: 30px;
+    margin-top: 30px;
+    color: white;
+    background-color: #A7727D;
+    border: 0;
+    font-size: 15px;
+
+}
+
+
+button#btnCommit:active {
+    background-color: #3F464F;
+    width: 70px;
+    height: 30px;
+    margin-top: 30px;
+    color: white;
+    border: 0;
+    font-size: 15px;
+
+}

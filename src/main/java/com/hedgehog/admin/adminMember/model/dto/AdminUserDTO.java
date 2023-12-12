@@ -18,4 +18,5 @@ public class AdminUserDTO {
     private String creation_date;
     private String withdraw_state;
 
+
 }

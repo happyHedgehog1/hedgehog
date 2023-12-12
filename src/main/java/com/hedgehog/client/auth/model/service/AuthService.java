@@ -1,9 +1,12 @@
 package com.hedgehog.client.auth.model.service;
 
-import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.MemberDTO;
+import com.hedgehog.client.auth.model.dto.PostDTO;
 import com.hedgehog.common.common.exception.UserCertifiedException;
+import com.hedgehog.common.common.exception.UserRegistPostException;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.List;
 
 public interface AuthService {
 
@@ -20,4 +23,6 @@ public interface AuthService {
     boolean registMember(MemberDTO newMember);
 
     UserDetails findByUserId(String username);
+
+    List<PostDTO> getRegistPosts() throws UserRegistPostException;
 }

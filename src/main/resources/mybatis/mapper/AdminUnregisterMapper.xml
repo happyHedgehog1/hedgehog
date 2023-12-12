@@ -13,7 +13,8 @@
         <result property="state" column="state"/>
         <result property="cancel_date" column="cancel_date"/>
         <association property="user" resultMap="adminUserDTOResultMap"/>
-    </resultMap>
+        <association property="user" resultMap="adminUserDTOResultMap"/>
+            </resultMap>
 
     <resultMap id="adminUserDTOResultMap" type="AdminUserDTO">
         <id property="user_code" column="user_code"/>
@@ -24,6 +25,11 @@
         <result property="connection_date" column="connection_date"/>
         <result property="creation_date" column="creation_date"/>
         <result property="withdraw_state" column="withdraw_state"/>
+    </resultMap>
+    <resultMap id="adminUserResultMap" type="AdminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="name" column="name"/>
+        <result property="id" column="id"/>
     </resultMap>
 
     <select id="selectUnregister" resultMap="unregisterMap">
@@ -58,13 +64,13 @@
                 AND (B.cause NOT LIKE CONCAT('%관리자%', '') AND B.cause NOT LIKE CONCAT('%강제%', ''))
             </if>
             <if test="unregisterCondition == 'forcedWithdrawal'">
-                AND B.cause LIKE CONCAT('%강제%', '') AND B.cause LIKE CONCAT('%관리자 승인%', '')
+                AND B.cause LIKE CONCAT('%강제%', '') OR B.cause LIKE CONCAT('%관리자 승인%', '')
             </if>
             <if test="unregisterCondition == 'plannedWithdrawal'">
                 AND B.state = 'N'
             </if>
-            <if test="idSearch != null and idSearch != ''">
-                AND A.id LIKE CONCAT('%', #{idSearch}, '%')
+            <if test="searchId != null and searchId != ''">
+                AND A.id LIKE CONCAT('%', #{searchId}, '%')
             </if>
         </where>
     </select>

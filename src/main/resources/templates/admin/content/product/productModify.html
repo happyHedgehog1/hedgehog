@@ -6,9 +6,8 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품등록</title>
+    <title>상품수정</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
-    <script th:src="@{/admin/js/productModify.js}"></script>
 
     <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
 </head>
@@ -19,12 +18,13 @@
             <div class="pageBody">
                 <div class="mainHd">
                     <div class="topTitle">
-                        <h4>상품 등록</h4>
+                        <h4>상품 수정</h4>
                     </div>
                 </div>
-                <form id="productAdd" th:action="@{/product/productRegist}" method="post" enctype="multipart/form-data">
+                <form id="productRegist" th:action="@{/product/productRegist}" method="post" enctype="multipart/form-data">
                 <div class="sectTopWrapper">
                     <div class="sectTop">
+                        <input type="hidden" th:name="productCode" th:value="${product.getProductCode()}">
                         <table>
                             <colgroup>
                                 <col class="w200">
@@ -146,24 +146,26 @@
                                     </ul>
                                 </th>
                             </tr>
-                            <tr class="optionList" th:each="optionList : ${product.getOptionList()}">
+                            <tr class="optionList" th:each="optionList, optionListStat : ${product.getOptionList()}">
                                 <th colspan="2" >
                                     <ul class="arrAlign">
                                         <li class="colorPreview" style="width: 200px">
                                             <div id="colorPreview">미리보기</div>
                                         </li>
                                         <li class="w400">
-                                            <input type="text" name="optionCode" id="optionCode" style="width: 350px;" th:value="${optionList.getOptionCode()}">
+                                            <input type="text" th:name="'optionList[' + ${optionListStat.index} + '].optionCode'" style="width: 350px;" th:value="${optionList.getOptionCode()}">
                                         </li>
                                         <li class="w400">
-                                            <input type="text" name="optionName" id="optionName" style="width: 350px;" th:value="${product.getOptionDTO().get(optionListStat.index).getOptionName()}">
+                                            <input type="text" th:name="'optionDTO[' + ${optionListStat.index} + '].optionName'" style="width: 350px;" th:value="${product.getOptionDTO().get(optionListStat.index).getOptionName()}">
                                         </li>
                                         <li class="w200">
-                                            <input type="number" name="stock" id="stock" style="width: 125px;" th:value="${optionList.getStock()}">
+                                            <input type="number" th:name="'optionList[' + ${optionListStat.index} + '].stock'" style="width: 125px;" th:value="${optionList.getStock()}">
                                             개
                                         </li>
                                         <li class="w140" style="padding-top: 5px;">
-                                            <div id="img-add"><img th:src="@{/admin/images/add.png}" height="25px"></div>
+                                            <div id="img-add">
+                                                <img th:src="@{|/admin/images/${optionListStat.index eq 0 ? 'add' : 'delete'}.png|}" height="25px">
+                                            </div>
                                         </li>
                                     </ul>
                                 </th>
@@ -186,29 +188,37 @@
                                     <div class="img-file1">
                                         <label for="thumbnail">대표이미지 지정</label>
                                         <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
-                                        <div id="thumbnailPreview" th:if="${product.attachment[0].thumbnailPath != null}">
-                                            <img id="previewImage1" th:src="@{|/thumbPath${product.attachment[0].getThumbnailPath()}|}">
+                                        <div id="thumbnailPreview">
+                                            <img id="previewImage1" th:src="@{|/thumbPath${product.attachment[0].getThumbnailPath()}|}" style="width: 200px">
                                         </div>
                                     </div>
                                     <div class="img-file2">
                                         <label for="sub_thumbnail">대표이미지 지정2</label>
                                         <input type="file" id="sub_thumbnail" name="sub_thumbnail" accept="image/*" multiple>
                                         <div id="subThumbnailPreview">
-                                            <img id="subpreviewImage" alt="">
+                                            <span>
+                                            <img id="subpreviewImage1" alt="" style="width: 80px"
+                                                 th:src="@{|/thumbPath${product.attachment[1].getThumbnailPath()}|}">
+                                            <img id="subpreviewImage2" alt="" style="width: 80px"
+                                                 th:src="@{|/thumbPath${product.attachment[2].getThumbnailPath()}|}">
+                                            </span>
+                                            <img id="subpreviewImage3" alt="" style="width: 80px"
+                                                 th:src="@{|/thumbPath${product.attachment[3].getThumbnailPath()}|}">
                                         </div>
                                     </div>
                                     <div class="img-file3">
                                         <label for="proImg">제품 상세이미지</label>
                                         <input type="file" id="proImg" name="proImg" accept="image/*">
                                         <div id="proPreview" style="max-width: 200px; max-height: 200px; overflow: hidden;">
-                                            <img id="previewImage2" alt="" style="width: 100%; height: auto;">
+                                            <img id="previewImage2" alt="" style="width: 100%; height: auto;"
+                                                 th:src="@{|/thumbPath${product.attachment[4].getThumbnailPath()}|}">
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <div><button id="btnAdd">상품등록</button></div>
+                        <div><button id="btnAdd">상품수정</button></div>
                     </div>
                 </div>
                 </form>
@@ -267,7 +277,13 @@
         });
     </script>
 </th:block>
-
+<script th:src="@{/admin/js/productModify.js}"></script>
+<script th:inline="javascript">
+    var message = [[${message}]];
+    if (message) {
+        alert(message);
+    }
+</script>
 </body>
 </html>
 

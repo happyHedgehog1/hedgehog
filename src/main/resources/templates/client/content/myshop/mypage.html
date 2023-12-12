@@ -32,7 +32,7 @@
                     </li>
 
                     <!--쿼리스트링으로 내 닉네임으로 검색 가능하게.-->
-                    <li id="mypage02" onclick="location.href='/board/questionInfo'">
+                    <li id="mypage02" onclick="location.href='/board/questionList'">
                         <img src="/client/images/icon/mypage/mypage02.png" alt="문의내역">
                         <span>문의내역</span>
                         </a>
@@ -52,7 +52,7 @@
                     </li>
 
 
-                    <li id="mypage05" onclick="location.href='/board/reviewInfo'">
+                    <li id="mypage05" onclick="location.href='/board/reviewList'">
                         <img src="/client/images/icon/mypage/mypage05.png" alt="리뷰내역">
                         <span>리뷰 내역</span>
                     </li>
@@ -65,6 +65,12 @@
             </div>
         </div>
     </section>
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+    </script>
 
 </th:block>
 </html>

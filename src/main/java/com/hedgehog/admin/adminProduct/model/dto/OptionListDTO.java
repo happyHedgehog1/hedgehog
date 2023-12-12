@@ -15,4 +15,5 @@ public class OptionListDTO {
     private int stock;
     private String exposureStatus;
     private int sales;
+    private List<OptionDTO> optionDTO;
 }

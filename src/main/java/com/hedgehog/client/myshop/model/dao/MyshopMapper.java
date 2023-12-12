@@ -9,4 +9,14 @@ public interface MyshopMapper {
     int getMyPoint(int userCode);
 
     MemberDTO getMemberInfo(int userCode);
+
+    String getEmail(int userCode);
+
+    int updateUser(MemberDTO member);
+
+    int updateCustomer(int userCode, MemberDTO member);
+
+    int updateMember(int userCode, MemberDTO member);
+
+    int getUserCode(String userId);
 }

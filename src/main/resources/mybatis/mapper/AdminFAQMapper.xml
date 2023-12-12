@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminService.model.dao.AdminFAQMapper">
+    <resultMap id="FAQResultMap" type="AdminFAQDTO">
+    <id property="user_code" column="user-code"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="write_date" column="write_date"/>
+        <result property="modify_date" column="modify_date"/>
+        <result property="views" column="views"/>
+        <result property="state" column="state"/>
+        <association property="id" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+
+    <resultMap id="adminUserDTOResultMap" type="AdminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+    <select id="searchFAQ" resultMap="FAQResultMap">
+        SELECT
+            A.title,
+            A.content,
+            B.id,
+            A.write_date,
+            A.modify_date,
+            A.views,
+            A.state
+        FROM tbl_admin_bulletin_board A
+        JOIN tbl_user B ON A.user_code = B.user_code
+    </select>
+</mapper>

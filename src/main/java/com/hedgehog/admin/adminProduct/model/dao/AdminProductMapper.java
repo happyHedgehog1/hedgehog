@@ -23,8 +23,20 @@ public interface AdminProductMapper {
     int addImg(AttachmentDTO attachmentDTO);
     //ajax 이용하여 동적으로 서브 카테고리 불러오는 메소드
     List<AdminCategoryDTO> searchCategory(int upperCategoryCode);
-
+    //optionList 테이블 insert 메소드
     int addOptionList(OptionListDTO optionListDTO);
 
     AdminProductDTO selectProductDetail(int productCode);
+
+    int productUpdate(AdminProductDTO product);
+
+    int optionListUpdate(OptionListDTO optionListDTO);
+
+    List<OptionListDTO> searchOptionList(AdminProductDTO product);
+
+    int deleteOptionList(OptionListDTO existingOptions);
+
+    int addOptionList2(OptionListDTO optionListDTO);
+
+    int updateImg(AttachmentDTO attachment);
 }

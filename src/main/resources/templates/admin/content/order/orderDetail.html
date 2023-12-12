@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문내역 상세조회</title>
+    <link rel="stylesheet" th:href="@{/admin/css/autoMail/viewport/viewport.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
+</head>
+<body>
+<div id="wrap">
+    <header>
+        <div class="logobackground">
+            <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+            <h2>주문내역 상세조회</h2>
+        </div>
+    </header>
+    <div class="body">
+        <div class="wrap">
+            <div class="answer">.</div>
+            <table >
+                <tr>
+                    <th>주문일자</th>
+                    <th>주문코드</th>
+                    <th>상품명</th>
+                    <th>상품가격</th>
+                    <th>배송비</th>
+                    <th>적립금</th>
+                    <th>합계</th>
+                </tr>
+                    <td th:text="${orderDetail.getCreationDate()}"></td>
+                    <td th:text="${orderDetail.getOrderCode()}"></td>
+                    <td th:text="${orderDetail.getProductDTO().productName}"></td>
+                    <td>
+                        <table>
+                            <tr th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
+                                <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getCostPrice()}"></td>
+                                <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getDeliveryCharge()}"></td>
+                                <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getPoint()}"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td th:text="${orderDetail.sumPrice}"></td>
+                </tr>
+                <tr>
+                    <th>이름</th>
+                    <th>연락처</th>
+                    <th>주소</th>
+                    <th>배송메모</th>
+                    <th>상태</th>
+                </tr>
+                <tr>
+                    <td th:text="${orderDetail.getUserDTO().name}"></td>
+                    <td th:text="${orderDetail.adminCustomerDTO.phone}"></td>
+                    <td>주소</td>
+                    <td>배송메모</td>
+                    <td th:text="${orderDetail.state}"></td>
+
+                </tr>
+                <tr>
+                    <th>교환신청</th>
+                    <th>환불신청</th>
+                </tr>
+<!--                <tr th:each="order : ${ orderDetail }">-->
+<!--                </tr>-->
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

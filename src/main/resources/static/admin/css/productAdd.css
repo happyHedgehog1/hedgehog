@@ -401,9 +401,10 @@ input[type="file"] {
 }
 
 #previewImage {
-    width: 200px; /* 원하는 너비로 조절 */
+    width: 200px;
     height: auto;
 }
+
 
 #subThumbnailPreview{
     margin-left: 10px;

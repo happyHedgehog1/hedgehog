@@ -29,4 +29,33 @@
         JOIN tbl_member B ON A.customer_code=B.member_code
         WHERE B.member_code = #{userCode}
     </select>
+    <select id="getEmail">
+        SELECT
+            email
+        FROM
+            tbl_customer
+        WHERE customer_code = #{userCode};
+    </select>
+    <update id="updateUser">
+        UPDATE tbl_user
+        SET password=#{userPwd}, name=#{name}
+        WHERE id=#{userId};
+    </update>
+    <update id="updateCustomer">
+        UPDATE tbl_customer
+        SET
+        <if test="member.hiddenCertifiedKey != 0">
+            certification_number = #{member.hiddenCertifiedKey},
+        </if>
+        email=#{member.email},
+        phone=#{member.phone}
+        WHERE customer_code=#{userCode}
+    </update>
+    <update id="updateMember">
+        UPDATE tbl_member
+        SET birthday=#{member.birthday},
+            gender=#{member.gender},
+            email_consent=#{member.emailService}
+        WHERE member_code = #{userCode}
+    </update>
 </mapper>

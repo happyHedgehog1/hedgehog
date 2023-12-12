@@ -4,44 +4,31 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-    <th:block layout:fragment="content">
+<th:block layout:fragment="content">
     <script th:src="@{/client/js/termsAndConditions.js}"></script>
     <link rel="stylesheet" th:href="@{/client/css/termsAndConditions.css}">
 
-      <section>
+    <section>
         <div id="main_category_route">
-          <ul class="route_list">
-            <li id="route_home" onclick="goHome();"><img src="../image/icon/home.png" alt=""></li>
-            <li>&gt;</li>
-            <li>이용약관</li>
-          </ul>
-          <div id="contents">
-            <table id="contents_table">
-              <caption>이용약관</caption>
-              <tr>
-                <td>이용약관이 아래로 작성될 예정입니다. 어떻게 작성될진 모르겠구요. <br>
-                  한줄씩 데이터베이스에 저장되어 이를 작성할 수도 있고 HTML 그 자체가<br>
-                  데이터베이스에 단 하나의 튜플로 저장될 수도 있습니다. <br>
-                  예를 들자면
-                  <p>01 이는 p태그로 만든 것입니다.</p>
-                  <p>02 이는 p태그로 만든 것입니다.</p>
-                  <p>03 이는 p태그로 만든 것입니다.</p>
-                  <p>04 이는 p태그로 만든 것입니다.</p>
-                  <p>05 이는 p태그로 만든 것입니다.</p>
-                  <p>06 이는 p태그로 만든 것입니다.</p>
-                  <p>07 이는 p태그로 만든 것입니다.</p>
-                  <p>08 이는 p태그로 만든 것입니다.</p>
-                  <p>09 이는 p태그로 만든 것입니다.</p>
-                  <p>10 이는 p태그로 만든 것입니다.</p>
-                </td>
-              </tr>
-            </table>
-            <div id="bottom_button_wrap">
-              <button id="bottom_button" onclick="goHome()">홈으로가기</button>
+            <ul class="route_list">
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
+                <li>&gt;</li>
+                <li>이용약관</li>
+            </ul>
+            <div id="contents">
+                <table id="contents_table">
+                    <caption>이용약관</caption>
+                    <tr>
+                        <td th:utext="${post.getContent()}"></td>
+                    </tr>
+                </table>
+                <div id="bottom_button_wrap">
+                    <button id="bottom_button" onclick="location.href='/'">메인화면</button>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-    </th:block>
+</th:block>
 </html>
