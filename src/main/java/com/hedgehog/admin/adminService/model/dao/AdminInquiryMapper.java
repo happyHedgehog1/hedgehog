@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface AdminInquiryMapper {
     List<AdminInquiryDTO> searchInquiry(AdminInquiryForm form);
+
+
 }

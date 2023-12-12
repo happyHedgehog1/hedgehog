@@ -21,4 +21,8 @@ public class AdminInquiryServiceImpl implements AdminInquiryService {
         List<AdminInquiryDTO> inquiryList = mapper.searchInquiry(form);
         return inquiryList;
     }
+
+
+
+
 }

@@ -2,7 +2,10 @@ package com.hedgehog.admin.adminService.controller;
 
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryForm;
+import com.hedgehog.admin.adminService.model.dto.AdminReviewDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminReviewForm;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
+import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +21,16 @@ import java.util.List;
 public class adminServiceController {
     private final AdminInquiryServiceImpl adminInquiryServiceImpl;
 
-    public adminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl) {
+    public adminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl) {
         this.adminInquiryServiceImpl = adminInquiryServiceImpl;
+        this.adminReviewServiceImpl = adminReviewServiceImpl;
     }
 
+    //상품문의 첫화면
+    @GetMapping("/productInquiryPage")
+    public String productInquiryPage () {
+        return "admin/content/Service/Product-inquiry";
+    }
     //상품문의
     @GetMapping(value = "/productInquiry")
     public ModelAndView productInquiry(@ModelAttribute AdminInquiryForm form) {
@@ -63,13 +72,51 @@ public class adminServiceController {
         return modelAndView;
     }
 
+    private final AdminReviewServiceImpl adminReviewServiceImpl;
 
-    @GetMapping("/productInquiryPage")
-    public String productInquiryPage () {
-        return "admin/content/Service/Product-inquiry";
+
+
+    //상품리뷰
+    @GetMapping("/Product-review")
+    public ModelAndView productReview(@ModelAttribute AdminReviewForm form) {
+        log.info("review============= start");
+        log.info(form.toString());
+
+        List<AdminReviewDTO> reviewList = adminReviewServiceImpl.searchReview(form);
+        log.info("reviewList=============" + reviewList);
+
+        int totalResult = reviewList.size();
+
+
+
+
+
+        ModelAndView modelAndView = new ModelAndView("admin/content/Service/Product-review");
+        modelAndView.addObject("reviewList", reviewList);
+        modelAndView.addObject("totalResult", totalResult);
+
+
+        log.info("totalResult" + String.valueOf(totalResult));
+
+        return modelAndView;
     }
 
-        @GetMapping("/email")
+
+    //FAQ
+    @GetMapping("/FAQ")
+    public String FAQ () {
+        return "admin/content/Service/FAQ";
+    }
+
+
+
+
+
+
+
+
+
+    @GetMapping("/email")
         public String email () {
             return "admin/content/Service/email";
         }
@@ -79,15 +126,7 @@ public class adminServiceController {
             return "admin/content/Service/emailHistory";
         }
 
-        @GetMapping("/Product-review")
-        public String productReview () {
-            return "admin/content/Service/Product-review";
-        }
 
-        @GetMapping("/FAQ")
-        public String FAQ () {
-            return "admin/content/Service/FAQ";
-        }
 
         @GetMapping("/notice")
         public String notice () {
