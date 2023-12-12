@@ -7,20 +7,29 @@
     <th:block layout:fragment="content">
     <link rel="stylesheet" th:href="@{/client/css/mainCategory.css}">
 
+
     <section>
         <div id="main_category_bed_contents">
 
             <ul class="route_list">
-                <li><img src="/static/images/icon/home.png" alt=""></li>
+                <li><img src="/client/images/icon/home.png" alt=""></li>
                 <li>&gt;</li>
-                <li>침실</li>
+                <li th:if="${category == 'bed' or category == 'wardrobe' or category == 'dressingTable'}">침실</li>
+                <li th:if="${category == 'sopa' or category == 'table' or category == 'closet'}">거실</li>
+                <li th:if="${category == 'desk' or category == 'bookcase' or category == 'chair'}">서재</li>
+                <li th:if="${category == 'kitchenTable' or category == 'kitchenCloset'}">주방</li>
                 <li>&gt;</li>
-                <li>소파</li>
-<!--            <li><img src="/static/images/icon/home.png" alt=""></li>-->
-<!--            <li>&gt;</li>-->
-<!--            <li th:text="${subject1}">침실</li>-->
-<!--            <li>&gt;</li>-->
-<!--            <li th:text="${subject2}">소파</li>-->
+                <li th:if="${category == 'bed'}">침대</li>
+                <li th:if="${category == 'wardrobe'}">옷장</li>
+                <li th:if="${category == 'dressingTable'}">화장대</li>
+                <li th:if="${category == 'sopa'}">소파</li>
+                <li th:if="${category == 'table'}">테이블</li>
+                <li th:if="${category == 'closet'}">수납장</li>
+                <li th:if="${category == 'desk'}">책상</li>
+                <li th:if="${category == 'bookcase'}">책장</li>
+                <li th:if="${category == 'chair'}">의자</li>
+                <li th:if="${category == 'kitchenTable'}">식탁</li>
+                <li th:if="${category == 'kitchenCloset'}">수납장</li>
             </ul>
 
             <th:block th:each="category : ${ categoryList }">
@@ -31,7 +40,7 @@
                     <li class="gallery_list_text">
                         <ul class="gallery_list_text1">
                             <li>1인가구</li>
-                            <li th:text="${}"></li>
+                            <li>리뷰</li>
                         </ul>
                         <ul class="gallery_list_text2">
                             <li>상품제목</li>
@@ -39,41 +48,14 @@
                         </ul>
                     </li>
 
-
-                    <p>No. <label th:text="${ thumbnail.no }"></label> <span th:text="${ thumbnail.title }"></span><br>
-                        조회수 : <span th:text="${ thumbnail.count }"></span>
-                    </p>
                 </ul>
             </th:block>
-
-
-            <div class="gallery">
-
-                <ul class="gallery_list">
-                    <li>
-                    <a th:href="@{/product}"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></a>
-                    </li>
-
-                    <li class="gallery_list_text">
-                    <ul class="gallery_list_text1">
-                        <li>1인가구</li>
-                        <li>☆4.5(3)</li>
-                    </ul>
-                    <ul class="gallery_list_text2">
-                        <li>상품제목</li>
-                        <li>252,000원</li>
-                    </ul>
-                    </li>
-                </ul>
 
 
                 <ul class="page_number">
                 <li>1</li>
                 <li>2</li>
                 </ul>
-
-
-            </div>
         </div>
     </section>
 
