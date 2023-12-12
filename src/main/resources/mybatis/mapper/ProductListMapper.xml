@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.list.dao.ProductListMapper">
+
+<resultMap id="ResultListMap2" type="com.hedgehog.client.list.dto.ProductListDTO">
+    <association property="adminProductDTO" resultMap="productResultMap2"/>
+    <association property="attachmentDTO" resultMap="attachmentResultMap2"/>
+
+</resultMap>
+
+    <resultMap id="productResultMap2" type="com.hedgehog.client.list.dto.AdminProductDTO2">
+        <id property="productCode" column="product_code"/>
+        <result property="subCategoryName" column="category_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="orderableStatus" column="orderable_status"/>
+        <result property="price" column="price"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="modificationDate" column="modification_date"/>
+        <result property="eventProgressionStatus" column="event_progressionstatus"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="salesStart" column="sales_start"/>
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+        <result property="salesEnd" column="sales_end"/>
+    </resultMap>
+
+    <resultMap id="attachmentResultMap2" type="com.hedgehog.client.list.dto.AttachmentDTO2">
+        <id property="no" column="img_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="originalName" column="source_name"/>
+        <result property="thumbnailPath" column="source_path"/>
+        <result property="savedName" column="convert_name"/>
+        <result property="savePath" column="convert_path"/>
+        <result property="fileType" column="image_classification"/>
+        <result property="status" column="image_status"/>
+    </resultMap>
+
+
+    <select id="selectProductList" resultMap="ResultListMap2">
+        SELECT
+            A.productName,
+            A.price
+        FROM TBL_PRODUCT
+        WHEER
+    </select>
+
+</mapper>

@@ -13,11 +13,11 @@
         <!-- 사이드메뉴 -->
         <div class="side_nenu" onclick="toggleHamburger()">
             <ul class="side_nenu_List">
-                <li><a th:href="@{'/list/category'}">베스트 상품</a></li>
-                <li><a th:href="@{'/list/category'}">침실</a></li>
-                <li><a th:href="@{'/list/category'}">거실</a></li>
-                <li><a th:href="@{'/list/category'}">서재</a></li>
-                <li><a th:href="@{'/list/category'}">주방</a></li>
+                <li><a th:href="@{'/list/productList'}">베스트 상품</a></li>
+                <li><a th:href="@{'/list/productList'}">침실</a></li>
+                <li><a th:href="@{'/list/productList'}">거실</a></li>
+                <li><a th:href="@{'/list/productList'}">서재</a></li>
+                <li><a th:href="@{'/list/productList'}">주방</a></li>
                 <li class="post"><a th:href="@{/agreement/privacyPolicy}">게시판</a>
                     <ul class="post_list">
                         <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
@@ -52,39 +52,39 @@
         <div>
             <div class="line"></div>
             <ul class="gnb_list" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
-                <li><a th:href="@{/list/category}">침실</a></a></li>
-                <li><a th:href="@{/list/category}">거실</a></li>
-                <li><a th:href="@{/list/category}">서재</a></li>
-                <li><a th:href="@{/list/category}">주방</a></li>
+                <li><a th:href="@{/list/productList/bed}">침실</a></a></li>
+                <li><a th:href="@{/list/productList/sopa}">거실</a></li>
+                <li><a th:href="@{/list/productList/desk}">서재</a></li>
+                <li><a th:href="@{/list/productList/kitchenTable}">주방</a></li>
             </ul>
             <div class="line"></div>
             <div class="gnb_sub_box" onmouseover="applyHoverEffect(true)" onmouseout="applyHoverEffect(false)">
                 <div class="gnb_sub_list">
                     <ul class="detail_list">
-                        <li><a th:href="@{/list/category}">침대</a></li>
+                        <li><a th:href="@{/list/productList/bed}">침대</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">옷장</a></li>
+                        <li><a th:href="@{/list/productList/wardrobe}">옷장</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">화장대</a></li>
+                        <li><a th:href="@{/list/productList/dressingTable}">화장대</a></li>
                     </ul>
                     <ul class="detail_list">
-                        <li><a th:href="@{/list/category}">소파</a></li>
+                        <li><a th:href="@{/list/productList/sopa}">소파</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">테이블</a></li>
+                        <li><a th:href="@{/list/productList/table}">테이블</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">수납장</a></li>
+                        <li><a th:href="@{/list/productList/closet}">수납장</a></li>
                     </ul>
                     <ul class="detail_list">
-                        <li><a th:href="@{/list/category}">책상</a></li>
+                        <li><a th:href="@{/list/productList/desk}">책상</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">책장</a></li>
+                        <li><a th:href="@{/list/productList/bookcase}">책장</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">의자</a></li>
+                        <li><a th:href="@{/list/productList/chair}">의자</a></li>
                     </ul>
                     <ul class="detail_list">
-                        <li><a th:href="@{/list/category}">식탁</a></li>
+                        <li><a th:href="@{/list/productList/kitchenTable}">식탁</a></li>
                         <span></span>
-                        <li><a th:href="@{/list/category}">수납장</a></li>
+                        <li><a th:href="@{/list/productList/kitchenCloset}">수납장</a></li>
                     </ul>
                 </div>
             </div>
