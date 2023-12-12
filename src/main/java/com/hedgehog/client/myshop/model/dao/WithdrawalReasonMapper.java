@@ -4,8 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface WithdrawalReasonMapper {
-    void saveImageInfo(String fileName,
-                       String filePath,
-                       String thumbnailFileName,
-                       String thumbnailFilePath);
+
+    void insertWithdrawalReason(int userCode, String summernoteContent);
 }

@@ -28,7 +28,7 @@
                 <li>회원탈퇴</li>
             </ul>
             <div id="contents">
-                <form action="/myshop/checkPwd" method="post">
+                <form action="/myshop/withdrawalReason/submit" method="post">
                     <ul id="remove_info">
                         <li>탈퇴 신청한 시점부터 1주일 뒤 아이디를 제외한 모든 개인 정보는 삭제됩니다.</li>
                         <li>그 이전에 접속하시면 탈퇴를 취소할 수 있습니다.</li>
@@ -37,56 +37,12 @@
                     <h1 id="question">무엇이 불편하셨나요?</h1>
                     <!-- Summernote -->
                     <div id="summernote"></div>
-                    <script>
-                        $(document).ready(function () {
-                            $('#summernote').summernote({
-                                placeholder: '탈퇴하고 싶은 이유를 작성하시면 됩니다.',
-                                tabsize: 2,
-                                height: 350,
-                                maxHeight: 1000,
-                                width: 700,
-                                maxWidth: 700,
-                                focus:true,
-                                lang: "ko-KR",
-                                callbacks: {
-                                    onImageUpload: function (files) {
-                                        uploadImage(files[0]);
-                                    }
-                                },
-                                toolbar: [
-                                    ['style', ['style']],
-                                    ['font', ['bold', 'underline', 'clear']],
-                                    ['color', ['color']],
-                                    ['insert', ['link', 'picture', 'video']],
-                                    ['view', ['codeview', 'help']]
-                                ]
-                            });
-                        });
-
-                        function uploadImage(file) {
-                            let formData = new FormData();
-                            formData.append('file', file);
-                            console.log(file);
-                            $.ajax({
-                                url: '/myshop/withdrawalReason/uploadImage',
-                                type: 'POST',
-                                data: formData,
-                                contentType: false,
-                                processData: false,
-                                success: function (imagePath) {
-                                    $('#summernote').summernote('insertImage', imagePath);
-                                },
-                                error: function () {
-                                    alert('이미지 업로드에 실패했습니다.');
-                                }
-                            });
-                        }
-                    </script>
                     <!-- Summernote -->
+                    <input type="hidden" name="summernoteContent" id="summernoteContent">
 
                     <div id="password_wrap">
                         <label>비밀번호</label>
-                        <input type="password" placeholder="현재 비밀번호를 입력해주세요." id="password_input">
+                        <input type="password" name="userPwd" placeholder="현재 비밀번호를 입력해주세요." id="password_input">
                     </div>
 
                     <div id="bottom_buttons">
@@ -97,6 +53,42 @@
             </div>
         </div>
     </section>
-
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                placeholder: '탈퇴하고 싶은 이유를 작성하시면 됩니다.',
+                height: 350,
+                maxHeight: 1000,
+                width: 700,
+                maxWidth: 700,
+                focus: true,
+                lang: "ko-KR",
+                disableDragAndDrop: true,
+                dialogsInBody: true,
+                callbacks: {},
+                toolbar: [],
+            });
+            $('#summernote').summernote('code', localStorage.getItem("summernoteContent") || '');
+        });
+        $('#summernote').on('summernote.keyup', function () {
+            const content = $(this).summernote('code');
+            const maxLength = 3000;
+            console.log(content.length);
+            if (content.length > maxLength) {
+                alert("글자수가 너무 많습니다. (3000자 이하)");
+                $(this).summernote('code', content.substring(0, maxLength));
+            }
+        })
+        $('form').submit(function () {
+            $('#summernoteContent').val($('#summernote').summernote('code'));
+            localStorage.setItem("summernoteContent", $('#summernote').summernote('code'));
+        })
+    </script>
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+    </script>
 </th:block>
 </html>

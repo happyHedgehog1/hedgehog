@@ -78,7 +78,7 @@ INSERT INTO tbl_customer(customer_code, email, member_state, phone, certificatio
 VALUES (7, 'mmail7@gmail.com', 'Y', '01000000007', 3);
 INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point)
 VALUES (7, '1986-03-02', 'M', 'Y', 1500);
-INSERT INTO tbl_withdraw(user_code, state, cause, apply_date, cancel_date)
+INSERT INTO tbl_withdraw(user_code, state, cause, apply_date, commit_date)
 VALUES (7, 'Y', '서비스가 불친절하다.', '2022-11-03 15:50:50', '2022-11-10 15:50:50');
 
 /*8번 user는 3번 권한(회원). 강제퇴장된 경우*/
