@@ -16,18 +16,22 @@
                 <div class="pageBody">
                     <div class="mainHd">
                         <div class="topTitle">
-                            <h4>게시판관리</h4>
+                            <h4>공지사항</h4>
                         </div>
                         <div class="topbtnWrapper">
                             <div class="pageButton"><a th:href="@{/Service/productInquiry}">상품 문의 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/Product-review}">상품 후기 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
-                            <div class="pageButton1"><a th:href="@{/Service/notice}">공지사항 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                             </div>
                         <div id="btnNoticeAdd"><a th:href="@{/Service/noticeWrite}">공지사항등록</a></div>
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
+                            <form id="searchNotice"
+                                  th:action="@{/Service/notice}"
+                                  method="get"
+                                  style="display: inline-block">
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
@@ -39,13 +43,13 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                                                        <input type="date" name="notSearchStartDay" id="notSearchStartDay">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;~
                                                     </li>  
                                                     <li class="w200">
-                                                        <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                                                        <input type="date" name="notSearchEndDay" id="notSearchEndDay">
                                                     </li>
                                                     
                                                 </ul>    
@@ -56,7 +60,7 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="prdCondition" id="prdCondition" >
+                                                        <select name="notCondition" id="notCondition" >
                                                             <option value="0" selected>전체</option>
                                                             <option value="1">공개</option>
                                                             <option value="2">비공개</option>
@@ -70,7 +74,7 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="prdKeyword" id="prdKeyword" >
+                                                        <select name="notKeyword" id="notKeyword" >
                                                             <option value="0" selected>전체</option>
                                                             <option value="1">제목</option>
                                                             <option value="2">내용</option>
@@ -80,7 +84,7 @@
                                                         &nbsp;
                                                     </li>                                                    
                                                     <li>
-                                                        <input type="text" name="proSearch" id="proSearch">
+                                                        <input type="text" name="notSearch" id="notSearch">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -88,8 +92,9 @@
                                 </tbody>    
                             </table>
                             <div>
-                                <button id="btnSearch"> 검색 </button>
+                                <button type="submit" id="btnSearch"> 검색 </button>
                             </div>
+                            </form>
                         </div>    
                     </div>
                     <div><br><br></div>
@@ -114,106 +119,26 @@
                             </colgroup>
                             <tbody>
                                             <tr class="searchResult">
-                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>    
-                                            <th>공개여부</th>
-                                            <th>제목</th>
-                                            <th>조회수</th>
-                                            <th>등록일</th>                                             
+                                                <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
+                                                <th>제목</th>
+                                                <th>내용</th>
+                                                <th>작성자</th>
+                                                <th>등록일자</th>
+                                                <th>수정일자</th>
+                                                <th>조회수</th>
+                                                <th>노출상태</th>
                                 </tr> 
-                                <tr class="proSearchBottomtr">
+                                    <tr class="proSearchBottomtr" th:each="FAQ : ${ noticeList }">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
                                     </td>
-                                    <td>
-                                        <li>공개</li>
-                                    </td>
-                                    <td>
-                                        <li class="textAlignLeft">공지사항 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>200회</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>공개</li>
-                                    </td>
-                                    <td>
-                                        <li class="textAlignLeft">공지사항 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>200회</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>  
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>공개</li>
-                                    </td>
-                                    <td>
-                                        <li class="textAlignLeft">공지사항 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>200회</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>  
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>공개</li>
-                                    </td>
-                                    <td>
-                                        <li class="textAlignLeft">공지사항 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>200회</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                </tr>  
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>공개</li>
-                                    </td>
-                                    <td>
-                                        <li class="textAlignLeft">공지사항 제목</li>
-                                    </td>
-                                    <td>
-                                        <li>200회</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
+                                    <td th:text="${ FAQ.title }"></td>
+                                    <td th:text="${ FAQ.content }"></td>
+                                    <td th:text="${ FAQ.id.id }"></td>
+                                    <td th:text="${ FAQ.write_date }"></td>
+                                    <td th:text="${ FAQ.modify_date }"></td>
+                                    <td th:text="${ FAQ.views }"></td>
+                                    <td th:text="${ FAQ.state }"></td>
                                 </tr>  
                             </tbody>
                         </table>

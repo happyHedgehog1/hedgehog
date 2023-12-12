@@ -1,11 +1,13 @@
-package com.hedgehog.admin.adminService.model.service;
+package com.hedgehog.admin.adminService.model.dao;
 
 import com.hedgehog.admin.adminService.model.dto.AdminFAQDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminFAQForm;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
-public interface AdminFAQService {
-
+@Mapper
+public interface AdminFAQMapper {
     List<AdminFAQDTO> searchFAQ(AdminFAQForm form);
+
+    List<AdminFAQDTO> searchNotice(AdminFAQForm form);
 }

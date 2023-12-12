@@ -1,9 +1,7 @@
 package com.hedgehog.admin.adminService.controller;
 
-import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
-import com.hedgehog.admin.adminService.model.dto.AdminInquiryForm;
-import com.hedgehog.admin.adminService.model.dto.AdminReviewDTO;
-import com.hedgehog.admin.adminService.model.dto.AdminReviewForm;
+import com.hedgehog.admin.adminService.model.dto.*;
+import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +18,18 @@ import java.util.List;
 @Slf4j
 public class adminServiceController {
     private final AdminInquiryServiceImpl adminInquiryServiceImpl;
+    private final AdminFAQServiceImpl adminFAQServiceImpl;
+    private final AdminReviewServiceImpl adminReviewServiceImpl;
 
-    public adminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl) {
+
+    public adminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl) {
         this.adminInquiryServiceImpl = adminInquiryServiceImpl;
         this.adminReviewServiceImpl = adminReviewServiceImpl;
+        this.adminFAQServiceImpl = adminFAQServiceImpl;
+
     }
+
+
 
     //상품문의 첫화면
     @GetMapping("/productInquiryPage")
@@ -72,7 +77,7 @@ public class adminServiceController {
         return modelAndView;
     }
 
-    private final AdminReviewServiceImpl adminReviewServiceImpl;
+
 
 
 
@@ -87,10 +92,6 @@ public class adminServiceController {
 
         int totalResult = reviewList.size();
 
-
-
-
-
         ModelAndView modelAndView = new ModelAndView("admin/content/Service/Product-review");
         modelAndView.addObject("reviewList", reviewList);
         modelAndView.addObject("totalResult", totalResult);
@@ -101,12 +102,80 @@ public class adminServiceController {
         return modelAndView;
     }
 
-
-    //FAQ
-    @GetMapping("/FAQ")
+    //FAQ 첫화면
+    @GetMapping("/FAQPage")
     public String FAQ () {
         return "admin/content/Service/FAQ";
     }
+    //FAQ
+    @GetMapping("/FAQ")
+    public ModelAndView FAQ(@ModelAttribute AdminFAQForm form){
+        log.info("FAQ============= start");
+        log.info(form.toString());
+
+        List<AdminFAQDTO> FAQList = adminFAQServiceImpl.searchFAQ(form);
+        log.info("FAQList=============" + FAQList);
+
+        int totalResult = FAQList.size();
+
+        ModelAndView modelAndView = new ModelAndView("admin/content/Service/FAQ");
+        modelAndView.addObject("FAQList", FAQList);
+        modelAndView.addObject("totalResult", totalResult);
+
+
+        log.info("totalResult" + String.valueOf(totalResult));
+
+        return modelAndView;
+    }
+    //공지사항 첫화면
+    @GetMapping("/noticePage")
+    public String notice () {
+        return "admin/content/Service/notice";
+    }
+    //공지사항
+    @GetMapping(value = "/notice")
+    public ModelAndView notice(@ModelAttribute AdminFAQForm form) {
+        log.info("notice============= start");
+        log.info(form.toString());
+
+        List<AdminFAQDTO> noticeList = adminFAQServiceImpl.searchNotice(form);
+        log.info("noticeList=============" + noticeList);
+
+        int totalResult = noticeList.size();
+        int countY = 0;
+        int countN = 0;
+        for (int i = 0; i < noticeList.size(); i++) {
+            String state = noticeList.get(i).getState();
+            log.info(state);
+
+            if (state.equals("Y")) {
+                countY++;
+
+            }
+            if (state.equals("N")) {
+                countN++;
+            }
+        }
+
+
+        log.info("=============================countY" + countY);
+        log.info("=============================countN" + countN);
+
+        ModelAndView modelAndView = new ModelAndView("admin/content/Service/notice");
+        modelAndView.addObject("noticeList", noticeList);
+        modelAndView.addObject("totalResult", totalResult);
+        modelAndView.addObject("countY", countY);
+        modelAndView.addObject("countN", countN);
+
+
+        log.info("totalResult" + String.valueOf(totalResult));
+
+        return modelAndView;
+    }
+
+
+
+
 
 
 
@@ -124,13 +193,6 @@ public class adminServiceController {
         @GetMapping("/emailHistory")
         public String emailHistory () {
             return "admin/content/Service/emailHistory";
-        }
-
-
-
-        @GetMapping("/notice")
-        public String notice () {
-            return "admin/content/Service/notice";
         }
 
         @GetMapping("/autoMail")
