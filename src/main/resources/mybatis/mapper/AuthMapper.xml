@@ -90,6 +90,6 @@
         SELECT
             post_type,content
         FROM tbl_admin_bulletin_board
-        WHERE post_type in ('이용약관','개인정보처리방침');
+        WHERE post_type in ('이용약관','개인정보처리방침')
     </select>
 </mapper>

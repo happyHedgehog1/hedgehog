@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.agreement.model.dao.AgreementMapper">
+    <resultMap id="postDTOResultMap" type="com.hedgehog.client.auth.model.dto.PostDTO">
+        <result property="postType" column="post_type"/>
+        <result property="content" column="content"/>
+    </resultMap>
+    <select id="getPrivacyPolicy" resultMap="postDTOResultMap">
+        SELECT
+            post_type,content
+        FROM tbl_admin_bulletin_board
+        WHERE post_type ='이용약관'
+    </select>
+    <select id="getTermsAndConditions" resultMap="postDTOResultMap">
+        SELECT
+            post_type,content
+        FROM tbl_admin_bulletin_board
+        WHERE post_type ='개인정보처리방침'
+    </select>
+</mapper>
