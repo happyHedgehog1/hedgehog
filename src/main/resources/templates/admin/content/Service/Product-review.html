@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항</title>
+    <title>상품후기</title>
     <link rel="stylesheet" th:href="@{/admin/css/Product-review.css}" type="text/css">
     <script th:src="@{/admin/js/seach.js}"></script>
 
@@ -22,12 +22,16 @@
                             <div class="pageButton"><a th:href="@{/Service/productInquiry}">상품 문의 관리</a></div>
                             <div class="pageButton1"><a th:href="@{/Service/Product-review}">상품 후기 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
-                            <div class="pageButton"><a th:href="@{/Service/notice}">공지사항 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                             </div>
                         
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
+                            <form id="searchReview"
+                                  th:action="@{/Service/Product-review}"
+                                  method="get"
+                                  style="display: inline-block">
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
@@ -39,32 +43,25 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <input type="date" name="proSearchStartDay" id="proSearchStartDay">
+                                                        <input type="date" name="revSearchStartDay" id="revSearchStartDay">
                                                     </li>
                                                     <li class="w25">
                                                         &nbsp;~
                                                     </li>  
                                                     <li class="w200">
-                                                        <input type="date" name="proSearchEndDay" id="proSearchEndDay">
+                                                        <input type="date" name="revSearchEndDay" id="revSearchEndDay">
                                                     </li>
                                                     
                                                 </ul>    
                                             </td>   
                                     </tr> 
                                     <tr>        
-                                        <th>구분</th>    
+                                        <th>평점</th>
                                             <td>
                                                 <ul class="arrAlign">
-                                                    <li class="w200">
-                                                        <select name="prdCondition" id="prdCondition" >
-                                                            <option value="0" selected>--후기유형 전체--</option>
-                                                            <option value="1">일반후기</option>
-                                                            <option value="2">사진후기</option>
-                                                            
-                                                        </select>
-                                                    </li>
+
                                                     <li class="w00">
-                                                        <select name="prdCondition" id="prdCondition" >
+                                                        <select name="revCondition" id="revCondition" >
                                                             <option value="0" selected>--평점--</option>
                                                             <option value="1">5점</option>
                                                             <option value="2">4점</option>
@@ -82,9 +79,9 @@
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
-                                                        <select name="prdKeyword" id="prdKeyword" >
+                                                        <select name="revKeyword" id="revKeyword" >
                                                             <option value="0" selected>--검색 키워드--</option>
-                                                            <option value="1">상품명</option>
+                                                            <option value="1">후기내용</option>
                                                             <option value="2">작성자</option>
                                                         </select>
                                                     </li>
@@ -92,7 +89,7 @@
                                                         &nbsp;
                                                     </li>                                                    
                                                     <li>
-                                                        <input type="text" name="proSearch" id="proSearch">
+                                                        <input type="text" name="revSearch" id="revSearch">
                                                     </li>
                                                 </ul>    
                                             </td>   
@@ -100,8 +97,9 @@
                                 </tbody>    
                             </table>
                             <div>
-                                <button id="btnSearch"> 검색 </button>
+                                <button type="submit" id="btnSearch"> 검색 </button>
                             </div>
+                            </form>
                         </div>    
                     </div>
                     <div><br><br></div>
@@ -126,142 +124,30 @@
                             </colgroup>
                             <tbody>
                                             <tr class="searchResult">
-                                            <th><input type="checkbox" name="" id="" style="width: 140px;"></th>
-                                            <th>후기유형</th>
+                                                <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
+                                            <th>제목</th>
                                             <th>이미지</th>
+                                            <th>후기내용</th>
+                                            <th>상품명</th>
                                             <th>평점</th>
-                                            <th>후기내용</th>                                        
-                                            <th>작성자</th>                                        
+                                            <th>작성자</th>
                                             <th>등록일</th>                                        
                                 </tr> 
-                                <tr class="proSearchBottomtr">
+                                <tr class="proSearchBottomtr" th:each="review : ${ reviewList }">
                                     <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
                                     </td>
-                                    <td>
-                                        <li>사진후기</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>5점</li>
-                                    </td>
-                                    <td>
-                                        <li>눕자마자 잠이와요!</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>사진후기</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>5점</li>
-                                    </td>
-                                    <td>
-                                        <li>눕자마자 잠이와요!</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>사진후기</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>5점</li>
-                                    </td>
-                                    <td>
-                                        <li>눕자마자 잠이와요!</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>사진후기</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>5점</li>
-                                    </td>
-                                    <td>
-                                        <li>눕자마자 잠이와요!</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
-                                    
-                                </tr>   
-                                <tr class="proSearchBottomtr">
-                                    <td class="proSearchBottomCheck">
-                                        <li>
-                                            <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
-                                        </li>
-                                    </td>
-                                    <td>
-                                        <li>사진후기</li>
-                                    </td>
-                                    <td>
-                                        상품이미지</li>
-                                    </td>
-                                    <td>
-                                        <li>5점</li>
-                                    </td>
-                                    <td>
-                                        <li>눕자마자 잠이와요!</li>
-                                    </td>
-                                    <td>
-                                        <li>코난</li>
-                                    </td>
-                                    <td>
-                                        <li>2023-10-10</li>
-                                    </td>
+                                    <td th:text="${ review.title}"></td>
+                                    <td>상품 이미지</td>
+                                    <td th:text="${ review.content}"></td>
+                                    <td th:text="${ review.product.productName}"></td>
+                                    <td th:text="${ review.grade}"></td>
+                                    <td th:text="${ review.id.id}"></td>
+                                    <td th:text="${ review.write_date}"></td>
+
+
+
+
                                     
                                 </tr>   
                                

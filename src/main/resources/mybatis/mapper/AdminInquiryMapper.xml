@@ -43,7 +43,6 @@
     <resultMap id="adminUserDTOResultMap" type="AdminUserDTO">
     <id property="user_code" column="user_code"/>
         <result property="id" column="id"/>
-
     </resultMap>
 
 
