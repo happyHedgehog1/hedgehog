@@ -56,8 +56,7 @@
         JOIN tbl_customer B ON A.member_code = B.customer_code
         JOIN tbl_user C ON B.customer_code = C.user_code
         <where>
-
-
+            withdraw_state = 'N'
             <if test="memKeyword != null and searchKeyword != null">
                 <choose>
                     <when test="memKeyword == 'user_id'">
@@ -95,6 +94,53 @@
             </if>
         </where>
     </select>
+    <update id="updateMemberWithdrawState" parameterType="Map">
+        UPDATE tbl_user
+        SET
+            withdraw_state = 'Y'
+        WHERE user_code = #{member_code}
+    </update>
+    <insert id="insertWithdrawTable" >
+        INSERT INTO tbl_withdraw
+            (user_code,
+             state,
+             cause,
+             commit_date)
+        values
+            (#{member_code  }, 'Y', '강제 탈퇴', now()  )
+
+    </insert>
+    <select id="searchMember" resultMap="memberResultMap">
+        SELECT
+            user_code,
+            id
+        FROM
+            tbl_user
+        WHERE user_code = #{member_code}
+    </select>
+    <select id="memberDetail" resultMap="memberResultMap">
+        SELECT
+            A.member_code,
+            A.email_consent,
+            A.point,
+            A.cumulative_amount,
+            B.email,
+            B.phone,
+            C.user_code,
+            C.id,
+            C.name,
+            C.creation_date,
+            C.connection_date,
+            C.withdraw_state
+        FROM
+            tbl_member A
+                JOIN tbl_customer B ON A.member_code = B.customer_code
+                JOIN tbl_user C ON B.customer_code = C.user_code
+            where
+            member_code = #{member_code}
+    </select>
+
+
 
 
 </mapper>

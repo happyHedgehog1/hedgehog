@@ -102,27 +102,29 @@
             }
         }
 
+
         /**
          * 회원 조회 온클릭
          */
-        if (document.querySelectorAll("#order td")) {
-            const $tdsProduct = document.querySelectorAll("#order td");
+        if (document.querySelectorAll("[name='memberSearch'] td")) {
+            const $tdsProduct = document.querySelectorAll("[name='memberSearch'] td");
             for (let i = 0; i < $tdsProduct.length; i++) {
-                $tdsProduct[i].onmouseenter = function() {
+                $tdsProduct[i].onmouseenter = function () {
                     this.parentNode.style.backgroundColor = "#A7727D";
                     this.parentNode.style.color = "white";
                     this.parentNode.style.cursor = "pointer";
-                }
+                };
 
-                $tdsProduct[i].onmouseout = function() {
+                $tdsProduct[i].onmouseout = function () {
                     this.parentNode.style.backgroundColor = "white";
                     this.parentNode.style.color = "black";
-                }
+                };
 
-                $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
+                $tdsProduct[i].ondblclick = function () {
+                    const member_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
 
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const memberDetailUrl = "/member/memberDetail?member_code=" + member_code;
+                    window.open(memberDetailUrl, "_blank", "width=1500, height=1000");
                 };
             }
         }

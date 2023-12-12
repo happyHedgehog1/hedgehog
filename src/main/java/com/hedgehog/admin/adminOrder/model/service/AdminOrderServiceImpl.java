@@ -50,7 +50,7 @@ public class AdminOrderServiceImpl implements AdminOrderService{
 
 
         orderDTO = mapper.orderDetail(orderCode);
-        log.info("selectProductDetail -------------------------- 끗~~~~~~~~~" + orderDTO);
+        log.info("orderDetail -------------------------- 끗~~~~~~~~~" + orderDTO);
 
 
 

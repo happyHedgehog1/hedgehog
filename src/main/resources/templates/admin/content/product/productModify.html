@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품등록</title>
+    <title>상품수정</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
 
     <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
@@ -163,7 +163,9 @@
                                             개
                                         </li>
                                         <li class="w140" style="padding-top: 5px;">
-                                            <div id="img-add"><img th:src="@{/admin/images/add.png}" height="25px"></div>
+                                            <div id="img-add">
+                                                <img th:src="@{|/admin/images/${optionListStat.index eq 0 ? 'add' : 'delete'}.png|}" height="25px">
+                                            </div>
                                         </li>
                                     </ul>
                                 </th>
