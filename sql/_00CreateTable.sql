@@ -385,7 +385,7 @@ CREATE TABLE `tbl_withdraw`
     `user_code`     INTEGER             NOT NULL,
     `apply_date`    DATETIME,
     `state`         CHAR(1) DEFAULT 'N' NOT NULL,
-    `cause`         VARCHAR(255)        NOT NULL,
+    `cause`         VARCHAR(3000)        NOT NULL,
     `commit_date`   DATETIME,
     `cancel_date`   DATETIME,
     PRIMARY KEY (`withdraw_code`)

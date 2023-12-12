@@ -1,79 +1,57 @@
 package com.hedgehog.client.myshop.controller;
 
+import com.hedgehog.client.auth.model.dto.LoginDetails;
+import com.hedgehog.client.auth.model.dto.LoginUserDTO;
+import com.hedgehog.client.myshop.model.dto.WithdrawalRequestDTO;
 import com.hedgehog.client.myshop.model.service.WithdrawalReasonService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/myshop/withdrawalReason")
 @Slf4j
+@AllArgsConstructor
 public class WithdrawalReasonController {
-    @Value("img")
-    private String IMAGE_DIR;
-
-    @Value("C:/hedgehog/")
-    private String ROOT_LOCATION;
-
     private final WithdrawalReasonService withdrawalReasonService;
+    private final PasswordEncoder passwordEncoder;
 
-    public WithdrawalReasonController(WithdrawalReasonService withdrawalReasonService) {
-        this.withdrawalReasonService = withdrawalReasonService;
-    }
 
-    @PostMapping("/uploadImage")
-    public ResponseEntity<String> handleImageUpload(@RequestParam("file") MultipartFile file) {
-        try {
-            String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+    @PostMapping("/submit")
+    public String submitData(@AuthenticationPrincipal LoginDetails loginDetails,
+                             @ModelAttribute WithdrawalRequestDTO withdrawalRequest,
+                             RedirectAttributes redirectAttributes) {
+        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
 
-            String fileUploadDirectory = rootLocation + "/upload/original/";
+        String inputPwd = withdrawalRequest.getUserPwd();
+        String loginUserPwd = loginUserDTO.getUserPwd();
+        if (passwordEncoder.matches(inputPwd, loginUserPwd)) {
+            // 비밀번호가 일치하는 경우
+            LocalDateTime commitDateTime = LocalDateTime.now().plusDays(7);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            redirectAttributes.addFlashAttribute("message", "회원탈퇴 신청이 완료되었습니다.\n" +
+                    commitDateTime.format(formatter) + " 이전에 들어오시면 탈퇴 신청이 취소됩니다.");
 
-            File directory = new File(fileUploadDirectory);
-            log.info("사진업로드 경로: " + fileUploadDirectory);
-            if (!directory.exists()) {
-                log.info("폴더 생성: " + directory.mkdirs());
-            }
+            withdrawalReasonService.insertWithdrawalReason(loginUserDTO.getUserCode(),withdrawalRequest.getSummernoteContent());
 
-            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-            log.info("파일 이름 생성: " + fileName);
-            String filePath = fileUploadDirectory + fileName;
-            log.info("파일 전체 경로 생성: " + filePath);
-
-            file.transferTo(new File(filePath));
-            log.info("파일 생성 완료");
-
-            String thumbnailDirectory = rootLocation + "/upload/thumbnail/";
-            File directory2 = new File(thumbnailDirectory);
-            log.info("압축사진업로드 경로: " + thumbnailDirectory);
-            if (!directory2.exists()) {
-                log.info("폴더 생성2: " + directory2.mkdirs());
-            }
-
-            Thumbnails.of(filePath)
-                    .size(600, 400)
-                    .toFile(thumbnailDirectory + "/thumbnail_" + fileName);
-            log.info("압축 파일 생성 완료");
-
-            return new ResponseEntity<>(filePath, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("이미지 업로드에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return "redirect:/";
+        } else {
+            redirectAttributes.addFlashAttribute("message","비밀번호가 일치하지 않습니다.");
+            return "redirect:/myshop/withdrawalReason";
         }
+        // 1. user_code
+        // 2. apply_date 신청시기 -> submit 된 시기
+        // 3. cause 원인 이유 -> 3000자 이하
+        // 4. 비밀번호 일치여부도 파악해야 한다.
+//        redirectAttributes.addFlashAttribute("message", "회원탈퇴신청이 완료되었습니다.<br>여기에 시간 작성");
+//        return "redirect:/";
     }
-
 }

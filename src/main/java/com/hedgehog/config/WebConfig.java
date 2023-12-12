@@ -22,8 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///c:/hedgehog/img/upload/thumbnail/");
         registry.addResourceHandler("/imagePath/**")
                 .addResourceLocations("file:///c:/hedgehog/img/upload/original/");
-//file:///C:/hedgehog/img/upload/original/0a83a8fc-0b1e-44d9-8e3b-e6afc34f5a37_%ED%9A%8C%EC%9B%90%EC%A0%95%EB%B3%B4%20%EC%88%98%EC%A0%95.png
-//file:///C:/hedgehog/img/upload/original/0a83a8fc-0b1e-44d9-8e3b-e6afc34f5a37_%ED%9A%8C%EC%9B%90%EC%A0%95%EB%B3%B4%20%EC%88%98%EC%A0%95.png
     }
 
 }
