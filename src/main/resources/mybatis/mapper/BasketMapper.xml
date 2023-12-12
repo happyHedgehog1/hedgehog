@@ -4,47 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.client.basket.model.dao.BasketMapper">
 
-<!--    <resultMap id="BasketResultMap" type="BasketDTO">-->
-<!--        <id property="cartCode" column="cart_code"/>-->
-<!--        <result property="amount" column="amount"/>-->
-<!--        <result property="customerCode" column="customer_code"/>-->
-<!--        <result property="optionCode" column="option_code"/>-->
-<!--        <association property="productCode" resultMap="productResultMap"/>-->
-<!--        <association property="imgCode" resultMap="productImgResultMap"/>-->
-<!--    </resultMap>-->
-
-
-
-<!--    <resultMap id="productResultMap" type="ProductDTO">-->
-<!--        <id property="productCode" column="product_code"/>-->
-<!--        <result property="categoryCode" column="category_code"/>-->
-<!--        <result property="productName" column="product_name"/>-->
-<!--        <result property="orderableStatus" column="orderable_status"/>-->
-<!--        <result property="price" column="price"/>-->
-<!--        <result property="registrationDate" column="registration_date"/>-->
-<!--        <result property="modificationDate" column="modification_date"/>-->
-<!--        <result property="eventProgressionStatus" column="event_progressionstatus"/>-->
-<!--        <result property="deliveryCharge" column="delivery_charge"/>-->
-<!--        <result property="salesStart" column="sales_start"/>-->
-<!--        <result property="reviews" column="reviews"/>-->
-<!--        <result property="grade" column="grade"/>-->
-<!--        <result property="salesEnd" column="sales_end"/>-->
-<!--        <association property="imgCode" resultMap="productImgResultMap"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap id="productImgResultMap" type="ProductImgDTO">-->
-<!--        <id property="imgCode" column="img_code"/>-->
-<!--        <result property="imageClassification" column="image_classification"/>-->
-<!--        <result property="sourcePath" column="source_path"/>-->
-<!--        <result property="convertPath" column="convert_path"/>-->
-<!--        <result property="sourceName" column="source_name"/>-->
-<!--        <result property="convertName" column="convert_name"/>-->
-<!--        <result property="imageStatus" column="image_status"/>-->
-<!--        <result property="createDate" column="create_date"/>-->
-<!--        <result property="modifyDate" column="modify_date"/>-->
-<!--        <result property="productCode" column="product_code"/>-->
-<!--    </resultMap>-->
-
 
     <resultMap id="CartSelectResultMap" type="CartSelectDTO">
         <id property="productCode" column="product_code"/>
@@ -56,8 +15,6 @@
         <result property="deliveryCharge" column="delivery_charge"/>
         <result property="productSum" column="합계"/>
     </resultMap>
-
-
 
     <select id="selectCartList" resultMap="CartSelectResultMap">
         SELECT DISTINCT
@@ -104,6 +61,62 @@
     </select>
 
 
+
+
+<!--    ================================       -->
+
+
+
+
+    <resultMap id="cartInfoResultMap" type="CartSelectDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="cartCode" column="cart_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="imgCode" column="img_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="amount" column="amount"/>
+        <result property="price" column="price"/>
+        <result property="savedMoney" column="savedMoney"/>
+        <result property="deliveryCharge" column="delivery_Charge"/>
+    </resultMap>
+
+
+
+    <select id="selectCartListByUserCode" resultMap="cartInfoResultMap">
+        select
+            A.cart_code,
+            B.product_name,
+            A.amount,
+            B.price,
+            (B.price * 0.01) AS savedMoney,
+            A.product_code,
+            B.delivery_charge
+        FROM
+            tbl_cart A
+                join
+            tbl_product B ON A.product_code = B.product_code
+                join
+            tbl_user C ON A.customer_code = C.user_code
+        WHERE C.user_code = #{userCode}
+    </select>
+
+
+
+<!--    선택상품삭제-->
+
+    <delete id="deleteCartItem">
+        DELETE FROM tbl_cart
+        WHERE cart_code = #{cartCode}
+          AND customer_code = #{userCode}
+    </delete>
+
+<!--    <delete id="deleteCartItem" parameterType="java.util.List">-->
+<!--        DELETE FROM tbl_cart-->
+<!--        WHERE cart_code IN-->
+<!--        <foreach item="code" collection="list" open="(" separator="," close=")">-->
+<!--            #{code}-->
+<!--        </foreach>-->
+<!--    </delete>-->
 
 
 

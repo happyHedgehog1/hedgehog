@@ -42,33 +42,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-
-
-function updateQuantity(change, productCode) {
-
-    console.log("Change: " + change + ", Product Code: " + productCode);
-
-    // 해당 상품의 수량 요소를 가져오기
-    var quantityElement = document.getElementById("quantity-display-" + productCode);
-
-    // 현재 수량 가져오기
-    var currentQuantity = parseInt(quantityElement.innerText);
-
-    // 새로운 수량 계산
-    var newQuantity = change + currentQuantity;
-
-    // 최소 수량을 1로 설정
-    newQuantity = Math.max(newQuantity, 1);
-
-    // 수량 표시 업데이트
-    quantityElement.innerText = newQuantity;
-
-    // 콘솔에 로그 출력
-    console.log("Product Code: " + productCode + ", New Quantity: " + newQuantity);
-}
-
+// function updateQuantity(change, productCode) {
+//
+//     console.log("Change: " + change + ", Product Code: " + productCode);
+//
+//     // 해당 상품의 수량 요소를 가져오기
+//     var quantityElement = document.getElementById("quantity-display-" + productCode);
+//
+//     // 현재 수량 가져오기
+//     var currentQuantity = parseInt(quantityElement.innerText);
+//
+//     // 새로운 수량 계산
+//     var newQuantity = change + currentQuantity;
+//
+//     // 최소 수량을 1로 설정
+//     newQuantity = Math.max(newQuantity, 1);
+//
+//     // 수량 표시 업데이트
+//     quantityElement.innerText = newQuantity;
+//
+//     // 콘솔에 로그 출력
+//     console.log("Product Code: " + productCode + ", New Quantity: " + newQuantity);
+// }
+//
 
 
 
@@ -119,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
 //======================전체상품 주문하기 버튼 누르면 실행 ==========================
 document.addEventListener('DOMContentLoaded', function () {
 
-
     // 버튼 요소 찾기
     var selectAllItemsButton = document.getElementById('selectAllItems');
 
@@ -143,19 +138,71 @@ function selectAllItems() {
 }
 //======================
 
-//==============선택상품삭제
+//==============선택상품삭제=============
 
-// 삭제 버튼에 대한 이벤트 리스너 등록
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('select_like_btn')) {
-        // 클릭된 버튼이 삭제 버튼인 경우
-        var row = event.target.closest('tr'); // 해당 행 가져오기
-        row.remove(); // 행 삭제
-        updateTotalPrice(); // 총 가격 업데이트
+function deleteSelectedItems() {
+    // 모든 체크된 체크박스 가져오기
+    var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
+
+    // 선택된 상품의 cartCode를 배열에 저장
+    var cartCodes = Array.from(checkedCheckboxes).map(function (checkbox) {
+        // 현재 체크박스에서 상위 tr 요소 찾기
+        var row = checkbox.closest('tr');
+
+        // 다음 형제 노드에 접근해서 'data-cart-code' 속성 값 가져오기
+        var cartCode = null;
+        var nextNode = row.nextSibling;
+        while (nextNode) {
+            if (nextNode.nodeType === 1 && nextNode.hasAttribute('data-cart-code')) {
+                cartCode = nextNode.getAttribute('data-cart-code');
+                break;
+            }
+            nextNode = nextNode.nextSibling;
+        }
+        return cartCode;
+    });
+
+    // AJAX를 사용하여 서버에 삭제 요청 보내기
+    fetch('/basket/cart/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartCodes: cartCodes }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 서버 응답을 받아서 처리
+            if (data.deleteSuccess) {
+                // 선택된 상품이 성공적으로 삭제된 경우
+                cartCodes.forEach(function (code) {
+                    removeItemFromUI(code);
+                });
+                alert('선택된 상품이 삭제되었습니다.');
+            } else {
+                // 삭제 중 오류가 발생한 경우
+                alert('상품 삭제 중 오류가 발생했습니다.');
+            }
+        })
+        .catch(error => {
+            // AJAX 요청 실패 시
+            console.error('Error:', error);
+        });
+}
+
+// 선택된 상품을 화면에서 제거하는 함수
+function removeItemFromUI(cartCode) {
+    // 해당 cartCode를 가진 행을 화면에서 제거하는 로직을 추가
+    var rowToRemove = document.querySelector('.cart_table tr[data-cart-code="' + cartCode + '"]');
+    if (rowToRemove) {
+        rowToRemove.remove();
     }
-});
 
-//==============
+    // 선택된 상품 삭제 후 필요한 UI 업데이트 등 수행
+    updateTotalPrice();
+}
+
+//=========================================
 
 
 

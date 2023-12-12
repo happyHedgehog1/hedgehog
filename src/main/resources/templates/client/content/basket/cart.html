@@ -29,7 +29,8 @@
                     <div></div>
 
                 </div>
-                <form action="/client/content/order/cartOrder" method="get" onsubmit="return handleFormSubmit();">
+                <form action="/client/content/clientOrder/cartOrder" method="get" onsubmit="return handleFormSubmit();">
+
 
                     <table class="cart_table">
                         <thead>
@@ -46,15 +47,12 @@
                         </thead>
 <!--                        productId는 해당 코드에서 thymeleaf의 표현식을 위해서 동적으로 생성함 -->
                         <tbody>
-                        <tr th:each="item : ${cartItemList}">
+                        <tr th:each="item : ${cartItemList}" data-cart-code="${item.productCode}">
 <!--                            -${item.productCode}"-->
                             <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
 <!--                            체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
 
                             <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px" height="70px" onerror="this.src='/client/images/event.png'" ></td>
-
-
-
 
                             <td th:text="${item.productName}">상품명</td>
                             <td th:text="${item.price}">가격</td>
@@ -62,10 +60,11 @@
                             <td class="cart_numbrt_btn">
                                 <div class="quantity-container" data-product-id="${item.productCode}">
                                     <input type="hidden" th:value="${item.productCode}" style="display:none;">
-                                    <button type="button" class="quantity-button decrease-button" data-product-code="${item.productCode}">-</button>
+                                    <button type="button" class="quantity-button decrease-button" data-product-code="${item.cartCode}">-</button>
                                     <span class="quantity-display" id="quantity-display-${item.productCode}" th:text="${item.amount}">1</span>
-                                    <button type="button" class="quantity-button increase-button" data-product-code="${item.productCode}">+</button>
+                                    <button type="button" class="quantity-button increase-button" data-product-code="${item.cartCode}">+</button>
                                 </div>
+
                             </td>
                             <td th:text="${item.deliveryCharge}">무료</td>
                             <td th:text="${item.productSum}">합계</td>
@@ -104,16 +103,18 @@
 
                     <br>
                     <br>
+                </form>
                 <hr>
                 <br>
                 <br>
 
                 <div class="select_cart">
 
-                    <div class="select_btn">&nbsp;
 
-                        <button class="select_like_btn">선택상품 삭제</button>
-                    </div>
+                        <button class="select_delete_btn"  id="deleteSelectedItems" onclick="deleteSelectedItems()" >선택 상품 삭제</button>
+
+
+
                     <div class="select_order_btn2">
                         <a th:href="@{/clientOrder/cartOrder}"><span class="select_order_btn">선택상품주문하기</span></a>
 <!--                        form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
@@ -135,7 +136,6 @@
 
 <!--                    <input type="hidden" name="selectedItems" id="selectedItems" />-->
 <!--                폼 내부에 사용자가 선택한 상품 정보를 저장할 숨겨진 입력 필드를 추가    -->
-                </form>
                 <br>
                 <br>
                 <br>

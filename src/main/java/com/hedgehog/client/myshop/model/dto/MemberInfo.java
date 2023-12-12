@@ -17,4 +17,5 @@ public class MemberInfo {
     private String email;
     private String emailService;
     private String phone;
+
 }
