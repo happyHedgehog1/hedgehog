@@ -1,5 +1,6 @@
 package com.hedgehog.client.board.model.dao;
 
+import com.hedgehog.client.board.model.dto.FaqDTO;
 import com.hedgehog.client.board.model.dto.NoticeDTO;
 import com.hedgehog.client.board.model.dto.QuestionDTO;
 import com.hedgehog.client.board.model.dto.ReviewDTO;
@@ -22,4 +23,8 @@ public interface BoardMapper {
     int selectTotalCountNoticeList(Map<String, String> searchMap);
 
     List<NoticeDTO> selectNoticeList(SelectCriteria selectCriteria);
+
+    int selectTotalCountFaqList(Map<String, String> searchMap);
+
+    List<FaqDTO> selectFaqList(SelectCriteria selectCriteria);
 }

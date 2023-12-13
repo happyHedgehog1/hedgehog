@@ -1,5 +1,7 @@
 package com.hedgehog.client.board.controller;
 
+import com.hedgehog.client.auth.model.dto.LoginDetails;
+import com.hedgehog.client.board.model.dto.FaqDTO;
 import com.hedgehog.client.board.model.dto.NoticeDTO;
 import com.hedgehog.client.board.model.dto.QuestionDTO;
 import com.hedgehog.client.board.model.dto.ReviewDTO;
@@ -7,6 +9,7 @@ import com.hedgehog.client.board.model.service.BoardService;
 import com.hedgehog.common.paging.SelectCriteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import com.hedgehog.common.paging.Pagenation;
 @AllArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+
 
     /*
      * 게시글 그 자체
@@ -180,13 +184,63 @@ public class BoardController {
 
         List<NoticeDTO> noticeList = boardService.selectNoticeList(selectCriteria);
 
-        log.info("questionList : BoardController... noticeList : " + noticeList);
+        log.info("noticeList : BoardController... noticeList : " + noticeList);
         mv.addObject("noticeList", noticeList);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("noticeList : BoardController... selectCriteria" + selectCriteria);
         mv.setViewName("/client/content/board/noticeList");
 
         log.info("noticeList : BoardController..... end..");
+        return mv;
+    }
+
+    @GetMapping("/faqList")
+    public ModelAndView faqList(@RequestParam(defaultValue = "writeDateDESC") String orderBy,
+                                   @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
+                                   ModelAndView mv) {
+        /*orderBy:
+         * writeDateDESC -> 최근 글부터
+         * writeDateASC -> 옛날글부터
+         * viewsDESC -> 조회수가 높은 순서대로
+         * viewsASC -> 조회수가 낮은 순서대로*/
+        log.info("");
+        log.info("");
+        log.info("faqList : BoardController..... start");
+        /*맨 먼저 목록보기를 누르면 1페이지가 나온다.*/
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("orderBy", orderBy);
+
+        log.info("faqList : BoardController에서 검색조건은 현재 다음과 같음... : " + searchMap);
+
+        /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
+        int totalCount = boardService.selectTotalCountFaqList(searchMap);
+        log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
+        /*한 페이지에 10개*/
+        int limit = 10;
+        /*한번에 페이징 버튼은 5개*/
+        int buttonAmount = 5;
+        /*페이징 처리용 로직을 위한 변수*/
+        SelectCriteria selectCriteria = null;
+        if (orderBy != null) {
+            // 뭔가 정렬기준이 있다면.
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, orderBy);
+        } else {
+            // 검색조건이 없다면
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+        }
+        log.info("");
+        log.info("");
+        log.info("faqList : BoardController..... selectCriteria : " + selectCriteria);
+
+        List<FaqDTO> faqList = boardService.selectFaqList(selectCriteria);
+
+        log.info("faqList : BoardController... faqList : " + faqList);
+        mv.addObject("faqList", faqList);
+        mv.addObject("selectCriteria", selectCriteria);
+        log.info("faqList : BoardController... selectCriteria" + selectCriteria);
+        mv.setViewName("/client/content/board/faqList");
+
+        log.info("faqList : BoardController..... end..");
         return mv;
     }
 }
