@@ -11,6 +11,7 @@
         <result property="modify_date" column="modify_date"/>
         <result property="views" column="views"/>
         <result property="state" column="state"/>
+        <result property="post_code" column="post_code"/>
         <association property="id" resultMap="AdminUserDTOResultMap"/>
     </resultMap>
 
@@ -21,6 +22,7 @@
 
     <select id="searchNotice" resultMap="AdminFAQResultMap">
         SELECT
+        A.post_code,
             A.title,
             A.content,
             B.id,
@@ -56,4 +58,15 @@
             </if>
         </where>
     </select>
+
+    <update id="noticeStateUpdate" parameterType="_int">
+        UPDATE tbl_admin_bulletin_board
+        SET state =
+        <choose>
+            <when test="state == 1"> 'Y'</when>
+            <when test="state == 2"> 'N'</when>
+
+        </choose>
+        WHERE post_code = #{post_code}
+    </update>
 </mapper>

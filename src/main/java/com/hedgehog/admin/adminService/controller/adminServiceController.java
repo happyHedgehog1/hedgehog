@@ -134,6 +134,35 @@ public class adminServiceController {
         return modelAndView;
     }
 
+    //상품리뷰 상태 업데이트
+
+    @PostMapping(value = "/revStateUpdate")
+    private String revStateUpdate(@RequestParam("resultCheckbox") List<String> selectedRevCodes,
+                                  @RequestParam("revSelectCommit") String selectedRevState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================revStateUpdate");
+        log.info("=================================selectedRevCodes" + selectedRevCodes);
+        log.info("=================================selectedRevState" + selectedRevState);
+
+        for (int i = 0; i < selectedRevCodes.size(); i++) {
+            if ("on".equals(selectedRevCodes.get(i)) || selectedRevCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int reviewCode = Integer.parseInt(selectedRevCodes.get(i));
+                log.info("reviewCode=================" + reviewCode);
+                AdminReviewDTO reviewDTO = new AdminReviewDTO();
+                reviewDTO.setReview_code(reviewCode);
+                reviewDTO.setState(selectedRevState);
+
+                log.info("================review" + reviewDTO);
+                adminReviewServiceImpl.revStateUpdate(reviewDTO);
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/Product-review";
+    }
+
 
     //FAQ 첫화면
     @GetMapping("/FAQPage")
@@ -160,6 +189,35 @@ public class adminServiceController {
         log.info("totalResult" + String.valueOf(totalResult));
 
         return modelAndView;
+    }
+
+    //FAQ 상태 업데이트
+    @PostMapping(value = "/FAQStateUpdate")
+    private String FAQStateUpdate(@RequestParam("resultCheckbox") List<String> selectedFAQCodes,
+                                  @RequestParam("FAQSelectCommit") String selectedFAQState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================FAQStateUpdate");
+        log.info("=================================selectedInqCodes" + selectedFAQCodes);
+        log.info("=================================selectedInqState" + selectedFAQState);
+
+        for (int i = 0; i < selectedFAQCodes.size(); i++) {
+            if ("on".equals(selectedFAQCodes.get(i)) || selectedFAQCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int FAQCode = Integer.parseInt(selectedFAQCodes.get(i));
+                log.info("FAQCode=================" + FAQCode);
+                AdminFAQDTO FAQDTO = new AdminFAQDTO();
+                FAQDTO.setPost_code(FAQCode);
+                FAQDTO.setState(selectedFAQState);
+
+                log.info("================FAQ" + FAQDTO);
+                adminFAQServiceImpl.FAQStateUpdate(FAQDTO);
+
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/FAQ";
     }
 
     //공지사항 첫화면
@@ -207,6 +265,35 @@ public class adminServiceController {
         log.info("totalResult" + String.valueOf(totalResult));
 
         return modelAndView;
+    }
+
+    //공지사항 상태 업데이트
+    @PostMapping(value = "/noticeStateUpdate")
+    private String noticeStateUpdate(@RequestParam("resultCheckbox") List<String> selectedNoticeCodes,
+                                  @RequestParam("noticeSelectCommit") String selectedNoticeState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================noticeStateUpdate");
+        log.info("=================================selectedNoticeCodes" + selectedNoticeCodes);
+        log.info("=================================selectedNoticeState" + selectedNoticeState);
+
+        for (int i = 0; i < selectedNoticeCodes.size(); i++) {
+            if ("on".equals(selectedNoticeCodes.get(i)) || selectedNoticeCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int noticeCode = Integer.parseInt(selectedNoticeCodes.get(i));
+                log.info("noticeCode=================" + noticeCode);
+                AdminFAQDTO FAQDTO = new AdminFAQDTO();
+                FAQDTO.setPost_code(noticeCode);
+                FAQDTO.setState(selectedNoticeState);
+
+                log.info("================FAQ" + FAQDTO);
+                adminFAQServiceImpl.noticeStateUpdate(FAQDTO);
+
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/notice";
     }
 
 

@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 public class AdminFAQDTO {
+    private int post_code;
     private int user_code;
     private String title;
     private String content;

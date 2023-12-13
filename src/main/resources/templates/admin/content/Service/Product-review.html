@@ -104,12 +104,13 @@
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
+                        <form id="revStateUpdate"
+                              th:action="@{ /Service/revStateUpdate}"
+                              method="post">
                         <div class="bottomResult">
                             <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 5 </span> 건 / 일반 :
-                                <span class="colorRed"> 3 </span> 건 / 사진 :
-                                <span class="colorRed"> 2 </span>
+                                <span class="colorRed" th:text="${totalResult}">  </span>
                                 <span> 건 ) </span></div>
                         </div>
                         <div class="tblWrapper">
@@ -131,11 +132,13 @@
                                             <th>상품명</th>
                                             <th>평점</th>
                                             <th>작성자</th>
-                                            <th>등록일</th>                                        
+                                            <th>등록일</th>
+                                                <th>공개여부</th>
                                 </tr> 
                                 <tr class="proSearchBottomtr" th:each="review : ${ reviewList }">
                                     <td class="proSearchBottomCheck">
-                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
+                                        th:value="${review.getReview_code()}">
                                     </td>
 
                                     <td>상품 이미지</td>
@@ -144,6 +147,7 @@
                                     <td th:text="${ review.grade}"></td>
                                     <td th:text="${ review.id.id}"></td>
                                     <td th:text="${ review.write_date}"></td>
+                                    <td th:text="${ review.state}"></td>
 
 
 
@@ -154,17 +158,18 @@
                             </tbody>
                         </table>
                         </div>
-                        <select name="" id="">
-                            <option value="0">--베스트후기 설정--</option>
-                            <option value="1">베스트후기 설정</option>
-                            <option value="2">베스트후기 설정해제</option>
-                         </select>   
-                         <select name="" id="">
+<!--                        <select name="" id="">-->
+<!--                            <option value="0">&#45;&#45;베스트후기 설정&#45;&#45;</option>-->
+<!--                            <option value="1">베스트후기 설정</option>-->
+<!--                            <option value="2">베스트후기 설정해제</option>-->
+<!--                         </select>   -->
+                         <select name="revSelectCommit" id="revSelectCommit">
                             <option value="0">--공개 상태 전환--</option>
                             <option value="1">공개 전환</option>
                             <option value="2">비공개 전환</option>
-                         </select>   
-                        
+                         </select>
+                            <button id="btnCommit" type="submit">적용</button>
+                        </form>
                             
                         
                     </div>

@@ -14,7 +14,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-                <div class="pageBody">
+    <div class="pageBody">
                     <div class="mainHd">
                         <div class="topTitle">
                             <h4>FAQ</h4>
@@ -88,12 +88,13 @@
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
+                        <form id="FAQStateUpdate"
+                              th:action="@{ /Service/FAQStateUpdate}"
+                              method="post">
                         <div class="bottomResult">
                             <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 5 </span> 건 / 노출 :
-                               
-                                <span class="colorRed"> 2 </span>
+                                <span class="colorRed" th:text="${totalResult}">  </span>
                                 <span> 건 ) </span></div>
                         </div>
                         <div class="tblWrapper">
@@ -119,7 +120,8 @@
                                 </tr>
                                             <tr class="proSearchBottomtr" th:each="FAQ : ${ FAQList }">
                                                 <td class="proSearchBottomCheck">
-                                                    <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                                    <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
+                                                    th:value="${FAQ.getPost_code()}">
                                                 </td>
                                                 <td th:text="${ FAQ.title }"></td>
                                                 <td th:text="${ FAQ.content }"></td>
@@ -133,14 +135,15 @@
                             </tbody>
                         </table>
                         </div>
-                        <select class="select" name="" id="">
+                        <select class="select" name="FAQSelectCommit" id="FAQSelectCommit">
                             <option value="0">--공개 상태 전환--</option>
                             <option value="1">공개 전환</option>
                             <option value="2">비공개 전환</option>
-                            
-                        
-                    </div>
 
+                        </select>
+                            <button id="btnCommit" type="submit">적용</button>
+                    </div>
+    </form>
                 </div>
 </th:block>
 </body>
