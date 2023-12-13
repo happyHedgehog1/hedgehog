@@ -23,7 +23,7 @@ import java.util.Map;
 import com.hedgehog.common.paging.Pagenation;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/board/* ")
 @Slf4j
 @AllArgsConstructor
 public class BoardController {
@@ -85,7 +85,6 @@ public class BoardController {
         mv.addObject("selectCriteria", selectCriteria);
         log.info("questionList : BoardController... selectCriteria" + selectCriteria);
         mv.setViewName("/client/content/board/questionList");
-
         log.info("questionList : BoardController..... end..");
         return mv;
     }
