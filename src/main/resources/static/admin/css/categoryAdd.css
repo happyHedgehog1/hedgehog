@@ -168,3 +168,17 @@ td{
     justify-content: space-between;
     border-bottom: #bdc5cd 1px solid;
 }
+
+.category1{
+    height: min-content;
+}
+
+.categoryTable{
+    collapse: 0px;
+}
+
+/* 테이블 셀 간격 없애기 */
+.categoryTable td {
+    padding: 0;
+    margin: 0;
+}

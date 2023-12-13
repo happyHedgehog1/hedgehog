@@ -83,6 +83,6 @@ public class AdminEventListController {
      */
     @GetMapping("/eventProdAdd")
     private String eventProdAdd(){
-        return "admin/content/event/eventProdAdd.html";
+        return "admin/content/event/eventProdAdd";
     }
 }

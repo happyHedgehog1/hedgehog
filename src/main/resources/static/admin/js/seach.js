@@ -123,8 +123,8 @@
                 $tdsProduct[i].ondblclick = function () {
                     const member_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
 
-                    const memberDetailUrl = "/member/memberDetail?member_code=" + member_code;
-                    window.open(memberDetailUrl, "_blank", "width=1500, height=1000");
+                    const memberDetailUrl = "/member/pointPage?member_code=" + member_code;
+                    window.open(memberDetailUrl, "_blank", "width=820, height=1000");
                 };
             }
         }

@@ -20,4 +20,7 @@ public interface AdminProductService {
 
     public void productUpdate(AdminProductDTO product) throws AdminProductAddException;
 
+    List<AdminCategoryDTO> categoryList(AdminCategoryDTO category);
+
+    List<AdminProductDTO> categoryDetail(String categoryCode);
 }

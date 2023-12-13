@@ -1,9 +1,13 @@
 package com.hedgehog.admin.adminMember.model.dto;
 
 
+import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
+import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDetailDTO;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,5 +22,7 @@ public class AdminAllMemberDTO {
     private int cumulative_amount;
     private AdminCustomerDTO customer;
     private AdminUserDTO user;
-
+    private AdminOrderDTO orderDTO;
+    private int totalPoint;
+    private List<AdminOrderDetailDTO> orderDetail;
 }

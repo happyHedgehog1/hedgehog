@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminMember.controller;
 
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import com.hedgehog.admin.adminMember.model.dto.AdminUnregisterDTO;
 import com.hedgehog.admin.adminMember.model.service.AdminMemberServiceImpl;
@@ -27,21 +28,43 @@ public class AdminMemberController {
         this.adminMemberServiceimpl = adminMemberService;
     }
 
-    @GetMapping(value = "/memberDetail")
-    private String orderDetail(@RequestParam int member_code, Model model){
-        log.info("");
-        log.info("");
-        log.info("selectProductDetail~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
-        log.info("~~~~~~~~~~~~~~~~member_code : {}", member_code);
+
+    @GetMapping(value = "/pointAdd")
+    private String pointAdd(@RequestParam("memberCode") int memberCode,
+                            @RequestParam("point") int point) throws UnregistException {
+        log.info("*********************** pointAdd");
+        log.info("*********************** memberId"+memberCode);
+        log.info("*********************** point"+point);
+
+        AdminMemberDTO memberDTO = new AdminMemberDTO();
+        memberDTO.setMember_code(memberCode);
+        memberDTO.setPoint(point);
+
+        adminMemberServiceimpl.pointAdd(memberDTO);
+
+        return "redirect:/member/pointPage?member_code=" + memberCode;
+    }
+
+    @GetMapping (value = "/pointPage")
+    private String pointPage(@RequestParam int member_code,
+                            Model model){
+
+        log.info("*********************** memberWithdraw");
+        log.info("*********************** memberId"+member_code);
 
         AdminAllMemberDTO memberDetail = adminMemberServiceimpl.memberDetail(member_code);
-        log.info("~~~~~~~~~~~~~~~~memberDetail : {}", memberDetail);
 
 
+            log.info("*******************memberDetail :" + memberDetail);
         model.addAttribute("memberDetail", memberDetail);
-        return "admin/content/member/memberDetail";
 
+
+
+        return "admin/content/member/pointPage";
     }
+
+
+
 
     /**
      * 회원조회 페이지에서 회원 탈퇴 시키는 메소드
@@ -53,10 +76,11 @@ public class AdminMemberController {
      */
     @PostMapping(value = "/memberWithdraw")
     private String memberWithdraw(@RequestParam("resultCheckbox")List<String> memberId,
-                                    RedirectAttributes rttr) throws UnregistException {
+                                  RedirectAttributes rttr) throws UnregistException {
 
         log.info("*********************** memberWithdraw");
         log.info("*********************** memberId"+memberId);
+
 
 
         for(int i =0; i < memberId.size(); i++){

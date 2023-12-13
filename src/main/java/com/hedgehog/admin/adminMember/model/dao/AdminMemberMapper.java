@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminMember.model.dao;
 
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,8 @@ public interface AdminMemberMapper {
 
 
     AdminAllMemberDTO memberDetail(int memberCode);
+
+    int point(AdminAllMemberDTO adminAllMemberDTO);
+
+    int pointAdd(AdminMemberDTO memberDTO);
 }

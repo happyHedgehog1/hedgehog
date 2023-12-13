@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/autoMailViewport")
-public class autoMailWriteController {
+public class AutoMailWriteController {
 
     @GetMapping("/answer")
     public String answer(){

@@ -274,5 +274,21 @@
         WHERE product_code = #{productCode} AND image_classification = #{fileType}
 
     </update>
+    <select id="searchCategoryList" resultMap="categoryResultMap">
+        SELECT
+            b.category_code,
+            b.name,
+            b.upper_category_code
+        from tbl_category b
+        inner join tbl_category a
+        on a.category_code=b.upper_category_code
+    </select>
+<!--    <select id="searchCategoryDetail" resultMap="productResultMap">-->
+<!--        select-->
+<!--            *-->
+<!--        from tbl_category A-->
+<!--                 join tbl_product B on A.category_code = B.category_code-->
+<!--        where A.name = #{categoryCode}-->
+<!--    </select>-->
 
 </mapper>

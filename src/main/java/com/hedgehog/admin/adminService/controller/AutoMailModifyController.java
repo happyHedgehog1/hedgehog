@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/autoMailModify")
-public class autoMailModifyController {
+public class AutoMailModifyController {
     @GetMapping("/answer")
     public String answer(){
         return "admin/content/Service/autoMail/modify/answerModify.html";

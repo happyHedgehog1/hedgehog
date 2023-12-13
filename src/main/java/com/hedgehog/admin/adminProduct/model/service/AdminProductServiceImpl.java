@@ -19,6 +19,18 @@ public class AdminProductServiceImpl implements AdminProductService {
         this.mapper = mapper;
     }
 
+    @Override
+    public List<AdminCategoryDTO> categoryList(AdminCategoryDTO category) {
+        List<AdminCategoryDTO> categoryList = mapper.searchCategoryList(category);
+        return categoryList;
+    }
+
+    @Override
+    public List<AdminProductDTO> categoryDetail(String categoryCode) {
+        List<AdminProductDTO> productDTO = mapper.searchCategoryDetail(categoryCode);
+        return productDTO;
+    }
+
 
     /**
      * 상품 조회 메소드
@@ -179,6 +191,8 @@ public class AdminProductServiceImpl implements AdminProductService {
 
 
     }
+
+
 
 
 }

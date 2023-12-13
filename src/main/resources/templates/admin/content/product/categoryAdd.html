@@ -22,70 +22,81 @@
                     <div class="sectWrapper">
                         <div class="sectLeft">
                             <div class="leftTitle"><h3>상품 분류 목록</h3></div>
-                            <div class="left-btn">
-                                <button id="btnCategoryAdd">카테고리 추가</button>
-                                <button id="btnCategoryDelete">카테고리 삭제</button>
-                            </div>
                             <div class="leftBody">
-                                <table style="width: 550px;">
+                                <table style="width: 550px;" class="categoryTable">
                                     <colgroup>
                                     <col style="width: 85%;">
                                     <col style="width: 5%;">
                                     <col style="width: 5%;">
                                     <col style="width: 5%;">
                                     </colgroup>
-                                    <tr class="category">
-                                        <td><img th:src="@{/admin/images/category1.png}" height="20px"> 카테고리(대분류)</td>
+                                    <tr class="category" onclick="sendDataToController(1)">
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px" >침실</td>
                                         <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
                                         <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
-                                    <tr class="category1">
-                                        <td style="padding-left: 5px;"><img th:src="@{/admin/images/L.png}" height="20px"><img th:src="@{/admin/images/category2.png}" height="20px"> 카테고리(소분류)</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="open"></a></td>
+                                    <tr class="category1" th:each="category : ${categoryList}" onclick="sendDataToController(${category.subCategoryName})">
+                                        <td style="padding-left: 5px;" th:value="${category.name}"
+                                            th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/L.png}" height="20px"
+                                                    th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/category2.png}" height="20px"
+                                                    th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
+                                            <span th:text="${category.name}"
+                                                    th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
+                                            </span>
+                                        </td>
                                     </tr>
-                                </table>
-                                <table style="width: 550px;" class="category-row">
-                                    <colgroup>
-                                    <col style="width: 85%;">
-                                    <col style="width: 5%;">
-                                    <col style="width: 5%;">
-                                    <col style="width: 5%;">
-                                    </colgroup>
                                     <tr class="category">
-                                        <td><img th:src="@{/admin/images/category1.png}" height="20px"> 카테고리(대분류)</td>
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px">거실</td>
                                         <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/close.png}" height="12px" name="img-close"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
-
-                                    </tr>
-                                    <tr class="category1">
-                                        <td style="padding-left: 5px;"><img th:src="@{/admin/images/L.png}" height="20px"><img th:src="@{/admin/images/category2.png}" height="20px"> 카테고리(소분류)</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
-                                    </tr>
-                                </table>
-                                <table style="width: 550px;" class="category-row">
-                                    <colgroup>
-                                    <col style="width: 85%;">
-                                    <col style="width: 5%;">
-                                    <col style="width: 5%;">
-                                    <col style="width: 5%;">
-                                    </colgroup>
-                                    <tr class="category">
-                                        <td><img th:src="@{/admin/images/category1.png}" height="20px"> 카테고리(대분류)</td>
-                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
                                         <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
-                                    <tr class="category1">
-                                        <td style="padding-left: 5px;"><img th:src="@{/admin/images/L.png}" height="20px"><img th:src="@{/admin/images/category2.png}" height="20px"> 카테고리(소분류)</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/open.png}" height="12px" name="img-open"></a></td>
+                                    <tr class="category1" th:each="category : ${categoryList}">
+                                        <td style="padding-left: 5px;"
+                                            th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/L.png}" height="20px"
+                                                 th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/category2.png}" height="20px"
+                                                 th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
+                                            <span th:text="${category.name}"
+                                                  th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="category">
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px">서재</td>
+                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
+                                    </tr>
+                                    <tr class="category1" th:each="category : ${categoryList}">
+                                        <td style="padding-left: 5px;"
+                                            th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/L.png}" height="20px"
+                                                 th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/category2.png}" height="20px"
+                                                 th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
+                                            <span th:text="${category.name}"
+                                                  th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="category">
+                                        <td><img th:src="@{/admin/images/category1.png}" height="20px">주방</td>
+                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
+                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
+                                    </tr>
+                                    <tr class="category1" th:each="category : ${categoryList}">
+                                        <td style="padding-left: 5px;"
+                                            th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/L.png}" height="20px"
+                                                 th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
+                                            <img th:src="@{/admin/images/category2.png}" height="20px"
+                                                 th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
+                                            <span th:text="${category.name}"
+                                                  th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
+                                            </span>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>

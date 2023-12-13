@@ -131,6 +131,7 @@
                                             <th>탈퇴완료일</th>
                                             <th>탈퇴사유</th>
                                             <th>탈퇴여부</th>
+                                            <th>탈퇴신청취소일</th>
                                 </tr>
                                 <tr class="searchBottom_tr"
                                 th:each="unregister : ${ unregisterList}">
@@ -140,9 +141,10 @@
 
                                     <td th:text="${ unregister.id}"></td>
                                     <td th:text="${ unregister.apply_date}"></td>
-                                <td th:text="${ unregister.commit_date}"></td>
-                                <td th:text="${ unregister.cause}"></td>
-                                <td th:text="${ unregister.state}"></td>
+                                    <td th:text="${ unregister.commit_date}"></td>
+                                    <td th:text="${ unregister.cause}"></td>
+                                    <td th:text="${ unregister.state}"></td>
+                                    <td th:text="${ unregister.cancel_date}"></td>
                                 </tr>
 
                             </tbody>
@@ -150,8 +152,8 @@
                         </div>
                             <div class="bottom">
                                 <select name="selectCommit" id="selectCommit" >
+                                    <option value="adminWithdrawalCancel" selected>탈퇴 취소</option>
                                     <option value="adminWithdrawal" selected>탈퇴 승인</option>
-
                                 </select>
                                 <button id="btnCommit" type="submit">적용</button>
                             </div>

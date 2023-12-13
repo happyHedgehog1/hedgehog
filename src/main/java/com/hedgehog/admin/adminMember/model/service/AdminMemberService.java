@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminMember.model.service;
 
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
 import com.hedgehog.admin.exception.UnregistException;
@@ -15,4 +16,8 @@ public interface AdminMemberService {
     public void memberWithdraw(AdminAllMemberDTO adminAllMemberDTO) throws UnregistException;
 
     AdminAllMemberDTO memberDetail(int memberCode);
+
+    public void pointPage(AdminAllMemberDTO adminAllMemberDTO) throws UnregistException;
+
+    public void pointAdd(AdminMemberDTO memberDTO) throws UnregistException;
 }
