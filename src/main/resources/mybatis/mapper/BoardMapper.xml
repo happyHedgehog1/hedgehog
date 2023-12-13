@@ -44,16 +44,16 @@
     </resultMap>
     <select id="selectQuestionList" resultMap="questionDTOResultMap">
         SELECT A.inquiry_code,
-               A.secret_state,
-               A.answer_state,
-               A.write_date,
-               A.post_type,
-               A.title,
-               A.content,
-               A.state,
-               A.modify_date,
-               A.member_code,
-               B.id member_id
+        A.secret_state,
+        A.answer_state,
+        A.write_date,
+        A.post_type,
+        A.title,
+        A.content,
+        A.state,
+        A.modify_date,
+        A.member_code,
+        B.id member_id
         FROM tbl_inquiry A
         JOIN tbl_user B ON A.member_code=B.user_code
         <where>
@@ -75,5 +75,156 @@
             </if>
             AND A.state = 'Y'
         </where>
+    </select>
+    <select id="selectTotalCountReviewList">
+        SELECT COUNT(*)
+        FROM tbl_review A
+        JOIN tbl_product C ON A.product_code = C.product_code
+        <if test="searchCondition == 'id'">
+            JOIN tbl_user B ON A.member_code = B.user_code
+        </if>
+        <where>
+            <if test="searchValue != '' and searchValue != null">
+                <if test="searchCondition == 'id'">
+                    B.id = #{searchValue}
+                </if>
+                <if test="searchCondition == 'productCode'">
+                    A.product_code =#{searchValue}
+                </if>
+                <if test="searchCondition == 'productName'">
+                    C.product_name LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+            </if>
+            AND A.state = 'Y'
+        </where>
+        <!--        <if test="orderBy != null">-->
+        <!--            ORDER BY-->
+        <!--            <choose>-->
+        <!--                <when test="orderBy == 'gradeASC">-->
+        <!--                    A.grade ASC-->
+        <!--                </when>-->
+        <!--                <when test="orderBy == 'gradeDESC'">-->
+        <!--                    A.grade DESC-->
+        <!--                </when>-->
+        <!--            </choose>-->
+        <!--        </if>-->
+    </select>
+    <resultMap id="reviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ReviewDTO">
+        <id property="reviewCode" column="review_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImgPath" column="product_img_path"/>
+        <result property="optionCode" column="option_code"/>
+        <result property="optionName" column="option_name"/>
+        <result property="grade" column="grade"/>
+        <result property="content" column="content"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="memberId" column="member_id"/>
+    </resultMap>
+    <select id="selectReviewList" resultMap="reviewDTOResultMap">
+        SELECT
+        A.review_code,
+        A.product_code,
+        C.product_name,
+        E.convert_path product_img_path,
+        A.option_code,
+        D.name option_name,
+        A.grade,
+        A.content,
+        A.write_date,
+        A.member_code,
+        B.id member_id
+        FROM tbl_review A
+        JOIN tbl_user B ON A.member_code = B.user_code
+        JOIN tbl_product C ON A.product_code = C.product_code
+        JOIN tbl_option D ON A.option_code = D.option_code
+        JOIN tbl_product_img E ON A.product_code = E.product_code
+        <where>
+            <if test="searchValue != '' and searchValue != null">
+                <if test="searchCondition == 'id'">
+                    B.id = #{searchValue}
+                </if>
+                <if test="searchCondition == 'productCode'">
+                    A.product_code =#{searchValue}
+                </if>
+                <if test="searchCondition == 'productName'">
+                    C.product_name LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+            </if>
+            AND A.state = 'Y' AND E.image_classification = 'Thumbnails'
+        </where>
+        <if test="orderBy != null">
+            ORDER BY
+            <if test="orderBy == 'gradeASC'">
+                A.grade ASC
+            </if>
+            <if test="orderBy == 'gradeDESC'">
+                A.grade DESC
+            </if>
+        </if>
+    </select>
+    <select id="selectTotalCountNoticeList">
+        SELECT COUNT(*)
+        FROM tbl_admin_bulletin_board A
+        WHERE A.state='Y' AND A.post_type='공지사항'
+<!--        <if test="orderBy != null">-->
+<!--            ORDER BY-->
+<!--            <if test="orderBy =='writeDateDESC'">-->
+<!--                A.write_date DESC-->
+<!--            </if>-->
+<!--            <if test="orderBy =='writeDateASC'">-->
+<!--                A.write_date ASC-->
+<!--            </if>-->
+<!--            <if test="orderBy == 'viewsDESC'">-->
+<!--                A.views DESC-->
+<!--            </if>-->
+<!--            <if test="orderBy == 'viewsASC'">-->
+<!--                A.views ASC-->
+<!--            </if>-->
+<!--        </if>-->
+    </select>
+    <resultMap id="noticeDTOResultMap" type="com.hedgehog.client.board.model.dto.NoticeDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="content" column="content"/>
+        <result property="title" column="title"/>
+        <result property="views" column="views"/>
+        <result property="postType" column="post_type"/>
+        <result property="userCode" column="user_code"/>
+        <result property="state" column="state"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <select id="selectNoticeList" resultMap="noticeDTOResultMap">
+        SELECT
+            A.post_code,
+            A.write_date,
+            A.content,
+            A.title,
+            A.views,
+            A.post_type,
+            A.user_code,
+            A.state,
+            A.modify_date,
+            B.id user_id
+        FROM tbl_admin_bulletin_board A
+        JOIN tbl_user B ON A.user_code=B.user_code
+        WHERE A.state='Y' AND A.post_type='공지사항'
+        <if test="orderBy != null">
+            ORDER BY
+            <if test="orderBy =='writeDateDESC'">
+                A.write_date DESC
+            </if>
+            <if test="orderBy =='writeDateASC'">
+                A.write_date ASC
+            </if>
+            <if test="orderBy == 'viewsASC'">
+                A.views ASC
+            </if>
+            <if test="orderBy == 'viewsDESC'">
+                A.views DESC
+            </if>
+        </if>
     </select>
 </mapper>

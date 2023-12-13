@@ -97,13 +97,6 @@ tr > td:nth-child(4) {
     background-color: white;
 }
 
-#bottom_buttons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 1em;
-}
-
 #search_buttons_wrap {
     display: flex;
     gap: 5px;
@@ -147,10 +140,11 @@ tbody td:nth-child(3):hover {
 .title_group > img {
     height: 1.4em;
 }
-
 #bottom_buttons {
     display: flex;
     justify-content: center;
+    gap: 30px;
+    padding: 1em;
     margin-bottom: 30px;
 }
 
