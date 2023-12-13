@@ -1,5 +1,7 @@
 package com.hedgehog.client.list.controller;
+import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
 import com.hedgehog.client.list.dto.ProductListDTO;
+import com.hedgehog.client.list.service.ProductListService;
 import com.hedgehog.client.list.service.ProductListServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,12 +22,12 @@ public class ListController {
 
 
 
-    @GetMapping("/productList/{category}")
-    public String getCategory(@PathVariable String category , Model model){
-
-        model.addAttribute("category", category);
-        return "/client/content/list/productList";
-    }
+//    @GetMapping("/productList/{category}")
+//    public String getCategory(@PathVariable String category , Model model){
+//
+//        model.addAttribute("category", category);
+//        return "/client/content/list/productList";
+//    }
 
 
     @Value("${image.image-dir}")
@@ -34,37 +36,33 @@ public class ListController {
     @Value("${spring.servlet.multipart.location}")
     private String ROOT_LOCATION;
 
-    private final ProductListServiceImpl productListServiceImpl;
+    private final ProductListService productListService;
 
-    public ListController(ProductListServiceImpl productListServiceImpl) {
+    public ListController(ProductListService productListService) {
 
-        this.productListServiceImpl = productListServiceImpl;
+        this.productListService = productListService;
 
     }
 
-//    @GetMapping("/productList/{type}")
-//    public ModelAndView selectProductList(ModelAndView mv, @PathVariable String type) {
-//
-//        log.info("[ListController] ========================================================= start");
-//
-//
-//        List<ProductListDTO> productList = productListServiceImpl.selectProductList();
-//
-////        log.info(productList);
-//
-//        mv.addObject("productList", productList);
-//
-//        mv.setViewName("client/content/list/productList");
-//
-//        log.info("[ListController] ========================================================= end");
-//
-//        return mv;
-//
-//    }
+    @GetMapping("/productList/{type}")
+    public ModelAndView selectProductList(ModelAndView mv, @PathVariable String type) {
+
+        log.info("[ListController] ========================================================= start");
+
+        List<ProductListDTO> productList = productListService.selectProductList(type);
+
+        log.info("productList================================== : {} : " , productList);
 
 
+        mv.addObject("productList", productList);
+        mv.addObject("type",type);
+        mv.setViewName("client/content/list/productList");
 
+        log.info("[ListController] ========================================================= end");
 
+        System.out.println("mv========================="+mv);
 
+        return mv;
 
+    }
 }

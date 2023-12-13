@@ -25,10 +25,6 @@ spring:
     suffix: .html
     cache: false
     check-template-location: true
-  messages:
-    basename: messages
-    encoding: UTF-8
-    language: ko
 #  web:
 #    resources:
 #      static-locations: C:/thymeleaf-springboot/

@@ -16,14 +16,15 @@ public class ProductListServiceImpl implements ProductListService{
     public ProductListServiceImpl(ProductListMapper mapper){
 
         this.mapper = mapper;
-
     }
+
     @Override
-    public List<ProductListDTO> selectProductList() {
+    public List<ProductListDTO> selectProductList(String type) {
 
-        List<ProductListDTO> productList = mapper.selectProductList();
+        List<ProductListDTO> productList = mapper.selectProductList(type);
 
-        log.info("selectProductList =====================", productList);
+        log.info("selectProductList : {}", productList);
+        log.info("type : " + type);
 
         return productList;
     }
