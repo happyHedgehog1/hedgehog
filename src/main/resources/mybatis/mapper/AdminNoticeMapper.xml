@@ -30,5 +30,30 @@
             A.state
         FROM tbl_admin_bulletin_board A
                  JOIN tbl_user B ON A.user_code = B.user_code
+        <where>
+        <if test="notSearchStartDay != ''">
+            <if test="notSearchEndDay != ''">
+                AND A.write_date BETWEEN #{notSearchStartDay} AND #{notSearchEndDay}
+            </if>
+            <if test="notSearchEndDay == ''">
+                AND A.write_date > #{notSearchStartDay}
+            </if>
+        </if>
+            <if test="notCondition == 1">
+                AND A.state LIKE CONCAT('Y')
+            </if>
+            <if test="notCondition == 2">
+                AND A.state LIKE CONCAT('N')
+            </if>
+            <if test="notSearch != ''">
+                <if test="notKeyword == 1">
+                    AND  A.title LIKE CONCAT('%', #{notSearch}, '%')
+                </if>
+                <if test="notKeyword == 2">
+                    AND A.content LIKE CONCAT('%', #{notSearch}, '%')
+                </if>
+
+            </if>
+        </where>
     </select>
 </mapper>

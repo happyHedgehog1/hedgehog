@@ -30,5 +30,23 @@
             A.state
         FROM tbl_admin_bulletin_board A
         JOIN tbl_user B ON A.user_code = B.user_code
+        <if test="faqSearchStartDay != ''">
+            <if test="faqSearchEndDay != ''">
+                AND A.write_date BETWEEN #{faqSearchStartDay} AND #{faqSearchEndDay}
+            </if>
+            <if test="faqSearchEndDay == ''">
+                AND A.write_date > #{faqSearchStartDay}
+            </if>
+        </if>
+        <if test="faqSearch != ''">
+            <if test="faqKeyword == 1">
+                AND  A.title LIKE CONCAT('%', #{faqSearch}, '%')
+            </if>
+            <if test="faqKeyword == 2">
+                AND B.id LIKE CONCAT('%', #{faqSearch}, '%')
+            </if>
+
+        </if>
+
     </select>
 </mapper>
