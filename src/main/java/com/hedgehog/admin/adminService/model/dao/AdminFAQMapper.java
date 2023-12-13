@@ -10,4 +10,8 @@ public interface AdminFAQMapper {
     List<AdminFAQDTO> searchFAQ(AdminFAQForm form);
 
     List<AdminFAQDTO> searchNotice(AdminFAQForm form);
+
+    int FAQStateUpdate(AdminFAQDTO faqdto);
+
+    int noticeStateUpdate(AdminFAQDTO faqdto);
 }

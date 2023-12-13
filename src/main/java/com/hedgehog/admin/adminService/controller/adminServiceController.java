@@ -2,14 +2,15 @@ package com.hedgehog.admin.adminService.controller;
 
 import com.hedgehog.admin.adminService.model.dto.*;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
+import com.hedgehog.admin.adminService.model.service.AdminInquiryService;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
+import com.hedgehog.admin.exception.BoardException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,12 +31,12 @@ public class adminServiceController {
     }
 
 
-
     //상품문의 첫화면
     @GetMapping("/productInquiryPage")
-    public String productInquiryPage () {
+    public String productInquiryPage() {
         return "admin/content/Service/Product-inquiry";
     }
+
     //상품문의
     @GetMapping(value = "/productInquiry")
     public ModelAndView productInquiry(@ModelAttribute AdminInquiryForm form) {
@@ -77,9 +78,40 @@ public class adminServiceController {
         return modelAndView;
     }
 
+    //상품문의 상태 업데이트
+    @PostMapping(value = "/inqStateUpdate")
+    private String inqStateUpdate(@RequestParam("resultCheckbox") List<String> selectedInqCodes,
+                                  @RequestParam("inqSelectCommit") String selectedInqState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================inqStateUpdate");
+        log.info("=================================selectedInqCodes" + selectedInqCodes);
+        log.info("=================================selectedInqState" + selectedInqState);
+
+        for (int i = 0; i < selectedInqCodes.size(); i++) {
+            if ("on".equals(selectedInqCodes.get(i)) || selectedInqCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int inquiryCode = Integer.parseInt(selectedInqCodes.get(i));
+                log.info("inquiryCode=================" + inquiryCode);
+                AdminInquiryDTO inquiryDTO = new AdminInquiryDTO();
+                inquiryDTO.setInquiry_code(inquiryCode);
+                inquiryDTO.setState(selectedInqState);
+
+                log.info("================inquiry" + inquiryDTO);
+                adminInquiryServiceImpl.inqStateUpdate(inquiryDTO);
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/productInquiry";
+    }
 
 
-
+    //상품리뷰 첫화면
+    @GetMapping("/Product-reviewPage")
+    public String productReview() {
+        return "admin/content/Service/Product-review";
+    }
 
     //상품리뷰
     @GetMapping("/Product-review")
@@ -102,14 +134,45 @@ public class adminServiceController {
         return modelAndView;
     }
 
+    //상품리뷰 상태 업데이트
+
+    @PostMapping(value = "/revStateUpdate")
+    private String revStateUpdate(@RequestParam("resultCheckbox") List<String> selectedRevCodes,
+                                  @RequestParam("revSelectCommit") String selectedRevState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================revStateUpdate");
+        log.info("=================================selectedRevCodes" + selectedRevCodes);
+        log.info("=================================selectedRevState" + selectedRevState);
+
+        for (int i = 0; i < selectedRevCodes.size(); i++) {
+            if ("on".equals(selectedRevCodes.get(i)) || selectedRevCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int reviewCode = Integer.parseInt(selectedRevCodes.get(i));
+                log.info("reviewCode=================" + reviewCode);
+                AdminReviewDTO reviewDTO = new AdminReviewDTO();
+                reviewDTO.setReview_code(reviewCode);
+                reviewDTO.setState(selectedRevState);
+
+                log.info("================review" + reviewDTO);
+                adminReviewServiceImpl.revStateUpdate(reviewDTO);
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/Product-review";
+    }
+
+
     //FAQ 첫화면
     @GetMapping("/FAQPage")
-    public String FAQ () {
+    public String FAQ() {
         return "admin/content/Service/FAQ";
     }
+
     //FAQ
     @GetMapping("/FAQ")
-    public ModelAndView FAQ(@ModelAttribute AdminFAQForm form){
+    public ModelAndView FAQ(@ModelAttribute AdminFAQForm form) {
         log.info("FAQ============= start");
         log.info(form.toString());
 
@@ -127,11 +190,42 @@ public class adminServiceController {
 
         return modelAndView;
     }
+
+    //FAQ 상태 업데이트
+    @PostMapping(value = "/FAQStateUpdate")
+    private String FAQStateUpdate(@RequestParam("resultCheckbox") List<String> selectedFAQCodes,
+                                  @RequestParam("FAQSelectCommit") String selectedFAQState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================FAQStateUpdate");
+        log.info("=================================selectedInqCodes" + selectedFAQCodes);
+        log.info("=================================selectedInqState" + selectedFAQState);
+
+        for (int i = 0; i < selectedFAQCodes.size(); i++) {
+            if ("on".equals(selectedFAQCodes.get(i)) || selectedFAQCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int FAQCode = Integer.parseInt(selectedFAQCodes.get(i));
+                log.info("FAQCode=================" + FAQCode);
+                AdminFAQDTO FAQDTO = new AdminFAQDTO();
+                FAQDTO.setPost_code(FAQCode);
+                FAQDTO.setState(selectedFAQState);
+
+                log.info("================FAQ" + FAQDTO);
+                adminFAQServiceImpl.FAQStateUpdate(FAQDTO);
+
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/FAQ";
+    }
+
     //공지사항 첫화면
     @GetMapping("/noticePage")
-    public String notice () {
+    public String notice() {
         return "admin/content/Service/notice";
     }
+
     //공지사항
     @GetMapping(value = "/notice")
     public ModelAndView notice(@ModelAttribute AdminFAQForm form) {
@@ -173,41 +267,59 @@ public class adminServiceController {
         return modelAndView;
     }
 
+    //공지사항 상태 업데이트
+    @PostMapping(value = "/noticeStateUpdate")
+    private String noticeStateUpdate(@RequestParam("resultCheckbox") List<String> selectedNoticeCodes,
+                                  @RequestParam("noticeSelectCommit") String selectedNoticeState,
+                                  RedirectAttributes rttr) throws BoardException {
 
+        log.info("=================================noticeStateUpdate");
+        log.info("=================================selectedNoticeCodes" + selectedNoticeCodes);
+        log.info("=================================selectedNoticeState" + selectedNoticeState);
 
+        for (int i = 0; i < selectedNoticeCodes.size(); i++) {
+            if ("on".equals(selectedNoticeCodes.get(i)) || selectedNoticeCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int noticeCode = Integer.parseInt(selectedNoticeCodes.get(i));
+                log.info("noticeCode=================" + noticeCode);
+                AdminFAQDTO FAQDTO = new AdminFAQDTO();
+                FAQDTO.setPost_code(noticeCode);
+                FAQDTO.setState(selectedNoticeState);
 
+                log.info("================FAQ" + FAQDTO);
+                adminFAQServiceImpl.noticeStateUpdate(FAQDTO);
 
-
-
-
-
-
-
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/notice";
+    }
 
 
     @GetMapping("/email")
-        public String email () {
-            return "admin/content/Service/email";
-        }
-
-        @GetMapping("/emailHistory")
-        public String emailHistory () {
-            return "admin/content/Service/emailHistory";
-        }
-
-        @GetMapping("/autoMail")
-        public String autoMail () {
-            return "admin/content/Service/autoMail";
-        }
-
-        @GetMapping("/noticeWrite")
-        public String noticeWrite () {
-            return "admin/content/Service/noticeWrite";
-        }
-
-        @GetMapping("/detail")
-        public String productInquiryDetail () {
-            return "admin/content/Service/Product-inquiry-details";
-        }
-
+    public String email() {
+        return "admin/content/Service/email";
     }
+
+    @GetMapping("/emailHistory")
+    public String emailHistory() {
+        return "admin/content/Service/emailHistory";
+    }
+
+    @GetMapping("/autoMail")
+    public String autoMail() {
+        return "admin/content/Service/autoMail";
+    }
+
+    @GetMapping("/noticeWrite")
+    public String noticeWrite() {
+        return "admin/content/Service/noticeWrite";
+    }
+
+    @GetMapping("/detail")
+    public String productInquiryDetail() {
+        return "admin/content/Service/Product-inquiry-details";
+    }
+
+}

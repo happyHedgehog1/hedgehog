@@ -19,9 +19,9 @@
                             <h4>게시판관리</h4>
                         </div>
                         <div class="topbtnWrapper">
-                            <div class="pageButton"><a th:href="@{/Service/productInquiry}">상품 문의 관리</a></div>
-                            <div class="pageButton1"><a th:href="@{/Service/Product-review}">상품 후기 관리</a></div>
-                            <div class="pageButton"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/productInquiryPage}">상품 문의 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/Product-reviewPage}">상품 후기 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/FAQPage}">FAQ 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                             </div>
                         
@@ -65,9 +65,9 @@
                                                             <option value="0" selected>--평점--</option>
                                                             <option value="1">5점</option>
                                                             <option value="2">4점</option>
-                                                            <option value="2">3점</option>
-                                                            <option value="2">2점</option>
-                                                            <option value="2">1점</option>
+                                                            <option value="3">3점</option>
+                                                            <option value="4">2점</option>
+                                                            <option value="5">1점</option>
                                                         </select>
                                                         <input class="check" type="checkbox" name="" id="">베스트후기
                                                     </li>
@@ -104,12 +104,13 @@
                     </div>
                     <div><br><br></div>
                     <div class="sectBottom">
+                        <form id="revStateUpdate"
+                              th:action="@{ /Service/revStateUpdate}"
+                              method="post">
                         <div class="bottomResult">
                             <div class="bottomResultTitle"><h3>검색 결과</h3></div>
                             <div class="bottomResult1"><span>(총 : </span>
-                                <span class="colorRed"> 5 </span> 건 / 일반 :
-                                <span class="colorRed"> 3 </span> 건 / 사진 :
-                                <span class="colorRed"> 2 </span>
+                                <span class="colorRed" th:text="${totalResult}">  </span>
                                 <span> 건 ) </span></div>
                         </div>
                         <div class="tblWrapper">
@@ -125,25 +126,28 @@
                             <tbody>
                                             <tr class="searchResult">
                                                 <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
-                                            <th>제목</th>
+
                                             <th>이미지</th>
                                             <th>후기내용</th>
                                             <th>상품명</th>
                                             <th>평점</th>
                                             <th>작성자</th>
-                                            <th>등록일</th>                                        
+                                            <th>등록일</th>
+                                                <th>공개여부</th>
                                 </tr> 
                                 <tr class="proSearchBottomtr" th:each="review : ${ reviewList }">
                                     <td class="proSearchBottomCheck">
-                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                        <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
+                                        th:value="${review.getReview_code()}">
                                     </td>
-                                    <td th:text="${ review.title}"></td>
+
                                     <td>상품 이미지</td>
                                     <td th:text="${ review.content}"></td>
                                     <td th:text="${ review.product.productName}"></td>
                                     <td th:text="${ review.grade}"></td>
                                     <td th:text="${ review.id.id}"></td>
                                     <td th:text="${ review.write_date}"></td>
+                                    <td th:text="${ review.state}"></td>
 
 
 
@@ -154,17 +158,18 @@
                             </tbody>
                         </table>
                         </div>
-                        <select name="" id="">
-                            <option value="0">--베스트후기 설정--</option>
-                            <option value="1">베스트후기 설정</option>
-                            <option value="2">베스트후기 설정해제</option>
-                         </select>   
-                         <select name="" id="">
+<!--                        <select name="" id="">-->
+<!--                            <option value="0">&#45;&#45;베스트후기 설정&#45;&#45;</option>-->
+<!--                            <option value="1">베스트후기 설정</option>-->
+<!--                            <option value="2">베스트후기 설정해제</option>-->
+<!--                         </select>   -->
+                         <select name="revSelectCommit" id="revSelectCommit">
                             <option value="0">--공개 상태 전환--</option>
                             <option value="1">공개 전환</option>
                             <option value="2">비공개 전환</option>
-                         </select>   
-                        
+                         </select>
+                            <button id="btnCommit" type="submit">적용</button>
+                        </form>
                             
                         
                     </div>

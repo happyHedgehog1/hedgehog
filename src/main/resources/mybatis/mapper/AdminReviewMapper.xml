@@ -8,11 +8,11 @@
         <result property="product_code" column="product_code"/>
         <result property="option_code" column="option_code"/>
         <result property="grade" column="grade"/>
-        <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="write_date" column="write_date"/>
         <result property="member_code" column="member_code"/>
-<!--        <association property="attachment" resultMap="attachmentResultMap"/>-->
+        <result property="state" column="state"/>
+        <!--        <association property="attachment" resultMap="attachmentResultMap"/>-->
         <association property="product" resultMap="adminProductDTOResultMap"/>
         <association property="id" resultMap="adminUserDTOResultMap"/>
     </resultMap>
@@ -24,31 +24,79 @@
         <id property="user_code" column="user_code"/>
         <result property="id" column="id"/>
     </resultMap>
-<!--    <resultMap id="attachmentResultMap" type="AttachmentDTO">-->
-<!--        <id property="productCode" column="product_code"/>-->
-<!--        <result property="originalName" column="source_name"/>-->
-<!--        <result property="thumbnailPath" column="source_path"/>-->
-<!--        <result property="savedName" column="convert_name"/>-->
-<!--        <result property="savePath" column="convert_path"/>-->
-<!--        <result property="fileType" column="image_classification"/>-->
-<!--        <result property="status" column="image_status"/>-->
-<!--    </resultMap>-->
+    <!--    <resultMap id="attachmentResultMap" type="AttachmentDTO">-->
+    <!--        <id property="productCode" column="product_code"/>-->
+    <!--        <result property="originalName" column="source_name"/>-->
+    <!--        <result property="thumbnailPath" column="source_path"/>-->
+    <!--        <result property="savedName" column="convert_name"/>-->
+    <!--        <result property="savePath" column="convert_path"/>-->
+    <!--        <result property="fileType" column="image_classification"/>-->
+    <!--        <result property="status" column="image_status"/>-->
+    <!--    </resultMap>-->
 
     <select id="searchReview" resultMap="reviewResultMap">
-    SELECT
-        A.title,
+        SELECT
+        A.review_code,
         A.content,
         B.product_name,
         A.grade,
         C.id,
-        A.write_date
-    FROM tbl_review A
-    JOIN tbl_product B ON A.product_code = B.product_code
-    JOIN tbl_user C ON A.member_code = C.user_code;
+        A.write_date,
+        A.state
+        FROM tbl_review A
+        JOIN tbl_product B ON A.product_code = B.product_code
+        JOIN tbl_user C ON A.member_code = C.user_code
+        <where>
+            <if test="revSearchStartDay != ''">
+                <if test="revSearchEndDay != ''">
+                    AND A.write_date BETWEEN #{revSearchStartDay} AND #{revSearchEndDay}
+                </if>
+                <if test="revSearchEndDay == ''">
+                    AND A.write_date > #{revSearchStartDay}
+                </if>
+            </if>
+
+            <if test="revCondition == 1">
+                AND A.grade LIKE CONCAT('5')
+            </if>
+            <if test="revCondition == 2">
+                AND A.grade LIKE CONCAT('4')
+            </if>
+            <if test="revCondition == 3">
+                AND A.grade LIKE CONCAT('3')
+            </if>
+            <if test="revCondition == 4">
+                AND A.grade LIKE CONCAT('2')
+            </if>
+            <if test="revCondition == 5">
+                AND A.grade LIKE CONCAT('1')
+            </if>
+            <if test="revSearch != ''">
+                <if test="revKeyword == 1">
+                    AND A.content LIKE CONCAT('%', #{revSearch}, '%')
+                </if>
+                <if test="revKeyword == 2">
+                    AND C.id LIKE CONCAT('%', #{revSearch}, '%')
+                </if>
+
+            </if>
+
+        </where>
 
 
+    </select>
+
+    <update id="revStateUpdate" parameterType="_int">
+        UPDATE tbl_review
+        SET state =
+        <choose>
+            <when test="state == 1"> 'Y'</when>
+            <when test="state == 2"> 'N'</when>
+
+        </choose>
+        WHERE review_code = #{review_code}
+    </update>
 
 
-</select>
 </mapper>
 
