@@ -2,14 +2,15 @@ package com.hedgehog.admin.adminService.controller;
 
 import com.hedgehog.admin.adminService.model.dto.*;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
+import com.hedgehog.admin.adminService.model.service.AdminInquiryService;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
+import com.hedgehog.admin.exception.BoardException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,12 +31,12 @@ public class adminServiceController {
     }
 
 
-
     //상품문의 첫화면
     @GetMapping("/productInquiryPage")
-    public String productInquiryPage () {
+    public String productInquiryPage() {
         return "admin/content/Service/Product-inquiry";
     }
+
     //상품문의
     @GetMapping(value = "/productInquiry")
     public ModelAndView productInquiry(@ModelAttribute AdminInquiryForm form) {
@@ -77,10 +78,38 @@ public class adminServiceController {
         return modelAndView;
     }
 
+    //상품문의 상태 업데이트
+    @PostMapping(value = "/inqStateUpdate")
+    private String inqStateUpdate(@RequestParam("resultCheckbox") List<String> selectedInqCodes,
+                                  @RequestParam("inqSelectCommit") String selectedInqState,
+                                  RedirectAttributes rttr) throws BoardException {
+
+        log.info("=================================inqStateUpdate");
+        log.info("=================================selectedInqCodes" + selectedInqCodes);
+        log.info("=================================selectedInqState" + selectedInqState);
+
+        for (int i = 0; i < selectedInqCodes.size(); i++) {
+            if ("on".equals(selectedInqCodes.get(i)) || selectedInqCodes.get(i).isEmpty()) {
+                continue;
+            } else {
+                int inquiryCode = Integer.parseInt(selectedInqCodes.get(i));
+                log.info("inquiryCode=================" + inquiryCode);
+                AdminInquiryDTO inquiryDTO = new AdminInquiryDTO();
+                inquiryDTO.setInquiry_code(inquiryCode);
+                inquiryDTO.setState(selectedInqState);
+
+                log.info("================inquiry" + inquiryDTO);
+                adminInquiryServiceImpl.inqStateUpdate(inquiryDTO);
+            }
+        }
+        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        return "redirect:/Service/productInquiry";
+    }
+
 
     //상품리뷰 첫화면
     @GetMapping("/Product-reviewPage")
-    public String productReview () {
+    public String productReview() {
         return "admin/content/Service/Product-review";
     }
 
@@ -105,14 +134,16 @@ public class adminServiceController {
         return modelAndView;
     }
 
+
     //FAQ 첫화면
     @GetMapping("/FAQPage")
-    public String FAQ () {
+    public String FAQ() {
         return "admin/content/Service/FAQ";
     }
+
     //FAQ
     @GetMapping("/FAQ")
-    public ModelAndView FAQ(@ModelAttribute AdminFAQForm form){
+    public ModelAndView FAQ(@ModelAttribute AdminFAQForm form) {
         log.info("FAQ============= start");
         log.info(form.toString());
 
@@ -130,11 +161,13 @@ public class adminServiceController {
 
         return modelAndView;
     }
+
     //공지사항 첫화면
     @GetMapping("/noticePage")
-    public String notice () {
+    public String notice() {
         return "admin/content/Service/notice";
     }
+
     //공지사항
     @GetMapping(value = "/notice")
     public ModelAndView notice(@ModelAttribute AdminFAQForm form) {
@@ -177,40 +210,29 @@ public class adminServiceController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     @GetMapping("/email")
-        public String email () {
-            return "admin/content/Service/email";
-        }
-
-        @GetMapping("/emailHistory")
-        public String emailHistory () {
-            return "admin/content/Service/emailHistory";
-        }
-
-        @GetMapping("/autoMail")
-        public String autoMail () {
-            return "admin/content/Service/autoMail";
-        }
-
-        @GetMapping("/noticeWrite")
-        public String noticeWrite () {
-            return "admin/content/Service/noticeWrite";
-        }
-
-        @GetMapping("/detail")
-        public String productInquiryDetail () {
-            return "admin/content/Service/Product-inquiry-details";
-        }
-
+    public String email() {
+        return "admin/content/Service/email";
     }
+
+    @GetMapping("/emailHistory")
+    public String emailHistory() {
+        return "admin/content/Service/emailHistory";
+    }
+
+    @GetMapping("/autoMail")
+    public String autoMail() {
+        return "admin/content/Service/autoMail";
+    }
+
+    @GetMapping("/noticeWrite")
+    public String noticeWrite() {
+        return "admin/content/Service/noticeWrite";
+    }
+
+    @GetMapping("/detail")
+    public String productInquiryDetail() {
+        return "admin/content/Service/Product-inquiry-details";
+    }
+
+}

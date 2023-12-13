@@ -10,5 +10,6 @@ import java.util.List;
 public interface AdminInquiryMapper {
     List<AdminInquiryDTO> searchInquiry(AdminInquiryForm form);
 
-
+    //상품문의 상태변경
+    int inqStateUpdate(AdminInquiryDTO inquiryDTO);
 }
