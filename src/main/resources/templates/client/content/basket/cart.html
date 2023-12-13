@@ -10,71 +10,65 @@
     <link rel="stylesheet" th:href="@{/client/css/cart.css}">
 
         <section>
+
             <div id="contents">
                 <ul class="route_list">
                     <li><img src="/client/images/icon/home.png" alt=""></li>
                     <li>&gt;</li>
                     <li>장바구니</li>
-                    <!-- <li>&gt;</li> -->
-                    <!-- <li>장바구니</li> -->
                 </ul>
 
                 <div class="cart_order">
-
-                    <div></div>
-                    <div id="cart_write"><h2>장바구니</h2></div>
-                    <div><h2>주문서작성</h2></div>
-                    <div><h2>결제하기</h2></div>
-                    <div><h2>완료</h2></div>
-                    <div></div>
-
+                             <div></div>
+                             <div id="cart_write"><h2>장바구니</h2></div>
+                             <div><h2>주문서작성</h2></div>
+                             <div><h2>결제하기</h2></div>
+                             <div><h2>완료</h2></div>
+                             <div></div>
                 </div>
-                <form action="/client/content/clientOrder/cartOrder" method="get" onsubmit="return handleFormSubmit();">
 
+<form action="/client/content/clientOrder/cartOrder" method="get">
 
-                    <table class="cart_table">
-                        <thead>
-                        <tr>
-                            <th><input class="cartcheckbox" id="headerCheckbox" type="checkbox" name="cartcheckbox1"></th>
-                            <th>이미지</th>
-                            <th>상품명</th>
-                            <th>판매가</th>
-                            <th>적립포인트</th>
-                            <th>수량</th>
-                            <th>배송비</th>
-                            <th>합계</th>
-                        </tr>
-                        </thead>
-<!--                        productId는 해당 코드에서 thymeleaf의 표현식을 위해서 동적으로 생성함 -->
-                        <tbody>
-                        <tr th:each="item : ${cartItemList}" data-cart-code="${item.productCode}">
-<!--                            -${item.productCode}"-->
-                            <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"></td>
-<!--                            체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
+            <table class="cart_table">
+                          <thead>
+                            <tr>
+                                 <th><input class="cartcheckbox" id="headerCheckbox" type="checkbox" name="cartcheckbox1"></th>
+                                 <th>이미지</th>
+                                 <th>상품명</th>
+                                 <th>판매가</th>
+                                 <th>적립포인트</th>
+                                 <th>수량</th>
+                                 <th>배송비</th>
+                                 <th>합계</th>
+                            </tr>
+                          </thead>
+                    <tbody>
+                        <tr th:each="item : ${cartItemList}" >
+                               <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox" data-cart-code="${item.cartCode}">
+                                   <input type="hidden" class="cart-code-hidden" th:value="${item.cartCode}">
+                               </td>
 
-                            <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px" height="70px" onerror="this.src='/client/images/event.png'" ></td>
-
-                            <td th:text="${item.productName}">상품명</td>
-                            <td th:text="${item.price}">가격</td>
-                            <td th:text="${item.savedMoney}">적립금</td>
-                            <td class="cart_numbrt_btn">
-                                <div class="quantity-container" data-product-id="${item.productCode}">
+<!--                               체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
+                               <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px" height="70px" onerror="this.src='/client/images/event.png'" ></td>
+                               <td th:text="${item.productName}">상품명</td>
+                               <td th:text="${item.price}">가격</td>
+                               <td th:text="${item.savedMoney}">적립금</td>
+                               <td class="cart_numbrt_btn">
+                            <div class="quantity-container" data-product-id="${item.productCode}">
                                     <input type="hidden" th:value="${item.productCode}" style="display:none;">
                                     <button type="button" class="quantity-button decrease-button" data-product-code="${item.cartCode}">-</button>
                                     <span class="quantity-display" id="quantity-display-${item.productCode}" th:text="${item.amount}">1</span>
                                     <button type="button" class="quantity-button increase-button" data-product-code="${item.cartCode}">+</button>
-                                </div>
-
-                            </td>
-                            <td th:text="${item.deliveryCharge}">무료</td>
-                            <td th:text="${item.productSum}">합계</td>
+                            </div>
+                               </td>
+                               <td th:text="${item.deliveryCharge}">무료</td>
+                               <td th:text="${item.productSum}">합계</td>
                         </tr>
-                        </tbody>
-                    </table>
+                    </tbody>
+            </table>
 
                     <br>
                     <br>
-
 
                         <div class="total_price">
 
@@ -83,54 +77,45 @@
                                     <h3>고객님의 총 주문 합계 금액 입니다.</h3>
                                 </div>
 
-
                                 <div class="sum_text2">
                                     <h4>상품 합계금액</h4>
                                     <h4>배송비</h4>
                                     <h4>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h4>
                                 </div>
 
-
-                            <div class="sum_text3">
-                                <!-- 수정된 부분: id 추가 -->
-                                <span id="totalPrice" >0원</span>
-                                <div id="deliveryCharge">0원</div>
-                                <span id="totalOrder">0원</span>
-                            </div>
-
+                                <div class="sum_text3">
+                                    <!-- 수정된 부분: id 추가 -->
+                                    <span id="totalPrice" >0원</span>
+                                    <div id="deliveryCharge">0원</div>
+                                    <span id="totalOrder">0원</span>
+                                </div>
 
                         </div>
 
                     <br>
                     <br>
-                </form>
-                <hr>
-                <br>
-                <br>
+</form>
+                    <hr>
+                    <br>
+                    <br>
 
                 <div class="select_cart">
+                    <button class="select_delete_btn"  id="deleteSelectedItems" onclick="deleteSelectedItems()" >선택 상품 삭제</button>
+                        <div class="select_order_btn2">
+                            <span class="select_order_btn" id="selectOrderButton" typeof="submit" >선택상품주문하기</span>
 
-
-                        <button class="select_delete_btn"  id="deleteSelectedItems" onclick="deleteSelectedItems()" >선택 상품 삭제</button>
-
-
-
-                    <div class="select_order_btn2">
-                        <a th:href="@{/clientOrder/cartOrder}"><span class="select_order_btn">선택상품주문하기</span></a>
-<!--                        form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
-                            비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
-                            여기서는 굳이 비동기 처리까지 할 필요가 없고 폼태그로 넘겨주면된다.
-                            체크박스에 담긴 물품을 넘겨줘야하므로 체크박스에 해당하는 테이블부터 버튼까지 넘겨줬다.-->
-                    </div>
-
-
+                            <!--                                  form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
+                                                                  비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
+                                                                  여기서는 굳이 비동기 처리까지 할 필요가 없고 폼태그로 넘겨주면된다.
+                                                                  체크박스에 담긴 물품을 넘겨줘야하므로 체크박스에 해당하는 테이블부터 버튼까지 넘겨줬다.-->
+                        </div>
                 </div>
 
                 <br>
-<!--                    <a th:href="@{/clientOrder/cartOrder}"></a>&ndash;&gt;-->
 
                 <div class="select_all_btn2">
-                        <span class="select_all_btn" id="selectAllItems">전체상품주문하기</span>
+                        <span class="select_all_btn" id="selectAllItems" typeof="submit">전체상품주문하기</span>
+<!--                    <button type="submit" class="select_all_btn" id="selectAllItems">전체상품주문하기</button>-->
                 </div>
 
 
@@ -142,6 +127,21 @@
 
             </div>
            </section>
+
+        <script>
+            // JavaScript를 사용하여 선택된 상품의 정보를 동적으로 추가
+            document.addEventListener("DOMContentLoaded", function () {
+                const cartForm = document.getElementById("cartForm");
+                const selectedItems = ["item1", "item2"];  // 선택된 상품 코드를 동적으로 받아오도록 수정
+                selectedItems.forEach(item => {
+                    const hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = "selectedItems[]";
+                    hiddenInput.value = item;
+                    cartForm.appendChild(hiddenInput);
+                });
+            });
+        </script>
 
     </th:block>
 </html>

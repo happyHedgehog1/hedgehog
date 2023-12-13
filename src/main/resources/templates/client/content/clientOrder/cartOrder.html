@@ -75,6 +75,36 @@
                     </tr>
                 </table>
 
+
+                <form id="orderForm" action="/client/content/clientOrder/cartOrder" method="get" onsubmit="return handleFormSubmit();">
+                    <!-- 다음 부분을 추가 -->
+                    <input type="hidden" name="selectedItems" id="selectedItems" value="">
+                    <!-- 여기까지 -->
+
+                    <table class="cart_table">
+                        <!-- 생략 -->
+                    </table>
+
+                    <br>
+                    <br>
+
+                    <div class="total_price">
+                        <!-- 생략 -->
+                    </div>
+
+                    <br>
+                    <br>
+                </form>
+
+
+
+
+
+
+
+
+
+
                 <hr>
                 <br>
                 <div class="total_price_contain">

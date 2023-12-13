@@ -3,7 +3,6 @@ package com.hedgehog.client.basket.model.dao;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.basket.model.dto.CartSumDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -15,7 +14,7 @@ public interface BasketMapper {
 
     List<CartSumDTO> selectCartSum();
 
-    void deleteCartItem(List<Integer> productCode);
+    void deleteCartItems(List<Integer> cartCode);
 
 
 //    List<Integer> getCartInfo(int userCode);

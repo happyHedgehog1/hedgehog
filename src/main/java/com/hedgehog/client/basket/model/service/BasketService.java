@@ -13,8 +13,7 @@ public interface BasketService {
 
     int getTotalCartSum(List<CartSumDTO> cartSumDTOList);
 
-//    List<Integer> getCartInfo(int userCode);
- void deleteCartItem(List<Integer> cartCode);
+    void deleteCartItems(List<Integer> cartCode);
 
 
 

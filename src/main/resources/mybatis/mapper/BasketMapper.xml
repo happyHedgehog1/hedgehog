@@ -104,20 +104,19 @@
 
 <!--    선택상품삭제-->
 
-    <delete id="deleteCartItem">
-        DELETE FROM tbl_cart
-        WHERE cart_code = #{cartCode}
-          AND customer_code = #{userCode}
-    </delete>
-
-<!--    <delete id="deleteCartItem" parameterType="java.util.List">-->
+<!--    <delete id="deleteCartItems">-->
 <!--        DELETE FROM tbl_cart-->
-<!--        WHERE cart_code IN-->
-<!--        <foreach item="code" collection="list" open="(" separator="," close=")">-->
-<!--            #{code}-->
-<!--        </foreach>-->
+<!--        WHERE cart_code = #{cartCode}-->
 <!--    </delete>-->
+<!--          AND customer_code = #{userCode}-->
 
+    <delete id="deleteCartItems">
+        DELETE FROM tbl_cart
+        WHERE cart_code IN
+        <foreach collection="cartCode" item="cartCode" open="(" separator="," close=")">
+            #{cartCode}
+        </foreach>
+    </delete>
 
 
 </mapper>

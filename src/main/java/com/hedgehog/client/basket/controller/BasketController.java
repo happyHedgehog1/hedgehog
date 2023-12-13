@@ -9,11 +9,14 @@ import com.hedgehog.client.basket.model.service.BasketService;
 import com.hedgehog.client.basket.model.service.BasketServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +49,8 @@ public class BasketController {
         List<CartSelectDTO> cartItemList =basketService.selectCartList(loginUserDTO.getUserCode());
         mv.addObject("cartItemList", cartItemList);
 
+
+
         List<CartSumDTO> cartSumList = basketService.selectCartSum();
         mv.addObject("cartSumList" , cartSumList);
 
@@ -57,29 +62,27 @@ public class BasketController {
     }
 
 
-
-    @PostMapping("/cart/delete")
-    public ModelAndView deleteSelectedItems(
+    @PostMapping(value="/cart/delete", produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public String deleteSelectedItems(
             @AuthenticationPrincipal LoginDetails loginDetails,
-            @RequestBody Map<String, List<Integer>> payload,
-            ModelAndView mv
-    ) {
+            @RequestBody List<Integer> cartCodes,
+            RedirectAttributes redirectAttributes) {
+//        System.out.println("cartCode = " + cartCodes.get(0));
+//        System.out.println("cartCode = " + cartCodes.get(1));
         LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
-        mv.addObject("userCode", loginUserDTO.getUserCode());
 
-        try {
-            // 선택된 상품 삭제
-
-            List<Integer> cartCode = payload.get("cartCode");
-            basketService.deleteCartItem(cartCode);
-            mv.addObject("deleteSuccess", true);
-        } catch (Exception e) {
-            log.error("Error deleting selected items: {}", e.getMessage());
-            mv.addObject("deleteSuccess", false);
-        }
-
-        // 다시 장바구니 목록 조회 및 뷰 업데이트
-        return selectCartList(loginDetails, mv);
+        // cartCodes에 대한 삭제 로직 수행
+        basketService.deleteCartItems(cartCodes);
+//        basketService.deleteCartItems();
+        // 삭제가 완료된 후에 적절한 리다이렉트 또는 다른 동작을 수행
+        //redirectAttributes.addFlashAttribute("userCode", loginUserDTO.getUserCode());
+        return "success";
     }
+
+
+
+
+
 
 }
