@@ -14,20 +14,20 @@
                 <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
                                                                      alt="메인화면"></li>
                 <li>&gt;</li>
-                <li>문의 내역</li>
+                <li>문의게시판</li>
             </ul>
 
             <th:block th:include="include/client/boardHeader"></th:block>
             <div id="contents">
                 <table id="contents_table">
-                    <caption>문의내역</caption>
+                    <caption>문의게시판</caption>
                     <thead>
                     <tr>
-                        <th>번호</th>
-                        <th>분류</th>
-                        <th>제목</th>
-                        <th>작성일</th>
-                        <th>작성자</th>
+                        <th id="inquiryCodeHead">번호</th>
+                        <th id="postTypeHead">분류</th>
+                        <th id="titleHead">제목</th>
+                        <th id="writeDateHead">작성일</th>
+                        <th id="memberIdHead">작성자</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,6 +69,8 @@
                                                     </tr>-->
                             <input type="search" name="searchValue" id="searchValue">
                             <input type="submit" id="search_button" value="찾기">
+                            <input type="button" id="clear_button" value="검색초기화"
+                                   onclick="location.href='/board/questionList'">
                         </div>
                     </form>
                     <button id="write_button" onclick="location.href=''">글쓰기</button>
@@ -105,6 +107,25 @@
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                const formData = $(this).serializeArray();
+                console.log(formData);
+                localStorage.setItem('QuestionFormData', JSON.stringify(formData));
+            })
+            let storedFormData = localStorage.getItem("QuestionFormData");
+            if (storedFormData) {
+                storedFormData = JSON.parse(storedFormData);
+                console.log(storedFormData);
+                $('[name=searchCondition] option[value=' + storedFormData[1].value + ']').prop('selected', true);
+                $('[name=searchValue]').val(storedFormData[2].value);
+            }
+        });
+        $(document).on('click', '#clear_button', function () {
+            localStorage.removeItem('QuestionFormData');
+        })
+    </script>
 
 
 </th:block>

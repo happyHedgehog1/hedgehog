@@ -13,36 +13,40 @@
                 <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
                                                                      alt="메인화면"></li>
                 <li>&gt;</li>
-                <li>리뷰 내역</li>
+                <li>리뷰게시판</li>
             </ul>
             <th:block th:include="include/client/boardHeader"></th:block>
             <div id="contents">
                 <table id="contents_table">
-                    <caption>리뷰내역</caption>
+                    <caption>리뷰게시판</caption>
                 </table>
                 <hr style="border: 0.1px solid rgb(218, 217, 217);">
                 <div class="review_wrapper" th:each="review : ${reviewList}">
-                    <div class="reviewInfo">
+                    <div class="reviewInfoWrap">
                         <!-- 제품 썸네일 -->
-                        <div><img th:src="|/thumbPath${review.productImgPath}|" alt="제품썸네일입니다."></div>
-                        <!-- 제품 썸네일 -->
-                        <div>
-                            <div>제품이름 :
-                                <th:block th:text="${review.productName}"></th:block>
-                            </div>
-                            <div>옵션 :
-                                <th:block th:text="${review.optionName}"></th:block>
-                            </div>
+                        <div id="reviewInfo">
+                            <div><img th:src="|/thumbPath${review.productImgPath}|" alt="제품썸네일입니다."></div>
+                            <!-- 제품 썸네일 -->
                             <div>
-                                <th:block th:each="star : ${#numbers.sequence(1,5)}">
-                                    <span th:if="${star le review.grade}" class="filled-star">★</span>
-                                    <span th:if="${star gt review.grade}" class="empty-star">☆</span>
-                                </th:block>
-                                <span>
+                                <div>제품이름 :
+                                    <th:block th:text="${review.productName}"></th:block>
+                                </div>
+                                <div>옵션 :
+                                    <th:block th:text="${review.optionName}"></th:block>
+                                </div>
+                                <div>
+                                    <th:block th:each="star : ${#numbers.sequence(1,5)}">
+                                        <span th:if="${star le review.grade}" class="filled-star">★</span>
+                                        <span th:if="${star gt review.grade}" class="empty-star">☆</span>
+                                    </th:block>
+                                    <span>
                                     <b><th:block th:text="${review.grade}"></th:block></b>
                                 </span>
+                                </div>
+                                <div th:text="${#dates.format(review.writeDate,'yyyy-MM-dd HH:MM')}"></div>
                             </div>
-                            <div th:text="${#dates.format(review.writeDate,'yyyy-MM-dd HH:MM')}"></div>
+                        </div>
+                        <div id="userIdWrapper">아이디 : <span th:text="${review.memberId}"></span>
                         </div>
                     </div>
                     <hr style="border: 0.1px solid rgb(218, 217, 217);">
