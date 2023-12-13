@@ -10,7 +10,6 @@ section {
 
 #contents {
     align-self: center;
-    padding-top: 3em;
     margin-bottom: 5em;
     align-self: center;
     min-width: 55em;
@@ -250,4 +249,20 @@ tbody td:nth-child(3):hover {
     padding: 0px 3px 0px 3px;
     background-color: white;
     border: 0;
+}
+#review_board {
+    background: #a7727d;
+    color: white;
+}
+#contents_table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #5D5C5C;
+}
+
+#contents_table > caption {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 1em;
+    color: black;
 }

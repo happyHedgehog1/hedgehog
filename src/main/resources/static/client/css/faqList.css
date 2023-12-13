@@ -10,7 +10,6 @@ section {
 
 #contents {
     align-self: center;
-    padding-top: 7em;
     margin-bottom: 5em;
     align-self: center;
     min-width: 55em;
@@ -54,8 +53,8 @@ tr > td {
     font-size: 0.95em;
 }
 
-#noticeCodeHead {
-    max-width: 2em;
+#faqCodeHead {
+    width: 3em;
 }
 
 .title {
@@ -161,4 +160,8 @@ tbody tr:hover td {
     padding: 0px 3px 0px 3px;
     background-color: white;
     border: 0;
+}
+#faq_board {
+    background: #a7727d;
+    color: white;
 }

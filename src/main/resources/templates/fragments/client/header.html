@@ -11,18 +11,21 @@
             <span></span>
         </div>
         <!-- 사이드메뉴 -->
-        <div class="side_nenu" onclick="toggleHamburger()">
-            <ul class="side_nenu_List">
+        <div class="side_menu" onclick="toggleHamburger()">
+            <ul class="side_menu_List">
                 <li><a th:href="@{'/list/productList'}">베스트 상품</a></li>
                 <li><a th:href="@{'/list/productList/bed'}">침실</a></li>
                 <li><a th:href="@{'/list/productList/sopa'}">거실</a></li>
                 <li><a th:href="@{'/list/productList/desk'}">서재</a></li>
                 <li><a th:href="@{'/list/productList/kitchenTable'}">주방</a></li>
-                <li class="post"><a th:href="@{/agreement/privacyPolicy}">게시판</a>
+                <li class="post"><a th:href="@{/board}">게시판</a>
                     <ul class="post_list">
+                        <li><a th:href="@{/board/reviewList}">리뷰게시판</a></li>
+                        <li><a th:href="@{/board/questionList}">문의게시판</a></li>
+                        <li><a th:href="@{/board/noticeList}">공지사항게시판</a></li>
+                        <li><a th:href="@{/board/faqList}">자주하는질문</a></li>
                         <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
                         <li><a th:href="@{/agreement/termsAndConditions}">이용약관</a></li>
-                        <li><a th:href="@{/board/board}">공지사항</a></li>
                     </ul>
                 </li>
             </ul>

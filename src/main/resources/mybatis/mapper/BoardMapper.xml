@@ -57,21 +57,24 @@
         FROM tbl_inquiry A
         JOIN tbl_user B ON A.member_code=B.user_code
         <where>
-            <if test="searchCondition == 'id'">
-                B.id = #{searchValue}
-            </if>
-            <if test="searchCondition == 'title'">
-                A.title LIKE CONCAT('%',#{searchValue},'%')
-            </if>
-            <if test="searchCondition == 'contents'">
-                A.content LIKE CONCAT('%',#{searchValue},'%')
-            </if>
-            <if test="searchCondition == 'titleAndContents'">
-                A.title LIKE CONCAT('%',#{searchValue},'%') OR
-                A.content LIKE CONCAT('%',#{searchValue},'%')
-            </if>
-            <if test="searchCondition == 'type'">
-                A.post_type LIKE CONCAT('%',#{searchValue},'%')
+            <if test="searchValue != '' and searchValue != null">
+                <if test="searchCondition == 'id'">
+                    B.id = #{searchValue}
+                </if>
+                <if test="searchCondition == 'title'">
+                    A.title LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+                <if test="searchCondition == 'contents'">
+                    A.content LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+                <if test="searchCondition == 'titleAndContents'">
+                    A.title LIKE CONCAT('%',#{searchValue},'%') OR
+                    A.content LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+                <if test="searchCondition == 'type'">
+                    A.post_type LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+
             </if>
             AND A.state = 'Y'
         </where>
@@ -211,6 +214,69 @@
         FROM tbl_admin_bulletin_board A
         JOIN tbl_user B ON A.user_code=B.user_code
         WHERE A.state='Y' AND A.post_type='공지사항'
+        <if test="orderBy != null">
+            ORDER BY
+            <if test="orderBy =='writeDateDESC'">
+                A.write_date DESC
+            </if>
+            <if test="orderBy =='writeDateASC'">
+                A.write_date ASC
+            </if>
+            <if test="orderBy == 'viewsASC'">
+                A.views ASC
+            </if>
+            <if test="orderBy == 'viewsDESC'">
+                A.views DESC
+            </if>
+        </if>
+    </select>
+    <select id="selectTotalCountFaqList">
+        SELECT COUNT(*)
+        FROM tbl_admin_bulletin_board A
+        WHERE A.state='Y' AND A.post_type='FAQ'
+        <!--        <if test="orderBy != null">-->
+        <!--            ORDER BY-->
+        <!--            <if test="orderBy =='writeDateDESC'">-->
+        <!--                A.write_date DESC-->
+        <!--            </if>-->
+        <!--            <if test="orderBy =='writeDateASC'">-->
+        <!--                A.write_date ASC-->
+        <!--            </if>-->
+        <!--            <if test="orderBy == 'viewsDESC'">-->
+        <!--                A.views DESC-->
+        <!--            </if>-->
+        <!--            <if test="orderBy == 'viewsASC'">-->
+        <!--                A.views ASC-->
+        <!--            </if>-->
+        <!--        </if>-->
+    </select>
+    <resultMap id="faqDTOResultMap" type="com.hedgehog.client.board.model.dto.FaqDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="content" column="content"/>
+        <result property="title" column="title"/>
+        <result property="views" column="views"/>
+        <result property="postType" column="post_type"/>
+        <result property="userCode" column="user_code"/>
+        <result property="state" column="state"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <select id="selectFaqList" resultMap="faqDTOResultMap">
+        SELECT
+        A.post_code,
+        A.write_date,
+        A.content,
+        A.title,
+        A.views,
+        A.post_type,
+        A.user_code,
+        A.state,
+        A.modify_date,
+        B.id user_id
+        FROM tbl_admin_bulletin_board A
+        JOIN tbl_user B ON A.user_code=B.user_code
+        WHERE A.state='Y' AND A.post_type='FAQ'
         <if test="orderBy != null">
             ORDER BY
             <if test="orderBy =='writeDateDESC'">

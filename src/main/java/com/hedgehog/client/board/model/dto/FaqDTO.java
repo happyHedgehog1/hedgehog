@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-public class NoticeDTO {
+public class FaqDTO {
     private int postCode;
     private Timestamp writeDate;
     private String content;

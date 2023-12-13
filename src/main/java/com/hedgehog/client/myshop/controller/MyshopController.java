@@ -42,6 +42,7 @@ public class MyshopController {
 
         int point = myshopService.getMyPoint(loginUserDTO.getUserCode());
         mv.addObject("point", point);
+        mv.addObject("userId",loginUserDTO.getUserId());
         mv.setViewName("/client/content/myshop/mypage");
         return mv;
     }

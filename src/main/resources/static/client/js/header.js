@@ -1,6 +1,6 @@
 function toggleHamburger() {
   var $hambtn = document.querySelector('.hamburger_button');
-  var $sideMenu = document.querySelector('.side_nenu');
+  var $sideMenu = document.querySelector('.side_menu');
   $hambtn.classList.toggle('active');
   $sideMenu.classList.toggle('active');
 }

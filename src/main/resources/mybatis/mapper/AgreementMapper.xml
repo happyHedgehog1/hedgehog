@@ -11,12 +11,12 @@
         SELECT
             post_type,content
         FROM tbl_admin_bulletin_board
-        WHERE post_type ='이용약관'
+        WHERE post_type ='개인정보처리방침'
     </select>
     <select id="getTermsAndConditions" resultMap="postDTOResultMap">
         SELECT
             post_type,content
         FROM tbl_admin_bulletin_board
-        WHERE post_type ='개인정보처리방침'
+        WHERE post_type ='이용약관'
     </select>
 </mapper>

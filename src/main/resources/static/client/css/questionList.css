@@ -10,7 +10,6 @@ section {
 
 #contents {
     align-self: center;
-    padding-top: 7em;
     margin-bottom: 5em;
     align-self: center;
     min-width: 55em;
@@ -140,6 +139,7 @@ tbody td:nth-child(3):hover {
 .title_group > img {
     height: 1.4em;
 }
+
 #bottom_buttons {
     display: flex;
     justify-content: center;
@@ -161,4 +161,9 @@ tbody td:nth-child(3):hover {
     padding: 0px 3px 0px 3px;
     background-color: white;
     border: 0;
+}
+
+#question_board {
+    background: #a7727d;
+    color: white;
 }

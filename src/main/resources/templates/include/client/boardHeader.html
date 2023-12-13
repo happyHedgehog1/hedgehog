@@ -1,0 +1,13 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/include/client/css/boardHeader/boardHeader.css}"/>
+    <div id="boardHeaderWrap">
+        <ul id="boardHeaderList">
+            <li id="review_board" onclick="location.href='/board/reviewList'">리뷰게시판</li>
+            <li id="question_board" onclick="location.href='/board/questionList'">문의게시판</li>
+            <li id="notice_board" onclick="location.href='/board/noticeList'">공지사항</li>
+            <li id="faq_board" onclick="location.href='/board/faqList'">자주하는질문</li>
+            <li id="termsAndCondition_board" onclick="location.href='/agreement/termsAndConditions'">이용약관</li>
+            <li id="privacyPolicy_board" onclick="location.href='/agreement/privacyPolicy'">개인정보처리방침</li>
+        </ul>
+    </div>
+</th:block>
