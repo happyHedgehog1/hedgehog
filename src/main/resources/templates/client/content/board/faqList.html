@@ -5,21 +5,19 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <th:block layout:fragment="content">
-    <script th:src="@{/client/js/noticeList.js}"></script>
-    <link rel="stylesheet" th:href="@{/client/css/noticeList.css}">
-
-
+    <script th:src="@{/client/js/faqList.js}"></script>
+    <link rel="stylesheet" th:href="@{/client/css/faqList.css}">
     <section>
         <div id="main_category_route">
             <ul class="route_list">
                 <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
                                                                      alt="메인화면"></li>
                 <li>&gt;</li>
-                <li>공지사항</li>
+                <li>자주하는 질문</li>
             </ul>
             <div id="contents">
                 <table id="contents_table">
-                    <caption>공지사항</caption>
+                    <caption>자주하는질문</caption>
                     <thead>
                     <tr>
                         <th id="noticeCodeHead">번호</th>
@@ -92,22 +90,5 @@
             </div>
         </div>
     </section>
-    <script>
-        $(document).ready(function () {
-            $('form').submit(function (event) {
-                const formData = $(this).serializeArray();
-                localStorage.setItem('noticeFormData', JSON.stringify(formData));
-            })
-            let storedFormData = localStorage.getItem("noticeFormData");
-            if (storedFormData) {
-                storedFormData = JSON.parse(storedFormData);
-                console.log(storedFormData);
-                $('[name=orderBy] option[value=' + storedFormData[1].value + ']').prop('selected', true);
-            }
-        });
-        $(document).on('click', '#clear_button', function () {
-            localStorage.removeItem('noticeFormData');
-        })
-    </script>
 </th:block>
 </html>

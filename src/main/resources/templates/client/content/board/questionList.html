@@ -11,9 +11,8 @@
     <section>
         <div id="main_category_route">
             <ul class="route_list">
-                <li id="route_home" onclick="location.href='/'"><img src="/client/images/icon/home.png" alt=""></li>
-                <li>&gt;</li>
-                <li id="route_mypage" onclick="location.href='/myhome/mypage'">MY페이지</li>
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
                 <li>&gt;</li>
                 <li>문의 내역</li>
             </ul>
@@ -30,36 +29,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>00054</td>
-                        <td>[반품문의]</td>
-                        <td class="title_group">
-                            <div>제목제목제목제목제목제목제목제목제목</div>
-                            <img src="/client/images/icon/comment.png" alt="">
-                        </td>
-                        <td>1111-11-11</td>
-                        <td>w******2</td>
-                    </tr>
-                    <tr>
-                        <td>00054</td>
-                        <td>[반품문의]</td>
-                        <td class="title_group">
-                            <div>제목제목제목제목제목제목제목제목제목</div>
-                            <img src="/client/images/icon/comment.png" alt=""><img src="/client/images/icon/lock.png"
-                                                                                   alt="비밀글">
-                        </td>
-                        <td>1111-11-11</td>
-                        <td>w******2</td>
-                    </tr>
-                    <tr>
-                        <td>00054</td>
-                        <td>[반품문의]</td>
-                        <td class="title_group">
-                            <div>제목제목제</div>
-                            <img src="/client/images/icon/comment.png" alt="">
-                        </td>
-                        <td>2222-22-22</td>
-                        <td>d******3</td>
+                    <tr th:each="question : ${ questionList }">
+                        <td class="inquiryCode" th:text="${question.inquiryCode}"></td>
+                        <td class="postType" th:text="${question.postType}"></td>
+                        <td class="title"
+                            th:text="${question.title.length() lt 15 ? question.title : question.title.substring(0, 15)+'...'}"></td>
+                        <td class="writeDate" th:text="${#dates.format(question.writeDate, 'yyyy-MM-dd')}"></td>
+                        <td class="memberId"
+                            th:text="|${question.memberId[0] + #strings.repeat('*', question.memberId.length()-2) + question.memberId[question.memberId.length()-1]}|"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -92,23 +69,36 @@
                             <input type="submit" id="search_button" value="찾기">
                         </div>
                     </form>
-                    <button id="write_button" type="submit">글쓰기</button>
+                    <button id="write_button" onclick="location.href=''">글쓰기</button>
                 </div>
                 <div id="bottom_buttons">
-                    <div>
-                        <input type="button" onclick="" value="&lt;&lt;">
-                        <input type="button" onclick="" value="&lt;">
-                        <input type="button" onclick="" value="1">
-                        <input type="button" onclick="" value="2">
-                        <input type="button" onclick="" value="3">
-                        <input type="button" onclick="" value="4">
-                        <input type="button" onclick="" value="5">
-                        <input type="button" onclick="" value="6">
-                        <input type="button" onclick="" value="7">
-                        <input type="button" onclick="" value="8">
-                        <input type="button" onclick="" value="&gt;">
-                        <input type="button" onclick="" value="&gt;&gt;">
-                    </div>
+                    <!--맨 앞으로-->
+                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.startPage} + '\''"
+                           th:disabled="${selectCriteria.pageNo == 1}"
+                           type="button"
+                           value="<<">
+                    <!--이전 페이지로-->
+                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
+                           th:disabled="${selectCriteria.pageNo == 1}"
+                           type="button"
+                           value="<">
+                    <!--숫자 버튼-->
+                    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                        <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${page} + '\''"
+                               th:disabled="${selectCriteria.pageNo == page}"
+                               type="button"
+                               th:value="${page}">
+                    </th:block>
+                    <!--다음 페이지로-->
+                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
+                           th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                           type="button"
+                           value=">">
+                    <!--맨 뒤로-->
+                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.startPage} + '\''"
+                           th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                           type="button"
+                           value=">>">
                 </div>
             </div>
         </div>

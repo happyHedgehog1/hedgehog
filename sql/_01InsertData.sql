@@ -223,7 +223,7 @@ VALUES ('#000000', 3, 40, 'Y', 1);
 
 /*상품리뷰. 1번제품에만 4점짜리 리뷰가 하나 있다. 나머지 제품은 리뷰가 없으므로 별점이 0점이긴 하지만. 출력할때는 리뷰가 없다고 표시하는게 좋을거 같습니다.*/
 /*리뷰는 5번회원이 리뷰 했습니다. 그러면 주문내역에서도 5번회원이 주문할겁니다.*/
-INSERT INTO tbl_review(product_code, option_code, grade, title, content, write_date, member_code)
+INSERT INTO tbl_review(product_code, option_code, grade, content, write_date, member_code)
 VALUES (1, '#FFFFFF', 4, '1번 흰색 제품 리뷰 제목입니다.', '1번 흰색 제품 리뷰 내용입니다.', '2022-03-05 08:00:00', 5);
 
 /*장바구니*/
@@ -260,22 +260,25 @@ VALUES (1, '2023-01-01', '원본파일경로입니다.', '변환파일경로입�
 
 /*제품이미지*/
 /*제품이미지는 1번제품에 대한 이미지만 넣겠습니다*/
-/*image_classification 은 '썸네일이미지', '제품관점이미지', '제품설명이미지'*/
+/*image_classification 은 'Thumbnails', 'sub_thumbnail_1','sub_thumbnail_2','sub_thumbnail_3','proImg'
+sub_thumbnail_3
+proImg
+*/
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '썸네일이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'Thumbnails');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품관점이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'sub_thumbnail_1');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품관점이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'sub_thumbnail_2');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품관점이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'sub_thumbnail_3');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품설명이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'proImg');
 
 
 /*주문내역 + 주문상세내역*/

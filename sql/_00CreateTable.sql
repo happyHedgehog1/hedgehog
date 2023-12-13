@@ -356,8 +356,8 @@ CREATE TABLE `tbl_review`
     `content`      VARCHAR(3000)     NOT NULL,
     `write_date`   DATETIME          NOT NULL,
     `option_code`  VARCHAR(30)       NOT NULL,
-    `title`        VARCHAR(100)      NOT NULL,
     `member_code`  INTEGER           NOT NULL,
+    `state`        CHAR(1) DEFAULT 'Y' NOT NULL,
     PRIMARY KEY (`review_code`)
 );
 
