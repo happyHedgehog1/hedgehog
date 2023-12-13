@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.client.list.dao.ProductListMapper">
 
-    <resultMap type="ProductListDTO" id="productResultMap" >
-        <association property="adminProductDTO" resultMap="ProductResultMap"/>
-        <association property="attachmentList" resultMap="attachmentResultMap"/>
+    <resultMap type="ProductListDTO" id="productListResultMap" >
+        <association property="adminProductDTO" resultMap="productResultMap"/>
         <association property="adminCategoryDTO" resultMap="categoryResultMap"/>
+        <collection property="attachmentList" resultMap="attachmentResultMap"/>
     </resultMap>
 
-    <resultMap type="AdminProductDTO" id="ProductResultMap">
+    <resultMap type="AdminProductDTO" id="productResultMap">
         <id property="productCode" column="product_code"/>
         <result property="subCategoryName" column="category_code"/>
         <result property="productName" column="product_name"/>
@@ -37,24 +37,28 @@
         <result property="status" column="image_status"/>
     </resultMap>
 
-    <resultMap type="AdminCategoryDTO" id="categoryResultMap" >
+    <resultMap type="AdminCategoryDTO" id="categoryResultMap">
         <id property="subCategoryName" column="category_code"/>
         <result property="state" column="state"/>
         <result property="name" column="name"/>
         <result property="upperCategoryCode" column="upper_category_code"/>
     </resultMap>
 
-    <select id="selectProductList" resultMap="productResultMap">
+    <select id="selectProductList" resultMap="productListResultMap">
         SELECT
             A.product_code,
             A.product_name,
             A.price,
             B.img_code,
             B.source_name,
-            B.save_path
-        FROM tbl_product A JOIN tbl_product_img B ON (A.product_code = B.product_code)
+            B.convert_path,
+            A.reviews,
+            B.image_classification
+        FROM tbl_product A
+        JOIN tbl_product_img B ON (A.product_code = B.product_code)
         JOIN tbl_category C ON (A.category_code = C.category_code)
-        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND C.state = 'Y' AND
+        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND C.state = 'Y'
+        AND
             (#{type} = 'bed' AND c.name = '침대')
         OR
             (#{type} = 'wardrobe' AND C.name = '옷장')
@@ -76,9 +80,6 @@
             (#{type} = 'kitchenTable' AND C.name = '식탁')
         OR
             (#{type} = 'kitchenCloset' AND C.name = '수납장' AND C.category_code = '15')
-
-
-
         ORDER BY A.product_code
 
     </select>

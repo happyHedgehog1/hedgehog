@@ -9,5 +9,4 @@ public interface ProductListService {
     List<ProductListDTO> selectProductList(String type);
 
 
-
 }
