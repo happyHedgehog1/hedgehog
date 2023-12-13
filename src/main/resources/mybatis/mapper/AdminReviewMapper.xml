@@ -8,7 +8,6 @@
         <result property="product_code" column="product_code"/>
         <result property="option_code" column="option_code"/>
         <result property="grade" column="grade"/>
-        <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="write_date" column="write_date"/>
         <result property="member_code" column="member_code"/>
@@ -36,7 +35,6 @@
 
     <select id="searchReview" resultMap="reviewResultMap">
     SELECT
-        A.title,
         A.content,
         B.product_name,
         A.grade,
@@ -44,7 +42,44 @@
         A.write_date
     FROM tbl_review A
     JOIN tbl_product B ON A.product_code = B.product_code
-    JOIN tbl_user C ON A.member_code = C.user_code;
+    JOIN tbl_user C ON A.member_code = C.user_code
+    <where>
+        <if test="revSearchStartDay != ''">
+            <if test="revSearchEndDay != ''">
+                AND A.write_date BETWEEN #{revSearchStartDay} AND #{revSearchEndDay}
+            </if>
+            <if test="revSearchEndDay == ''">
+                AND A.write_date > #{revSearchStartDay}
+            </if>
+        </if>
+
+        <if test="revCondition == 1">
+            AND A.grade LIKE CONCAT('5')
+        </if>
+        <if test="revCondition == 2">
+            AND A.grade LIKE CONCAT('4')
+        </if>
+        <if test="revCondition == 3">
+            AND A.grade LIKE CONCAT('3')
+        </if>
+        <if test="revCondition == 4">
+            AND A.grade LIKE CONCAT('2')
+        </if>
+        <if test="revCondition == 5">
+            AND A.grade LIKE CONCAT('1')
+        </if>
+        <if test="revSearch != ''">
+            <if test="revKeyword == 1">
+                AND  A.content LIKE CONCAT('%', #{revSearch}, '%')
+            </if>
+            <if test="revKeyword == 2">
+                AND C.id LIKE CONCAT('%', #{revSearch}, '%')
+            </if>
+
+        </if>
+
+    </where>
+
 
 
 

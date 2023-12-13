@@ -78,8 +78,11 @@ public class adminServiceController {
     }
 
 
-
-
+    //상품리뷰 첫화면
+    @GetMapping("/Product-reviewPage")
+    public String productReview () {
+        return "admin/content/Service/Product-review";
+    }
 
     //상품리뷰
     @GetMapping("/Product-review")

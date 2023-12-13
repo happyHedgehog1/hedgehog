@@ -19,9 +19,9 @@
                             <h4>게시판관리</h4>
                         </div>
                         <div class="topbtnWrapper">
-                            <div class="pageButton"><a th:href="@{/Service/productInquiry}">상품 문의 관리</a></div>
-                            <div class="pageButton1"><a th:href="@{/Service/Product-review}">상품 후기 관리</a></div>
-                            <div class="pageButton"><a th:href="@{/Service/FAQ}">FAQ 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/productInquiryPage}">상품 문의 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/Product-reviewPage}">상품 후기 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/FAQPage}">FAQ 관리</a></div>
                             <div class="pageButton"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                             </div>
                         
@@ -65,9 +65,9 @@
                                                             <option value="0" selected>--평점--</option>
                                                             <option value="1">5점</option>
                                                             <option value="2">4점</option>
-                                                            <option value="2">3점</option>
-                                                            <option value="2">2점</option>
-                                                            <option value="2">1점</option>
+                                                            <option value="3">3점</option>
+                                                            <option value="4">2점</option>
+                                                            <option value="5">1점</option>
                                                         </select>
                                                         <input class="check" type="checkbox" name="" id="">베스트후기
                                                     </li>
@@ -125,7 +125,7 @@
                             <tbody>
                                             <tr class="searchResult">
                                                 <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
-                                            <th>제목</th>
+
                                             <th>이미지</th>
                                             <th>후기내용</th>
                                             <th>상품명</th>
@@ -137,7 +137,7 @@
                                     <td class="proSearchBottomCheck">
                                         <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
                                     </td>
-                                    <td th:text="${ review.title}"></td>
+
                                     <td>상품 이미지</td>
                                     <td th:text="${ review.content}"></td>
                                     <td th:text="${ review.product.productName}"></td>
