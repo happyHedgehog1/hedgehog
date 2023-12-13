@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.client.list.dao.ProductListMapper">
 
-<resultMap id="ResultListMap2" type="com.hedgehog.client.list.dto.ProductListDTO">
-    <association property="adminProductDTO" resultMap="productResultMap2"/>
-    <association property="attachmentDTO" resultMap="attachmentResultMap2"/>
+    <resultMap type="ProductListDTO" id="productResultMap" >
+        <association property="adminProductDTO" resultMap="ProductResultMap"/>
+        <association property="attachmentList" resultMap="attachmentResultMap"/>
+        <association property="adminCategoryDTO" resultMap="categoryResultMap"/>
+    </resultMap>
 
-</resultMap>
-
-    <resultMap id="productResultMap2" type="com.hedgehog.client.list.dto.AdminProductDTO2">
+    <resultMap type="AdminProductDTO" id="ProductResultMap">
         <id property="productCode" column="product_code"/>
         <result property="subCategoryName" column="category_code"/>
         <result property="productName" column="product_name"/>
@@ -26,7 +26,7 @@
         <result property="salesEnd" column="sales_end"/>
     </resultMap>
 
-    <resultMap id="attachmentResultMap2" type="com.hedgehog.client.list.dto.AttachmentDTO2">
+    <resultMap type="AttachmentDTO" id="attachmentResultMap">
         <id property="no" column="img_code"/>
         <result property="productCode" column="product_code"/>
         <result property="originalName" column="source_name"/>
@@ -37,13 +37,50 @@
         <result property="status" column="image_status"/>
     </resultMap>
 
+    <resultMap type="AdminCategoryDTO" id="categoryResultMap" >
+        <id property="subCategoryName" column="category_code"/>
+        <result property="state" column="state"/>
+        <result property="name" column="name"/>
+        <result property="upperCategoryCode" column="upper_category_code"/>
+    </resultMap>
 
-    <select id="selectProductList" resultMap="ResultListMap2">
+    <select id="selectProductList" resultMap="productResultMap">
         SELECT
-            A.productName,
-            A.price
-        FROM TBL_PRODUCT
-        WHEER
+            A.product_code,
+            A.product_name,
+            A.price,
+            B.img_code,
+            B.source_name,
+            B.save_path
+        FROM tbl_product A JOIN tbl_product_img B ON (A.product_code = B.product_code)
+        JOIN tbl_category C ON (A.category_code = C.category_code)
+        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND C.state = 'Y' AND
+            (#{type} = 'bed' AND c.name = '침대')
+        OR
+            (#{type} = 'wardrobe' AND C.name = '옷장')
+        OR
+            (#{type} = 'dressingTable' AND C.name = '화장대')
+        OR
+            (#{type} = 'sopa' AND C.name = '소파')
+        OR
+            (#{type} = 'table' AND C.name = '테이블')
+        OR
+            (#{type} = 'closet' AND C.name = '수납장')
+        OR
+            (#{type} = 'desk' AND C.name = '책상')
+        OR
+            (#{type} = 'bookcase' AND C.name = '책장')
+        OR
+            (#{type} = 'chair' AND C.name = '의자')
+        OR
+            (#{type} = 'kitchenTable' AND C.name = '식탁')
+        OR
+            (#{type} = 'kitchenCloset' AND C.name = '수납장' AND C.category_code = '15')
+
+
+
+        ORDER BY A.product_code
+
     </select>
 
 </mapper>

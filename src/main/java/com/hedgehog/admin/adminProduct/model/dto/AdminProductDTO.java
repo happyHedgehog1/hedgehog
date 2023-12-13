@@ -29,5 +29,7 @@ public class AdminProductDTO {
     private List<OptionDTO> optionDTO;
     private AdminCategoryDTO category;
 
-
+    public int getProductCode() {
+        return productCode;
+    }
 }
