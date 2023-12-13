@@ -1,14 +1,10 @@
 package com.hedgehog.client.list.controller;
-import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
 import com.hedgehog.client.list.dto.ProductListDTO;
 import com.hedgehog.client.list.service.ProductListService;
-import com.hedgehog.client.list.service.ProductListServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,9 +54,16 @@ public class ListController {
         mv.addObject("type",type);
         mv.setViewName("client/content/list/productList");
 
+
+
         log.info("[ListController] ========================================================= end");
 
+        log.info("productList=========== {}", productList);
         System.out.println("mv========================="+mv);
+
+
+
+
 
         return mv;
 

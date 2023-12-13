@@ -32,23 +32,25 @@
                 <li th:if="${type == 'kitchenCloset'}">수납장</li>
             </ul>
 <!-- ${product.attachmentList[0].getThumbnailPath()} -->
-            <th:block th:each="product : ${productList}">
-                <ul class="gallery_list">
-                    <li>
-                        <img th:src="@{|/thumbPath|}" width="200px" height="150px" alt="섬네일 이미지">
-                    </li>
-                    <li class="gallery_list_text">
-                        <ul class="gallery_list_text1">
-                            <li>1인가구</li>
-                            <li>리뷰</li>
-                        </ul>
-                        <ul class="gallery_list_text2">
-                            <li th:text="${product.adminProductDTO.productName}"></li>
-                            <li th:text="${product.adminProductDTO.price}"></li>
-                        </ul>
-                    </li>
-                </ul>
-            </th:block>
+            <div class="gallery">
+                <th:block th:each="product : ${productList}">
+                    <ul class="gallery_list">
+                        <li>
+                            <img th:if="${product.attachmentList[0].fileType=='Thumbnails'}" th:src="@{|/thumbPath${product.attachmentList[0].savePath}|}" alt="섬네일 이미지">
+                        </li>
+                        <li class="gallery_list_text">
+                            <ul class="gallery_list_text1">
+                                <li>1인가구</li>
+                                <li th:text="'리뷰('+${product.adminProductDTO.reviews}+')'">리뷰</li>
+                            </ul>
+                            <ul class="gallery_list_text2">
+                                <li th:text="${product.adminProductDTO.productName}"></li>
+                                <li th:text="'￦' + ${product.adminProductDTO.price}"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </th:block>
+            </div>
 
                 <ul class="page_number">
                 <li>1</li>

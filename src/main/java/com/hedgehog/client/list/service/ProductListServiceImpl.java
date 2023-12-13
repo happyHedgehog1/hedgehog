@@ -28,6 +28,4 @@ public class ProductListServiceImpl implements ProductListService{
 
         return productList;
     }
-
-
 }
