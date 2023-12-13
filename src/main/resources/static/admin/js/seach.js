@@ -168,12 +168,12 @@
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsProduct[i].onclick = function() {
+                $tdsProduct[i].ondblclick = function() {
                     const no = this.parentNode.children[0].innerText;
                     window.open("/product/detail", "_blank", "width=1500,height=1000");
                 };
             }
-        }
+            }
 
         if (document.querySelectorAll("#productReview td")) {
             const $tdsProduct = document.querySelectorAll("#productReview td");
@@ -189,7 +189,7 @@
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsProduct[i].onclick = function() {
+                $tdsProduct[i].ondblclick = function() {
                     const no = this.parentNode.children[0].innerText;
                     window.open("/product/detail", "_blank", "width=1500,height=1000");
                 };
@@ -210,7 +210,7 @@
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsProduct[i].onclick = function() {
+                $tdsProduct[i].ondblclick = function() {
                     const no = this.parentNode.children[0].innerText;
                     window.open("/product/detail", "_blank", "width=1500,height=1000");
                 };
@@ -231,7 +231,7 @@
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsProduct[i].onclick = function() {
+                $tdsProduct[i].ondblclick = function() {
                     const no = this.parentNode.children[0].innerText;
                     window.open("/product/detail", "_blank", "width=1500,height=1000");
                 };

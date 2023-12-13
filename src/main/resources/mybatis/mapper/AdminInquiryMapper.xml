@@ -48,7 +48,8 @@
 
     <select id="searchInquiry" resultMap="inquiryResultMap">
         SELECT
-            A.post_type,
+        A.inquiry_code,
+        A.post_type,
         A.title,
         B.id,
         A.write_date,
@@ -110,7 +111,9 @@
         <choose>
             <when test="state == 1"> 'Y'</when>
             <when test="state == 2"> 'N'</when>
+
         </choose>
+        WHERE inquiry_code = #{inquiry_code}
     </update>
 
 
