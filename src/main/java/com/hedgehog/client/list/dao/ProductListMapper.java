@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProductListMapper {
     List<ProductListDTO> selectProductList(String type);
 
-
+    int selectTotalPageCount(String type);
 }

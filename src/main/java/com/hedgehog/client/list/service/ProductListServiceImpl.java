@@ -28,4 +28,14 @@ public class ProductListServiceImpl implements ProductListService{
 
         return productList;
     }
+
+    @Override
+    public int selectTotalPageCount(String type) {
+
+        int result = mapper.selectTotalPageCount(type);
+
+        log.info("result=================== {}" ,result );
+
+        return result;
+    }
 }
