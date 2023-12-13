@@ -158,7 +158,7 @@ input{
 .sectBottom th{
     position: sticky;
     top: 0;
-    line-height: 60px;
+    height: 60px;
     border-bottom: 1px solid #ebebeb;
     background-color: #CFCFCF;
 }

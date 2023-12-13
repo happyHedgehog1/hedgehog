@@ -16,6 +16,7 @@ public class AdminReviewDTO {
     private int product_code;
     private String option_code;
     private int grade;
+    private String state;
     private String title;
     private String content;
     private String write_date;
@@ -23,4 +24,5 @@ public class AdminReviewDTO {
     private AttachmentDTO attachment;
     private AdminProductDTO product;
     private AdminUserDTO id;
+
 }

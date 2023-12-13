@@ -17,7 +17,6 @@ section {
     /* min-width는 선택 */
     /* max-width는 선택 */
     min-width: 55em;
-    padding-top: 7em;
     margin-bottom: 5em;
 }
 
@@ -29,7 +28,7 @@ section {
     font-size: 0.8em;
 }
 
-#contents_table>caption {
+#contents_table > caption {
     font-size: 2em;
     font-weight: bold;
     padding: 1em;
@@ -41,6 +40,7 @@ td {
     padding: 10px;
     /* br 태그 높이 */
     line-height: 200%;
+    max-width: 300px;
 }
 
 #bottom_button_wrap {
@@ -61,10 +61,14 @@ td {
     color: white;
     cursor: pointer;
     transition: 300ms;
-    ;
 }
 
 #bottom_button:hover {
     color: black;
     background-color: white;
+}
+
+#privacyPolicy_board {
+    background: #a7727d;
+    color: white;
 }

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 @Mapper
 public interface ProductListMapper {
+    List<ProductListDTO> selectProductList(String type);
 
-
-    List<ProductListDTO> selectProductList();
+    int selectTotalPageCount(String type);
 }

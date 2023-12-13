@@ -11,6 +11,7 @@
         <result property="modify_date" column="modify_date"/>
         <result property="views" column="views"/>
         <result property="state" column="state"/>
+        <result property="post_code" column="post_code"/>
         <association property="id" resultMap="AdminUserDTOResultMap"/>
     </resultMap>
 
@@ -21,6 +22,7 @@
 
     <select id="searchNotice" resultMap="AdminFAQResultMap">
         SELECT
+        A.post_code,
             A.title,
             A.content,
             B.id,
@@ -30,5 +32,41 @@
             A.state
         FROM tbl_admin_bulletin_board A
                  JOIN tbl_user B ON A.user_code = B.user_code
+        <where>
+        <if test="notSearchStartDay != ''">
+            <if test="notSearchEndDay != ''">
+                AND A.write_date BETWEEN #{notSearchStartDay} AND #{notSearchEndDay}
+            </if>
+            <if test="notSearchEndDay == ''">
+                AND A.write_date > #{notSearchStartDay}
+            </if>
+        </if>
+            <if test="notCondition == 1">
+                AND A.state LIKE CONCAT('Y')
+            </if>
+            <if test="notCondition == 2">
+                AND A.state LIKE CONCAT('N')
+            </if>
+            <if test="notSearch != ''">
+                <if test="notKeyword == 1">
+                    AND  A.title LIKE CONCAT('%', #{notSearch}, '%')
+                </if>
+                <if test="notKeyword == 2">
+                    AND A.content LIKE CONCAT('%', #{notSearch}, '%')
+                </if>
+
+            </if>
+        </where>
     </select>
+
+    <update id="noticeStateUpdate" parameterType="_int">
+        UPDATE tbl_admin_bulletin_board
+        SET state =
+        <choose>
+            <when test="state == 1"> 'Y'</when>
+            <when test="state == 2"> 'N'</when>
+
+        </choose>
+        WHERE post_code = #{post_code}
+    </update>
 </mapper>

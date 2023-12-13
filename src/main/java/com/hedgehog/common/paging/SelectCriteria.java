@@ -21,4 +21,5 @@ public class SelectCriteria {
     private int endRow; // DB 조회 시 최신글부터 조회해야 하는 행의 마지막 수 -> 어떤 페이지에서 존재하는 데이터의 제일 하단값
     private String searchCondition; // 검색 조건
     private String searchValue; // 검색어
+    private String orderBy; // 정렬기준
 }

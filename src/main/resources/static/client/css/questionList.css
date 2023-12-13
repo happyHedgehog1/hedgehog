@@ -10,7 +10,6 @@ section {
 
 #contents {
     align-self: center;
-    padding-top: 7em;
     margin-bottom: 5em;
     align-self: center;
     min-width: 55em;
@@ -97,13 +96,6 @@ tr > td:nth-child(4) {
     background-color: white;
 }
 
-#bottom_buttons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 1em;
-}
-
 #search_buttons_wrap {
     display: flex;
     gap: 5px;
@@ -151,6 +143,8 @@ tbody td:nth-child(3):hover {
 #bottom_buttons {
     display: flex;
     justify-content: center;
+    gap: 30px;
+    padding: 1em;
     margin-bottom: 30px;
 }
 
@@ -167,4 +161,9 @@ tbody td:nth-child(3):hover {
     padding: 0px 3px 0px 3px;
     background-color: white;
     border: 0;
+}
+
+#question_board {
+    background: #a7727d;
+    color: white;
 }

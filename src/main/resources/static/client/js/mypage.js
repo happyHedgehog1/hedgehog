@@ -19,4 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 )
 
+function myQuestion() {
+    const userId = document.getElementById("id").value;
+    location.href = "/board/questionList?currentPage=1&searchCondition=id&searchValue=" + userId;
+}
 

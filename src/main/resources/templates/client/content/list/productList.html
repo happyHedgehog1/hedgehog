@@ -14,43 +14,43 @@
             <ul class="route_list">
                 <li><img src="/client/images/icon/home.png" alt=""></li>
                 <li>&gt;</li>
-                <li th:if="${category == 'bed' or category == 'wardrobe' or category == 'dressingTable'}">침실</li>
-                <li th:if="${category == 'sopa' or category == 'table' or category == 'closet'}">거실</li>
-                <li th:if="${category == 'desk' or category == 'bookcase' or category == 'chair'}">서재</li>
-                <li th:if="${category == 'kitchenTable' or category == 'kitchenCloset'}">주방</li>
+                <li th:if="${type == 'bed' or type == 'wardrobe' or type == 'dressingTable'}">침실</li>
+                <li th:if="${type == 'sopa' or type == 'table' or type == 'closet'}">거실</li>
+                <li th:if="${type == 'desk' or type == 'bookcase' or type == 'chair'}">서재</li>
+                <li th:if="${type == 'kitchenTable' or type == 'kitchenCloset'}">주방</li>
                 <li>&gt;</li>
-                <li th:if="${category == 'bed'}">침대</li>
-                <li th:if="${category == 'wardrobe'}">옷장</li>
-                <li th:if="${category == 'dressingTable'}">화장대</li>
-                <li th:if="${category == 'sopa'}">소파</li>
-                <li th:if="${category == 'table'}">테이블</li>
-                <li th:if="${category == 'closet'}">수납장</li>
-                <li th:if="${category == 'desk'}">책상</li>
-                <li th:if="${category == 'bookcase'}">책장</li>
-                <li th:if="${category == 'chair'}">의자</li>
-                <li th:if="${category == 'kitchenTable'}">식탁</li>
-                <li th:if="${category == 'kitchenCloset'}">수납장</li>
+                <li th:if="${type == 'bed'}">침대</li>
+                <li th:if="${type == 'wardrobe'}">옷장</li>
+                <li th:if="${type == 'dressingTable'}">화장대</li>
+                <li th:if="${type == 'sopa'}">소파</li>
+                <li th:if="${type == 'table'}">테이블</li>
+                <li th:if="${type == 'closet'}">수납장</li>
+                <li th:if="${type == 'desk'}">책상</li>
+                <li th:if="${type == 'bookcase'}">책장</li>
+                <li th:if="${type == 'chair'}">의자</li>
+                <li th:if="${type == 'kitchenTable'}">식탁</li>
+                <li th:if="${type == 'kitchenCloset'}">수납장</li>
             </ul>
-
-            <th:block th:each="category : ${ categoryList }">
-                <ul class="gallery_list">
-                    <li>
-                        <img th:src="${thumbnailPath}" alt="Thumbnail Image">
-                    </li>
-                    <li class="gallery_list_text">
-                        <ul class="gallery_list_text1">
-                            <li>1인가구</li>
-                            <li>리뷰</li>
-                        </ul>
-                        <ul class="gallery_list_text2">
-                            <li>상품제목</li>
-                            <li>252,000원</li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </th:block>
-
+<!-- ${product.attachmentList[0].getThumbnailPath()} -->
+            <div class="gallery">
+                <th:block th:each="product : ${productList}">
+                    <ul class="gallery_list">
+                        <li>
+                            <img th:if="${product.attachmentList[0].fileType=='Thumbnails'}" th:src="@{|/thumbPath${product.attachmentList[0].savePath}|}" alt="섬네일 이미지">
+                        </li>
+                        <li class="gallery_list_text">
+                            <ul class="gallery_list_text1">
+                                <li>1인가구</li>
+                                <li th:text="'리뷰('+${product.adminProductDTO.reviews}+')'">리뷰</li>
+                            </ul>
+                            <ul class="gallery_list_text2">
+                                <li th:text="${product.adminProductDTO.productName}"></li>
+                                <li th:text="'￦' + ${product.adminProductDTO.price}"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </th:block>
+            </div>
 
                 <ul class="page_number">
                 <li>1</li>

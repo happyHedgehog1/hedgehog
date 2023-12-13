@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface ProductListService {
 
-    public List<ProductListDTO> selectProductList();
+    public List<ProductListDTO> selectProductList(String type);
+
+    public int selectTotalPageCount(String type);
+
 }
