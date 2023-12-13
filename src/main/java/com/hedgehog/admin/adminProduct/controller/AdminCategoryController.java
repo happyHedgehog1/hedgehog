@@ -23,22 +23,45 @@ public class AdminCategoryController {
     }
 
 
-    @GetMapping("/categoryDetail")
-    public String handleCategoryClick(@RequestParam("categoryCode") String categoryCode) {
-        // categoryCode를 이용하여 원하는 동작 수행
-        List<AdminProductDTO> productDTO = adminProductServiceImpl.categoryDetail(categoryCode);
+    @GetMapping(value = "/categoryDetail", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<AdminProductDTO> handleCategoryClick(@RequestParam("categoryName") String categoryName) {
 
-        System.out.println("Clicked category with code: " + categoryCode);
-        return "admin/content/product/categoryAdd";  // 실제로 사용하는 뷰로 변경
+        log.info("categoryDetail ==================== start" + categoryName);
+        categoryName.trim();
+
+
+        log.info("categoryDetail ==================== " + categoryName);
+
+
+
+        List<AdminProductDTO> productDTO = adminProductServiceImpl.categoryDetail(categoryName);
+
+        log.info("categoryDetail ==================== " + productDTO);
+        int totalCount = productDTO.size();
+        int stateY = 0;
+        int stateN = 0;
+        for (int i = 0; i < productDTO.size(); i++) {
+            if (productDTO.get(i).getOrderableStatus().equals("Y")) {
+                stateY++;
+                productDTO.get(i).setPrice(stateY);
+                productDTO.get(i).setProductCode(totalCount);
+            }
+        }
+        productDTO.get(0).setOrderableStatus(productDTO.get(0).getCategory().getState());
+        log.info("categoryDetail ==================== " + productDTO);
+        return productDTO;
     }
+
 
     /**
      * 상분 분류 페이지 연결 메소드
+     *
      * @return
      */
     @GetMapping(value = "/categoryAdd")
     public ModelAndView categoryadd(@ModelAttribute AdminCategoryDTO category,
-                                        ModelAndView mv){
+                                    ModelAndView mv) {
         log.info("categoryadd ==================== start");
         log.info(category.toString());
 
@@ -53,7 +76,12 @@ public class AdminCategoryController {
         mv.setViewName("admin/content/product/categoryAdd");
 
 
-
         return mv;
+    }
+
+
+    @GetMapping("/categoryPage")
+    public String productAddPage() {
+        return "admin/content/product/categoryAdd";
     }
 }

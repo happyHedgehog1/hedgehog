@@ -1,3 +1,18 @@
+// 클릭된 이미지에 따라 행 이벤트 설정
+function setupRowEvents(row) {
+    // Use delegation on the parent table
+    $('.categoryTable').on('mouseenter', 'td', function () {
+        this.style.backgroundColor = "#A7727D";
+        this.style.color = "white";
+        this.style.cursor = "pointer";
+    });
+
+    $('.categoryTable').on('mouseout', 'td', function () {
+        this.style.backgroundColor = "white";
+        this.style.color = "black";
+    });
+}
+
 // 카테고리 소분류 추가
 $("body").on("click", 'img[name="img-add2"]', function () {
     console.log(`버튼 클릭`);
@@ -45,54 +60,63 @@ function toggleImageState(clickedImage) {
     }
 }
 
-// 클릭된 이미지에 따라 행 이벤트 설정
-function setupRowEvents(row) {
-    // Use delegation on the parent table
-    $('.categoryTable').on('mouseenter', 'td', function () {
-        this.style.backgroundColor = "#A7727D";
-        this.style.color = "white";
-        this.style.cursor = "pointer";
-    });
-
-    $('.categoryTable').on('mouseout', 'td', function () {
-        this.style.backgroundColor = "white";
-        this.style.color = "black";
-    });
-
-    $('.categoryTable').on('click', 'td', function () {
-        const productCode = this.querySelector('.category1 img[name="open"]').getAttribute('data-product-code');
-        // productCode를 이용한 원하는 동작 수행
-        console.log("Product Code: " + productCode);
-
-    });
-}
-
 // categoryTable 온클릭 스크립트
-if (document.querySelectorAll("#categoryTable td")) {
-    const $tdsProduct = document.querySelectorAll("#categoryTable td");
-
-    for (let i = 0; i < $tdsProduct.length; i++) {
-        setupRowEvents($tdsProduct[i].closest('tr'));
-    }
-}
 $(document).ready(function () {
-    setupRowEvents();
+    setupRowEvents(); // 테이블 전체에 대한 이벤트 설정
+
+    // 각 행에 대한 이벤트 추가
+    $('.categoryTable').on('click', 'td', function () {
+        var categoryName = $(this).text().trim();
+        console.log('클릭한 셀의 내용 : ' + categoryName)
+        $.ajax({
+            type: 'GET',
+            url: '/category/categoryDetail',
+            data: {categoryName: categoryName},
+            success: function (response) {
+                // 성공 시 수행할 동작
+                updateTable2(response);
+            },
+            error: function (error) {
+                // 오류 시 수행할 동작
+                console.error('Error sending data:', error);
+            }
+        });
+    });
 });
 
-function sendDataToController(categoryCode) {
-    $.ajax({
-        type: 'GET',
-        url: '/category/categoryDetail',  // 실제로 사용할 URL로 변경
-        data: {categoryCode: categoryCode},
-        success: function (response) {
-            // 성공 시 수행할 동작
-            console.log('Data sent successfully');
-        },
-        error: function (error) {
-            // 오류 시 수행할 동작
-            console.error('Error sending data:', error);
-        }
-    });
+function updateTable2(data) {
+    // 여기서 sectRight 테이블 업데이트
+    var categoryName = $('#categoryName');
+    var categoryDisplayY = $('input[name="categoryDisplay"][value="Y"]');
+    var categoryDisplayN = $('input[name="categoryDisplay"][value="N"]');
+    var totalCount = $('.totalCount');
+    var stateY = $('.stateY');
+    var stateN = $('.stateN');
+
+    categoryName.val('');
+    totalCount.text('');
+    stateY.text('');
+    stateN.text('');
+
+    categoryName.val(data[0].category.name);
+    if (data[0].category.name === "침실"
+        || data[0].category.name === "거실"
+        || data[0].category.name === "서재"
+        || data[0].category.name === "주방") {
+        categoryName.prop('disabled', true);
+    } else {
+        // 다른 경우에는 활성화
+        categoryName.prop('disabled', false);
+    }
+
+    // 노출 상태 설정
+    if (data[0].orderableStatus === 'Y') {
+        categoryDisplayY.prop('checked', true);
+    } else {
+        categoryDisplayN.prop('checked', true);
+    }
+    totalCount.text(data[0].productCode);
+    stateY.text(data[data.length - 1].price);
+    stateN.text(data[0].productCode - data[data.length - 1].price);
+
 }
-
-

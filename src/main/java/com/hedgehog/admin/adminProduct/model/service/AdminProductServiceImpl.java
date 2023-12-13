@@ -27,8 +27,29 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     @Override
     public List<AdminProductDTO> categoryDetail(String categoryCode) {
+        if("침실".equals(categoryCode)){
+            categoryCode = "1";
+            List<AdminProductDTO> productDTO = mapper.searchUpperCategoryDetail(categoryCode);
+            return productDTO;
+
+        } else if ("거실".equals(categoryCode) ) {
+            List<AdminProductDTO> productDTO = mapper.searchUpperCategoryDetail(categoryCode);
+
+            return productDTO;
+        } else if ("서재".equals(categoryCode)) {
+            List<AdminProductDTO> productDTO = mapper.searchUpperCategoryDetail(categoryCode);
+
+            return productDTO;
+        } else if ("주방".equals(categoryCode)) {
+
+            List<AdminProductDTO> productDTO = mapper.searchUpperCategoryDetail(categoryCode);
+
+            return productDTO;
+
+        }else {
         List<AdminProductDTO> productDTO = mapper.searchCategoryDetail(categoryCode);
-        return productDTO;
+            return productDTO;
+        }
     }
 
 

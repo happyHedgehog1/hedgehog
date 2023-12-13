@@ -30,19 +30,19 @@
                                     <col style="width: 5%;">
                                     <col style="width: 5%;">
                                     </colgroup>
-                                    <tr class="category" onclick="sendDataToController(1)">
+                                    <tr class="category" onclick="sendDataToController('1')">
                                         <td><img th:src="@{/admin/images/category1.png}" height="20px" >침실</td>
                                         <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
                                         <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
-                                    <tr class="category1" th:each="category : ${categoryList}" onclick="sendDataToController(${category.subCategoryName})">
-                                        <td style="padding-left: 5px;" th:value="${category.name}"
+                                    <tr class="category1" th:each="category : ${categoryList}" onclick="sendDataToController(${category.name})">
+                                        <td style="padding-left: 5px;"
                                             th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/L.png}" height="20px"
                                                     th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/category2.png}" height="20px"
                                                     th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
-                                            <span th:text="${category.name}"
+                                            <span th:text="${category.name}" th:value="${category.name}"
                                                     th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                             </span>
                                         </td>
@@ -59,7 +59,7 @@
                                                  th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/category2.png}" height="20px"
                                                  th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
-                                            <span th:text="${category.name}"
+                                            <span th:text="${category.name}" th:value="${category.name}"
                                                   th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
                                             </span>
                                         </td>
@@ -76,7 +76,7 @@
                                                  th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/category2.png}" height="20px"
                                                  th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
-                                            <span th:text="${category.name}"
+                                            <span th:text="${category.name}" th:value="${category.name}"
                                                   th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
                                             </span>
                                         </td>
@@ -93,7 +93,7 @@
                                                  th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/category2.png}" height="20px"
                                                  th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
-                                            <span th:text="${category.name}"
+                                            <span th:text="${category.name}" th:value="${category.name}"
                                                   th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
                                             </span>
                                         </td>
@@ -115,7 +115,7 @@
                                     <td>
                                         <ul>
                                             <li>
-                                                <input type="text" name="categoryName" id="categoryName" placeholder="카테고리">
+                                                <input type="text" name="categoryName" id="categoryName">
                                             </li>
                                         </ul>
                                     </td>
@@ -123,27 +123,12 @@
                                 <tr>
                                     <th>노출 상태</th>
                                     <td>
-                                        <label for="categoryDisplayY">
+                                        <label>
                                         <input type="radio" name="categoryDisplay" value="Y" checked><span> 노출</span>
                                         </label>
-                                        <label for="categoryDisplayN">
+                                        <label>
                                         <input type="radio" name="categoryDisplay" value="N"><span> 숨김</span>
                                         </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>상품 정렬 순서</th>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                <select name="prodAlign" id="prodAlign" >
-                                                    <option value="0" selected>최신순</option>
-                                                    <option value="1">판매량순</option>
-                                                    <option value="2">후기순</option>
-                                                    <option value="3">조회순</option>
-                                                </select>
-                                            </li>
-                                        </ul>
                                     </td>
                                 </tr>
                                 <tr>
@@ -156,19 +141,16 @@
                                         <col class="w200">
                                         <col class="w200">
                                         <col class="w200">
-                                        <col class="w200">
                                         </colgroup>
                                         <tr style="background-color: #ebebeb;">
                                             <th>전체</th>
                                             <th>판매중</th>
-                                            <th>판매대기</th>
                                             <th>품절</th>
                                         </tr>
                                         <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                            <td class="totalCount"></td>
+                                            <td class="stateY"></td>
+                                            <td class="stateN"></td>
                                         </tr>
                                     </table>
                                     </th>
@@ -177,12 +159,14 @@
                                     <tr>&nbsp;</tr>
                                 </th>
                             </table>
+                            <button type="submit" id="submit" name="submit">적용</button>
                         </div>
                     </div>
                 </div>
         </div>
     </div>
     <script th:src="@{/admin/js/categoryAdd.js}"></script>
+
 </th:block>
 </body>
 </html>
