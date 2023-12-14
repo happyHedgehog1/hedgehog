@@ -80,12 +80,12 @@
                                th:value="${page}">
                     </th:block>
                     <!--다음 페이지로-->
-                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
+                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.pageNo + 1} + '\''"
                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                            type="button"
                            value=">">
                     <!--맨 뒤로-->
-                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.startPage} + '\''"
+                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.endPage} + '\''"
                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                            type="button"
                            value=">>">
@@ -97,9 +97,9 @@
         $(document).ready(function () {
             $('form').submit(function (event) {
                 const formData = $(this).serializeArray();
-                localStorage.setItem('noticeFormData', JSON.stringify(formData));
+                localStorage.setItem('NoticeFormData', JSON.stringify(formData));
             })
-            let storedFormData = localStorage.getItem("noticeFormData");
+            let storedFormData = localStorage.getItem("NoticeFormData");
             if (storedFormData) {
                 storedFormData = JSON.parse(storedFormData);
                 console.log(storedFormData);
@@ -107,7 +107,7 @@
             }
         });
         $(document).on('click', '#clear_button', function () {
-            localStorage.removeItem('noticeFormData');
+            localStorage.removeItem('NoticeFormData');
         })
     </script>
 </th:block>
