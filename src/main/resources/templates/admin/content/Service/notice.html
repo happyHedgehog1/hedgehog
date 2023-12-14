@@ -132,7 +132,7 @@
                                     <tr class="proSearchBottomtr" th:each="FAQ : ${ noticeList }">
                                     <td class="proSearchBottomCheck">
                                         <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
-                                               th:value="${FAQ.getPost_code()}">>
+                                               th:value="${FAQ.getPost_code()}">
                                     </td>
                                     <td th:text="${ FAQ.title }"></td>
                                     <td th:text="${ FAQ.content }"></td>
