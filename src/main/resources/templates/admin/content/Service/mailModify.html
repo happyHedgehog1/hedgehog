@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  th:href="@{/admin/css/autoMail/viewport/modify.css}">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <title>Document</title>
+    <style>
+        .summernote {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<form id="memberForm" th:action="@{/autoMailModify/modifyMail}" method="post">
+    <input type="hidden" name="formCode" th:value="${adminAutoMailDTO.formCode}">
+    <label>메일 제목 <input type="text" th:value="${adminAutoMailDTO.title}" name="title" id="title"></label>
+    <textarea id="summernote" class="summernote" name="content" th:utext="${adminAutoMailDTO.content}"></textarea>
+    <button type="submit">저장</button>
+</form>
+<script>
+    $(document).ready(function() {
+        // Summernote 초기화
+        $('#summernote').summernote({
+            placeholder: '',
+            tabsize: 2,
+            height: 500, // 필요에 따라 높이 조정
+            width: 800,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+
+        // 저장 버튼 클릭 이벤트
+        $('#submit').on('click', function() {
+            // Summernote 내용을 textarea에 설정
+            $('#summernoteContent').val($('#summernote').summernote('code'));
+
+            // 폼 제출
+            $('#memberForm').submit();
+        });
+    });
+</script>
+</body>
+</html>

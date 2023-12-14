@@ -45,4 +45,6 @@ public interface AdminProductMapper {
     List<AdminProductDTO> searchCategoryDetail(String categoryCode);
 
     List<AdminProductDTO> searchUpperCategoryDetail(String categoryCode);
+
+    int categoryModify(AdminCategoryForm categoryForm);
 }

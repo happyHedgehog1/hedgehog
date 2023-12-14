@@ -17,6 +17,7 @@
         <result property="reviews" column="reviews"/>
         <result property="grade" column="grade"/>
         <result property="salesEnd" column="sales_end"/>
+        <result property="upperCategoryName" column="upperCategoryName"/>
         <association property="category" resultMap="categoryResultMap"/>
         <association property="optionList" resultMap="optionListResultMap"/>
         <collection property="attachment" resultMap="attachmentResultMap"/>
@@ -280,15 +281,13 @@
             b.name,
             b.upper_category_code
         from tbl_category b
-        inner join tbl_category a
-        on a.category_code=b.upper_category_code
     </select>
     <select id="searchCategoryDetail" resultMap="productResultMap">
         select
             *
         from tbl_category A
                  join tbl_product B on A.category_code = B.category_code
-        where A.name = #{categoryCode}
+        where A.category_code = #{categoryCode}
     </select>
     <select id="searchUpperCategoryDetail" resultMap="productResultMap">
         select
@@ -297,6 +296,11 @@
                  join tbl_product B on A.category_code = B.category_code
         where A.upper_category_code = #{categoryCode}
     </select>
-
+    <update id="categoryModify" parameterType="Map">
+        UPDATE tbl_category
+        SET name = #{categoryName},
+            state = #{categoryDisplay}
+        WHERE upper_category_code =#{upperCategoryCode} AND category_code = #{subCategoryName}
+    </update>
 
 </mapper>

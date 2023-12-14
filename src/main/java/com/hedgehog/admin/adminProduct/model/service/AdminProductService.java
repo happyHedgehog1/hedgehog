@@ -23,4 +23,6 @@ public interface AdminProductService {
     List<AdminCategoryDTO> categoryList(AdminCategoryDTO category);
 
     List<AdminProductDTO> categoryDetail(String categoryCode);
+
+    public void categoryModify(AdminCategoryForm categoryForm) throws AdminProductAddException;
 }

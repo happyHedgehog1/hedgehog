@@ -1,8 +1,11 @@
 package com.hedgehog.admin.adminProduct.controller;
 
 import com.hedgehog.admin.adminProduct.model.dto.AdminCategoryDTO;
+import com.hedgehog.admin.adminProduct.model.dto.AdminCategoryForm;
 import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
+import com.hedgehog.admin.adminProduct.model.dto.AdminProductForm;
 import com.hedgehog.admin.adminProduct.model.service.AdminProductServiceImpl;
+import com.hedgehog.admin.exception.AdminProductAddException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,18 @@ public class AdminCategoryController {
 
     public AdminCategoryController(AdminProductServiceImpl adminProductServiceImpl) {
         this.adminProductServiceImpl = adminProductServiceImpl;
+    }
+
+    @PostMapping(value = "categoryModify")
+    public String categoryModify(@ModelAttribute AdminCategoryForm categoryForm) throws AdminProductAddException {
+
+        log.info(String.valueOf(categoryForm));
+
+        adminProductServiceImpl.categoryModify(categoryForm);
+
+        return "redirect:/category/categoryAdd";
+
+
     }
 
 
