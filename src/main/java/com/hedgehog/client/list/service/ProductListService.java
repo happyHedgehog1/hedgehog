@@ -1,13 +1,16 @@
 package com.hedgehog.client.list.service;
 
 import com.hedgehog.client.list.dto.ProductListDTO;
+import com.hedgehog.common.paging.SelectCriteria;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductListService {
 
-    public List<ProductListDTO> selectProductList(String type);
+    List<ProductListDTO> selectProductList( Map<String, Object> map);
 
-    public int selectTotalPageCount(String type);
+    int selectTotalPageCount(String type);
+
 
 }

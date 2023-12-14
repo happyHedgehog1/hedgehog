@@ -112,7 +112,8 @@
         OR
             (#{type} = 'kitchenCloset' AND C.name = '수납장' AND C.category_code = '15')
         ORDER BY A.product_code
-
+        LIMIT  #{selectCriteria.startRow}, #{ selectCriteria.limit }
     </select>
+
 
 </mapper>
