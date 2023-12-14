@@ -202,6 +202,12 @@
             FROM TBL_MAILFORM
             WHERE form_code = 7
     </select>
+    <select id="searchMail" resultMap="memberResultMap">
+            SELECT
+                email
+            FROM TBL_CUSTOMER
+            WHERE customer_code = #{memberId}
+    </select>
 
 
 

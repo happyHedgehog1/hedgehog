@@ -23,4 +23,6 @@ public interface AdminMemberService {
 
 
     AdminSendMailDTO selectMemberSendMailPage(int i);
+
+    public void sendMail(AdminSendMailDTO mailDTO);
 }
