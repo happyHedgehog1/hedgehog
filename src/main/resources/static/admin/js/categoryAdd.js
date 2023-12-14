@@ -1,14 +1,4 @@
 
-// 모달 메뉴 열기
-document.getElementById("btnCategoryAdd").addEventListener("click", function() {
-    document.getElementById("myModal").style.display = "flex";
-});
-
-// 모달 닫기
-document.getElementById("closeModal").addEventListener("click", function() {
-    document.getElementById("myModal").style.display = "none";
-});
-
 // 클릭된 이미지에 따라 행 이벤트 설정
 function setupRowEvents(row) {
     // Use delegation on the parent table
@@ -82,8 +72,7 @@ $(document).ready(function () {
 
     // 각 행에 대한 이벤트 추가
     $('.categoryTable').on('click', 'td', function () {
-        // 현재 선택된 행의 배경색 변경
-        $(this).closest('tr').toggleClass('clicked');
+
 
         // 선택된 행의 categoryName 가져오기
         var categoryName = $(this).find('input[type="hidden"]').val()
