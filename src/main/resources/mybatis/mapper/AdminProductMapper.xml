@@ -17,6 +17,7 @@
         <result property="reviews" column="reviews"/>
         <result property="grade" column="grade"/>
         <result property="salesEnd" column="sales_end"/>
+        <result property="upperCategoryName" column="upperCategoryName"/>
         <association property="category" resultMap="categoryResultMap"/>
         <association property="optionList" resultMap="optionListResultMap"/>
         <collection property="attachment" resultMap="attachmentResultMap"/>
@@ -273,6 +274,33 @@
             convert_name = #{savedName}
         WHERE product_code = #{productCode} AND image_classification = #{fileType}
 
+    </update>
+    <select id="searchCategoryList" resultMap="categoryResultMap">
+        SELECT
+            b.category_code,
+            b.name,
+            b.upper_category_code
+        from tbl_category b
+    </select>
+    <select id="searchCategoryDetail" resultMap="productResultMap">
+        select
+            *
+        from tbl_category A
+                 join tbl_product B on A.category_code = B.category_code
+        where A.category_code = #{categoryCode}
+    </select>
+    <select id="searchUpperCategoryDetail" resultMap="productResultMap">
+        select
+            *
+        from tbl_category A
+                 join tbl_product B on A.category_code = B.category_code
+        where A.upper_category_code = #{categoryCode}
+    </select>
+    <update id="categoryModify" parameterType="Map">
+        UPDATE tbl_category
+        SET name = #{categoryName},
+            state = #{categoryDisplay}
+        WHERE upper_category_code =#{upperCategoryCode} AND category_code = #{subCategoryName}
     </update>
 
 </mapper>

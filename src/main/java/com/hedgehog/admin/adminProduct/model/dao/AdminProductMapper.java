@@ -39,4 +39,12 @@ public interface AdminProductMapper {
     int addOptionList2(OptionListDTO optionListDTO);
 
     int updateImg(AttachmentDTO attachment);
+
+    List<AdminCategoryDTO> searchCategoryList(AdminCategoryDTO category);
+
+    List<AdminProductDTO> searchCategoryDetail(String categoryCode);
+
+    List<AdminProductDTO> searchUpperCategoryDetail(String categoryCode);
+
+    int categoryModify(AdminCategoryForm categoryForm);
 }

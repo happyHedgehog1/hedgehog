@@ -13,4 +13,6 @@ public interface AdminOrderMapper {
     int orderStateUpdate(AdminOrderDTO orderDTO);
 
     public AdminOrderDTO orderDetail(int orderCode);
+
+    int deliverTableUpdate(AdminOrderDTO orderDTO);
 }
