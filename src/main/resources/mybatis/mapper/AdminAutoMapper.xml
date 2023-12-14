@@ -15,6 +15,7 @@
 SELECT
     *
 FROM TBL_MAILFORM
+WHERE form_code = #{formCode}
 </select>
     <update id="modifyMail">
         UPDATE TBL_MAILFORM

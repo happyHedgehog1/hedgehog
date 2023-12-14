@@ -14,12 +14,12 @@
         function previewMail(mailCode) {
             console.log(mailCode)
             const mailDetailUrl = "/autoMailModify/previewMail?mailCode=" + mailCode;
-            window.open(mailDetailUrl, "_blank", "width=1000, height=1000");
+            window.open(mailDetailUrl, "_blank", "width=1000, height=800");
         }
         function modifyMail(mailCode) {
             console.log(mailCode)
             const mailDetailUrl = "/autoMailModify/modifyMailPage?mailCode=" + mailCode;
-            window.open(mailDetailUrl, "_blank", "width=1000, height=1000");
+            window.open(mailDetailUrl, "_blank", "width=1000, height=800");
         }
 
     </script>
@@ -86,26 +86,26 @@
                                         </td>
                                         <th>적립금 소멸안내</th>
                                         <td>
-                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                            <button type="button" name="newMember" onclick="modifyMail(6)">수정</button>
                                         </td>
                                         <td>
-                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                            <button type="button" name="newMember" onclick="previewMail(6)">미리보기</button>
                                         </td>
                                     </tr>   
                                     <tr>        
                                         <th>개별메일발송</th>
                                         <td>
-                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                            <button type="button" name="newMember" onclick="modifyMail(7)">수정</button>
                                         </td>
                                         <td>
-                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                            <button type="button" name="newMember" onclick="previewMail(7)">미리보기</button>
                                         </td>
                                         <th>문의글 답변 안내</th>
                                         <td>
-                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                            <button type="button" name="newMember" onclick="modifyMail(8)">수정</button>
                                         </td>
                                         <td>
-                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                            <button type="button" name="newMember" onclick="previewMail(8)">미리보기</button>
                                         </td>
                                     </tr>   
                                 </tbody>    

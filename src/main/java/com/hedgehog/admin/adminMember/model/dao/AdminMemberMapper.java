@@ -3,6 +3,8 @@ package com.hedgehog.admin.adminMember.model.dao;
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
+import com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -28,4 +30,7 @@ public interface AdminMemberMapper {
     int point(AdminAllMemberDTO adminAllMemberDTO);
 
     int pointAdd(AdminMemberDTO memberDTO);
+
+
+    AdminSendMailDTO serachMail(int i);
 }

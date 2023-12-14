@@ -3,7 +3,7 @@ package com.hedgehog.admin.adminMember.model.service;
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
-import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO;
 import com.hedgehog.admin.exception.UnregistException;
 
 import java.util.List;
@@ -20,4 +20,7 @@ public interface AdminMemberService {
     public void pointPage(AdminAllMemberDTO adminAllMemberDTO) throws UnregistException;
 
     public void pointAdd(AdminMemberDTO memberDTO) throws UnregistException;
+
+
+    AdminSendMailDTO selectMemberSendMailPage(int i);
 }

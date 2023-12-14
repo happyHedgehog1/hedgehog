@@ -4,8 +4,7 @@ import com.hedgehog.admin.adminMember.model.dao.AdminMemberMapper;
 import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
-import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
-import com.hedgehog.admin.exception.OrderStateUpdateException;
+import com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO;
 import com.hedgehog.admin.exception.UnregistException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -100,6 +99,15 @@ public class AdminMemberServiceImpl implements AdminMemberService {
         if(!(result > 0)) {
             throw new UnregistException("상태 변경에 실패하셨습니다.");
         }
+    }
+
+    @Override
+    public AdminSendMailDTO selectMemberSendMailPage(int i) {
+        log.info("");
+        log.info("");
+
+        AdminSendMailDTO sendMailDTO = mapper.serachMail(i);
+        return sendMailDTO;
     }
 
 

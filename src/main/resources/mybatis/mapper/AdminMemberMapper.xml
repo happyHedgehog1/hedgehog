@@ -58,7 +58,14 @@
         <result property="finalPrice" column="final_price"/>
         <result property="optionCode" column="option_code"/>
     </resultMap>
-
+    <resultMap id="autoMailResultMap" type="AdminSendMailDTO">
+        <id property="formCode" column="form_code"/>
+        <result property="name" column="name"/>
+        <result property="content" column="content"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="title" column="title"/>
+    </resultMap>
 
 
     <select id="selectMember" resultMap="memberResultMap">
@@ -156,8 +163,7 @@
             creation_date,
             connection_date,
             withdraw_state,
-            point_usage,
-            totalPoint
+            point_usage
         FROM(
                 SELECT
                     A.member_code,
@@ -172,8 +178,7 @@
                     C.creation_date,
                     C.connection_date,
                     C.withdraw_state,
-                    D.point_usage,
-                    sum(E.point) as totalPoint
+                    D.point_usage
                 FROM
                     tbl_member A
                         JOIN tbl_customer B ON A.member_code = B.customer_code
@@ -189,6 +194,14 @@
             point = point + #{point}
         WHERE member_code = #{member_code}
     </update>
+    <select id="serachMail" resultMap="autoMailResultMap">
+            SELECT
+                name,
+                content,
+                title
+            FROM TBL_MAILFORM
+            WHERE form_code = 7
+    </select>
 
 
 

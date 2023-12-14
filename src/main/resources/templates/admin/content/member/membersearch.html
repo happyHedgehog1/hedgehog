@@ -102,7 +102,7 @@
                             <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberForm', 'memberWithdraw');">
                                 회원탈퇴
                             </button>
-                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:200px;" onclick="submitForm('memberForm', 'selectMemberSendMail');">
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:200px;" onclick="submitForm('memberForm', 'selectMemberSendMailPage');">
                                 선택회원 메일발송
                             </button>
 
@@ -169,7 +169,7 @@
         function openPopup(formId, action) {
             var form = document.getElementById(formId);
             form.action = form.action + action;  // action을 동적으로 설정
-            window.open(form.action, 'Popup', 'width=1500,height=1000');
+            window.open(form.action, 'Popup', 'width=1000,height=500');
         }
 
         function submitForm(formId, action) {

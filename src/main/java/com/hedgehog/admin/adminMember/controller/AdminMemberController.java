@@ -1,11 +1,9 @@
 package com.hedgehog.admin.adminMember.controller;
 
-import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
-import com.hedgehog.admin.adminMember.model.dto.AdminUnregisterDTO;
+import com.hedgehog.admin.adminMember.model.dto.*;
 import com.hedgehog.admin.adminMember.model.service.AdminMemberServiceImpl;
 import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
 import com.hedgehog.admin.exception.OrderStateUpdateException;
 import com.hedgehog.admin.exception.UnregistException;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +25,49 @@ public class AdminMemberController {
     public AdminMemberController(AdminMemberServiceImpl adminMemberService) {
         this.adminMemberServiceimpl = adminMemberService;
     }
+    @PostMapping(value = "/sendMail")
+    private String sendMail(@RequestParam(name = "memberId") List<String> memberId,
+                            @ModelAttribute AdminSendMailDTO mailDTO,
+                            RedirectAttributes redirectAttributes) {
+        log.info("");
+        log.info("");
+        log.info("mailModify~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~memberList : {}", memberId);
+        log.info("~~~~~~~~~~~~~~~~mailDTO : {}", mailDTO);
+
+        // Flash 속성에서 memberId를 받아옴
+        List<String> name = (List<String>) redirectAttributes.getFlashAttributes().get("memberId");
+        log.info("Received memberId in sendMail: {}", name);
+
+        return "admin/content/member/sendMail";
+    }
+
+
+    @PostMapping(value = "/selectMemberSendMailPage")
+    private String selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberId,
+                                            Model model,
+                                            RedirectAttributes redirectAttributes){
+        log.info("");
+        log.info("");
+        log.info("selectMemberSendMailPage~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberId);
+        AdminSendMailDTO sendMailDTO = adminMemberServiceimpl.selectMemberSendMailPage(7);
+
+        redirectAttributes.addFlashAttribute("memberId", memberId);
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("admin/content/member/sendMail");
+        mv.addObject("memberId", memberId);
+        mv.addObject("sendMailDTO", sendMailDTO);
+
+        model.addAttribute(sendMailDTO);
+        model.addAttribute(memberId);
+
+
+        return "admin/content/member/sendMail";
+
+    }
+
 
 
     @GetMapping(value = "/pointAdd")

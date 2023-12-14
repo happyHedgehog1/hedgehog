@@ -16,11 +16,16 @@
     </style>
 </head>
 <body>
-<form id="memberForm" th:action="@{/autoMailModify/modifyMail}" method="post">
-    <input type="hidden" name="formCode" th:value="${adminAutoMailDTO.formCode}">
-    <label>메일 제목 <input type="text" th:value="${adminAutoMailDTO.title}" name="title" id="title"></label>
-    <textarea id="summernote" class="summernote" name="content" th:utext="${adminAutoMailDTO.content}"></textarea>
-    <button type="submit">저장</button>
+<form id="memberForm" th:action="@{/admin/content/member/sendMail}" method="post">
+    <label>메일 제목 <input type="text" th:value="${adminSendMailDTO.title}" name="title" id="title"></label>
+    <textarea id="summernote" class="summernote" name="content" th:utext="${adminSendMailDTO.content}"></textarea>
+    <button type="submit" id="submit">전송</button>
+    <th th:text="${memberId}"></th>
+    <table>
+        <tr th:each="name : ${memberId}">
+            <td th:text="${name}"></td>
+        </tr>
+    </table>
 </form>
 <script>
     $(document).ready(function() {
