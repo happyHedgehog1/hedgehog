@@ -77,29 +77,29 @@
                 </div>
                 <div id="bottom_buttons">
                     <!--맨 앞으로-->
-                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.startPage} + '\''"
+                    <input th:onclick="'location.href=\'/board/questionList?currentPage=' + ${selectCriteria.startPage} + '\''"
                            th:disabled="${selectCriteria.pageNo == 1}"
                            type="button"
                            value="<<">
                     <!--이전 페이지로-->
-                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
+                    <input th:onclick="'location.href=\'/board/questionList?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
                            th:disabled="${selectCriteria.pageNo == 1}"
                            type="button"
                            value="<">
                     <!--숫자 버튼-->
                     <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-                        <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${page} + '\''"
+                        <input th:onclick="'location.href=\'/board/questionList?currentPage=' + ${page} + '\''"
                                th:disabled="${selectCriteria.pageNo == page}"
                                type="button"
                                th:value="${page}">
                     </th:block>
                     <!--다음 페이지로-->
-                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
+                    <input th:onclick="'location.href=\'/board/questionList?currentPage=' + ${selectCriteria.pageNo + 1} + '\''"
                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                            type="button"
                            value=">">
                     <!--맨 뒤로-->
-                    <input th:onclick="'location.href=\'/board/questionlist?currentPage=' + ${selectCriteria.startPage} + '\''"
+                    <input th:onclick="'location.href=\'/board/questionList?currentPage=' + ${selectCriteria.endPage} + '\''"
                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                            type="button"
                            value=">>">

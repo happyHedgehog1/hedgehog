@@ -183,3 +183,6 @@ tbody td:nth-child(3):hover {
 #memberIdHead {
     width: 6em;
 }
+#titleHead{
+    width:25em;
+}

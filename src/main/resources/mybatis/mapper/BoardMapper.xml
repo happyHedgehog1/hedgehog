@@ -77,6 +77,7 @@
 
             </if>
             AND A.state = 'Y'
+            LIMIT  #{ startRow }, #{ limit }
         </where>
     </select>
     <select id="selectTotalCountReviewList">
@@ -166,6 +167,7 @@
                 A.grade DESC
             </if>
         </if>
+        LIMIT  #{ startRow }, #{ limit }
     </select>
     <select id="selectTotalCountNoticeList">
         SELECT COUNT(*)
@@ -229,6 +231,7 @@
                 A.views DESC
             </if>
         </if>
+        LIMIT  #{ startRow }, #{ limit }
     </select>
     <select id="selectTotalCountFaqList">
         SELECT COUNT(*)
@@ -292,5 +295,6 @@
                 A.views DESC
             </if>
         </if>
+        LIMIT  #{ startRow }, #{ limit }
     </select>
 </mapper>

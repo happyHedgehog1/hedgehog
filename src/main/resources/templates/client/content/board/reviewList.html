@@ -106,12 +106,12 @@
                            th:value="${page}">
                 </th:block>
                 <!--다음 페이지로-->
-                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.pageNo - 1} + '\''"
+                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.pageNo + 1} + '\''"
                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                        type="button"
                        value=">">
                 <!--맨 뒤로-->
-                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.startPage} + '\''"
+                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.endPage} + '\''"
                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                        type="button"
                        value=">>">

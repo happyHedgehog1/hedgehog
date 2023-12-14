@@ -19,13 +19,13 @@
                 <li><a th:href="@{'/list/productList/desk'}">서재</a></li>
                 <li><a th:href="@{'/list/productList/kitchenTable'}">주방</a></li>
                 <li class="post"><a th:href="@{/board}">게시판</a>
-                    <ul class="post_list">
+                    <ul class="post_list" onclick="deleteBoardFormData()">
                         <li><a th:href="@{/board/reviewList}">리뷰게시판</a></li>
                         <li><a th:href="@{/board/questionList}">문의게시판</a></li>
-                        <li><a th:href="@{/board/noticeList}">공지사항게시판</a></li>
+                        <li><a th:href="@{/board/noticeList}">공지사항</a></li>
                         <li><a th:href="@{/board/faqList}">자주하는질문</a></li>
-                        <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
                         <li><a th:href="@{/agreement/termsAndConditions}">이용약관</a></li>
+                        <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
                     </ul>
                 </li>
             </ul>

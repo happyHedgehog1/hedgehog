@@ -61,8 +61,8 @@ public class BoardController {
         /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountQuestionList(searchMap);
         log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 10개*/
-        int limit = 10;
+        /*한 페이지에 5개*/
+        int limit = 5;
         /*한번에 페이징 버튼은 5개*/
         int buttonAmount = 5;
         /*페이징 처리용 로직을 위한 변수*/
@@ -134,7 +134,7 @@ public class BoardController {
 
         List<ReviewDTO> reviewList = boardService.selectReviewList(selectCriteria);
 
-        log.info("questionList : BoardController... reviewList : " + reviewList);
+        log.info("reviewList : BoardController... reviewList : " + reviewList);
         mv.addObject("reviewList", reviewList);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("reviewList : BoardController... selectCriteria" + selectCriteria);
@@ -165,8 +165,8 @@ public class BoardController {
         /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountNoticeList(searchMap);
         log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 10개*/
-        int limit = 10;
+        /*한 페이지에 5개*/
+        int limit = 5;
         /*한번에 페이징 버튼은 5개*/
         int buttonAmount = 5;
         /*페이징 처리용 로직을 위한 변수*/
@@ -215,8 +215,8 @@ public class BoardController {
         /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountFaqList(searchMap);
         log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 10개*/
-        int limit = 10;
+        /*한 페이지에 5개*/
+        int limit = 5;
         /*한번에 페이징 버튼은 5개*/
         int buttonAmount = 5;
         /*페이징 처리용 로직을 위한 변수*/

@@ -8,11 +8,11 @@ $(document).ready(function () {
         location.href = '/board/questionList';
     })
     $("#notice_board").click(() => {
-        localStorage.removeItem('noticeFormData');
+        localStorage.removeItem('NoticeFormData');
         location.href = '/board/noticeList';
     })
     $("#faq_board").click(() => {
-        localStorage.removeItem('faqFormData');
+        localStorage.removeItem('FaqFormData');
         location.href = '/board/faqList';
     })
     $("#termsAndCondition_board").click(() => {
