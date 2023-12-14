@@ -285,25 +285,25 @@ VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일�
 /*주문내역은 6번유저가 1번#000000 2개, 2번#000000 1개*/
 /*5번유저가 1번#FFFFFF 1개, 2번#FFFFFF 1개, 3번#000000 1개*/
 /*state에는 결제완료, 배송완료, 교환, 환불*/
-INSERT INTO tbl_order(product_code, customer_code, sum_price, point_usage, creation_date, state)
+INSERT INTO tbl_order(product_code, customer_code, point_usage, creation_date, state)
 VALUES (1, 6, 341000, 5000, '2020-01-03 08:12:03', '배송완료');
-INSERT INTO tbl_order(product_code, customer_code, sum_price, point_usage, creation_date, state)
+INSERT INTO tbl_order(product_code, customer_code, point_usage, creation_date, state)
 VALUES (1, 5, 548000, 0, '2021-02-05 08:12:03', '배송완료');
 /*우선 들어오는 포인트 자체는 가격의 1%로*/
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (1, 1, '#000000', 90000, 0, 3000, 900, 93000, 2);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (1, 2, '#000000', 150000, 0, 5000, 1500, 155000, 1);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (2, 1, '#FFFFFF', 90000, 0, 3000, 900, 93000, 1);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (2, 2, '#FFFFFF', 150000, 0, 5000, 1500, 155000, 1);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (2, 3, '#000000', 300000, 0, 0, 3000, 300000, 1);
 /*sum_price는 포인트 사용전 주문상세내역의 가격 총합(원가, 할인가격, 배송비, 개수 모두 고려해서)*/
 

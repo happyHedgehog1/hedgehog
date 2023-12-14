@@ -19,11 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.hedgehog.common.paging.Pagenation;
 
 @Controller
-@RequestMapping("/board/* ")
+@RequestMapping("/board/*")
 @Slf4j
 @AllArgsConstructor
 public class BoardController {
@@ -54,15 +55,15 @@ public class BoardController {
         /*맨 먼저 목록보기를 누르면 1페이지가 나온다.*/
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchCondition", searchCondition);
-        searchMap.put("searchValue", searchValue);
+        searchMap.put("searchValue",searchValue);
 
         log.info("questionList : BoardController에서 검색조건은 현재 다음과 같음... : " + searchMap);
 
         /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountQuestionList(searchMap);
         log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 10개*/
-        int limit = 10;
+        /*한 페이지에 5개*/
+        int limit = 5;
         /*한번에 페이징 버튼은 5개*/
         int buttonAmount = 5;
         /*페이징 처리용 로직을 위한 변수*/
@@ -133,7 +134,7 @@ public class BoardController {
 
         List<ReviewDTO> reviewList = boardService.selectReviewList(selectCriteria);
 
-        log.info("questionList : BoardController... reviewList : " + reviewList);
+        log.info("reviewList : BoardController... reviewList : " + reviewList);
         mv.addObject("reviewList", reviewList);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("reviewList : BoardController... selectCriteria" + selectCriteria);
@@ -164,8 +165,8 @@ public class BoardController {
         /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountNoticeList(searchMap);
         log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 10개*/
-        int limit = 10;
+        /*한 페이지에 5개*/
+        int limit = 5;
         /*한번에 페이징 버튼은 5개*/
         int buttonAmount = 5;
         /*페이징 처리용 로직을 위한 변수*/
@@ -195,8 +196,8 @@ public class BoardController {
 
     @GetMapping("/faqList")
     public ModelAndView faqList(@RequestParam(defaultValue = "writeDateDESC") String orderBy,
-                                   @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
-                                   ModelAndView mv) {
+                                @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
+                                ModelAndView mv) {
         /*orderBy:
          * writeDateDESC -> 최근 글부터
          * writeDateASC -> 옛날글부터
@@ -214,8 +215,8 @@ public class BoardController {
         /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountFaqList(searchMap);
         log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 10개*/
-        int limit = 10;
+        /*한 페이지에 5개*/
+        int limit = 5;
         /*한번에 페이징 버튼은 5개*/
         int buttonAmount = 5;
         /*페이징 처리용 로직을 위한 변수*/

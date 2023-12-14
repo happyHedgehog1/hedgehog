@@ -149,11 +149,6 @@ tbody td:nth-child(3):hover {
     margin-right: 10px;
 }
 
-.reviewInfo {
-    display: flex;
-    padding: 10px;
-
-}
 
 .review_content {
     padding-left: 10px;
@@ -250,10 +245,12 @@ tbody td:nth-child(3):hover {
     background-color: white;
     border: 0;
 }
+
 #review_board {
     background: #a7727d;
     color: white;
 }
+
 #contents_table {
     width: 100%;
     border-collapse: collapse;
@@ -265,4 +262,20 @@ tbody td:nth-child(3):hover {
     font-weight: bold;
     padding: 1em;
     color: black;
+}
+
+#userIdWrapper {
+    margin-top: auto;
+    text-align: right;
+}
+
+.reviewInfoWrap {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+#reviewInfo {
+    display: flex;
+    flex-direction: row;
 }

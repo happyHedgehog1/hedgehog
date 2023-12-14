@@ -10,21 +10,23 @@
             JOIN tbl_user B ON A.member_code=B.user_code
         </if>
         <where>
-            <if test="searchCondition == 'id'">
-                B.id = #{searchValue}
-            </if>
-            <if test="searchCondition == 'title'">
-                A.title LIKE CONCAT('%',#{searchValue},'%')
-            </if>
-            <if test="searchCondition == 'contents'">
-                A.content LIKE CONCAT('%',#{searchValue},'%')
-            </if>
-            <if test="searchCondition == 'titleAndContents'">
-                A.title LIKE CONCAT('%',#{searchValue},'%') OR
-                A.content LIKE CONCAT('%',#{searchValue},'%')
-            </if>
-            <if test="searchCondition == 'type'">
-                A.post_type LIKE CONCAT('%',#{searchValue},'%')
+            <if test="searchValue != '' and searchValue != null">
+                <if test="searchCondition == 'id'">
+                    B.id = #{searchValue}
+                </if>
+                <if test="searchCondition == 'title'">
+                    A.title LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+                <if test="searchCondition == 'contents'">
+                    A.content LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+                <if test="searchCondition == 'titleAndContents'">
+                    A.title LIKE CONCAT('%',#{searchValue},'%') OR
+                    A.content LIKE CONCAT('%',#{searchValue},'%')
+                </if>
+                <if test="searchCondition == 'type'">
+                    A.post_type LIKE CONCAT('%',#{searchValue},'%')
+                </if>
             </if>
             AND A.state = 'Y'
         </where>
@@ -77,6 +79,7 @@
 
             </if>
             AND A.state = 'Y'
+            LIMIT  #{ startRow }, #{ limit }
         </where>
     </select>
     <select id="selectTotalCountReviewList">
@@ -166,6 +169,7 @@
                 A.grade DESC
             </if>
         </if>
+        LIMIT  #{ startRow }, #{ limit }
     </select>
     <select id="selectTotalCountNoticeList">
         SELECT COUNT(*)
@@ -229,6 +233,7 @@
                 A.views DESC
             </if>
         </if>
+        LIMIT  #{ startRow }, #{ limit }
     </select>
     <select id="selectTotalCountFaqList">
         SELECT COUNT(*)
@@ -292,5 +297,6 @@
                 A.views DESC
             </if>
         </if>
+        LIMIT  #{ startRow }, #{ limit }
     </select>
 </mapper>

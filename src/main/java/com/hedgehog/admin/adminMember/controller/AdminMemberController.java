@@ -1,10 +1,9 @@
 package com.hedgehog.admin.adminMember.controller;
 
-import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
-import com.hedgehog.admin.adminMember.model.dto.AdminUnregisterDTO;
+import com.hedgehog.admin.adminMember.model.dto.*;
 import com.hedgehog.admin.adminMember.model.service.AdminMemberServiceImpl;
 import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
 import com.hedgehog.admin.exception.OrderStateUpdateException;
 import com.hedgehog.admin.exception.UnregistException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,22 +25,87 @@ public class AdminMemberController {
     public AdminMemberController(AdminMemberServiceImpl adminMemberService) {
         this.adminMemberServiceimpl = adminMemberService;
     }
-
-    @GetMapping(value = "/memberDetail")
-    private String orderDetail(@RequestParam int member_code, Model model){
+    @PostMapping(value = "/sendMail")
+    private String sendMail(@RequestParam(name = "memberId") List<String> memberId,
+                            @ModelAttribute AdminSendMailDTO mailDTO,
+                            RedirectAttributes redirectAttributes) {
         log.info("");
         log.info("");
-        log.info("selectProductDetail~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
-        log.info("~~~~~~~~~~~~~~~~member_code : {}", member_code);
+        log.info("mailModify~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~memberList : {}", memberId);
+        log.info("~~~~~~~~~~~~~~~~mailDTO : {}", mailDTO);
 
-        AdminAllMemberDTO memberDetail = adminMemberServiceimpl.memberDetail(member_code);
-        log.info("~~~~~~~~~~~~~~~~memberDetail : {}", memberDetail);
+        // Flash 속성에서 memberId를 받아옴
+        List<String> name = (List<String>) redirectAttributes.getFlashAttributes().get("memberId");
+        log.info("Received memberId in sendMail: {}", name);
+
+        return "admin/content/member/sendMail";
+    }
 
 
-        model.addAttribute("memberDetail", memberDetail);
-        return "admin/content/member/memberDetail";
+    @PostMapping(value = "/selectMemberSendMailPage")
+    private String selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberId,
+                                            Model model,
+                                            RedirectAttributes redirectAttributes){
+        log.info("");
+        log.info("");
+        log.info("selectMemberSendMailPage~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberId);
+        AdminSendMailDTO sendMailDTO = adminMemberServiceimpl.selectMemberSendMailPage(7);
+
+        redirectAttributes.addFlashAttribute("memberId", memberId);
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("admin/content/member/sendMail");
+        mv.addObject("memberId", memberId);
+        mv.addObject("sendMailDTO", sendMailDTO);
+
+        model.addAttribute(sendMailDTO);
+        model.addAttribute(memberId);
+
+
+        return "admin/content/member/sendMail";
 
     }
+
+
+
+    @GetMapping(value = "/pointAdd")
+    private String pointAdd(@RequestParam("memberCode") int memberCode,
+                            @RequestParam("point") int point) throws UnregistException {
+        log.info("*********************** pointAdd");
+        log.info("*********************** memberId"+memberCode);
+        log.info("*********************** point"+point);
+
+        AdminMemberDTO memberDTO = new AdminMemberDTO();
+        memberDTO.setMember_code(memberCode);
+        memberDTO.setPoint(point);
+
+        adminMemberServiceimpl.pointAdd(memberDTO);
+
+        return "redirect:/member/pointPage?member_code=" + memberCode;
+    }
+
+    @GetMapping (value = "/pointPage")
+    private String pointPage(@RequestParam int member_code,
+                            Model model){
+
+        log.info("*********************** memberWithdraw");
+        log.info("*********************** memberId"+member_code);
+
+        AdminAllMemberDTO memberDetail = adminMemberServiceimpl.memberDetail(member_code);
+
+
+            log.info("*******************memberDetail :" + memberDetail);
+        model.addAttribute("memberDetail", memberDetail);
+
+
+
+        return "admin/content/member/pointPage";
+    }
+
+
+
 
     /**
      * 회원조회 페이지에서 회원 탈퇴 시키는 메소드
@@ -53,10 +117,11 @@ public class AdminMemberController {
      */
     @PostMapping(value = "/memberWithdraw")
     private String memberWithdraw(@RequestParam("resultCheckbox")List<String> memberId,
-                                    RedirectAttributes rttr) throws UnregistException {
+                                  RedirectAttributes rttr) throws UnregistException {
 
         log.info("*********************** memberWithdraw");
         log.info("*********************** memberId"+memberId);
+
 
 
         for(int i =0; i < memberId.size(); i++){

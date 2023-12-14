@@ -10,4 +10,6 @@ public interface AdminUnregisterMapper {
     List<AdminUnregisterDTO> selectUnregister(AdminUnregisterForm form);
 
     int causeUpdate(AdminUnregisterDTO adminUnregisterDTO);
+
+    int withdrawalCancel(AdminUnregisterDTO adminUnregisterDTO);
 }

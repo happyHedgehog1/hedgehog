@@ -26,6 +26,7 @@ public class AdminUnregisterController {
 
     @PostMapping(value = "/stateUpdate")
     private String orderStateUpdate(@RequestParam("resultCheckbox") List<String> selectedId,
+                                    @RequestParam("selectCommit") String selectedState,
                                     RedirectAttributes rttr) throws OrderStateUpdateException, UnregistException {
 
         log.info("*********************** orderStateUpdate");
@@ -38,6 +39,7 @@ public class AdminUnregisterController {
                 log.info("orderCode**********************" + userCode);
                 AdminUnregisterDTO adminUnregisterDTO = new AdminUnregisterDTO();
                 adminUnregisterDTO.setUser_code(userCode);
+                adminUnregisterDTO.setState(selectedState);
 
 
                 log.info("order**********************" + adminUnregisterDTO);

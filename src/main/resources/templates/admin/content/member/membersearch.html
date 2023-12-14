@@ -92,23 +92,17 @@
             <div class="pc-switch">
                 <div class="sect-hd">
                     <h3>회원 검색 결과</h3>
-                    <span>( 검색고객 : <span class="usersCnt" th:text="${ totalResult }"></span>명 )</span>
+                    <span>( 검색고객 : <b><span class="usersCnt" style="color: #CD4747"  th:text="${ totalResult }"></span>명</b> )</span>
                 </div>
                 <div class="sect-cont">
-                    <form id="memberWithdrawForm" th:action="@{/member/}" method="post">
+                    <form id="memberForm" th:action="@{/member/}" method="post">
 
                     <div class="tbl-side">
                         <div class="f-r">
-                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'memberWithdraw');">
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberForm', 'memberWithdraw');">
                                 회원탈퇴
                             </button>
-                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'point');">
-                                적립금관리
-                            </button>
-                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'searchAllMemberSendMail');">
-                                검색회원 메일발송
-                            </button>
-                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberWithdrawForm', 'selectMemberSendMail');">
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:200px;" onclick="submitForm('memberForm', 'selectMemberSendMailPage');">
                                 선택회원 메일발송
                             </button>
 
@@ -172,12 +166,17 @@
     </section>
 
     <script>
+        function openPopup(formId, action) {
+            var form = document.getElementById(formId);
+            form.action = form.action + action;  // action을 동적으로 설정
+            window.open(form.action, 'Popup', 'width=1000,height=500');
+        }
+
         function submitForm(formId, action) {
             var form = document.getElementById(formId);
             form.action = form.action + action;  // action을 동적으로 설정
             form.submit();
         }
-
 
     </script>
 </th:block>

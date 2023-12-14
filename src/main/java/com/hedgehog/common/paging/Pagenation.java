@@ -67,8 +67,8 @@ public class Pagenation {
         startRow = (pageNo - 1) * limit; // 0부터 센다.
         endRow = (startRow) + limit - 1; // 예를 들어 limit 이 10이면. 9를 말한다. 0~9 -> 10개 = limit
 
-        System.out.println(startRow);
-        System.out.println(endRow);
+        System.out.println("startRow = " + startRow);
+        System.out.println("endRow = " + endRow);
 
         SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow, searchCondition, searchValue, orderBy);
 
@@ -82,10 +82,15 @@ public class Pagenation {
     public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount) {
         return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, null, null, null);
     }
-
+    /*
+    * 정렬만 있는 경우
+    * */
     public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String orderBy) {
         return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, null, null, orderBy);
     }
+    /*
+    * 정렬이 없고 검색조건이 있는 경우
+    * */
     public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String searchCondition, String searchValue) {
         return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue, null);
     }

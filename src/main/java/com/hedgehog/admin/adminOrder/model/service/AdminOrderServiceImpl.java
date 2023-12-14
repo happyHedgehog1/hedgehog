@@ -26,13 +26,52 @@ public class AdminOrderServiceImpl implements AdminOrderService{
         return orderList;
     }
 
+    /**
+     * order.html에서
+     * 배송대기, 배송중, 배송완료를 선택했으면 TBL_ORDER와 tbl_delivery의 상태 변경
+     *
+     * 환불완료를 선택했으면 tbl_deliver랑 TBL_ORDER와 TBL_PAYMENT랑 tbl_refund의 state를 바꾸고,
+     * 교환완료를 선택했으면 tbl_deliver랑 TBL_ORDER와 TBL_PAYMENT랑 tbl_exchange의 state를 바꾼다
+     *
+     *
+     * @param orderDTO
+     * @throws OrderStateUpdateException
+     */
     @Override
     @Transactional
     public void orderStateUpdate(AdminOrderDTO orderDTO) throws OrderStateUpdateException {
 
+        int result = 0;
         log.info("");
 
-        int result = mapper.orderStateUpdate(orderDTO);
+        /*SELECT
+*
+from tbl_order A
+join tbl_order_list B on A.order_code = B.order_code
+join tbl_delivery C on B.delivery_code = C.delivery_code
+join tbl_payment D on B.payment_code = D.payment_code
+where A.order_code = 1
+* */
+
+
+        if(orderDTO.getState().equals(4)) {
+            result = mapper.deliverTableUpdate(orderDTO);
+            result = mapper.orderStateUpdate(orderDTO);
+//            result = mapper.paymentTableUpdate(orderDTO);
+//            result = mapper.refundTableUpdate(orderDTO);
+        }else if (orderDTO.getState().equals(5)){
+            result = mapper.deliverTableUpdate(orderDTO);
+            result = mapper.orderStateUpdate(orderDTO);
+//            result = mapper.paymentTableUpdate(orderDTO);
+//            result = mapper.exchangeTableUpdate(orderDTO);
+
+        } else {
+            result = mapper.orderStateUpdate(orderDTO);
+            result++;
+        }
+
+
+
         log.info(" orderState result =================================== ", result);
 
         if(!(result > 0)) {
