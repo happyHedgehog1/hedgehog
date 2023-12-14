@@ -105,30 +105,30 @@
 
             <div id="bottom_buttons">
                 <!--맨 앞으로-->
-                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.startPage} + '\''"
+                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.startPage} + '&state=' + @{(${orderDetailsSelectCriteria.order.state}?:'0')} + '&dateStart=' + @{(${orderDetailsSelectCriteria.order.dateStart}?:'')} + '&dateEnd=' + @{(${orderDetailsSelectCriteria.order.dateEnd}?:'')} + '\''"
                        th:disabled="${orderDetailsSelectCriteria.pageNo == 1}"
                        type="button"
                        value="<<">
                 <!--이전 페이지로-->
-                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.pageNo - 1} + '\''"
+                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.pageNo - 1} + '&state=' + @{(${orderDetailsSelectCriteria.order.state}?:'0')} + '&dateStart=' + @{(${orderDetailsSelectCriteria.order.dateStart}?:'')} + '&dateEnd=' + @{(${orderDetailsSelectCriteria.order.dateEnd}?:'')} + '\''"
                        th:disabled="${orderDetailsSelectCriteria.pageNo == 1}"
                        type="button"
                        value="<">
                 <!--숫자 버튼-->
                 <th:block
                         th:each="page : ${#numbers.sequence(orderDetailsSelectCriteria.startPage, orderDetailsSelectCriteria.endPage)}">
-                    <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${page} + '\''"
+                    <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${page} + '&state=' + @{(${orderDetailsSelectCriteria.order.state}?:'0')} + '&dateStart=' + @{(${orderDetailsSelectCriteria.order.dateStart}?:'')} + '&dateEnd=' + @{(${orderDetailsSelectCriteria.order.dateEnd}?:'')} + '\''"
                            th:disabled="${orderDetailsSelectCriteria.pageNo == page}"
                            type="button"
                            th:value="${page}">
                 </th:block>
                 <!--다음 페이지로-->
-                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.pageNo + 1} + '\''"
+                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.pageNo + 1} + '&state=' + @{(${orderDetailsSelectCriteria.order.state}?:'0')} + '&dateStart=' + @{(${orderDetailsSelectCriteria.order.dateStart}?:'')} + '&dateEnd=' + @{(${orderDetailsSelectCriteria.order.dateEnd}?:'')} + '\''"
                        th:disabled="${orderDetailsSelectCriteria.pageNo == orderDetailsSelectCriteria.maxPage}"
                        type="button"
                        value=">">
                 <!--맨 뒤로-->
-                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.endPage} + '\''"
+                <input th:onclick="'location.href=\'/myshop/orderDeliveryInfo?currentPage=' + ${orderDetailsSelectCriteria.endPage} + '&state=' + @{(${orderDetailsSelectCriteria.order.state}?:'0')} + '&dateStart=' + @{(${orderDetailsSelectCriteria.order.dateStart}?:'')} + '&dateEnd=' + @{(${orderDetailsSelectCriteria.order.dateEnd}?:'')} + '\''"
                        th:disabled="${orderDetailsSelectCriteria.pageNo == orderDetailsSelectCriteria.maxPage}"
                        type="button"
                        value=">>">
