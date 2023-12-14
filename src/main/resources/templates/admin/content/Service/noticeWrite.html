@@ -21,22 +21,24 @@
                             <h4>게시판관리</h4>
                         </div>
                         <div class="topbtnWrapper">
-                            <div class="pageButton"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
-                            <div class="pageButton"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
-                            <div class="pageButton"><a href="../Service/FAQ.html">FAQ 관리</a></div>
-                            <div class="pageButton1"><a href="../Service/notice.html">공지사항 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/productInquiryPage}">상품 문의 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/Product-reviewPage}">상품 후기 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/FAQPage }">FAQ 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                         </div>
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
+                            <form id="writeNotice" th:action="@{/admin/noticeWriter/create}" method="post">
+
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
                                     <col>
                                 </colgroup>
                                 <tbody>
-                                    <tr>        
-                                        <th>제목</th>    
+                                    <tr>
+                                        <th>제목</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li>
@@ -45,17 +47,17 @@
                                                     <li>
                                                         <label for=""><input type="checkbox" name="" id=""> 상단고정</label>
                                                     </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr> 
-                                    <tr>        
-                                        <th>내용</th>    
+                                                </ul>
+                                            </td>
+                                    </tr>
+                                    <tr>
+                                        <th>내용</th>
                                         <td>
                                             <div id="summernote"></div>
                                         </td>
-                                    </tr>    
-                                    <tr>        
-                                        <th>공개여부</th>    
+                                    </tr>
+                                    <tr>
+                                        <th>공개여부</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
@@ -65,16 +67,17 @@
                                                             <option value="2">비공개</option>
                                                         </select>
                                                     </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr>    
-                                    
-                                </tbody>    
+                                                </ul>
+                                            </td>
+                                    </tr>
+
+                                </tbody>
                             </table>
                             <div>
-                                <button id="btnSearch"> 등록 </button>
+                                <button id="btnSearch" type="submit"> 등록 </button>
                             </div>
-                        </div>    
+                            </form>
+                        </div>
                     </div>
                 </div>
             <script th:src="@{/admin/js/noticeWrite.js}"></script>

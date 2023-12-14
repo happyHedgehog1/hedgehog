@@ -1,5 +1,5 @@
 $('#summernote').summernote({
-    placeholder: 'Hello stand alone ui',
+    placeholder: '공지사항을 입력하세요플레',
     tabsize: 2,
     height: 300,
     toolbar: [
@@ -12,3 +12,4 @@ $('#summernote').summernote({
       ['view', ['fullscreen', 'codeview', 'help']]
     ]
   });
+
