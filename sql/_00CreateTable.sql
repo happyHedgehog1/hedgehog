@@ -241,11 +241,10 @@ CREATE TABLE `tbl_order`
 (
     `order_code`    INTEGER           NOT NULL auto_increment,
     `customer_code` INTEGER           NOT NULL,
+    `product_code`  INTEGER           NOT NULL,
     `creation_date` DATETIME          NOT NULL,
-    `sum_price`     INTEGER           NOT NULL,
     `point_usage`   INTEGER DEFAULT 0 NOT NULL,
     `state`         VARCHAR(30)       NOT NULL,
-    `product_code`  INTEGER           NOT NULL,
     PRIMARY KEY (`order_code`)
 );
 

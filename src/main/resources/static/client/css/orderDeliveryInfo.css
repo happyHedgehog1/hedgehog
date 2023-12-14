@@ -61,7 +61,7 @@ section {
     margin-top: 30px;
 }
 
-#state_select {
+#state {
     border: 1px solid gray;
     border-radius: 0.3em;
     height: 1.7em;
@@ -213,9 +213,9 @@ tbody tr:hover {
     background-color: #A7727D20;
 }
 
-tbody tr:hover img {
-    width: 7em;
-}
+/*tbody tr:hover img {*/
+/*    width: 7em;*/
+/*}*/
 
 #product_table th:nth-child(1) {
     min-width: 6em;
