@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자동메일 미리보기</title>
+    <link rel="stylesheet"  th:href="@{/admin/css/autoMail/viewport/viewport.css}">
+</head>
+<body>
+    <div id="wrap">
+            <div class="answer">
+                <div>
+                    메일 제목
+                </div>
+                <th:block th:text="${adminAutoMailDTO.title}"></th:block>
+                <div>
+                    메일 내용
+                </div>
+                <th:block th:utext="${adminAutoMailDTO.content}"/></div>
+
+        </div>
+    </div>
+
+</body>
+</html>

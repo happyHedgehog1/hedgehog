@@ -38,6 +38,7 @@
         A.id,
         B.apply_date,
         B.commit_date,
+        B.cancel_date,
         B.cause,
         B.state
         FROM
@@ -78,6 +79,12 @@
         UPDATE tbl_withdraw
         SET
             cause = '관리자 승인 탈퇴',
+            cancel_date = now()
+        WHERE user_code = #{user_code}
+    </update>
+    <update id="withdrawalCancel" parameterType="_int">
+        update tbl_withdraw
+        SET state = 'N',
             cancel_date = now()
         WHERE user_code = #{user_code}
     </update>

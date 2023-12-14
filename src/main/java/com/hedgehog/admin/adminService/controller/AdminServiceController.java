@@ -17,13 +17,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/Service")
 @Slf4j
-public class adminServiceController {
+public class AdminServiceController {
     private final AdminInquiryServiceImpl adminInquiryServiceImpl;
     private final AdminFAQServiceImpl adminFAQServiceImpl;
     private final AdminReviewServiceImpl adminReviewServiceImpl;
 
 
-    public adminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl) {
+    public AdminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl) {
         this.adminInquiryServiceImpl = adminInquiryServiceImpl;
         this.adminReviewServiceImpl = adminReviewServiceImpl;
         this.adminFAQServiceImpl = adminFAQServiceImpl;

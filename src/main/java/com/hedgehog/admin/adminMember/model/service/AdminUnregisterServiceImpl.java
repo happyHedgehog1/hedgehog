@@ -26,12 +26,16 @@ public class AdminUnregisterServiceImpl implements AdminUnregisterService {
     @Override
     @Transactional
     public void causeUpdate(AdminUnregisterDTO adminUnregisterDTO) throws UnregistException {
-
+        int result = 0;
         log.info("");
-
-        int result = mapper.causeUpdate(adminUnregisterDTO);
-        log.info(" orderState result =================================== ", result);
-
+        if(adminUnregisterDTO.getState().equals("adminWithdrawal")) {
+            mapper.causeUpdate(adminUnregisterDTO);
+            result++;
+            log.info(" orderState result =================================== ", result);
+        }else {
+            mapper.withdrawalCancel(adminUnregisterDTO);
+            result++;
+        }
         if(!(result > 0)) {
             throw new UnregistException(" 수정에 실패하셨습니다.");
         }

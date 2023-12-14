@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminService.model.dao.AdminAutoMapper">
+    <resultMap id="autoMailResultMap" type="AdminAutoMailDTO">
+        <id property="formCode" column="form_code"/>
+        <result property="name" column="name"/>
+        <result property="content" column="content"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="title" column="title"/>
+    </resultMap>
+<select id="previewMail">
+SELECT
+    *
+FROM TBL_MAILFORM
+</select>
+    <update id="modifyMail">
+        UPDATE TBL_MAILFORM
+        SET
+             title = #{title},
+             content = #{content},
+             modify_date = now()
+        WHERE form_code = #{formCode}
+    </update>
+</mapper>

@@ -8,7 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자동발송메일관리</title>
     <link rel="stylesheet" th:href="@{/admin/css/autoMail.css}" type="text/css">
+    <script>
 
+
+        function previewMail(mailCode) {
+            console.log(mailCode)
+            const mailDetailUrl = "/autoMailModify/previewMail?mailCode=" + mailCode;
+            window.open(mailDetailUrl, "_blank", "width=1000, height=1000");
+        }
+        function modifyMail(mailCode) {
+            console.log(mailCode)
+            const mailDetailUrl = "/autoMailModify/modifyMailPage?mailCode=" + mailCode;
+            window.open(mailDetailUrl, "_blank", "width=1000, height=1000");
+        }
+
+    </script>
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -33,81 +47,66 @@
                                     <tr>        
                                         <th>신규가입</th>    
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/newMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                                    수정</a>
+                                            <button type="button" name="newMember" onclick="modifyMail(1)">수정</button>
                                         </td>   
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/newMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">미리보기</a>
-                                        </td>   
-                                        <th>회원탈퇴</th>    
+                                            <button type="button" name="newMember" onclick="previewMail(1)">미리보기</button>
+                                        </td>
+                                        <th>회원탈퇴</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/unregister}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                                수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(2)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/unregister}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="previewMail(2)">미리보기</button>
+                                        </td>
                                     </tr>   
                                     <tr>        
-                                        <th>비밀번호 변경</th>    
+                                        <th>비밀번호 변경</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/passwordModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(3)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/passwordModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
-                                        <th>주문내역확인</th>    
+                                            <button type="button" name="newMember" onclick="previewMail(3)">미리보기</button>
+                                        </td>
+                                        <th>주문내역확인</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/orderList}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(4)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/orderList}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="previewMail(4)">미리보기</button>
+                                        </td>
                                     </tr>   
                                     <tr>        
-                                        <th>휴면회원안내</th>    
+                                        <th>휴면회원안내</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/dormantMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/dormantMember}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
-                                        <th>적립금 소멸안내</th>    
+                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                        </td>
+                                        <th>적립금 소멸안내</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/pointModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/pointModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                        </td>
                                     </tr>   
                                     <tr>        
-                                        <th>개별메일발송</th>    
+                                        <th>개별메일발송</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/mailModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/mailModify}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
-                                        <th>문의글 답변 안내</th>    
+                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                        </td>
+                                        <th>문의글 답변 안내</th>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailModify/answer}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            수정</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="modifyMail(5)">수정</button>
+                                        </td>
                                         <td>
-                                            <a class="link" th:href="@{/autoMailViewport/answer}" onclick="openPopup(this.getAttribute('href'), 1000, 800); return false;">
-                                            미리보기</a>
-                                        </td>   
+                                            <button type="button" name="newMember" onclick="previewMail(5)">미리보기</button>
+                                        </td>
                                     </tr>   
                                 </tbody>    
                             </table>
@@ -118,5 +117,6 @@
                     <script th:src="@{/admin/js/autoMail.js}"></script>
                 </div>
 </th:block>
+
 </body>
 </html>

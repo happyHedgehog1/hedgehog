@@ -13,6 +13,11 @@
 
 }
 
+.topbtnWrapper{
+    display: flex;
+
+}
+
 .tblTop{
     table-layout: fixed;
     width: 100%;
