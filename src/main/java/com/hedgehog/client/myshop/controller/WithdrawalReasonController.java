@@ -24,6 +24,10 @@ public class WithdrawalReasonController {
     private final WithdrawalReasonService withdrawalReasonService;
     private final PasswordEncoder passwordEncoder;
 
+    @GetMapping("")
+    public String withdrawalReason() {
+        return "/client/content/myshop/withdrawalReason";
+    }
 
     @PostMapping("/submit")
     public String submitData(@AuthenticationPrincipal LoginDetails loginDetails,

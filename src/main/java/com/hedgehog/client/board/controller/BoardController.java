@@ -23,7 +23,7 @@ import java.util.Map;
 import com.hedgehog.common.paging.Pagenation;
 
 @Controller
-@RequestMapping("/board/* ")
+@RequestMapping("/board/*")
 @Slf4j
 @AllArgsConstructor
 public class BoardController {
