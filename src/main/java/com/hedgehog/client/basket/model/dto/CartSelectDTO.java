@@ -9,7 +9,6 @@ import lombok.*;
 @ToString
 public class CartSelectDTO {
 
-//    private int userCode;ㅣ
     private int cartCode;
     private int productCode;
     private int imgCode;

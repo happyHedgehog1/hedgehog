@@ -27,7 +27,7 @@
                              <div></div>
                 </div>
 
-<form action="/client/content/clientOrder/cartOrder" method="get">
+<form action="/clientOrder/cartOrder" method="post">
 
             <table class="cart_table">
                           <thead>
@@ -44,7 +44,7 @@
                           </thead>
                     <tbody>
                         <tr th:each="item : ${cartItemList}" >
-                               <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox" data-cart-code="${item.cartCode}">
+                               <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox" data-cart-code="${item.cartCode}" th:value="${item.cartCode}">
                                    <input type="hidden" class="cart-code-hidden" th:value="${item.cartCode}">
                                </td>
 
@@ -58,6 +58,7 @@
                                     <input type="hidden" th:value="${item.productCode}" style="display:none;">
                                     <button type="button" class="quantity-button decrease-button" data-product-code="${item.cartCode}">-</button>
                                     <span class="quantity-display" id="quantity-display-${item.productCode}" th:text="${item.amount}">1</span>
+                                    <input type="hidden" name="hdAmount">
                                     <button type="button" class="quantity-button increase-button" data-product-code="${item.cartCode}">+</button>
                             </div>
                                </td>
@@ -94,15 +95,14 @@
 
                     <br>
                     <br>
-</form>
                     <hr>
                     <br>
                     <br>
 
                 <div class="select_cart">
-                    <button class="select_delete_btn"  id="deleteSelectedItems" onclick="deleteSelectedItems()" >선택 상품 삭제</button>
+                    <button class="select_delete_btn"  id="deleteSelectedItems" type="submit" onclick="deleteSelectedItems()" >선택 상품 삭제</button>
                         <div class="select_order_btn2">
-                            <span class="select_order_btn" id="selectOrderButton" typeof="submit" >선택상품주문하기</span>
+                            <button class="select_order_btn" id="selectOrderButton" typeof="submit" onclick="selectOrderItems()">선택상품주문하기</button>
 
                             <!--                                  form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
                                                                   비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
@@ -114,34 +114,30 @@
                 <br>
 
                 <div class="select_all_btn2">
-                        <span class="select_all_btn" id="selectAllItems" typeof="submit">전체상품주문하기</span>
-<!--                    <button type="submit" class="select_all_btn" id="selectAllItems">전체상품주문하기</button>-->
+
+                    <button type="submit" class="select_all_btn" id="selectAllItems" onclick="selectAllItems()">전체상품주문하기</button>
                 </div>
 
-
-<!--                    <input type="hidden" name="selectedItems" id="selectedItems" />-->
-<!--                폼 내부에 사용자가 선택한 상품 정보를 저장할 숨겨진 입력 필드를 추가    -->
                 <br>
                 <br>
                 <br>
 
+</form>
+                <script>
+                    document.getElementById('orderForm').addEventListener('submit', function() {
+                        var checkboxes = document.querySelectorAll('.cartcheckbox:checked');
+                        checkboxes.forEach(function(checkbox) {
+                            var cartCode = checkbox.dataset.cartCode;
+                            var hiddenInput = document.createElement('input');
+                            hiddenInput.type = 'hidden';
+                            hiddenInput.name = 'cartcheckbox';
+                            hiddenInput.value = cartCode;
+                            document.getElementById('orderForm').appendChild(hiddenInput);
+                        });
+                    });
+                </script>
             </div>
            </section>
-
-        <script>
-            // JavaScript를 사용하여 선택된 상품의 정보를 동적으로 추가
-            document.addEventListener("DOMContentLoaded", function () {
-                const cartForm = document.getElementById("cartForm");
-                const selectedItems = ["item1", "item2"];  // 선택된 상품 코드를 동적으로 받아오도록 수정
-                selectedItems.forEach(item => {
-                    const hiddenInput = document.createElement("input");
-                    hiddenInput.type = "hidden";
-                    hiddenInput.name = "selectedItems[]";
-                    hiddenInput.value = item;
-                    cartForm.appendChild(hiddenInput);
-                });
-            });
-        </script>
 
     </th:block>
 </html>

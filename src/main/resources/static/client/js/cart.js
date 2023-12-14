@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener('click', function () {
             // 현재 수량 요소 가져오기
             var quantityElement = this.nextElementSibling;
-
+            var hdElement = quantityElement.nextElementSibling; // hidden field
             // 현재 수량 가져오기
             var currentQuantity = parseInt(quantityElement.innerText);
 
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 수량 표시 업데이트
             quantityElement.innerText = newQuantity;
+            hdElement.value = newQuantity;
 
 
         });
@@ -26,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
     increaseButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             // 현재 수량 요소 가져오기
-            var quantityElement = this.previousElementSibling;
-
+            var quantityElement = this.previousElementSibling.previousElementSibling;
+            var hdElement = quantityElement.nextElementSibling;
             // 현재 수량 가져오기
             var currentQuantity = parseInt(quantityElement.innerText);
 
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 수량 표시 업데이트
             quantityElement.innerText = newQuantity;
-
+            hdElement.value = newQuantity;
 
         });
     });
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //============================
 
-//======================전체상품 주문하기 버튼 누르면 실행 ==========================
+//======================전체상품 & 선택상품 주문하기 버튼 누르면 실행 ==========================
 document.addEventListener('DOMContentLoaded', function () {
 
     var selectAllItemsButton = document.getElementById('selectAllItems');
@@ -96,10 +97,9 @@ function selectAllItems() {
         checkbox.checked = true;
     });
     updateTotalPrice();
-    // var selectedItems = getSelectedItems();
-    // var selectedItems = getSelectedItems();
 
-    window.location.href = '/clientOrder/cartOrder';
+    sendSelectedItemsToServerAndRedirect();
+    // window.location.href = '/clientOrder/cartOrder';
 
 }
 
@@ -107,7 +107,8 @@ function selectAllItems() {
 function selectOrderItems(){
     var selectedItems = getSelectedItems();
     console.log('선택상품주문하기 버튼에서 선택된 상품들:', selectedItems);
-    window.location.href = '/clientOrder/cartOrder';
+    sendSelectedItemsToServerAndRedirect();
+    // window.location.href = '/clientOrder/cartOrder';
 }
 
 
@@ -140,6 +141,29 @@ function getSelectedItems() {
     });
 
     return selectedItems;
+}
+
+// 동기적으로 선택된 상품 정보를 서버에 전송하고 페이지 이동
+function sendSelectedItemsToServerAndRedirect() {
+    var selectedItems = getSelectedItems();
+
+    // 여기에 선택된 상품 정보를 서버에 동기적으로 전송하는 로직을 추가
+    // 예: form을 동적으로 생성하여 값을 채우고 submit하는 방법
+
+    var form = document.createElement('form');
+    form.action = '/clientOrder/cartOrder';
+    form.method = 'POST';
+
+    selectedItems.forEach(function (item) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'selectedItems[]';
+        input.value = JSON.stringify(item);
+        form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
 }
 
 //======================

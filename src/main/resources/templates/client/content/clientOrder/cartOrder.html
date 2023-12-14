@@ -8,7 +8,9 @@
     <link rel="stylesheet" th:href="@{/client/css/cartOrder.css}">
         <script th:src="@{/client/js/cartOrder.js}"></script>
         <section>
+<form id="orderForm" action="/clientOrder/cartOrder" method="get">
 
+</form>
             <div id="contents">
 
                 <ul class="route_list">
@@ -20,23 +22,19 @@
                 </ul>
 
                 <div class="cart_order">
-
                     <div></div>
                     <div><h2>장바구니</h2></div>
                     <div id="order_write"><h2>주문서작성</h2></div>
                     <div><h2>결제하기</h2></div>
                     <div><h2>완료</h2></div>
                     <div></div>
-
                 </div>
-
 
                 <div class="order_info">주문내역</div>
 
+            <table class="cart_table" id="orderTable">
 
-                <table class="cart_table">
-
-
+                <thead>
                     <tr>
                         <th>이미지</th>
                         <th>상품명</th>
@@ -46,63 +44,20 @@
                         <th>배송비</th>
                         <th>합계</th>
                     </tr>
-                    <tr>
-                        <td><img src="/client/images/chair.png"  width="70px"  height="70px"></td>
-                        <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
-                        <td>200000원</td>
-                        <td>2000원</td>
-                        <td>1</td>
-                        <td>무료</td>
-                        <td>200000원</td>
+                </thead>
+
+                <tbody id="orderTableBody" >
+                    <tr th:each="item : ${cartList}">
+                        <td>이미지<img src="/client/images/chair.png"  width="70px"  height="70px"></td>
+                        <td th:text="${item.productName}">상품명</td>
+                        <td>판매가</td>
+                        <td>적립포인트</td>
+                        <td><input type="text" th:value="${hdAmount}" readonly></td>
+                        <td>배송비</td>
+                        <td>합계</td>
                     </tr>
-                    <tr>
-                        <td><img src="/client/images/chair.png"  width="70px"  height="70px"></td>
-                        <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
-                        <td>200000원</td>
-                        <td>2000원</td>
-                        <td>1</td>
-                        <td>무료</td>
-                        <td>200000원</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/client/images/chair.png"  width="70px"  height="70px"></td>
-                        <td>[P000BWXH] 1인가구 COOKY 패브릭 소파 1인</td>
-                        <td>200000원</td>
-                        <td>2000원</td>
-                        <td>1</td>
-                        <td>무료</td>
-                        <td>200000원</td>
-                    </tr>
-                </table>
-
-
-                <form id="orderForm" action="/client/content/clientOrder/cartOrder" method="get" onsubmit="return handleFormSubmit();">
-                    <!-- 다음 부분을 추가 -->
-                    <input type="hidden" name="selectedItems" id="selectedItems" value="">
-                    <!-- 여기까지 -->
-
-                    <table class="cart_table">
-                        <!-- 생략 -->
-                    </table>
-
-                    <br>
-                    <br>
-
-                    <div class="total_price">
-                        <!-- 생략 -->
-                    </div>
-
-                    <br>
-                    <br>
-                </form>
-
-
-
-
-
-
-
-
+                </tbody>
+            </table>
 
 
                 <hr>
