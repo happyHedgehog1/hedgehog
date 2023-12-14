@@ -2,10 +2,12 @@ package com.hedgehog.client.list.service;
 
 import com.hedgehog.client.list.dao.ProductListMapper;
 import com.hedgehog.client.list.dto.ProductListDTO;
+import com.hedgehog.common.paging.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -19,17 +21,6 @@ public class ProductListServiceImpl implements ProductListService{
     }
 
     @Override
-    public List<ProductListDTO> selectProductList(String type) {
-
-        List<ProductListDTO> productList = mapper.selectProductList(type);
-
-        log.info("selectProductList : {}", productList);
-        log.info("type : " + type);
-
-        return productList;
-    }
-
-    @Override
     public int selectTotalPageCount(String type) {
 
         int result = mapper.selectTotalPageCount(type);
@@ -38,4 +29,19 @@ public class ProductListServiceImpl implements ProductListService{
 
         return result;
     }
+
+    @Override
+    public List<ProductListDTO> selectProductList(Map<String, Object> map) {
+
+        List<ProductListDTO> productList = mapper.selectProductList(map);
+
+
+        log.info("selectProductList : {}", productList);
+//        log.info("type : " + type);
+
+        return productList;
+    }
+
+
+
 }
