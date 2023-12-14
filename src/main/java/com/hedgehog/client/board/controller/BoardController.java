@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.hedgehog.common.paging.Pagenation;
 
@@ -54,7 +55,7 @@ public class BoardController {
         /*맨 먼저 목록보기를 누르면 1페이지가 나온다.*/
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchCondition", searchCondition);
-        searchMap.put("searchValue", searchValue);
+        searchMap.put("searchValue",searchValue);
 
         log.info("questionList : BoardController에서 검색조건은 현재 다음과 같음... : " + searchMap);
 
@@ -195,8 +196,8 @@ public class BoardController {
 
     @GetMapping("/faqList")
     public ModelAndView faqList(@RequestParam(defaultValue = "writeDateDESC") String orderBy,
-                                   @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
-                                   ModelAndView mv) {
+                                @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
+                                ModelAndView mv) {
         /*orderBy:
          * writeDateDESC -> 최근 글부터
          * writeDateASC -> 옛날글부터
