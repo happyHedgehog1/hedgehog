@@ -48,11 +48,13 @@
 
     <select id="searchInquiry" resultMap="inquiryResultMap">
         SELECT
-            A.answer_state,
-            A.post_type,
-            A.title,
-            B.id,
-            A.write_date
+        A.inquiry_code,
+        A.post_type,
+        A.title,
+        B.id,
+        A.write_date,
+        A.answer_state,
+        A.state
         FROM
             tbl_inquiry A
         JOIN tbl_member C ON A.member_code = C.member_code
@@ -102,6 +104,17 @@
 
         </where>
     </select>
+
+    <update id="inqStateUpdate" parameterType="_int">
+        UPDATE tbl_inquiry
+        SET state =
+        <choose>
+            <when test="state == 1"> 'Y'</when>
+            <when test="state == 2"> 'N'</when>
+
+        </choose>
+        WHERE inquiry_code = #{inquiry_code}
+    </update>
 
 
 </mapper>

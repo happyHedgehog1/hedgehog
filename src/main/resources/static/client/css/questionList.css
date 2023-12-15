@@ -10,7 +10,6 @@ section {
 
 #contents {
     align-self: center;
-    padding-top: 7em;
     margin-bottom: 5em;
     align-self: center;
     min-width: 55em;
@@ -55,21 +54,17 @@ tr > td {
     font-size: 0.95em;
 }
 
-tbody td:nth-child(1) {
-    min-width: 3.6em;
-
+tbody > tr {
+    background-color: #F8F4F480;
 }
 
-tr > td:nth-child(2) {
-    min-width: 5em;
+tbody td {
+    transition: 300ms;
 }
 
-tr > td:nth-child(3) {
-    text-align: left;
-}
-
-tr > td:nth-child(4) {
-    min-width: 5em;
+tbody tr:hover td {
+    font-weight: bold;
+    cursor: pointer;
 }
 
 #write_buttons_wrap {
@@ -80,7 +75,8 @@ tr > td:nth-child(4) {
 }
 
 #write_button,
-#search_button {
+#search_button,
+#clear_button {
     border-radius: 0.6em;
     box-sizing: border-box;
     padding: 0.1em 0.3em 0.1em 0.3em;
@@ -92,16 +88,10 @@ tr > td:nth-child(4) {
 }
 
 #write_button:hover,
-#search_button:hover {
+#search_button:hover,
+#clear_button:hover {
     color: black;
     background-color: white;
-}
-
-#bottom_buttons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 1em;
 }
 
 #search_buttons_wrap {
@@ -151,6 +141,8 @@ tbody td:nth-child(3):hover {
 #bottom_buttons {
     display: flex;
     justify-content: center;
+    gap: 30px;
+    padding: 1em;
     margin-bottom: 30px;
 }
 
@@ -167,4 +159,30 @@ tbody td:nth-child(3):hover {
     padding: 0px 3px 0px 3px;
     background-color: white;
     border: 0;
+}
+
+#question_board {
+    background: #a7727d;
+    color: white;
+}
+
+
+#inquiryCodeHead {
+    width: 3em;
+}
+
+.title {
+    text-align: left;
+}
+
+
+#writeDateHead {
+    width: 6em;
+}
+
+#memberIdHead {
+    width: 6em;
+}
+#titleHead{
+    width:25em;
 }

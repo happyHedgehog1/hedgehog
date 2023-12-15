@@ -6,8 +6,8 @@ import com.hedgehog.client.basket.model.dto.CartSumDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLNonTransientConnectionException;
 import java.util.List;
 
 @Service
@@ -27,18 +27,15 @@ public class BasketServiceImpl implements BasketService {
     }
     //생성자주입을 통해 바스켓매퍼의 구현체를 주입받고 있다.
 
-    
+
     @Override
-    public List<CartSelectDTO> selectCartList() {
+    public List<CartSelectDTO> selectCartList(int userCode) {
+        return basketMapper.selectCartListByUserCode(userCode);
 
-
-  
-
-
-        return basketMapper.selectCartList();
         //selectCartList()는 바스ㅋㅖㅅ매퍼에서 selectCartList를 호출하여 데이터베이스에서
         //장바구니에 있는 상품 목록을 조회하고 반환
     }
+
 
 
 
@@ -64,6 +61,20 @@ public class BasketServiceImpl implements BasketService {
         log.info("총 상품 구매 금액 : {}", totalSum);
         return totalSum;
     }
+
+    // 반복문을 통해서 장바구니개코드값을 리스트로 가져와서 삭제해준다.
+    @Override
+    public void deleteCartItems(List<Integer> cartCode) {
+
+
+        basketMapper.deleteCartItems(cartCode);
+
+    }
+
+//    @Override
+//    public void deleteCartItems(List<Integer> cartCode) {
+//        basketMapper.deleteCartItems(cartCode);
+//    }
 
 
 }

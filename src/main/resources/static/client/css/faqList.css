@@ -1,0 +1,167 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#contents {
+    align-self: center;
+    margin-bottom: 5em;
+    align-self: center;
+    min-width: 55em;
+}
+
+#route_home {
+    cursor: pointer;
+}
+
+#contents_table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #5D5C5C;
+}
+
+#contents_table #type_select_row {
+    text-align: left;
+}
+
+#contents_table > caption {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 1em;
+    color: black;
+}
+
+th {
+    font-size: 1.2em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+}
+
+tr {
+    border-bottom: 1px solid #848484;
+}
+
+
+tr > td {
+    padding: 8px 15px 8px 15px;
+    text-align: center;
+    font-size: 0.95em;
+}
+
+#faqCodeHead {
+    width: 3em;
+}
+
+.title {
+    text-align: left;
+}
+
+.titleHead {
+    width: 13em;
+}
+
+#viewsHead {
+    width: 3em;
+}
+
+#userIdHead {
+    width: 6em;
+}
+
+#writeDateHead {
+    width: 6em;
+}
+
+tbody > tr {
+    background-color: #F8F4F480;
+}
+
+#write_buttons_wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 15px 8px 15px;
+    margin-top: 2em;
+}
+
+#clear_button,
+#search_button {
+    border-radius: 0.6em;
+    box-sizing: border-box;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+    border: 2px solid #a7727d;
+    background-color: #A7727D;
+    color: white;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+#clear_button:hover,
+#search_button:hover {
+    color: black;
+    background-color: white;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 1em;
+}
+
+#search_buttons_wrap {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+#type_select,
+#orderBy {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+#search_input {
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+tbody td {
+    transition: 300ms;
+}
+
+tbody tr:hover td {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#bottom_buttons input:hover {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#bottom_buttons input {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    padding: 0px 3px 0px 3px;
+    background-color: white;
+    border: 0;
+}
+#faq_board {
+    background: #a7727d;
+    color: white;
+}

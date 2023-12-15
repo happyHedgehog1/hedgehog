@@ -11,11 +11,13 @@
     <section>
         <div id="main_category_route">
             <ul class="route_list">
-                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}" alt="메인화면"></li>
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
                 <li>&gt;</li>
                 <li>MY페이지</li>
             </ul>
             <div id="contents">
+                <input id="id" type="hidden" th:value="${#authentication.principal.username}">
                 <div id="top">
                     <div><span onclick="location.href='info'"><span th:text="${name}"></span> 님 &gt;</span></div>
                     <div><img src="/client/images/icon/mypage/icons_coin.png" alt="코인">보유포인트</div>
@@ -27,39 +29,35 @@
                 </div>
                 <ul id="bottom">
                     <li id="mypage01" onclick="location.href='modifyInfo'">
-                        <img src="/client/images/icon/mypage/mypage01.png" alt="회원정보수정">
+                        <img th:src="@{/client/images/icon/mypage/mypage01.png}" alt="회원정보수정">
                         <span>회원정보수정</span>
                     </li>
-
-                    <!--쿼리스트링으로 내 닉네임으로 검색 가능하게.-->
-                    <li id="mypage02" onclick="location.href='/board/questionList'">
-                        <img src="/client/images/icon/mypage/mypage02.png" alt="문의내역">
+                    <li id="mypage02" onclick="myQuestion()">
+                        <img th:src="@{/client/images/icon/mypage/mypage02.png}" alt="문의내역">
                         <span>문의내역</span>
-                        </a>
                     </li>
 
 
-                    <li id="mypage03" onclick="location.href='orderDeliveryinfo'">
-                        <img src="/client/images/icon/mypage/mypage03.png" alt="주문/배송내역">
+                    <li id="mypage03" onclick="location.href='orderDeliveryInfo'">
+                        <img th:src="@{/client/images/icon/mypage/mypage03.png}" alt="주문/배송내역">
                         <span>주문/배송내역</span>
                     </li>
 
 
                     <li id="mypage04" onclick="location.href='info'">
-                        <!--              나의 정보 수정해야됨 회원가입으로 되어있음 -->
-                        <img src="/client/images/icon/mypage/mypage04.png" alt="나의정보">
+                        <img th:src="@{/client/images/icon/mypage/mypage04.png}" alt="나의정보">
                         <span>나의 정보</span>
                     </li>
 
 
-                    <li id="mypage05" onclick="location.href='/board/reviewList'">
-                        <img src="/client/images/icon/mypage/mypage05.png" alt="리뷰내역">
+                    <li id="mypage05" onclick="myReview()">
+                        <img th:src="@{/client/images/icon/mypage/mypage05.png}" alt="리뷰내역">
                         <span>리뷰 내역</span>
                     </li>
 
-                    <li id="mypage06" onclick="location.href='cancelPaybackInfo'">
-                        <img src="/client/images/icon/mypage/mypage06.png" alt="취소/환불내역">
-                        <span>취소/환불내역</span>
+                    <li id="mypage06" onclick="location.href='exchangePaybackInfo'">
+                        <img th:src="@{/client/images/icon/mypage/mypage06.png}" alt="교환/환불내역">
+                        <span>교환/환불내역</span>
                     </li>
                 </ul>
             </div>

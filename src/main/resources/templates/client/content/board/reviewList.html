@@ -4,125 +4,141 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <th:block layout:fragment="content">
-  <link rel="stylesheet" th:href="@{/client/css/reviewList.css}">
+<th:block layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/client/css/reviewList.css}">
 
     <section>
-    <div id="main_category_route">
-      <ul class="route_list">
-        <li id="route_home" onclick="goHome()"><img src="/client/images/icon/home.png" alt=""></li>
-        <li>&gt;</li>
-        <li id="route_mypage" onclick="goMyPage()">MY페이지</li>
-        <li>&gt;</li>
-        <li>리뷰 내역</li>
-      </ul>
-      <div id="contents">
-        <div class="title">내가 작성한 리뷰</div>
-        <hr>
-        <div class="review_wrapper">
-          <div class="reviewInfo">
-            <!-- 제품 썸네일 -->
-            <div><img src="/client/images/catergory_thumbnail/bedroom.jpg" alt=""></div>
-            <div>
-              <div><a href="../html/product.html">평상형 수납침대</a></div>
-              <div>옵션 : 흰색</div>
-              <div>★★★★☆ <span><b>4</b></span> </div>
-              <div>2023.12.03</div>
+        <div id="main_category_route">
+            <ul class="route_list">
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
+                <li>&gt;</li>
+                <li>리뷰게시판</li>
+            </ul>
+            <th:block th:include="include/client/boardHeader"></th:block>
+            <div id="contents">
+                <table id="contents_table">
+                    <caption>리뷰게시판</caption>
+                </table>
+                <hr style="border: 0.1px solid rgb(218, 217, 217);">
+                <div class="review_wrapper" th:each="review : ${reviewList}">
+                    <div class="reviewInfoWrap">
+                        <!-- 제품 썸네일 -->
+                        <div id="reviewInfo">
+                            <div><img th:src="|/thumbPath${review.productImgPath}|" alt="제품썸네일입니다."></div>
+                            <!-- 제품 썸네일 -->
+                            <div>
+                                <div>제품이름 :
+                                    <th:block th:text="${review.productName}"></th:block>
+                                </div>
+                                <div>옵션 :
+                                    <th:block th:text="${review.optionName}"></th:block>
+                                </div>
+                                <div>
+                                    <th:block th:each="star : ${#numbers.sequence(1,5)}">
+                                        <span th:if="${star le review.grade}" class="filled-star">★</span>
+                                        <span th:if="${star gt review.grade}" class="empty-star">☆</span>
+                                    </th:block>
+                                    <span>
+                                    <b><th:block th:text="${review.grade}"></th:block></b>
+                                </span>
+                                </div>
+                                <div th:text="${#dates.format(review.writeDate,'yyyy-MM-dd HH:MM')}"></div>
+                            </div>
+                        </div>
+                        <div id="userIdWrapper">아이디 : <span th:text="${review.memberId}"></span>
+                        </div>
+                    </div>
+                    <hr style="border: 0.1px solid rgb(218, 217, 217);">
+                    <div class="review_content_wrapper">
+                        <div th:utext="${review.content}" class="content">
+                        </div>
+                        <div class="img_and_btn">
+                            <!-- 사용자가 올린 후기 사진 -->
+                            <div class="review_img"><img src="" alt="후기사진이 여기 올라옵니다."></div>
+                            <!--삭제버튼은 나중에 추가-->
+                            <!--<div>-->
+                            <!--    <button>삭제</button>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <hr>
+                </div>
             </div>
-          </div>
-          <hr style="border: 0.1px solid rgb(218, 217, 217);">
-          <div class="review_content_wrapper">
-            <div class="content">
-              냄새안나고 너무 예뻐요~!!! <br>
-              가격도 저렴하고 무료배송이라 늘 애용합니다 ~
+            <div id="write_buttons_wrap">
+                <form id="searchForm"
+                      th:action="@{/board/reviewList}"
+                      method="get">
+                    <input type="hidden" name="currentPage" value="1">
+                    <div id="search_buttons_wrap">
+                        <select name="searchCondition" id="searchCondition">
+                            <option value="id">아이디</option>
+                            <option value="productCode">제품코드</option>
+                            <option value="productName">제품이름</option>
+                        </select>
+                        <input type="search" name="searchValue" id="searchValue">
+                        <select name="orderBy" id="orderBy">
+                            <option value="gradeDESC">별점높은순</option>
+                            <option value="gradeASC">별점낮은순</option>
+                        </select>
+                        <input type="submit" id="search_button" value="찾기">
+                        <input type="button" id="clear_button" value="검색초기화"
+                               onclick="location.href='/board/reviewList'">
+                    </div>
+                </form>
             </div>
-            <div class="img_and_btn">
-              <!-- 사용자가 올린 후기 사진 -->
-              <div class="review_img"><img src="/client/images/chair.png" alt=""></div>
-              <div>
-                <button>수정</button>
-                <button>삭제</button>
-              </div>
+            <div id="bottom_buttons">
+                <!--맨 앞으로-->
+                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.startPage}  + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                       th:disabled="${selectCriteria.pageNo == 1}"
+                       type="button"
+                       value="<<">
+                <!--이전 페이지로-->
+                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.pageNo - 1}  + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                       th:disabled="${selectCriteria.pageNo == 1}"
+                       type="button"
+                       value="<">
+                <!--숫자 버튼-->
+                <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                    <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${page} + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                           th:disabled="${selectCriteria.pageNo == page}"
+                           type="button"
+                           th:value="${page}">
+                </th:block>
+                <!--다음 페이지로-->
+                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.pageNo + 1} + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                       th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                       type="button"
+                       value=">">
+                <!--맨 뒤로-->
+                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.endPage} + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                       th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                       type="button"
+                       value=">>">
             </div>
-          </div>
-          <hr>
         </div>
-        <div class="review_wrapper">
-          <div class="reviewInfo">
-            <!-- 제품 썸네일 -->
-            <div><img src="/client/images/catergory_thumbnail/bedroom.jpg" alt=""></div>
-            <div>
-              <div><a href="../html/product.html">평상형 수납침대</a></div>
-              <div>옵션 : 흰색</div>
-              <div>★★★★☆ <span><b>4</b></span> </div>
-              <div>2023.11.03</div>
-            </div>
-          </div>
-          <hr style="border: 0.1px solid rgb(218, 217, 217);">
-          <div class="review_content_wrapper">
-            <div class="content">
-              냄새안나고 너무 예뻐요~!!! <br>
-              가격도 저렴하고 무료배송이라 늘 애용합니다 ~
-            </div>
-            <div class="img_and_btn">
-              <!-- 사용자가 올린 후기 사진 -->
-              <div class="review_img"><img src="/client/images/chair.png" alt=""></div>
-              <div>
-                <button>수정</button>
-                <button>삭제</button>
-              </div>
-            </div>
-          </div>
-          <hr>
         </div>
-        <div class="review_wrapper">
-          <div class="reviewInfo">
-            <!-- 제품 썸네일 -->
-            <div><img src="/client/images/catergory_thumbnail/bedroom.jpg" alt=""></div>
-            <div>
-              <div><a href="../html/product.html">평상형 수납침대</a></div>
-              <div>옵션 : 흰색</div>
-              <div>★★★★☆ <span><b>4</b></span> </div>
-              <div>2023.10.03</div>
-            </div>
-          </div>
-          <hr style="border: 0.1px solid rgb(218, 217, 217);">
-          <div class="review_content_wrapper">
-            <div class="content">
-              냄새안나고 너무 예뻐요~!!! <br>
-              가격도 저렴하고 무료배송이라 늘 애용합니다 ~
-            </div>
-            <div class="img_and_btn">
-              <!-- 사용자가 올린 후기 사진 -->
-              <div class="review_img"><img src="/client/images/chair.png" alt=""></div>
-              <div>
-                <button>수정</button>
-                <button>삭제</button>
-              </div>
-            </div>
-          </div>
-          <hr>
-        </div>
-      </div>
-      <div id="bottom_buttons">
-        <div>
-          <input type="button" onclick="" value="&lt;&lt;">
-          <input type="button" onclick="" value="&lt;">
-          <input type="button" onclick="" value="1">
-          <input type="button" onclick="" value="2">
-          <input type="button" onclick="" value="3">
-          <input type="button" onclick="" value="4">
-          <input type="button" onclick="" value="5">
-          <input type="button" onclick="" value="6">
-          <input type="button" onclick="" value="7">
-          <input type="button" onclick="" value="8">
-          <input type="button" onclick="" value="&gt;">
-          <input type="button" onclick="" value="&gt;&gt;">
-        </div>
-      </div>
-    </div>
-    </div>
     </section>
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                const formData = $(this).serializeArray();
+                console.log(formData);
+                localStorage.setItem('ReviewFormData', JSON.stringify(formData));
+            })
+            let storedFormData = localStorage.getItem("ReviewFormData");
+            if (storedFormData) {
+                storedFormData = JSON.parse(storedFormData);
+                console.log(storedFormData);
+                $('[name=searchCondition] option[value=' + storedFormData[1].value + ']').prop('selected', true);
+                $('[name=searchValue]').val(storedFormData[2].value);
+                $('[name=orderBy] option[value=' + storedFormData[3].value + ']').prop('selected', true);
+            }
+        });
+        $(document).on('click', '#clear_button', function () {
+            localStorage.removeItem('ReviewFormData');
+        })
+    </script>
 
-  </th:block>
+</th:block>
 </html>

@@ -9,9 +9,14 @@ import java.util.List;
 
 @Mapper
 public interface BasketMapper {
-    List<CartSelectDTO> selectCartList();//장바구니 상품 조회
+//    List<CartSelectDTO> selectCartList();//장바구니 상품 조회
+    List<CartSelectDTO> selectCartListByUserCode(int userCode);//usercode를 통해 장바구니 조회
 
     List<CartSumDTO> selectCartSum();
 
+    void deleteCartItems(List<Integer> cartCode);
+
+
+//    List<Integer> getCartInfo(int userCode);
 
 }

@@ -1,17 +1,28 @@
 package com.hedgehog.client.basket.controller;
 
 
+import com.hedgehog.client.auth.model.dto.LoginDetails;
+import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.basket.model.dto.CartSumDTO;
 import com.hedgehog.client.basket.model.service.BasketService;
+import com.hedgehog.client.basket.model.service.BasketServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.lang.String.valueOf;
 
 @Controller
 @RequestMapping("/basket")
@@ -29,17 +40,44 @@ public class BasketController {
     }
 
     @GetMapping("/cart")
-    public String selectCartList(Model model) {
+    public ModelAndView selectCartList(@AuthenticationPrincipal LoginDetails loginDetails, ModelAndView mv) {
 
-            List<CartSelectDTO> cartItemList = basketService.selectCartList();
-            model.addAttribute("cartItemList", cartItemList);
+        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
+        System.out.println(loginDetails.getLoginUserDTO().toString());
+        mv.addObject("userCode", loginUserDTO.getUserCode());
 
-            List<CartSumDTO> cartSumList = basketService.selectCartSum();
-            model.addAttribute("cartSumList" , cartSumList);
+        List<CartSelectDTO> cartItemList =basketService.selectCartList(loginUserDTO.getUserCode());
+        mv.addObject("cartItemList", cartItemList);
 
-            int totalSum = basketService.getTotalCartSum(cartSumList);
-            model.addAttribute("totalSum", totalSum);
-        return "client/content/basket/cart";
+
+
+        List<CartSumDTO> cartSumList = basketService.selectCartSum();
+        mv.addObject("cartSumList" , cartSumList);
+
+        int totalSum = basketService.getTotalCartSum(cartSumList);
+        mv.addObject("totalSum", totalSum);
+
+        mv.setViewName("client/content/basket/cart");
+        return mv;
+    }
+
+
+    @PostMapping(value="/cart/delete", produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public String deleteSelectedItems(
+            @AuthenticationPrincipal LoginDetails loginDetails,
+            @RequestBody List<Integer> cartCodes,
+            RedirectAttributes redirectAttributes) {
+//        System.out.println("cartCode = " + cartCodes.get(0));
+//        System.out.println("cartCode = " + cartCodes.get(1));
+        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
+
+        // cartCodes에 대한 삭제 로직 수행
+        basketService.deleteCartItems(cartCodes);
+//        basketService.deleteCartItems();
+        // 삭제가 완료된 후에 적절한 리다이렉트 또는 다른 동작을 수행
+        //redirectAttributes.addFlashAttribute("userCode", loginUserDTO.getUserCode());
+        return "success";
     }
 
 

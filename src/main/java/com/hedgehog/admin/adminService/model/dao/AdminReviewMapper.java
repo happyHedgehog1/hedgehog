@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface AdminReviewMapper {
     List<AdminReviewDTO> searchReview(AdminReviewForm form);
+
+    int revStateUpdate(AdminReviewDTO reviewDTO);
 }

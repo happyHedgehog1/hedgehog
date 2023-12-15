@@ -132,7 +132,7 @@ td {
   align-items: center;
 
 }
-.select_like_btn{
+.select_delete_btn{
   display: grid;
   border: 1px solid #d09191;
   border-radius: 10px;
@@ -144,10 +144,10 @@ td {
 
 }
 
-.select_btn{
-  display:flex;
+/*.select_btn{*/
+/*  display:flex;*/
 
-}
+/*}*/
 
 .select_all_btn{
   display: grid;

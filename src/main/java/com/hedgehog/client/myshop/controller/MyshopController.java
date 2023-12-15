@@ -42,6 +42,7 @@ public class MyshopController {
 
         int point = myshopService.getMyPoint(loginUserDTO.getUserCode());
         mv.addObject("point", point);
+        mv.addObject("userId", loginUserDTO.getUserId());
         mv.setViewName("/client/content/myshop/mypage");
         return mv;
     }
@@ -135,7 +136,7 @@ public class MyshopController {
                 modifyForm.getHiddenCertifiedKey(), // 0인 경우는 인증이 이미 완료된거라 인증번호는 update 하면 안된다.
                 modifyForm.getEmailService());
 
-        boolean modifySuccess = myshopService.modifyMember(loginDetails.getLoginUserDTO().getUserCode(),member);
+        boolean modifySuccess = myshopService.modifyMember(loginDetails.getLoginUserDTO().getUserCode(), member);
 
         if (modifySuccess) {
             redirectAttributes.addFlashAttribute("message", "회원정보 변경이 완료되었습니다.");
@@ -146,23 +147,4 @@ public class MyshopController {
         }
     }
 
-    @GetMapping("/cancelPaybackInfo")
-    public String cancelPaybackInfo() {
-        return "/client/content/myshop/cancelPaybackInfo";
-    }
-
-    @GetMapping("/orderDetails")
-    public String orderDetails() {
-        return "/client/content/myshop/orderDetails";
-    }
-
-    @GetMapping("/orderDeliveryinfo")
-    public String orderDeliveryinfo() {
-        return "/client/content/myshop/orderDeliveryinfo";
-    }
-
-    @GetMapping("/withdrawalReason")
-    public String withdrawalReason() {
-        return "/client/content/myshop/withdrawalReason";
-    }
 }

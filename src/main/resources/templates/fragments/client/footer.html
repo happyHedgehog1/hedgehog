@@ -3,30 +3,27 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <footer th:fragment="footerFragment">
+<footer th:fragment="footerFragment">
     <div id="footer_wrap">
-      <ul class="footer_text1">
-        <li><a th:href="@{/agreement/termsAndConditions}">이용약관</a></li>
-        <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
-        <li><a th:href="@{/board/boardNotice}">공지사항</a></li>
-      </ul>
-      <div class="footer_text2">
-        <ul >
-          <li>고객센터 이용안내</li>
-          <li>평일 오전 9:00 ~ 18:00</li>
-          <li>(일요일,공휴일 휴무)</li>
+        <ul class="footer_text1">
+            <li><a th:href="@{/agreement/termsAndConditions}">이용약관</a></li>
+            <li><a th:href="@{/agreement/privacyPolicy}">개인정보처리방침</a></li>
+            <li><a th:href="@{/board}">공지사항</a></li>
+            <li><a th:href="@{/board/questionList}">문의게시판</a></li>
+            <li><a th:href="@{/board/faqList}">자주하는질문</a></li>
         </ul>
-        <ul>
-          <li><a href="# ">1인가구 문의</a></li>
-          <li>상품/배송문의</li>
-          <li>1688-0000</li>
-        </ul>
-        <ul>
-          <li><a href="#">Q&A</a></li>
-          <li>자주하는 질문</li>
-        </ul>
-      </div>
+        <div class="footer_text2">
+            <ul>
+                <li>고객센터 이용안내</li>
+                <li>평일 오전 9:00 ~ 18:00</li>
+                <li>(일요일,공휴일 휴무)</li>
+            </ul>
+            <ul>
+                <li>문의전화</li>
+                <li>1688-0000</li>
+            </ul>
+        </div>
     </div>
-  </footer>
+</footer>
 
 </html>

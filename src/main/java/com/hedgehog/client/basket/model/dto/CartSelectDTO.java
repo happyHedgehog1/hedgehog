@@ -11,7 +11,7 @@ public class CartSelectDTO {
 
     private int cartCode;
     private int productCode;
-    private String imgCode;
+    private int imgCode;
     private String productName;
     private int price;
     private int savedMoney;

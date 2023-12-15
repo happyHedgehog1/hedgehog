@@ -223,7 +223,7 @@ VALUES ('#000000', 3, 40, 'Y', 1);
 
 /*상품리뷰. 1번제품에만 4점짜리 리뷰가 하나 있다. 나머지 제품은 리뷰가 없으므로 별점이 0점이긴 하지만. 출력할때는 리뷰가 없다고 표시하는게 좋을거 같습니다.*/
 /*리뷰는 5번회원이 리뷰 했습니다. 그러면 주문내역에서도 5번회원이 주문할겁니다.*/
-INSERT INTO tbl_review(product_code, option_code, grade, title, content, write_date, member_code)
+INSERT INTO tbl_review(product_code, option_code, grade, content, write_date, member_code)
 VALUES (1, '#FFFFFF', 4, '1번 흰색 제품 리뷰 제목입니다.', '1번 흰색 제품 리뷰 내용입니다.', '2022-03-05 08:00:00', 5);
 
 /*장바구니*/
@@ -260,47 +260,50 @@ VALUES (1, '2023-01-01', '원본파일경로입니다.', '변환파일경로입�
 
 /*제품이미지*/
 /*제품이미지는 1번제품에 대한 이미지만 넣겠습니다*/
-/*image_classification 은 '썸네일이미지', '제품관점이미지', '제품설명이미지'*/
+/*image_classification 은 'Thumbnails', 'sub_thumbnail_1','sub_thumbnail_2','sub_thumbnail_3','proImg'
+sub_thumbnail_3
+proImg
+*/
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '썸네일이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'Thumbnails');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품관점이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'sub_thumbnail_1');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품관점이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'sub_thumbnail_2');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품관점이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'sub_thumbnail_3');
 INSERT INTO tbl_product_img(product_code, create_date, source_path, convert_path, source_name, convert_name,
                             image_status, image_classification)
-VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', '제품설명이미지');
+VALUES (1, '2019-12-31 15:00:00', '원본파일경로입니다.', '변환파일경로입니다.', '원본파일이름입니다.', '변환파일이름입니다.', 'Y', 'proImg');
 
 
 /*주문내역 + 주문상세내역*/
 /*주문내역은 6번유저가 1번#000000 2개, 2번#000000 1개*/
 /*5번유저가 1번#FFFFFF 1개, 2번#FFFFFF 1개, 3번#000000 1개*/
 /*state에는 결제완료, 배송완료, 교환, 환불*/
-INSERT INTO tbl_order(product_code, customer_code, sum_price, point_usage, creation_date, state)
+INSERT INTO tbl_order(product_code, customer_code, point_usage, creation_date, state)
 VALUES (1, 6, 341000, 5000, '2020-01-03 08:12:03', '배송완료');
-INSERT INTO tbl_order(product_code, customer_code, sum_price, point_usage, creation_date, state)
+INSERT INTO tbl_order(product_code, customer_code, point_usage, creation_date, state)
 VALUES (1, 5, 548000, 0, '2021-02-05 08:12:03', '배송완료');
 /*우선 들어오는 포인트 자체는 가격의 1%로*/
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (1, 1, '#000000', 90000, 0, 3000, 900, 93000, 2);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (1, 2, '#000000', 150000, 0, 5000, 1500, 155000, 1);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (2, 1, '#FFFFFF', 90000, 0, 3000, 900, 93000, 1);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (2, 2, '#FFFFFF', 150000, 0, 5000, 1500, 155000, 1);
 INSERT INTO tbl_order_details
-(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point, final_price, count)
+(order_code, product_code, option_code, cost_price, reduced_price, delivery_charge, point_charge, final_price, count)
 VALUES (2, 3, '#000000', 300000, 0, 0, 3000, 300000, 1);
 /*sum_price는 포인트 사용전 주문상세내역의 가격 총합(원가, 할인가격, 배송비, 개수 모두 고려해서)*/
 

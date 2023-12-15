@@ -179,7 +179,7 @@ header{
 
 /* 햄버거 클릭시 사이드메뉴 */
 
-.side_nenu{
+.side_menu{
   width: 250px;
   height: 100vh;
   position: absolute;
@@ -194,11 +194,11 @@ header{
   z-index: 999;
 }
 
-.side_nenu.active {
+.side_menu.active {
   transform: translateX(0);
 }
 
-.side_nenu li a{
+.side_menu li a{
   display: inline-block;
   width: 100%;
   height: 80px;
@@ -207,7 +207,7 @@ header{
   transition: transform 300ms;
 }
 
-.side_nenu li a:hover {
+.side_menu li a:hover {
   color: #A7727D;
   font-weight: bold;
   transform: scale(1.1);

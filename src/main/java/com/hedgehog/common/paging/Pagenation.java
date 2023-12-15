@@ -7,7 +7,7 @@ public class Pagenation {
      * SelectCriteria는 sql쪽에서 계산을 편하게 하기 위한 DTO.
      * 그래서 최소한의 매개변수가 들어가고 이를 계산하여 SelectCriteria가 출력되도록 한다.
      * */
-    public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String searchCondition, String searchValue) {
+    public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String searchCondition, String searchValue, String orderBy) {
         /*
          * pageNo은 현재 몇페이지인지
          * totalCount는 전체 게시물 수가 얼마인지. 이 두가지는 이미 넘어온 상태다. 그래서 나머지 변수만 선언해준다.
@@ -67,10 +67,10 @@ public class Pagenation {
         startRow = (pageNo - 1) * limit; // 0부터 센다.
         endRow = (startRow) + limit - 1; // 예를 들어 limit 이 10이면. 9를 말한다. 0~9 -> 10개 = limit
 
-        System.out.println(startRow);
-        System.out.println(endRow);
+        System.out.println("startRow = " + startRow);
+        System.out.println("endRow = " + endRow);
 
-        SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow, searchCondition, searchValue);
+        SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow, searchCondition, searchValue, orderBy);
 
         return selectCriteria;
     }
@@ -80,6 +80,18 @@ public class Pagenation {
      * 이는 오버로딩으로 처리한다.
      * */
     public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount) {
-        return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, null, null);
+        return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, null, null, null);
+    }
+    /*
+    * 정렬만 있는 경우
+    * */
+    public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String orderBy) {
+        return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, null, null, orderBy);
+    }
+    /*
+    * 정렬이 없고 검색조건이 있는 경우
+    * */
+    public static SelectCriteria getSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, String searchCondition, String searchValue) {
+        return getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue, null);
     }
 }
