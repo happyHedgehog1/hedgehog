@@ -31,15 +31,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="notice : ${noticeList}">
+                    <tr th:each="notice : ${noticeList}"
+                        th:onclick="'redirectNoticeDetail(' + @{${notice.postCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                         <td style="display:none" th:text="${notice.userCode}"></td>
                         <td class="noticeCode" th:text="${notice.postCode}"></td>
                         <td class="title"
                             th:text="${notice.title.length() lt 20 ? notice.title : notice.title.substring(0, 17)+'...'}">
                         </td>
                         <td class="writeDate" th:text="${#dates.format(notice.writeDate, 'yyyy-MM-dd')}"></td>
-                        <td class="userId" th:text="|${notice.userId[0] + #strings.repeat('*', notice.userId.length()-2) + notice.userId[notice.userId.length()-1]}|"></td>
+                        <td class="userId"
+                            th:text="|${notice.userId[0] + #strings.repeat('*', notice.userId.length()-2) + notice.userId[notice.userId.length()-1]}|"></td>
                         <td class="views" th:text="${notice.views}"></td>
+                        </a>
                     </tr>
                     </tbody>
                 </table>

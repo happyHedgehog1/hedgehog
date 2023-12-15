@@ -76,7 +76,6 @@
                 <if test="searchCondition == 'type'">
                     A.post_type LIKE CONCAT('%',#{searchValue},'%')
                 </if>
-
             </if>
             AND A.state = 'Y'
             LIMIT  #{ startRow }, #{ limit }
@@ -103,17 +102,6 @@
             </if>
             AND A.state = 'Y'
         </where>
-        <!--        <if test="orderBy != null">-->
-        <!--            ORDER BY-->
-        <!--            <choose>-->
-        <!--                <when test="orderBy == 'gradeASC">-->
-        <!--                    A.grade ASC-->
-        <!--                </when>-->
-        <!--                <when test="orderBy == 'gradeDESC'">-->
-        <!--                    A.grade DESC-->
-        <!--                </when>-->
-        <!--            </choose>-->
-        <!--        </if>-->
     </select>
     <resultMap id="reviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ReviewDTO">
         <id property="reviewCode" column="review_code"/>
