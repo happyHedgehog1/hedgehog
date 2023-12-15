@@ -32,13 +32,12 @@
                 <li th:if="${map.type == 'kitchenTable'}">식탁</li>
                 <li th:if="${map.type == 'kitchenCloset'}">수납장</li>
             </ul>
-<!-- ${product.attachmentList[0].getThumbnailPath()} -->
             <div class="gallery">
                 <th:block th:each="product : ${productList}">
-
+<!-- th:if="${product.attachmentList.fileType=='Thumbnails'}" -->
                     <ul class="gallery_list">
                         <li>
-                            <img th:if="${product.attachmentList[0].fileType=='Thumbnails'}" th:src="@{|/thumbPath${product.attachmentList[0].savePath}|}" alt="섬네일 이미지">
+                            <img th:src="@{|/thumbPath${product.attachmentList.savePath}|}" alt="섬네일 이미지">
                         </li>
                         <li class="gallery_list_text">
                             <ul class="gallery_list_text1">
