@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.admin.adminService.model.dao.AdminFAQMapper">
-    <resultMap id="noticeRegisterResultMap" type="AdminFAQDTO">
+    <resultMap id="FAQRegisterResultMap" type="AdminFAQDTO">
         <id property="post_code" column="post_code"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
@@ -14,21 +14,19 @@
         <result property="user-code" column="user-code"/>
         <result property="post_type" column="post_type"/>
     </resultMap>
-    <insert id="noticeRegister">
+    <insert id="FAQRegister">
         INSERT INTO tbl_admin_bulletin_board (
-                                              title,
-                                              content,
-                                              state,
-                                              write_date,
-                                              user_code,
-                                              post_type
-                                              )
+        title,
+        content,
+        state,
+        write_date,
+        user_code,
+        post_type
+        )
         VALUES (#{title}, #{content},
         <choose>
-        <when test="state == 1"> 'Y' </when>
-        <otherwise> 'N' </otherwise>
-        </choose>, now(), 2,"공지사항")
+            <when test="state == 1"> 'Y' </when>
+            <otherwise> 'N' </otherwise>
+        </choose>, now(), 2,"FAQ")
     </insert>
 </mapper>
-
-

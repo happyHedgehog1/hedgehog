@@ -19,4 +19,7 @@ public interface AdminFAQService {
 
     @Transactional
     void noticeRegister(AdminFAQDTO adminFAQDTO) throws BoardException;
+
+    @Transactional
+    void FAQRegister(AdminFAQDTO adminFAQDTO) throws BoardException;
 }

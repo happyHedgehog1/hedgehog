@@ -3,9 +3,7 @@ package com.hedgehog.admin.adminService.model.service;
 import com.hedgehog.admin.adminService.model.dao.AdminFAQMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminFAQDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminFAQForm;
-import com.hedgehog.admin.exception.AdminProductAddException;
 import com.hedgehog.admin.exception.BoardException;
-import com.hedgehog.admin.exception.NoticeRegisterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +55,14 @@ public class AdminFAQServiceImpl implements AdminFAQService {
 @Transactional
     public void noticeRegister(AdminFAQDTO adminFAQDTO) throws BoardException {
         int result = mapper.noticeRegister(adminFAQDTO);
+    if (!(result > 0)){
+        throw new BoardException("상태 변경에 실패하셨습니다.");
+    }
+    }
+@Override
+@Transactional
+    public void FAQRegister(AdminFAQDTO adminFAQDTO) throws BoardException {
+        int result = mapper.FAQRegister(adminFAQDTO);
     if (!(result > 0)){
         throw new BoardException("상태 변경에 실패하셨습니다.");
     }
