@@ -16,16 +16,22 @@
     </style>
 </head>
 <body>
-<form id="memberForm" th:action="@{/admin/content/member/sendMail}" method="post">
-    <label>메일 제목 <input type="text" th:value="${adminSendMailDTO.title}" name="title" id="title"></label>
-    <textarea id="summernote" class="summernote" name="content" th:utext="${adminSendMailDTO.content}"></textarea>
+<form id="memberForm" th:action="@{/member/sendMail}" method="post" enctype="multipart/form-data">
+    <label>메일 제목 <input type="text" th:value="${sendMailDTO.title}" name="title" id="title"></label>
+<!--    <input type="hidden" id="memberIds" name="memberId" th:value="${sendMailDTO.memberId}" />-->
+<!--<th:block th:text="${sendMailDTO.memberId}"/>-->
+
+
+    <textarea id="summernote" class="summernote" name="content" th:utext="${sendMailDTO.content}"></textarea>
     <button type="submit" id="submit">전송</button>
-    <th th:text="${memberId}"></th>
-    <table>
-        <tr th:each="name : ${memberId}">
-            <td th:text="${name}"></td>
-        </tr>
-    </table>
+    <div th:each="memberId : ${sendMailDTO.memberId}">
+        <input type="hidden" name="memberId" th:value="${memberId}" />
+    </div>
+<!--    <table>-->
+<!--        <tr name = "memberId" th:each="name : ${sendMailDTO.memberId}">-->
+<!--            <td name = "memberId" th:value="${name}" th:text="${name}"></td>-->
+<!--        </tr>-->
+<!--    </table>-->
 </form>
 <script>
     $(document).ready(function() {
@@ -33,7 +39,7 @@
         $('#summernote').summernote({
             placeholder: '',
             tabsize: 2,
-            height: 1000, // 필요에 따라 높이 조정
+            height: 500,
             width: 800,
             toolbar: [
                 ['style', ['style']],
@@ -46,10 +52,13 @@
             ]
         });
 
-        // 저장 버튼 클릭 이벤트
+
         $('#submit').on('click', function() {
+
             // Summernote 내용을 textarea에 설정
             $('#summernoteContent').val($('#summernote').summernote('code'));
+
+
 
             // 폼 제출
             $('#memberForm').submit();

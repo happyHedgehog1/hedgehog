@@ -33,4 +33,9 @@ public interface AdminMemberMapper {
 
 
     AdminSendMailDTO serachMail(int i);
+
+    AdminSendMailDTO sendMail(int memberId);
+
+
+//    int insertMailHistoryTable(AdminSendMailDTO mailDTO);
 }

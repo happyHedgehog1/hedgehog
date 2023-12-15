@@ -23,4 +23,8 @@ public interface AdminMemberService {
 
 
     AdminSendMailDTO selectMemberSendMailPage(int i);
+
+    public void sendMail(AdminSendMailDTO mailDTO);
+
+//    public void insertMailHistoryTable(AdminSendMailDTO mailDTO) throws UnregistException;
 }

@@ -18,7 +18,9 @@
 
 });
 
-
+    /**
+     * 이벤트 목록 조회 체크박스 상태 업데이트
+     */
     $(document).ready(function () {
         // 상위 체크박스를 클릭할 때
         $(".eventSearchResult th input[type='checkbox']").change(function () {
@@ -30,8 +32,10 @@
 
         });
 
-
     });
+    /**
+     * 이벤트 목록 조회 마우스 오버 메소드
+     */
     $(document).ready(function () {
         if (document.querySelectorAll("#eventlist td")) {
             const $tdsEvent = document.querySelectorAll("#eventlist td");
@@ -48,10 +52,14 @@
                 }
 
                 $tdsEvent[i].onclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/Service/detail", "_blank", "width=1500,height=1000");
+                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+                    const eventDetailUrl = "/event/eventDetailPage?postCode=" + postCode ;
+
+                    window.open(eventDetailUrl, "_blank", "width=820, height=1000");
+
                 };
             }
+
         }
         /**
          * 상품조회 온클릭

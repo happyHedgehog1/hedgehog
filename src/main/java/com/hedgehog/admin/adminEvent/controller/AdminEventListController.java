@@ -24,6 +24,23 @@ public class AdminEventListController {
         this.adminEventService = adminEventService;
     }
 
+    @GetMapping(value = "/eventDetailPage")
+    private ModelAndView eventDetailPage(@ModelAttribute AdminEventDTO eventDTO){
+        log.info("eventDetailPage ==================== eventDetailPage");
+        log.info("eventDTO ==================== eventDTO" + eventDTO);
+
+//        List<AdminEventDTO> eventDTOs = adminEventService.eventDetail(eventDTO);
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("admin/content/event/eventDetail");
+//        mv.addObject(eventDTOs);
+
+
+
+        return mv;
+
+    }
+
     @GetMapping(value = "/eventListSearch")
     private ModelAndView eventListSearch(@ModelAttribute AdminEventForm form){
         log.info("eventSearch ==================== start");

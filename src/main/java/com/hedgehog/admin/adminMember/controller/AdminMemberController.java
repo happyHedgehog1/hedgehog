@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -25,47 +28,67 @@ public class AdminMemberController {
     public AdminMemberController(AdminMemberServiceImpl adminMemberService) {
         this.adminMemberServiceimpl = adminMemberService;
     }
-    @PostMapping(value = "/sendMail")
-    private String sendMail(@RequestParam(name = "memberId") List<String> memberId,
-                            @ModelAttribute AdminSendMailDTO mailDTO,
-                            RedirectAttributes redirectAttributes) {
-        log.info("");
-        log.info("");
-        log.info("mailModify~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
-        log.info("~~~~~~~~~~~~~~~~memberList : {}", memberId);
-        log.info("~~~~~~~~~~~~~~~~mailDTO : {}", mailDTO);
 
-        // Flash 속성에서 memberId를 받아옴
-        List<String> name = (List<String>) redirectAttributes.getFlashAttributes().get("memberId");
-        log.info("Received memberId in sendMail: {}", name);
 
-        return "admin/content/member/sendMail";
-    }
+
+
+
 
 
     @PostMapping(value = "/selectMemberSendMailPage")
-    private String selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberId,
-                                            Model model,
-                                            RedirectAttributes redirectAttributes){
+    private ModelAndView selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberCode){
         log.info("");
         log.info("");
         log.info("selectMemberSendMailPage~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
-        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberId);
+        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberCode);
+
+//        sendMailDTO.setMemberId(new ArrayList<>(memberCode));
+
         AdminSendMailDTO sendMailDTO = adminMemberServiceimpl.selectMemberSendMailPage(7);
 
-        redirectAttributes.addFlashAttribute("memberId", memberId);
+        sendMailDTO.setMemberId(new ArrayList<>(memberCode));
+
+        log.info("~~~~~~~~~~~~~~~~sendMailDTO : {}", sendMailDTO);
+
+
+
 
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("admin/content/member/sendMail");
-        mv.addObject("memberId", memberId);
         mv.addObject("sendMailDTO", sendMailDTO);
+        mv.setViewName("admin/content/member/sendMail");
 
-        model.addAttribute(sendMailDTO);
-        model.addAttribute(memberId);
+        log.info(mv.getModel().toString());
 
 
-        return "admin/content/member/sendMail";
+        return mv;
 
+    }
+
+    @PostMapping(value = "/sendMail")
+    private String sendMail(
+                            @ModelAttribute AdminSendMailDTO mailDTO
+
+                             ) throws UnregistException {
+        log.info("");
+        log.info("");
+        log.info("mailModify~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~mailDTO : {}", mailDTO);
+
+
+//        mailDTO.setMemberId(name);
+//        for(int i = 0; i < mailDTO.getMemberId().size(); i++){
+//            String memberId = mailDTO.getMemberId().get(i);
+//            mailDTO.setMemberId(memberId);
+//        }
+//메일 보내는 메소드
+        adminMemberServiceimpl.sendMail(mailDTO);
+
+//        메일 히스토리 테이블에 등록하는 메소드 Transactional때매 따로 생성
+//        adminMemberServiceimpl.insertMailHistoryTable(mailDTO);
+
+
+
+        return "admin/content/member/membersearch";
     }
 
 

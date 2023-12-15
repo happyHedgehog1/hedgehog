@@ -105,8 +105,6 @@
                             <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:200px;" onclick="submitForm('memberForm', 'selectMemberSendMailPage');">
                                 선택회원 메일발송
                             </button>
-
-
                         </div>
                     </div>
                     <div class="tbl-list tbl-extend mt-20">
@@ -168,7 +166,7 @@
     <script>
         function openPopup(formId, action) {
             var form = document.getElementById(formId);
-            form.action = form.action + action;  // action을 동적으로 설정
+            form.action = action;  // 팝업 창을 열 때는 action을 변경하지 않습니다.
             window.open(form.action, 'Popup', 'width=1000,height=500');
         }
 
@@ -177,6 +175,8 @@
             form.action = form.action + action;  // action을 동적으로 설정
             form.submit();
         }
+
+
 
     </script>
 </th:block>

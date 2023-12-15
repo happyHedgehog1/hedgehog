@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminMember.model.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -16,6 +17,8 @@ public class AdminSendMailDTO {
     private String creationDate;
     private String modifyDate;
     private String title;
-    private List<String> memberList;
+    private List<String> memberId;
+    private String mailList;
+    private List<AtchFileDto> attachFileList = new ArrayList<>();
 
 }
