@@ -12,7 +12,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,21 +19,20 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class AdminMemberServiceImpl implements AdminMemberService {
     private final AdminMemberMapper mapper;
-    private JavaMailSenderImpl javaMailSender;
-
-    public AdminMemberServiceImpl(AdminMemberMapper mapper, JavaMailSender mailSender) {
-        this.mapper = mapper;
-        this.mailSender = mailSender;
-    }
-
-    private final JavaMailSender mailSender;
+    private final JavaMailSender javaMailSender;
     private static final String FROM_ADDRESS = "oneinfurniture0@gmail.com";
+
+    public AdminMemberServiceImpl(AdminMemberMapper mapper, JavaMailSender javaMailSender) {
+        this.mapper = mapper;
+        this.javaMailSender = javaMailSender;
+    }
 
 
 
@@ -127,42 +125,70 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
     @Override
     public void sendMail(AdminSendMailDTO mailDTO) {
-
-
         try {
-//      customer 테이블에서 customer_code를 기준으로 메일 주소를 가져온다
-        List<String> mailAddress = mapper.searchMail(mailDTO.getMemberId());
-        log.info(mailAddress.toString());
-//        가져온 메일 주소로 메일을 보낸다
-        MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+            log.info("메일 보내기 시작~~~~~~~~~~~~~");
+            log.info("mailDTO" + mailDTO);
 
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
-            mimeMessageHelper.setSubject(MimeUtility.encodeText(mailDTO.getTitle(), "UTF-8", "B")); //B는 Base64 encoding 메일 깨짐 방지용
-            mimeMessageHelper.setText(mailDTO.getContent(), true); //html 형식 사용하면 true 아니면 false
-            mimeMessageHelper.setFrom(FROM_ADDRESS);
-            mimeMessageHelper.setTo(mailAddress.get(0));
-            if(!CollectionUtils.isEmpty(mailDTO.getAttachFileList())) {
-                for(AtchFileDto attachFileDto: mailDTO.getAttachFileList()) {
-                    FileSystemResource fileSystemResource = new FileSystemResource(new File(attachFileDto.getRealFileNm()));
-                    mimeMessageHelper.addAttachment(MimeUtility.encodeText(attachFileDto.getAttachFileNm(), "UTF-8", "B"), fileSystemResource);
+            // customer 테이블에서 customer_code를 기준으로 메일 주소를 가져온다
+            for (int i = 0; i < mailDTO.getMemberId().size(); i++) {
+                int memberId = Integer.parseInt(mailDTO.getMemberId().get(i));
+                AdminSendMailDTO sendMailDTO = mapper.sendMail(memberId);
+                log.info("mailAddress~~~~~~~~~~~~~" + sendMailDTO);
+
+                mailDTO.setMailList(sendMailDTO.getMailList());
+                //가져온 메일주소로 메일 보냄
+//                한번에 하나의 메일주소로 보냄
+
+                MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
+
+                mimeMessageHelper.setSubject(MimeUtility.encodeText(mailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
+                mimeMessageHelper.setText(mailDTO.getContent(), true); //메일 내용 지정
+                mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
+                mimeMessageHelper.setTo(mailDTO.getMailList()); //받는 메일 주소 지정
+
+
+                //첨부 파일이 있으면 반복문을 통해 파일 하나씩 helper에 넣어준다
+                if (!CollectionUtils.isEmpty(mailDTO.getAttachFileList())) {
+                    for (AtchFileDto attachFileDto : mailDTO.getAttachFileList()) {
+                        FileSystemResource fileSystemResource = new FileSystemResource(new File(attachFileDto.getRealFileNm()));
+                        mimeMessageHelper.addAttachment(MimeUtility.encodeText(attachFileDto.getAttachFileNm(), "UTF-8", "B"), fileSystemResource);
+                    }
                 }
+
+                //메일 실제로 보내는 구문
+                javaMailSender.send(mimeMailMessage);
+
+
+
+                log.info("성공~~~~~~~~~~~~~~~~~~~~~~");
             }
-        javaMailSender.send(mimeMailMessage);
-            log.info("성공~~~~~~~~~~~~~~~~~~~~~~");
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
             log.info("실패~~~~~~~~~~~~~~~~~~~~~~");
-
         }
 
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setTo("noyeonji43@naver.com"); //받는 사람 주소
-//        message.setFrom(FROM_ADDRESS);  //보내는 사람 주소 세팅 안하면 yml 파일에 있는 username으로 셋팅
-//        message.setSubject(mailDTO.getTitle()); //메일 제목
-//        message.setText(mailDTO.getContent());      //메일 내용
+        //첨부파일 없는 간단한 메일 보내기
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("noyeonji43@naver.com"); //받는 사람 주소
+        message.setFrom(FROM_ADDRESS);  //보내는 사람 주소 세팅 안하면 yml 파일에 있는 username으로 셋팅
+        message.setSubject(mailDTO.getTitle()); //메일 제목
+        message.setText(mailDTO.getContent());      //메일 내용
 
 //        mailSender.send(message); //실제 메일 발송
     }
+
+//    @Override
+//    @Transactional
+//    public void insertMailHistoryTable(AdminSendMailDTO mailDTO) throws UnregistException {
+//        int result = mapper.insertMailHistoryTable(mailDTO);
+//
+//        if(!(result > 0)) {
+//            throw new UnregistException("상태 변경에 실패하셨습니다.");
+//        }
+//
+//    }
 
 
 //    @Override

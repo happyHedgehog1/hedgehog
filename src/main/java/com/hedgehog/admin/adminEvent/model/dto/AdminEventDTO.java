@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminEvent.model.dto;
 
+import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
 import lombok.*;
 
 import java.util.List;
@@ -22,5 +23,6 @@ public class AdminEventDTO {
     private String writeDate;
     private String modifyDate;
     private double discount;
-    private List<AdminEventProductListDTO> evnetProductList;
+    private List<AdminEventProductListDTO> eventProductList;
+    private List<AdminProductDTO> productDTOList;
 }

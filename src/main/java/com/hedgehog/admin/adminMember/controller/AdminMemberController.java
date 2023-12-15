@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -29,19 +31,31 @@ public class AdminMemberController {
 
 
 
+
+
+
+
     @PostMapping(value = "/selectMemberSendMailPage")
-    private ModelAndView selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberId){
+    private ModelAndView selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberCode){
         log.info("");
         log.info("");
         log.info("selectMemberSendMailPage~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
-        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberId);
+        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberCode);
+
+//        sendMailDTO.setMemberId(new ArrayList<>(memberCode));
+
         AdminSendMailDTO sendMailDTO = adminMemberServiceimpl.selectMemberSendMailPage(7);
+
+        sendMailDTO.setMemberId(new ArrayList<>(memberCode));
+
+        log.info("~~~~~~~~~~~~~~~~sendMailDTO : {}", sendMailDTO);
+
+
 
 
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("admin/content/member/sendMail");
-        mv.addObject("memberId", memberId);
         mv.addObject("sendMailDTO", sendMailDTO);
+        mv.setViewName("admin/content/member/sendMail");
 
         log.info(mv.getModel().toString());
 
@@ -51,23 +65,30 @@ public class AdminMemberController {
     }
 
     @PostMapping(value = "/sendMail")
-    private String sendMail(@RequestParam("memberIds") List<String> memberIds,
+    private String sendMail(
                             @ModelAttribute AdminSendMailDTO mailDTO
-                             ) {
+
+                             ) throws UnregistException {
         log.info("");
         log.info("");
         log.info("mailModify~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
         log.info("~~~~~~~~~~~~~~~~mailDTO : {}", mailDTO);
-        log.info("~~~~~~~~~~~~~~~~memberId : {}", memberIds);
 
 
-        mailDTO.setMemberId(memberIds);
-
+//        mailDTO.setMemberId(name);
+//        for(int i = 0; i < mailDTO.getMemberId().size(); i++){
+//            String memberId = mailDTO.getMemberId().get(i);
+//            mailDTO.setMemberId(memberId);
+//        }
+//메일 보내는 메소드
         adminMemberServiceimpl.sendMail(mailDTO);
 
+//        메일 히스토리 테이블에 등록하는 메소드 Transactional때매 따로 생성
+//        adminMemberServiceimpl.insertMailHistoryTable(mailDTO);
 
 
-        return "admin/content/member/sendMail";
+
+        return "admin/content/member/membersearch";
     }
 
 

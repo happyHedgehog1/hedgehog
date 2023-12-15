@@ -18,7 +18,7 @@ public class AdminSendMailDTO {
     private String modifyDate;
     private String title;
     private List<String> memberId;
-    private List<String> mailList;
+    private String mailList;
     private List<AtchFileDto> attachFileList = new ArrayList<>();
 
 }

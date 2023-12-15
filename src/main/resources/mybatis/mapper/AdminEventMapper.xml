@@ -16,14 +16,33 @@
         <result property="writeDate" column="write_date"/>
         <result property="modifyDate" column="modify_date"/>
         <result property="discount" column="discount"/>
+<!--        <result property="eventProductList" column="eventProductListResultMap"/>-->
+<!--        <collection property="productDTOList" column="productResultMap"/>-->
     </resultMap>
     <resultMap id="eventProductListResultMap" type="AdminEventProductListDTO">
         <id property="postCode" column="post_code"/>
         <result property="productCode" column="product_code"/>
     </resultMap>
+<!--    <resultMap id="productResultMap" type="com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO">-->
+<!--    <id property="productCode" column="product_code"/>-->
+<!--    <result property="subCategoryName" column="category_code"/>-->
+<!--    <result property="productName" column="product_name"/>-->
+<!--    <result property="orderableStatus" column="orderable_status"/>-->
+<!--    <result property="price" column="price"/>-->
+<!--    <result property="registrationDate" column="registration_date"/>-->
+<!--    <result property="modificationDate" column="modification_date"/>-->
+<!--    <result property="eventProgressionStatus" column="event_progressionstatus"/>-->
+<!--    <result property="deliveryCharge" column="delivery_charge"/>-->
+<!--    <result property="salesStart" column="sales_start"/>-->
+<!--    <result property="reviews" column="reviews"/>-->
+<!--    <result property="grade" column="grade"/>-->
+<!--    <result property="salesEnd" column="sales_end"/>-->
+<!--    <result property="upperCategoryName" column="upperCategoryName"/>-->
+<!--    </resultMap>-->
 
     <select id="searchEventList" resultMap="eventResultMap">
         SELECT
+            post_code,
             status,
             title,
             start_day,
@@ -51,6 +70,26 @@
             </if>
         </where>
     </select>
-
-
+<!--    <select id="eventDetail" resultMap="eventResultMap">-->
+<!--        SELECT-->
+<!--            A.post_code,-->
+<!--            A.writer_code,-->
+<!--            A.start_day,-->
+<!--            A.end_day,-->
+<!--            A.progress,-->
+<!--            A.status,-->
+<!--            A.title,-->
+<!--            A.write_date,-->
+<!--            A.discount,-->
+<!--            B.product_code,-->
+<!--            B.category_code,-->
+<!--            B.product_name,-->
+<!--            B.orderable_status,-->
+<!--            B.price,-->
+<!--            B.event_progressionstatus-->
+<!--        FROM tbl_event A-->
+<!--                 join tbl_event_product_list C ON A.post_code = C.post_code-->
+<!--                 join tbl_product B on C.product_code = B.product_code-->
+<!--        WHERE A.post_code = #{postCode}-->
+<!--    </select>-->
 </mapper>

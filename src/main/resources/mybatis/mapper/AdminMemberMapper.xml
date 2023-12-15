@@ -65,6 +65,7 @@
         <result property="creationDate" column="creation_date"/>
         <result property="modifyDate" column="modify_date"/>
         <result property="title" column="title"/>
+        <result property="mailList" column="email"/>
     </resultMap>
 
 
@@ -202,13 +203,24 @@
             FROM TBL_MAILFORM
             WHERE form_code = 7
     </select>
-    <select id="searchMail" resultMap="memberResultMap">
+    <select id="sendMail" resultMap="autoMailResultMap">
             SELECT
                 email
             FROM TBL_CUSTOMER
             WHERE customer_code = #{memberId}
     </select>
-
+<!--    <insert id="insertMailHistoryTable">-->
+<!--        INSERT INTO TBL_MAIL_history(-->
+<!--            content,-->
+<!--            date,-->
+<!--            title,-->
+<!--            form_code,-->
+<!--            user_code,-->
+<!--            customer_code)-->
+<!--        values (-->
+<!--                #{content}, now(), #{title}, #{formCode}, 2, #{memberId}-->
+<!--                )-->
+<!--    </insert>-->
 
 
 

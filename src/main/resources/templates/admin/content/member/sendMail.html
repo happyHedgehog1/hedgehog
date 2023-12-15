@@ -16,14 +16,22 @@
     </style>
 </head>
 <body>
-<form id="memberForm" th:action="@{/member/sendMail}" method="post">
+<form id="memberForm" th:action="@{/member/sendMail}" method="post" enctype="multipart/form-data">
     <label>메일 제목 <input type="text" th:value="${sendMailDTO.title}" name="title" id="title"></label>
-    <input type="hidden" id="memberIds" name="memberIds" th:value="${sendMailDTO.memberId}" />
+<!--    <input type="hidden" id="memberIds" name="memberId" th:value="${sendMailDTO.memberId}" />-->
+<!--<th:block th:text="${sendMailDTO.memberId}"/>-->
 
 
     <textarea id="summernote" class="summernote" name="content" th:utext="${sendMailDTO.content}"></textarea>
     <button type="submit" id="submit">전송</button>
-
+    <div th:each="memberId : ${sendMailDTO.memberId}">
+        <input type="hidden" name="memberId" th:value="${memberId}" />
+    </div>
+<!--    <table>-->
+<!--        <tr name = "memberId" th:each="name : ${sendMailDTO.memberId}">-->
+<!--            <td name = "memberId" th:value="${name}" th:text="${name}"></td>-->
+<!--        </tr>-->
+<!--    </table>-->
 </form>
 <script>
     $(document).ready(function() {
@@ -49,6 +57,8 @@
 
             // Summernote 내용을 textarea에 설정
             $('#summernoteContent').val($('#summernote').summernote('code'));
+
+
 
             // 폼 제출
             $('#memberForm').submit();

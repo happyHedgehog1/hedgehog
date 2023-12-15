@@ -9,4 +9,5 @@ public interface AdminEventService {
     public List<AdminEventDTO> searchEventList(AdminEventForm form);
 
 
+//    List<AdminEventDTO> eventDetail(AdminEventDTO eventDTO);
 }
