@@ -39,11 +39,11 @@
                             <tr th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
                                 <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getCostPrice()}"></td>
                                 <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getDeliveryCharge()}"></td>
-                                <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getPoint()}"></td>
+                                <td ></td>
                             </tr>
                         </table>
                     </td>
-                    <td th:text="${orderDetail.sumPrice}"></td>
+                    <td ></td>
                 </tr>
                 <tr>
                     <th>이름</th>

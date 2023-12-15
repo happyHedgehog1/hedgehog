@@ -70,7 +70,7 @@
             count(C.order_code) as total_count,
             D.name,
             A.state,
-            A.sum_price,
+            sum(A.final_price) as A.sum_price,
             D.id,
             E.phone
         FROM TBL_ORDER A
