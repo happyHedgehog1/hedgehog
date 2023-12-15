@@ -39,7 +39,8 @@ public class AdminFAQServiceImpl implements AdminFAQService {
         throw new BoardException("상태 변경에 실패하셨습니다.");
     }
     }
-
+@Override
+@Transactional
     public void noticeStateUpdate(AdminFAQDTO faqdto) throws BoardException {
         log.info("");
 
@@ -49,5 +50,21 @@ public class AdminFAQServiceImpl implements AdminFAQService {
         if (!(result > 0)){
             throw new BoardException("상태 변경에 실패하셨습니다.");
         }
+    }
+@Override
+@Transactional
+    public void noticeRegister(AdminFAQDTO adminFAQDTO) throws BoardException {
+        int result = mapper.noticeRegister(adminFAQDTO);
+    if (!(result > 0)){
+        throw new BoardException("상태 변경에 실패하셨습니다.");
+    }
+    }
+@Override
+@Transactional
+    public void FAQRegister(AdminFAQDTO adminFAQDTO) throws BoardException {
+        int result = mapper.FAQRegister(adminFAQDTO);
+    if (!(result > 0)){
+        throw new BoardException("상태 변경에 실패하셨습니다.");
+    }
     }
 }

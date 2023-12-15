@@ -2,12 +2,12 @@ package com.hedgehog.admin.adminService.controller;
 
 import com.hedgehog.admin.adminService.model.dto.*;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
-import com.hedgehog.admin.adminService.model.service.AdminInquiryService;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -220,6 +220,22 @@ public class AdminServiceController {
         return "redirect:/Service/FAQ";
     }
 
+    //FAQ 등록
+    @PostMapping("/FAQRegister")
+    public String FAQRegister(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                                 Model model) throws BoardException {
+        log.info("");
+        log.info("");
+        log.info("FAQ등록~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~adminFAQDTO : {}", adminFAQDTO);
+
+        adminFAQServiceImpl.FAQRegister(adminFAQDTO);
+        model.addAttribute(adminFAQDTO.getPost_code());
+
+        return "admin/content/Service/FAQ";
+    }
+
+
     //공지사항 첫화면
     @GetMapping("/noticePage")
     public String notice() {
@@ -295,6 +311,27 @@ public class AdminServiceController {
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
         return "redirect:/Service/notice";
     }
+    //공지사항 등록
+    @PostMapping("/noticeRegister")
+    public String noticeRegister(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                                 Model model) throws  BoardException {
+        log.info("");
+        log.info("");
+        log.info("공지사항등록~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~adminFAQDTO : {}", adminFAQDTO);
+
+        adminFAQServiceImpl.noticeRegister(adminFAQDTO);
+        model.addAttribute(adminFAQDTO.getPost_code());
+
+        return "admin/content/Service/notice";
+    }
+
+    @GetMapping("/FAQWritePage")
+    public String FAQWritePage() {
+        return "admin/content/Service/FAQWrite";
+    }
+
+
 
 
     @GetMapping("/email")
