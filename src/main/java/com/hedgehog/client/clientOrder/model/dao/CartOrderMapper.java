@@ -9,5 +9,5 @@ import java.util.List;
 public interface CartOrderMapper {
 
 
-    List<CartSelectDTO> cartOrderSelect();
+    List<CartSelectDTO> cartOrderSelect(List<Integer> cartcheckbox);
 }

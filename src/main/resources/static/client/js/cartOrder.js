@@ -1,53 +1,34 @@
+document.addEventListener("DOMContentLoaded", function () {
+    function updateTotal() {
+        var totalSum = 0;
+        var deliveryCharge = 0;
+
+        // 각 주문 테이블 행을 순회하며 각 항목 계산
+        document.querySelectorAll('#orderTableBody tr').forEach(function (row) {
+
+            var priceText = row.querySelector('td:nth-child(3)').textContent.replace('원', '').trim();
+            var hdAmountText = row.querySelector('td:nth-child(5) span').textContent.trim();
+            var itemDeliveryChargeText = row.querySelector('td:nth-child(6) span').textContent.replace('원', '').trim();
+
+            // 숫자로 변환 가능한 경우에만 이렇게 값을 설정한다.
+            var price = isNaN(parseFloat(priceText)) ? 0 : parseFloat(priceText);
+            var hdAmount = isNaN(parseFloat(hdAmountText)) ? 0 : parseFloat(hdAmountText);
+            var itemDeliveryCharge = isNaN(parseFloat(itemDeliveryChargeText)) ? 0 : parseFloat(itemDeliveryChargeText);
 
 
+            totalSum += price * hdAmount;
+            deliveryCharge += itemDeliveryCharge;
+        });
 
+        // 합계 업데이트
+        document.getElementById('totalPrice').textContent = totalSum.toLocaleString() + '원';
+        document.getElementById('deliveryCharge').textContent = deliveryCharge.toLocaleString() + '원';
 
+        // 결제 예정 금액 업데이트
+        var totalOrder = totalSum + deliveryCharge;
+        document.getElementById('totalOrder').textContent = totalOrder.toLocaleString() + '원';
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function (){
-//     var selectOrderButton = document.getElementById('selectOrderButton')
-//     selectOrderButton.addEventListener('click', function (){
-//         addSelectedOrder();
-//     })
-// })
-//
-// function addSelectedOrder(){
-//     var selectedItems = getSelectedItems();
-//     var orderTable = document.getElementById('orderTable');
-//     var orderTableBody = document.getElementById('orderTableBody');
-//     orderTableBody.innerHTML = '';
-//     var row = tableBody.insertRow();
-//     var cell1 = row.insertCell(0);
-//     var cell2 = row.insertCell(1);
-//     var cell3 = row.insertCell(2);
-//     var cell4 = row.insertCell(3);
-//     var cell5 = row.insertCell(4);
-//     var cell6 = row.insertCell(5);
-//     var cell7 = row.insertCell(6);
-//
-//     cell1.innerHTML = '<img src="' + item.image + '" width="70px" height="70px">';
-//     cell2.innerText = item.productName;
-//     cell3.innerText = item.price;
-//     cell4.innerText = item.savedMoney;
-//     cell5.innerText = item.amount;
-//     cell6.innerText = item.deliveryCharge;
-//     cell7.innerText = item.total;
-// }
+    // 페이지 로드시 초기 합계 계산 및 업데이트
+    updateTotal();
+});

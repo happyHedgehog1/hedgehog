@@ -20,14 +20,10 @@ private final CartOrderMapper cartOrderMapper;
     }
 
     @Override
-    public List<CartSelectDTO> selectCartOrder() {
-        return cartOrderMapper.cartOrderSelect();
+    public List<CartSelectDTO> selectCartOrder(List<Integer> cartcheckbox) {
+        return cartOrderMapper.cartOrderSelect(cartcheckbox);
     }
 
-//    @Override
-//    public List<Integer> carOrderSelect(List<Integer> carcheckbox, List<Integer> hdAmount) {
-//        return cartOrderMapper.carOrderSelect(carcheckbox, hdAmount);
-//    }
 
 
 }

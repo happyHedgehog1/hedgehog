@@ -86,15 +86,10 @@
   border: 1px solid #d09191;
   border-radius: 10px;
   padding: 5px;
-  width: 450px;
+  width: 100%;
   justify-content: center;
   align-items: center;
 
-
-}
-.total_price_contain{
-  display: flex;
-  justify-content: flex-end;
 
 }
 
@@ -152,20 +147,7 @@ br {
 tr:last-child {
   border-bottom: 0px;
 }
-/* 밑으로 내리는법 */
-.sum_box{
-  display: grid;
-  bottom: 10px;
-  border: 1px solid #e1dbdb;
-  background-color: #d8d0d2;
-  border-radius: 30px;
-  grid-template-columns: auto auto auto ;
-  box-sizing: border-box;
-  height: 140px;
 
-
-  color: #FFFFFF;
-}
 .sum_text{
   display: grid;
   align-items: center;

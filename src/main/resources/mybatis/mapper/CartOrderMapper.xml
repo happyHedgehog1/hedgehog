@@ -5,7 +5,6 @@
 <mapper namespace="com.hedgehog.client.clientOrder.model.dao.CartOrderMapper">
 
 
-
 <resultMap id="CartOrderSelectResultMap" type="CartSelectDTO">
     <id property="cartCode" column="cart_code"/>
     <result property="productCode" column="product_code"/>
@@ -32,11 +31,13 @@
         left join
         tbl_product B ON A.product_code = B.product_code
         left join
-        tbl_product_img C ON A.product_code = C.product_code
-        WHERE A.cart_code IN
+        tbl_product_img C ON B.product_code = C.product_code
+        WHERE
+        A.cart_code IN
         <foreach collection="cartcheckbox" item="cartCode" open="(" separator="," close=")">
             #{cartCode}
         </foreach>
+        group by cart_code
     </select>
 
 

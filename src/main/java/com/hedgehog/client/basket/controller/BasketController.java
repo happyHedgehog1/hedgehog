@@ -44,11 +44,10 @@ public class BasketController {
 
         LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
         System.out.println(loginDetails.getLoginUserDTO().toString());
-        mv.addObject("userCode", loginUserDTO.getUserCode());
+        mv.addObject("userCode",  loginUserDTO.getUserCode());
 
-        List<CartSelectDTO> cartItemList =basketService.selectCartList(loginUserDTO.getUserCode());
+        List<CartSelectDTO> cartItemList =basketService.selectCartList( loginUserDTO.getUserCode());
         mv.addObject("cartItemList", cartItemList);
-
 
 
         List<CartSumDTO> cartSumList = basketService.selectCartSum();
