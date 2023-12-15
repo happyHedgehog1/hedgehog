@@ -13,4 +13,10 @@ public interface AdminFAQService {
 
     @Transactional
     void FAQStateUpdate(AdminFAQDTO faqdto) throws BoardException;
+
+    @Transactional
+    void noticeStateUpdate(AdminFAQDTO faqdto) throws BoardException;
+
+    @Transactional
+    void noticeRegister(AdminFAQDTO adminFAQDTO) throws BoardException;
 }

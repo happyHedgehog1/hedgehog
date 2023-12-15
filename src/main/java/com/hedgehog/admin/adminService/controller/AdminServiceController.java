@@ -6,8 +6,10 @@ import com.hedgehog.admin.adminService.model.service.AdminInquiryService;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
+import com.hedgehog.admin.exception.NoticeRegisterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -295,7 +297,20 @@ public class AdminServiceController {
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
         return "redirect:/Service/notice";
     }
+    //공지사항 등록
+    @PostMapping("/noticeRegister")
+    public String noticeRegister(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                                 Model model) throws NoticeRegisterException, BoardException {
+        log.info("");
+        log.info("");
+        log.info("공지사항등록~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~adminFAQDTO : {}", adminFAQDTO);
 
+        adminFAQServiceImpl.noticeRegister(adminFAQDTO);
+        model.addAttribute(adminFAQDTO.getPost_code());
+
+        return "admin/content/Service/notice";
+    }
 
 
 
