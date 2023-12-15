@@ -1,7 +1,8 @@
-function redirectQuestionDetail(postCode, orderBy, pageNo) {
+function redirectQuestionDetail(postCode, searchCondition, searchValue, orderBy, pageNo) {
     const url = '/board/detail?postType=2' +
         '&postCode=' + postCode +
-        '&orderBy=' + encodeURIComponent(orderBy) +
+        '&searchCondition=' + encodeURIComponent(searchCondition) +
+        '&searchValue=' + encodeURIComponent(searchValue) +
         '&currentPage=' + pageNo;
     window.location.href = url;
 }

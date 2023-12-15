@@ -61,10 +61,6 @@ tr > td {
     text-align: left;
 }
 
-.titleHead {
-    width: 13em;
-}
-
 #viewsHead {
     width: 3em;
 }
@@ -77,8 +73,8 @@ tr > td {
     width: 6em;
 }
 
-tbody > tr {
-    background-color: #F8F4F480;
+tbody > tr:hover {
+    background: #F8F4F4;
 }
 
 #write_buttons_wrap {

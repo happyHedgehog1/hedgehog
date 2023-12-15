@@ -17,6 +17,11 @@ section {
     width:33em;
 }
 
+#route_home,
+#route_login{
+    cursor: pointer;
+}
+
 td {
     height: 2em;
     padding: 5px;
@@ -38,9 +43,9 @@ button {
 
 #input_order,
 #input_email,
-#input_authentication,
+#email_authentication_number,
 #email_button,
-#authentication_button {
+#email_authentication_button {
     border: 0;
     border-radius: 8px;
 }
@@ -63,7 +68,7 @@ button {
 
 #input_order,
 #input_email,
-#input_authentication {
+#email_authentication_number {
     background-color: #ECECEC;
     padding-left: 0.5em;
 }
@@ -72,8 +77,8 @@ button {
     font-weight: bold;
 }
 
-#input_authentication,
-#authentication_button {
+#email_authentication_number,
+#email_authentication_button {
     height: 2em;
 }
 
@@ -91,7 +96,7 @@ button {
     background-color: #A7727D;
 }
 
-#authentication_button {
+#email_authentication_button {
     font-size: 0.8em;
     padding: 3px;
     border: 1px solid #A6A6A6;
@@ -101,7 +106,7 @@ button {
     cursor: pointer;
 }
 
-#authentication_button:hover {
+#email_authentication_button:hover {
     color: white;
     background-color: #A6A6A6;
 }
@@ -138,4 +143,7 @@ button {
 #search_button:hover {
     color: black;
     background-color: white;
+}
+#authentication_row{
+    display:none;
 }

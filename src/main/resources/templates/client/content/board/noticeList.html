@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="notice : ${noticeList}"
-                        th:onclick="'redirectNoticeDetail(' + @{${notice.postCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
+                        th:onclick="'redirectNoticeDetail(' + @{${notice.postCode}} + ', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                         <td style="display:none" th:text="${notice.userCode}"></td>
                         <td class="noticeCode" th:text="${notice.postCode}"></td>
                         <td class="title"

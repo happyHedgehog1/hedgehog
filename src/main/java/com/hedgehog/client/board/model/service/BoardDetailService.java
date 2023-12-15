@@ -8,6 +8,7 @@ import com.hedgehog.client.board.model.dto.ReviewDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -41,5 +42,14 @@ public class BoardDetailService {
         FaqDTO faqDTO = mapper.getFaqDetail(postCode);
         log.info("BoardDetailService >> getFaqDetail >> questionDTO : " + faqDTO);
         return faqDTO;
+    }
+
+    @Transactional
+    public void addViews(int postCode) {
+        log.info("공지사항. faq. >> postCode :" + postCode);
+        int views = mapper.getViews(postCode);
+        log.info("과거 조회수... : " + views);
+        mapper.setViews(postCode, views + 1);
+        log.info("미래 조회수... :" + views+1);
     }
 }
