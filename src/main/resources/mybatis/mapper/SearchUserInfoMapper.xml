@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.auth.model.dao.SearchUserInfoMapper">
+    <select id="selectMemberByEmail">
+        SELECT A.certification_number
+        FROM tbl_customer A
+        WHERE A.member_state = 'Y'
+          AND A.email = #{email}
+    </select>
+    <update id="updateCertificationNumber">
+        UPDATE tbl_certified
+        SET code = #{randomStr}
+        WHERE certification_number = #{certificationCode}
+    </update>
+    <select id="certifyEmail">
+        SELECT COUNT(*)
+        FROM tbl_certified A
+        WHERE A.certification_number = #{certifiedKey}
+          AND A.code = #{inputCertifiedCode}
+    </select>
+    <select id="findUserId">
+        SELECT A.id
+        FROM tbl_user A
+                 JOIN tbl_customer B ON A.user_code = B.customer_code
+                 JOIN tbl_certified C ON B.certification_number = C.certification_number
+        WHERE B.email = #{email}
+          AND B.certification_number = #{hiddenCertifiedKey}
+          AND C.code = #{emailAuthenticationNumber}
+    </select>
+    <select id="selectMemberByUserIdAndEmail">
+        SELECT A.certification_number
+        FROM tbl_customer A
+                 JOIN tbl_user B ON A.customer_code = B.user_code
+        WHERE A.member_state = 'Y'
+          AND A.email = #{email}
+          AND B.id = #{userId};
+    </select>
+    <select id="findUser">
+        SELECT A.user_code
+        FROM tbl_user A
+                 JOIN tbl_customer B ON A.user_code = B.customer_code
+                 JOIN tbl_certified C ON B.certification_number = C.certification_number
+        WHERE B.email = #{email}
+          AND B.certification_number = #{hiddenCertifiedKey}
+          AND C.code = #{emailAuthenticationNumber}
+          AND A.id = #{userId}
+    </select>
+    <update id="insertNewUserPassword">
+        UPDATE tbl_user
+        SET password = #{encodePassword}
+        WHERE user_code = #{userCode}
+    </update>
+</mapper>

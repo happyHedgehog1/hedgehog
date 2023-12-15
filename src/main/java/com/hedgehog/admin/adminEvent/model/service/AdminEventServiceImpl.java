@@ -21,4 +21,16 @@ public class AdminEventServiceImpl implements AdminEventService{
         List<AdminEventDTO> eventList = mapper.searchEventList(form);
         return eventList;
     }
+
+//    @Override
+//    public List<AdminEventDTO> eventDetail(AdminEventDTO eventDTO) {
+//        List<AdminEventDTO> eventDTOS = mapper.eventDetail(eventDTO);
+//
+//        return eventDTOS;
+//    }
+
+
 }
+
+
+

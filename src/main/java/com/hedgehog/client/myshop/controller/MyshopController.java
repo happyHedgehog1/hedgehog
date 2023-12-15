@@ -147,4 +147,8 @@ public class MyshopController {
         }
     }
 
+    @GetMapping("/guestOrderSearch")
+    public String guestOrderSearch() {
+        return "/client/content/myshop/guestOrderSearch";
+    }
 }

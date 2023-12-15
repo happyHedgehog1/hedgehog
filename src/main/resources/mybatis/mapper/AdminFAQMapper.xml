@@ -12,6 +12,7 @@
         <result property="views" column="views"/>
         <result property="state" column="state"/>
         <result property="post_code" column="post_code"/>
+        <result property="post_type" column="post_type"/>
         <association property="id" resultMap="adminUserDTOResultMap"/>
     </resultMap>
 
@@ -32,6 +33,7 @@
             A.state
         FROM tbl_admin_bulletin_board A
         JOIN tbl_user B ON A.user_code = B.user_code
+        WHERE A.post_type = 'FAQ'
         <if test="faqSearchStartDay != ''">
             <if test="faqSearchEndDay != ''">
                 AND A.write_date BETWEEN #{faqSearchStartDay} AND #{faqSearchEndDay}

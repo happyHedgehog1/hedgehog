@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductListDTO {
 
     private AdminProductDTO adminProductDTO;
-    private List<AttachmentDTO> attachmentList;
+    private AttachmentDTO attachmentList;
     private AdminCategoryDTO adminCategoryDTO;
 
 }

@@ -114,7 +114,7 @@
                                     </tr> 
                                     <tr class="eventSearchBottomTr"  th:each="event : ${ eventList }" >
                                         <td class="eventSearchBottomCheck">
-                                                <input type="checkbox" name="resultCheckbox" id="resultCheckbox">
+                                                <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${event.postCode}">
                                         <td th:text="${event.status == 'N' ? '이벤트 종료' : '이벤트 진행중'}" th:classappend="${event.status == 'N' ? 'colorRed' : ''}"></td>
                                         <td th:text="${ event.title }"></td>
                                         <td th:text="${ event.startDay}"></td>

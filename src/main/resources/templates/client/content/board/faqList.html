@@ -29,7 +29,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="faq : ${faqList}">
+                    <tr th:each="faq : ${faqList}"
+                        th:onclick="'redirectFaqDetail(' + @{${faq.postCode}} + ', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                         <td style="display:none" th:text="${faq.userCode}"></td>
                         <td class="noticeCode" th:text="${faq.postCode}"></td>
                         <td class="title"

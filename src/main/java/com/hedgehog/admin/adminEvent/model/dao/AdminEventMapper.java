@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface AdminEventMapper {
     List<AdminEventDTO> searchEventList(AdminEventForm form);
+
+//    List<AdminEventDTO> eventDetail(AdminEventDTO eventDTO);
 }

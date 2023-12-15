@@ -43,6 +43,13 @@
         <result property="modifyDate" column="modify_date"/>
         <result property="memberCode" column="member_code"/>
         <result property="memberId" column="member_id"/>
+
+        <result property="commentCode" column="comment_code"/>
+        <result property="commentUserCode" column="comment_user_code"/>
+        <result property="commentUserId" column="comment_user_id"/>
+        <result property="commentWriteDate" column="comment_write_date"/>
+        <result property="commentModifyDate" column="comment_modify_date"/>
+        <result property="commentContent" column="comment_content"/>
     </resultMap>
     <select id="selectQuestionList" resultMap="questionDTOResultMap">
         SELECT A.inquiry_code,
@@ -55,9 +62,16 @@
         A.state,
         A.modify_date,
         A.member_code,
-        B.id member_id
+        B.id member_id,
+        C.comment_code,
+        C.user_code comment_user_code,
+        (SELECT D.id FROM tbl_user D WHERE C.user_code = D.user_code) comment_user_id,
+        C.write_date comment_write_date,
+        C.modify_date comment_modify_date,
+        C.content comment_content
         FROM tbl_inquiry A
         JOIN tbl_user B ON A.member_code=B.user_code
+        LEFT JOIN tbl_comment C ON A.inquiry_code = C.inquiry_code
         <where>
             <if test="searchValue != '' and searchValue != null">
                 <if test="searchCondition == 'id'">
@@ -76,10 +90,9 @@
                 <if test="searchCondition == 'type'">
                     A.post_type LIKE CONCAT('%',#{searchValue},'%')
                 </if>
-
             </if>
             AND A.state = 'Y'
-            LIMIT  #{ startRow }, #{ limit }
+            LIMIT #{ startRow }, #{ limit }
         </where>
     </select>
     <select id="selectTotalCountReviewList">
@@ -103,17 +116,6 @@
             </if>
             AND A.state = 'Y'
         </where>
-        <!--        <if test="orderBy != null">-->
-        <!--            ORDER BY-->
-        <!--            <choose>-->
-        <!--                <when test="orderBy == 'gradeASC">-->
-        <!--                    A.grade ASC-->
-        <!--                </when>-->
-        <!--                <when test="orderBy == 'gradeDESC'">-->
-        <!--                    A.grade DESC-->
-        <!--                </when>-->
-        <!--            </choose>-->
-        <!--        </if>-->
     </select>
     <resultMap id="reviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ReviewDTO">
         <id property="reviewCode" column="review_code"/>

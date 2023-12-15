@@ -142,6 +142,10 @@ tbody td:nth-child(3):hover {
     flex-direction: column;
     height: max-content;
     width: 100%;
+    cursor: pointer;
+}
+.review_wrapper:hover{
+    background: #F8F4F4;
 }
 
 .review_wrapper img {
