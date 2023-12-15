@@ -54,8 +54,8 @@ tr > td {
     font-size: 0.95em;
 }
 
-tbody > tr {
-    background-color: #F8F4F480;
+tbody > tr:hover {
+    background: #F8F4F4;
 }
 
 tbody td {

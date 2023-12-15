@@ -31,7 +31,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="question : ${ questionList }">
+                    <tr th:each="question : ${ questionList }"
+                        th:onclick="'redirectQuestionDetail(' + @{${question.inquiryCode}} + ', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                         <td class="inquiryCode" th:text="${question.inquiryCode}"></td>
                         <td class="postType" th:text="${question.postType}"></td>
                         <td class="title"

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.board.model.dao.BoardDetailMapper">
+    <resultMap id="reviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ReviewDTO">
+        <id property="reviewCode" column="review_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImgPath" column="product_img_path"/>
+        <result property="optionCode" column="option_code"/>
+        <result property="optionName" column="option_name"/>
+        <result property="grade" column="grade"/>
+        <result property="content" column="content"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="memberId" column="member_id"/>
+    </resultMap>
+    <select id="getReviewDetail" resultMap="reviewDTOResultMap">
+        SELECT A.review_code,
+               A.product_code,
+               C.product_name,
+               E.convert_path product_img_path,
+               A.option_code,
+               D.name         option_name,
+               A.grade,
+               A.content,
+               A.write_date,
+               A.member_code,
+               B.id           member_id
+        FROM tbl_review A
+                 JOIN tbl_user B ON A.member_code = B.user_code
+                 JOIN tbl_product C ON A.product_code = C.product_code
+                 JOIN tbl_option D ON A.option_code = D.option_code
+                 JOIN tbl_product_img E ON A.product_code = E.product_code
+        WHERE A.review_code = #{postCode}
+          AND A.state = 'Y'
+          AND E.image_classification = 'Thumbnails'
+    </select>
+    <resultMap id="questionDTOResultMap" type="com.hedgehog.client.board.model.dto.QuestionDTO">
+        <id property="inquiryCode" column="inquiry_code"/>
+        <result property="secretState" column="secret_state"/>
+        <result property="answerState" column="answer_state"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="postType" column="post_type"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="state" column="state"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="memberId" column="member_id"/>
+    </resultMap>
+    <select id="getQuestionDetail" resultMap="questionDTOResultMap">
+        SELECT A.inquiry_code,
+               A.secret_state,
+               A.answer_state,
+               A.write_date,
+               A.post_type,
+               A.title,
+               A.content,
+               A.state,
+               A.modify_date,
+               A.member_code,
+               B.id member_id
+        FROM tbl_inquiry A
+                 JOIN tbl_user B ON A.member_code = B.user_code
+        WHERE A.inquiry_code = #{postCode}
+          AND A.state = 'Y'
+
+
+    </select>
+    <resultMap id="noticeDTOResultMap" type="com.hedgehog.client.board.model.dto.NoticeDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="content" column="content"/>
+        <result property="title" column="title"/>
+        <result property="views" column="views"/>
+        <result property="postType" column="post_type"/>
+        <result property="userCode" column="user_code"/>
+        <result property="state" column="state"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <select id="getNoticeDetail" resultMap="noticeDTOResultMap">
+        SELECT A.post_code,
+               A.write_date,
+               A.content,
+               A.title,
+               A.views,
+               A.post_type,
+               A.user_code,
+               A.state,
+               A.modify_date,
+               B.id user_id
+        FROM tbl_admin_bulletin_board A
+                 JOIN tbl_user B ON A.user_code = B.user_code
+        WHERE A.post_code = #{postCode}
+          AND A.state = 'Y'
+          AND A.post_type = '공지사항'
+    </select>
+    <resultMap id="faqDTOResultMap" type="com.hedgehog.client.board.model.dto.FaqDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="content" column="content"/>
+        <result property="title" column="title"/>
+        <result property="views" column="views"/>
+        <result property="postType" column="post_type"/>
+        <result property="userCode" column="user_code"/>
+        <result property="state" column="state"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <select id="getFaqDetail" resultMap="faqDTOResultMap">
+        SELECT A.post_code,
+               A.write_date,
+               A.content,
+               A.title,
+               A.views,
+               A.post_type,
+               A.user_code,
+               A.state,
+               A.modify_date,
+               B.id user_id
+        FROM tbl_admin_bulletin_board A
+                 JOIN tbl_user B ON A.user_code = B.user_code
+        WHERE A.post_code = #{postCode}
+          AND A.state = 'Y'
+          AND A.post_type = 'FAQ'
+    </select>
+</mapper>
