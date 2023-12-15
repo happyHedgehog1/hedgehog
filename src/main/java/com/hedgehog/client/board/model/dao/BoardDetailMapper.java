@@ -15,4 +15,8 @@ public interface BoardDetailMapper {
     NoticeDTO getNoticeDetail(int postCode);
 
     FaqDTO getFaqDetail(int postCode);
+
+    int getViews(int postCode);
+
+    void setViews(int postCode, int views);
 }

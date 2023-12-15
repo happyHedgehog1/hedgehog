@@ -12,8 +12,8 @@
         <!-- 여기에 작성 -->
         <div id="main_category_route">
             <ul class="route_list">
-                <li id="route_home" onclick="location.href='/'"><img src="/client/images/icon/home.png" alt="홈으로가기">
-                </li>
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
                 <li>&gt;</li>
                 <li>회원가입</li>
             </ul>
@@ -141,7 +141,7 @@
                                     &nbsp;
                                     <span id="reload_timer">05:00</span>
                                     &nbsp;
-                                    <img src="/client/images/icon/reload.png" alt="시간연장" id="reload">
+                                    <img th:src="@{/client/images/icon/reload.png}" alt="시간연장" id="reload">
                                 </div>
                                 <div id="email_message"></div>
                                 <script>
@@ -167,7 +167,7 @@
                                     $('#email_button').click(function () {
                                         $('#email_button').css('display', 'none');
                                         const email = $('#email').val(); // 입력한 email 값
-                                        $('#adminAddEmail').prop('readonly', true);
+                                        $('#email').prop('readonly', true);
                                         const isValid = regexEmail.test(email); // email이 정규식에 맞는가.
                                         if (isValid) {
                                             $.ajax({
@@ -190,7 +190,7 @@
                                                         });
                                                     } else {
                                                         $('#email_button').css('display', '');
-                                                        $('#adminAddEmail').prop('readonly', false);
+                                                        $('#email').prop('readonly', false);
                                                         $('#email_message').html('이미 있는 이메일입니다.<br>다시 입력해주세요.');
                                                     }
                                                 },
@@ -202,7 +202,7 @@
                                             })
                                         } else {
                                             $('#email_button').css('display', '');
-                                            $('#adminAddEmail').prop('readonly', false);
+                                            $('#email').prop('readonly', false);
                                             $('#email_message').html('이메일 규칙에 맞지 않습니다.<br>다시시도해주세요.');
                                         }
                                     })

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +24,7 @@ public class BoardDetailController {
     /*
      * 게시글 그 자체
      * */
-    @GetMapping("/detail")
+    @GetMapping("detail")
     public ModelAndView getBoardDetail(/*@AuthenticationPrincipal LoginDetails loginDetails,*/
             @RequestParam int postType,
             @RequestParam int postCode,
@@ -54,31 +55,26 @@ public class BoardDetailController {
          *
          * --- 일단 비밀글은 고려하지 말자.
          * */
-        ReviewDTO reviewDTO = null;
-        QuestionDTO questionDTO = null;
-        NoticeDTO noticeDTO = null;
-        FaqDTO faqDTO = null;
         log.info("BoardDetailController >> getBoardDetail >> postType : " + postType);
         log.info("BoardDetailController >> getBoardDetail >> postCode : " + postCode);
+        mv.addObject("postType", postType);
         if (postType == 1) {
-            reviewDTO = boardDetailService.getReviewDetail(postCode);
-            mv.addObject("postType", "review");
-            mv.addObject("reviewDTO", reviewDTO);
+            ReviewDTO reviewDTO = boardDetailService.getReviewDetail(postCode);
+            mv.addObject("board", reviewDTO);
             log.info("BoardDetailController >> getBoardDetail >> reviewDTO : " + reviewDTO);
         } else if (postType == 2) {
-            questionDTO = boardDetailService.getQuestionDetail(postCode);
-            mv.addObject("postType", "question");
-            mv.addObject("questionDTO", questionDTO);
+            QuestionDTO questionDTO = boardDetailService.getQuestionDetail(postCode);
+            mv.addObject("board", questionDTO);
             log.info("BoardDetailController >> getBoardDetail >> questionDTO : " + questionDTO);
         } else if (postType == 3) {
-            noticeDTO = boardDetailService.getNoticeDetail(postCode);
-            mv.addObject("postType", "notice");
-            mv.addObject("noticeDTO", noticeDTO);
+            boardDetailService.addViews(postCode);
+            NoticeDTO noticeDTO = boardDetailService.getNoticeDetail(postCode);
+            mv.addObject("board", noticeDTO);
             log.info("BoardDetailController >> getBoardDetail >> noticeDTO : " + noticeDTO);
         } else if (postType == 4) {
-            faqDTO = boardDetailService.getFaqDetail(postCode);
-            mv.addObject("postType", "faq");
-            mv.addObject("faqDTO", faqDTO);
+            boardDetailService.addViews(postCode);
+            FaqDTO faqDTO = boardDetailService.getFaqDetail(postCode);
+            mv.addObject("board", faqDTO);
             log.info("BoardDetailController >> getBoardDetail >> faqDTO : " + faqDTO);
         }
 
@@ -86,4 +82,16 @@ public class BoardDetailController {
         mv.setViewName("client/content/board/boardDetail");
         return mv; // postType은 확실히 반환받는다. 이 반환받는거에 따라 사용하는 Detail 시리즈 속성이 달라진다.
     }
+
+//    @PostMapping("/detail/delete")
+//    public ModelAndView deleteBoardDetail(@RequestParam int userCode,
+//                                          @RequestParam int postType,
+//                                          @RequestParam int postCode,
+//                                          ModelAndView mv) {
+//        log.info("userCode = " + userCode);
+//        log.info("postType = " + postType);
+//        log.info("postCode = " + postCode);
+//        mv.setViewName("/");
+//        return mv;
+//    }
 }

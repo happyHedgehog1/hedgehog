@@ -23,7 +23,7 @@
                 </table>
                 <hr style="border: 0.1px solid rgb(218, 217, 217);">
                 <div class="review_wrapper" th:each="review : ${reviewList}"
-                     th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
+                    th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                     <div class="reviewInfoWrap">
                         <!-- 제품 썸네일 -->
                         <div id="reviewInfo">
@@ -48,7 +48,7 @@
                                 <div th:text="${#dates.format(review.writeDate,'yyyy-MM-dd HH:MM')}"></div>
                             </div>
                         </div>
-                        <div id="userIdWrapper">아이디 : <span th:text="${review.memberId}"></span>
+                        <div id="userIdWrapper">아이디 : <span th:text="|${review.memberId[0] + #strings.repeat('*', review.memberId.length()-2) + review.memberId[review.memberId.length()-1]}|"></span>
                         </div>
                     </div>
                     <hr style="border: 0.1px solid rgb(218, 217, 217);">
