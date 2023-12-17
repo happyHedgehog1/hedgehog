@@ -20,7 +20,6 @@
     </header>
     <div class="body">
         <div class="wrap">
-            <div class="answer">.</div>
             <table >
                 <tr>
                     <th>주문일자</th>
@@ -28,22 +27,22 @@
                     <th>상품명</th>
                     <th>상품가격</th>
                     <th>배송비</th>
-                    <th>적립금</th>
+                    <th>사용한 적립금</th>
                     <th>합계</th>
                 </tr>
                     <td th:text="${orderDetail.getCreationDate()}"></td>
                     <td th:text="${orderDetail.getOrderCode()}"></td>
                     <td th:text="${orderDetail.getProductDTO().productName}"></td>
                     <td>
-                        <table>
-                            <tr th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
-                                <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getCostPrice()}"></td>
-                                <td th:text="${orderDetail.getOrderDetail().get(orderStat.index).getDeliveryCharge()}"></td>
-                                <td ></td>
-                            </tr>
-                        </table>
+                        <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
+                            <div th:text="${#numbers.formatInteger(orderDetail.getOrderDetail().get(orderStat.index).getCostPrice(), 3, 'COMMA') + '원'}"></div>
+                        </div>
                     </td>
-                    <td ></td>
+                <td>
+                    <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
+                        <div th:text="${#numbers.formatInteger(orderDetail.getOrderDetail().get(orderStat.index).getDeliveryCharge(), 3, 'COMMA') + '원'}"></div>
+                    </div>
+                </td>
                 </tr>
                 <tr>
                     <th>이름</th>
@@ -54,7 +53,7 @@
                 </tr>
                 <tr>
                     <td th:text="${orderDetail.getUserDTO().name}"></td>
-                    <td th:text="${orderDetail.adminCustomerDTO.phone}"></td>
+                    <td th:text="${#strings.concat(#strings.substring(orderDetail.adminCustomerDTO.phone, 0, 3), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,3, 7), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,7))}"></td>
                     <td>주소</td>
                     <td>배송메모</td>
                     <td th:text="${orderDetail.state}"></td>

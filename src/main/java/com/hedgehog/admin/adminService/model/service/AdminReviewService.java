@@ -10,6 +10,7 @@ import java.util.List;
 public interface AdminReviewService {
     List<AdminReviewDTO> searchReview(AdminReviewForm form);
 
-    @Transactional
     void revStateUpdate(AdminReviewDTO reviewDTO) throws BoardException;
+
+    AdminReviewDTO reviewDetail(int reviewCode);
 }

@@ -132,6 +132,8 @@ public class AdminMemberController {
 
     /**
      * 회원조회 페이지에서 회원 탈퇴 시키는 메소드
+     * 회원 탈퇴하면 user 테이블의 withdraw_state를 Y로 변경하고,
+     * withdraw 테이블에 해당 member insert한다
      * @param memberId
      * @param rttr
      * @return

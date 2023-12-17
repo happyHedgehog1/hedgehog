@@ -3,15 +3,15 @@ package com.hedgehog.admin.adminEvent.controller;
 import com.hedgehog.admin.adminEvent.model.dto.AdminEventForm;
 import com.hedgehog.admin.adminEvent.model.dto.AdminEventDTO;
 import com.hedgehog.admin.adminEvent.model.service.AdminEventServiceImpl;
+import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -24,20 +24,87 @@ public class AdminEventListController {
         this.adminEventService = adminEventService;
     }
 
-    @GetMapping(value = "/eventDetailPage")
-    private ModelAndView eventDetailPage(@ModelAttribute AdminEventDTO eventDTO){
-        log.info("eventDetailPage ==================== eventDetailPage");
-        log.info("eventDTO ==================== eventDTO" + eventDTO);
-
-//        List<AdminEventDTO> eventDTOs = adminEventService.eventDetail(eventDTO);
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("admin/content/event/eventDetail");
-//        mv.addObject(eventDTOs);
-
+    @PostMapping(value = "/register", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String registerEvent(@RequestBody AdminEventForm form) {
+        String searchStartDay = form.getSearchStartDay();
+        String status = form.getStatus();
+        String searchEndDay = form.getSearchEndDay();
+        List<String> allProductCodes = form.getAllProductCodes();
+        double price = form.getPrice() * 0.01;
+        form.setPrice(price);
 
 
-        return mv;
+        log.info("");
+        log.info("");
+        log.info("*************************" + status);
+        log.info("*************************" + searchStartDay);
+        log.info("*************************" + searchEndDay);
+        log.info("*************************" + price);
+        log.info("*************************" + allProductCodes);
+        log.info("*************************" + form);
+
+
+
+        adminEventService.updateEventStatus(form);
+
+        return "admin/content/event/eventDetail";
+
+    }
+
+    @PostMapping(value = "/productSearch", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<AdminProductDTO> productSearch(@RequestParam("prdKeyword") String prdKeyword,
+                                               @RequestParam("searchValue") String searchValue,
+                                               @RequestParam("searchStartPrice") String searchStartPrice,
+                                               @RequestParam("searchEndPrice") String searchEndPrice,
+                                               @RequestParam("subCategoryName") String subCategoryName) {
+        log.info("");
+        log.info("");
+        log.info("*************************" + prdKeyword);
+        log.info("*************************" + searchValue);
+        log.info("*************************" + searchStartPrice);
+        log.info("*************************" + searchEndPrice);
+        log.info("*************************" + subCategoryName);
+
+        AdminEventForm form =new AdminEventForm();
+        form.setPrdKeyword(prdKeyword);
+        form.setSearchValue(searchValue);
+        form.setSearchStartPrice(Integer.parseInt(searchStartPrice));
+        form.setSearchEndPrice(Integer.parseInt(searchEndPrice));
+        if(subCategoryName != "") {
+            form.setSubCategoryName(Integer.parseInt(subCategoryName));
+        }
+
+        log.info("*************************" + form);
+
+
+
+        List<AdminProductDTO> productDTO = adminEventService.searchProduct(form);
+        int totalResult = productDTO.size();
+
+        log.info("*************************" + productDTO);
+        productDTO.get(0).setReviews(totalResult);
+
+
+        return productDTO;
+    }
+
+
+
+
+    @GetMapping("/eventDetailPage")
+    private String eventDetail(@RequestParam("postCode") int postCode, Model model){
+        log.info("eventDetail ==================== start");
+        log.info("postCode ==================== " + postCode);
+
+        List<AdminEventDTO> adminEventDTO = adminEventService.eventDetail(postCode);
+
+        log.info("adminEventDTO ==================== " + adminEventDTO);
+        model.addAttribute("event", adminEventDTO);
+
+
+        return "admin/content/event/eventDetail";
 
     }
 

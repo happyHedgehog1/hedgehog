@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminService.controller;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminService.model.dto.*;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryService;
@@ -8,6 +9,7 @@ import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,6 +30,21 @@ public class AdminServiceController {
         this.adminReviewServiceImpl = adminReviewServiceImpl;
         this.adminFAQServiceImpl = adminFAQServiceImpl;
 
+    }
+    @GetMapping("/reviewDetail")
+    public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
+        log.info("*********************** reviewDetail");
+        log.info("*********************** Review_code"+Review_code);
+
+        AdminReviewDTO adminReviewDTO = adminReviewServiceImpl.reviewDetail(Review_code);
+
+
+        log.info("*******************adminReviewDTO :" + adminReviewDTO);
+        model.addAttribute("adminReviewDTO", adminReviewDTO);
+
+
+
+        return "admin/content/Service/Product-review-details";
     }
 
 

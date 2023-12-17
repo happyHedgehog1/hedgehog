@@ -434,17 +434,19 @@ public class AdminProductController {
         log.info("=============================countN" + countN);
 
 
-        ModelAndView modelAndView = new ModelAndView("admin/content/product/productSerch");
-        modelAndView.addObject("productList", productList); // 모델에 productList를 추가
-        modelAndView.addObject("totalResult", totalResult);
-        modelAndView.addObject("countY", countY);
-        modelAndView.addObject("countN", countN);
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("productList", productList); // 모델에 productList를 추가
+        mv.addObject("totalResult", totalResult);
+        mv.addObject("countY", countY);
+        mv.addObject("countN", countN);
+        mv.setViewName("admin/content/product/productserch");
 
 
 
         log.info("totalResult" + String.valueOf(totalResult));
 
-        return modelAndView;
+        return mv;
     }
 
 

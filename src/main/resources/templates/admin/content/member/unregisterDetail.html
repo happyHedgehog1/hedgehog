@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>탈퇴회원 상세조회</title>
+    <link rel="stylesheet" th:href="@{/admin/css/autoMail/viewport/viewport.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
+</head>
+<body>
+<div id="wrap">
+    <header>
+        <div class="logobackground">
+            <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+            <h2>탈퇴회원 상세조회</h2>
+        </div>
+    </header>
+    <div class="body">
+        <div class="wrap">
+            <table>
+                <tr>
+                    <th>아이디</th>
+                    <th>탈퇴신청일</th>
+                    <th>탈퇴신청취소일</th>
+                    <th>탈퇴완료일</th>
+                    <th>탈퇴여부</th>
+                </tr>
+                <tr>
+                    <td th:text="${unregisterDetail.id}"></td>
+                    <td th:text="${unregisterDetail.getCommit_date()}"></td>
+                    <td th:text="${unregisterDetail.cancel_date}"></td>
+                    <td th:text="${unregisterDetail.commit_date}"></td>
+                    <td th:text="${unregisterDetail.state}"></td>
+                </tr>
+                <tr>
+                    <th>탈퇴 사유</th>
+                    <td th:text="${unregisterDetail.cause}" colspan="4"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -22,6 +22,7 @@
 .tblTop th{
     text-align: left;
     padding-left: 40px;
+
 }
 
 
@@ -127,9 +128,7 @@ button#btnSearch:active {
     padding-left: 300px;
 }
 
-input{
-    width: 200px;
-}
+
 
 .colorRed{
     color: #CD4747;
@@ -295,4 +294,8 @@ button#btnCommit {
     border: 0;
     font-size: 15px;
 
+}
+
+.reviewImg{
+    height: 60px;
 }

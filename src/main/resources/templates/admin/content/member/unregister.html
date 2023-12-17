@@ -117,9 +117,12 @@
                         <div class="tblWrapper">
                         <table class="tblBottom" id="unregister">
                             <colgroup>
+                                <col class="w140">
                                 <col class="w200">
                                 <col class="w200">
                                 <col class="w200">
+                                <col class="w200">
+                                <col class="w140">
                                 <col class="w200">
 
                             </colgroup>
@@ -142,7 +145,7 @@
                                     <td th:text="${ unregister.id}"></td>
                                     <td th:text="${ unregister.apply_date}"></td>
                                     <td th:text="${ unregister.commit_date}"></td>
-                                    <td th:text="${ unregister.cause}"></td>
+                                    <td th:text="${#strings.length(unregister.cause) > 15 ? #strings.substring(unregister.cause, 0, 15) + '..' : unregister.cause}"></td>
                                     <td th:text="${ unregister.state}"></td>
                                     <td th:text="${ unregister.cancel_date}"></td>
                                 </tr>
