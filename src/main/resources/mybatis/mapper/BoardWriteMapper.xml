@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.board.model.dao.BoardWriteMapper">
+    <insert id="insertTblInquiry">
+        <trim prefix="INSERT INTO tbl_inquiry (write_date, post_type, title, content, member_code) VALUES(now()," suffix=")">
+            <if test="option == '1'">
+                '배송',
+            </if>
+            <if test="option == '2'">
+                '상품',
+            </if>
+            <if test="option == '3'">
+                '교환',
+            </if>
+            <if test="option == '4'">
+                '환불',
+            </if>
+            <if test="option == '5'">
+                '기타',
+            </if>
+            #{inputTitle}, #{newEditordata}, #{userCode})
+        </trim>
+    </insert>
+    <select id="getLastInsertCode">
+        SELECT LAST_INSERT_ID()
+        FROM tbl_inquiry LIMIT 1
+    </select>
+    <insert id="insertPostImage">
+        INSERT INTO tbl_post_img (post_code, create_date, convert_path,save_path,source_name,convert_name,post_type)
+        VALUES
+            <foreach collection="uploadedImageList" item="image" separator=",">
+                (#{inquiryCode}, now(),#{image.convertPath}, #{image.savePath},#{image.sourcePath}, #{image.convertName},'문의')
+            </foreach>
+    </insert>
+</mapper>

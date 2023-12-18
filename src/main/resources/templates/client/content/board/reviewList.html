@@ -21,14 +21,11 @@
                 <table id="contents_table">
                     <caption>리뷰게시판</caption>
                 </table>
-                <hr style="border: 0.1px solid rgb(218, 217, 217);">
+                <hr style="border: 0.1px solid black;height:0.1em;background:black;">
                 <div class="review_wrapper" th:each="review : ${reviewList}"
-                    th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
+                     th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                     <div class="reviewInfoWrap">
-                        <!-- 제품 썸네일 -->
                         <div id="reviewInfo">
-                            <div><img th:src="|/thumbPath${review.productImgPath}|" alt="제품썸네일입니다."></div>
-                            <!-- 제품 썸네일 -->
                             <div>
                                 <div>제품이름 :
                                     <th:block th:text="${review.productName}"></th:block>
@@ -48,23 +45,23 @@
                                 <div th:text="${#dates.format(review.writeDate,'yyyy-MM-dd HH:MM')}"></div>
                             </div>
                         </div>
-                        <div id="userIdWrapper">아이디 : <span th:text="|${review.memberId[0] + #strings.repeat('*', review.memberId.length()-2) + review.memberId[review.memberId.length()-1]}|"></span>
+                        <div id="userIdWrapper">아이디 : <span
+                                th:text="|${review.memberId[0] + #strings.repeat('*', review.memberId.length()-2) + review.memberId[review.memberId.length()-1]}|"></span>
                         </div>
                     </div>
                     <hr style="border: 0.1px solid rgb(218, 217, 217);">
                     <div class="review_content_wrapper">
-                        <div th:utext="${review.content}" class="content">
+                        <!--${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}-->
+                        <div th:utext="${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}"
+                             class="content">
                         </div>
                         <div class="img_and_btn">
                             <!-- 사용자가 올린 후기 사진 -->
-                            <div class="review_img"><img src="" alt="후기사진이 여기 올라옵니다."></div>
-                            <!--삭제버튼은 나중에 추가-->
-                            <!--<div>-->
-                            <!--    <button>삭제</button>-->
-                            <!--</div>-->
+                            <div class="review_img">
+                                <img src="" alt="후기사진이 여기 올라옵니다."></div>
                         </div>
                     </div>
-                    <hr>
+                    <hr style="border: 0.1px solid black;height:0.1em;background:black;">
                 </div>
             </div>
             <div id="write_buttons_wrap">
