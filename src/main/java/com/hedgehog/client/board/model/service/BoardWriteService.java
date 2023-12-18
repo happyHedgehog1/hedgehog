@@ -33,18 +33,23 @@ public class BoardWriteService {
         if (result != 1) {
             return false;
         }
+        log.info("tbl_inquiry에 값이 들어갔냐... : " + (result == 1 ? true : false));
         // 3. 게시물 코드 가져오기
         Integer inquiryCode = mapper.getLastInsertCode();
         if (inquiryCode == null) {
             return false;
         }
         // 사진 넣기.
+        log.info("getLastInsertCode로 값을 받았냐... : " + inquiryCode);
+
 
         int result2 = mapper.insertPostImage(inquiryCode, uploadedImageList);
 
         if (result2 != uploadedImageList.size()) {
             return false;
         }
+        log.info("이미지가 올라가긴 했냐 : " + result2);
+
 
         return true;
     }
