@@ -7,6 +7,8 @@ import com.hedgehog.client.auth.model.service.AuthServiceImpl;
 import com.hedgehog.client.auth.model.service.SearchUserInfoService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserRegistPostException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,9 +33,28 @@ public class AuthController {
     private final SearchUserInfoService searchUserInfoService;
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam(name = "order", required = false) String order, Model model) {
-        model.addAttribute("order", order);
-        return "client/content/auth/login.html";
+    public ModelAndView loginPage(HttpServletRequest request, ModelAndView mv) {
+        Cookie[] cookies = request.getCookies();
+        boolean saveIdCookieExists = false;
+        String saveId = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    saveIdCookieExists = true;
+                    saveId = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        if (saveIdCookieExists) {
+            mv.addObject("saveId", saveId);
+            mv.addObject("saveIdCheck", true);
+        } else {
+            mv.addObject("saveId", null);
+            mv.addObject("saveIdCheck", false);
+        }
+        mv.setViewName("client/content/auth/login.html");
+        return mv;
     }
 
     @GetMapping("/regist")
@@ -177,7 +198,7 @@ public class AuthController {
                                                         @RequestParam String email) {
         Map<String, Object> response = new HashMap<>();
         log.info("여기까진 접근했나?");
-        Integer certificationCode = searchUserInfoService.selectMemberByUserIdAndEmail(userId,email); // Member 부분에서
+        Integer certificationCode = searchUserInfoService.selectMemberByUserIdAndEmail(userId, email); // Member 부분에서
         log.info("멤버가 존재한다.(있으면 숫자, 없으면 null) : " + certificationCode);
         if (certificationCode != null) {
             response.put("certifiedCode", certificationCode);
@@ -213,7 +234,7 @@ public class AuthController {
          * 인증번호 PK(계정에 부여된)
          * */
 
-        String newUserPassword = searchUserInfoService.insertUserPassword(userId,email, emailAuthenticationNumber, hiddenCertifiedKey);
+        String newUserPassword = searchUserInfoService.insertUserPassword(userId, email, emailAuthenticationNumber, hiddenCertifiedKey);
 
         if (newUserPassword != null) {
             redirectAttributes.addFlashAttribute("message", "새로운 비밀번호는 " + newUserPassword + " 입니다. 반드시 비밀번호를 바꿔주세요.");
