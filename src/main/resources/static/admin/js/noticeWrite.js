@@ -1,42 +1,42 @@
-$(document).ready(function () {
-    $('#summernote').summernote({
-        tabsize: 2,
-        height: 300,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ],
-        callbacks:{
-            onImageUpload : function(files){
-                uploadSummernoteImageFile(files[0],this);
+$('#summernote').summernote({
+    placeholder: '공지사항을 입력하세요플레',
+    tabsize: 2,
+    height: 300,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'underline', 'clear']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['table', ['table']],
+      ['insert', ['link', 'picture', 'video']],
+      ['view', ['fullscreen', 'codeview', 'help']]
+    ]
+  });
 
-            }}
+$(document).ready(function() {
+    $('#summernote').summernote();
+
+    // 저장 버튼 클릭 시 Summernote 내용을 서버로 전송
+    $('#submit').on('click', function() {
+        var summernoteContent = $('#summernote').summernote('code');
+
+        // Ajax를 사용하여 서버로 데이터 전송
+        $.ajax({
+            type: 'POST',
+            url: '/Service/noticeRegister', // 실제 컨트롤러의 엔드포인트로 대체
+            data: {
+                content: summernoteContent
+            },
+            success: function(response) {
+                console.log('Success:', response);
+                // 성공적으로 서버에 데이터를 전송한 후의 동작을 추가
+            },
+            error: function(error) {
+                console.log('Error:', error);
+                // 서버 전송 중 오류가 발생한 경우의 동작을 추가
+            }
+        });
     });
-//
-// function uploadSummernoteImageFile(file,editor){
-//     data = new FormData();
-//     data.append("file",file);
-//     $.ajax({
-//         data:data,
-//         type:"POST",
-//         url:"/uploadSummernoteImageFile",
-//         dataType:"JSON",
-//         contentType:false,
-//         processData:false,
-//         success:function(data){
-//             $(editor).summernote("insertImage",data.url);
-//             $("#thumbnailPath").append("<option value="+data.url+">"+data.originName+"</option>");
-//         }
-//
-//     });
-//
-//
-// }
-//
-//
 });
+
+

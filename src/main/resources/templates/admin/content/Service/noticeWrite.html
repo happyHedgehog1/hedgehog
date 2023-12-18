@@ -15,29 +15,30 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <form id="noticeForm" th:action="@{ /Service/noticeRegister}" method="post">
                 <div class="pageBody">
                     <div class="mainHd">
                         <div class="topTitle">
                             <h4>게시판관리</h4>
                         </div>
                         <div class="topbtnWrapper">
-                            <div class="pageButton"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
-                            <div class="pageButton"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
-                            <div class="pageButton"><a href="../Service/FAQ.html">FAQ 관리</a></div>
-                            <div class="pageButton1"><a href="../Service/notice.html">공지사항 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/productInquiryPage}">상품 문의 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/Product-reviewPage}">상품 후기 관리</a></div>
+                            <div class="pageButton"><a th:href="@{/Service/FAQPage }">FAQ 관리</a></div>
+                            <div class="pageButton1"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                         </div>
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
-                            <form id="noticeWrite" th:action="@{/Service/noticeWrite}" method="post">
+
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
                                     <col>
                                 </colgroup>
                                 <tbody>
-                                    <tr>        
-                                        <th>제목</th>    
+                                    <tr>
+                                        <th>제목</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li>
@@ -46,40 +47,68 @@
                                                     <li>
                                                         <label for=""><input type="checkbox" name="" id=""> 상단고정</label>
                                                     </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr> 
-                                    <tr>        
-                                        <th>내용</th>    
+                                                </ul>
+                                            </td>
+                                    </tr>
+                                    <tr>
+                                        <th>내용</th>
                                         <td>
-                                            <textarea id="summernote" name="content"></textarea>
+                                            <textarea  id="summernote" class="summernote" name="content"></textarea>
                                         </td>
-                                    </tr>    
-                                    <tr>        
-                                        <th>공개여부</th>    
+                                    </tr>
+                                    <tr>
+                                        <th>공개여부</th>
                                             <td>
                                                 <ul class="arrAlign">
                                                     <li class="w200">
                                                         <select name="state" id="state" >
                                                             <option value="0" selected>전체</option>
-                                                            <option value="Y">공개</option>
-                                                            <option value="N">비공개</option>
+                                                            <option value="1">공개</option>
+                                                            <option value="2">비공개</option>
                                                         </select>
                                                     </li>
-                                                </ul>    
-                                            </td>   
-                                    </tr>    
-                                    
-                                </tbody>    
+                                                </ul>
+                                            </td>
+                                    </tr>
+
+                                </tbody>
                             </table>
                             <div>
-                                <button type="submit" id="btnSearch"> 등록 </button>
+                                <button id="btnSearch" type="submit"> 등록 </button>
                             </div>
-                            </form>
-                        </div>    
+                        </div>
                     </div>
                 </div>
-            <script th:src="@{/admin/js/noticeWrite.js}"></script>
+            <script th:src="@{/admin/js/noticeWrite.js}">
+                $(document).ready(function() {
+                    // Summernote 초기화
+                    $('#summernote').summernote({
+                        placeholder: '',
+                        tabsize: 2,
+                        height: 500, // 필요에 따라 높이 조정
+                        width: 800,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'video']],
+                            ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                    });
+
+                    // 저장 버튼 클릭 이벤트
+                    $('#submit').on('click', function() {
+                        // Summernote 내용을 textarea에 설정
+                        $('#summernoteContent').val($('#summernote').summernote('code'));
+
+                        // 폼 제출
+                        $('#noticeForm').submit();
+                    });
+                });
+            </script>
+        <form>
 </th:block>
 </body>
 </html>

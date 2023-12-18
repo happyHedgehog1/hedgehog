@@ -5,7 +5,6 @@
 <mapper namespace="com.hedgehog.client.clientOrder.model.dao.CartOrderMapper">
 
 
-
 <resultMap id="CartOrderSelectResultMap" type="CartSelectDTO">
     <id property="cartCode" column="cart_code"/>
     <result property="productCode" column="product_code"/>
@@ -32,11 +31,76 @@
         left join
         tbl_product B ON A.product_code = B.product_code
         left join
-        tbl_product_img C ON A.product_code = C.product_code
-        WHERE A.cart_code IN
+        tbl_product_img C ON B.product_code = C.product_code
+        WHERE
+        A.cart_code IN
         <foreach collection="cartcheckbox" item="cartCode" open="(" separator="," close=")">
             #{cartCode}
         </foreach>
+        group by cart_code
+    </select>
+
+<!--    <select id="cartOrderSelect" resultMap="CartOrderSelectResultMap">-->
+<!--        SELECT-->
+<!--        A.cart_code,-->
+<!--        A.product_code,-->
+<!--        C.img_code,-->
+<!--        B.product_name,-->
+<!--        B.price,-->
+<!--        (B.price * 0.01) AS 적립금,-->
+<!--        B.delivery_charge,-->
+<!--        (B.price * A.amount + B.delivery_charge) AS 합계-->
+<!--        FROM-->
+<!--        tbl_cart A-->
+<!--        left join-->
+<!--        tbl_product B ON A.product_code = B.product_code-->
+<!--        left join-->
+<!--        tbl_product_img C ON B.product_code = C.product_code-->
+<!--        WHERE-->
+<!--        A.cart_code IN-->
+<!--        <foreach collection="cartcheckbox" item="cartCode" open="(" separator="," close=")" >-->
+<!--            #{cartCode}-->
+<!--        </foreach>-->
+<!--        AND cartcheckbox IS NOT NULL-->
+<!--        group by cart_code-->
+<!--    </select>-->
+
+
+
+
+
+
+
+    <select id="getOrderPoint" resultType="_int">
+        SELECT
+            point
+        FROM
+            tbl_member
+        WHERE member_code=#{userCode}
+    </select>
+
+
+
+    <update id="updateUserPoint" parameterType="java.util.Map" >
+        UPDATE tbl_member
+        SET point = point - #{usedPoints}
+        WHERE member_code = #{userCode}
+    </update>
+
+
+    <resultMap id="getOrderInfoResultMap" type="com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO">
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <select id="getOrderInfo" resultMap="getOrderInfoResultMap">
+        select
+                A.phone,
+                A.email
+        FROM
+                tbl_customer A
+        JOIN    tbl_member B ON A.customer_code = B.member_code
+        WHERE B.member_code = #{userCode}
     </select>
 
 

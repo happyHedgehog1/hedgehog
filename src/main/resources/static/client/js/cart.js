@@ -41,6 +41,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         });
     });
+    // 각 수량 hidden field에 대한 초기화 (기본 수량 설정)
+    var hdAmountElements = document.querySelectorAll('[name="hdAmount"]');
+    hdAmountElements.forEach(function (hdElement) {
+        // 현재 값이 없다면 기본 값을 설정 (1로 설정하거나, 필요에 따라서 다르게 설정)
+        if (hdElement.value === "") {
+            hdElement.value = 1; // 기본 값으로 1 설정
+            // 수량을 표시하는 요소도 업데이트
+            var quantityDisplayElement = hdElement.previousElementSibling;
+            quantityDisplayElement.innerText = 1;
+        }
+    });
+
 });
 
 
@@ -79,16 +91,20 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectAllItemsButton = document.getElementById('selectAllItems');
     selectAllItemsButton.addEventListener('click', function () {
         selectAllItems();
+        window.location.href = "/clientOrder/cartOrder";//이거 안써도 넘어가짐
+
     });
 
     // '선택상품주문하기' 버튼에 대한 이벤트 리스너 등록
     var selectOrderButton = document.getElementById('selectOrderButton');
     selectOrderButton.addEventListener('click', function () {
         selectOrderItems();
+        window.location.href = "/clientOrder/cartOrder";
+
     });
 });
 
-// 전체상품선택버튼
+// 전체상품 선택버튼
 function selectAllItems() {
     var checkboxes = document.querySelectorAll('[name="cartcheckbox"]');
 
@@ -98,77 +114,17 @@ function selectAllItems() {
     });
     updateTotalPrice();
 
-    sendSelectedItemsToServerAndRedirect();
-    // window.location.href = '/clientOrder/cartOrder';
-
 }
 
-//선택상품선택버튼
+//선택상품 선택버튼
 function selectOrderItems(){
     var selectedItems = getSelectedItems();
+    updateTotalPrice();
     console.log('선택상품주문하기 버튼에서 선택된 상품들:', selectedItems);
-    sendSelectedItemsToServerAndRedirect();
-    // window.location.href = '/clientOrder/cartOrder';
+
 }
 
-
-//선택된 상품의 정보를 가져오는 함수 공용으로 쓰임
-function getSelectedItems() {
-    var selectedItems = [];
-    var checkboxes = document.querySelectorAll('[name="cartcheckbox"]:checked');
-
-    checkboxes.forEach(function (checkbox) {
-        // 각 체크된 상품에 대한 처리를 추가
-        var cartCode = checkbox.closest('tr').getAttribute('data-cart-code');
-        var productName = checkbox.closest('tr').querySelector('.productName').innerText;
-        var price = checkbox.closest('tr').querySelector('.price').innerText;
-        var savedMoney = checkbox.closest('tr').querySelector('.savedMoney').innerText;
-        var amount = checkbox.closest('tr').querySelector('.amount').innerText;
-        var deliveryCharge = checkbox.closest('tr').querySelector('.deliveryCharge').innerText;
-        var productSum = checkbox.closest('tr').querySelector('.productSum').innerText;
-        var productCode = checkbox.closest('tr').querySelector('.productCode').innerText;
-        // 필요한 다른 정보들도 위와 같이 추가 가능
-        selectedItems.push({
-            cartCode: cartCode,
-            productName: productName,
-            price: price,
-            savedMoney: savedMoney,
-            amount: amount,
-            deliveryCharge: deliveryCharge,
-            productSum: productSum,
-            productCode: productCode
-        });
-    });
-
-    return selectedItems;
-}
-
-// 동기적으로 선택된 상품 정보를 서버에 전송하고 페이지 이동
-function sendSelectedItemsToServerAndRedirect() {
-    var selectedItems = getSelectedItems();
-
-    // 여기에 선택된 상품 정보를 서버에 동기적으로 전송하는 로직을 추가
-    // 예: form을 동적으로 생성하여 값을 채우고 submit하는 방법
-
-    var form = document.createElement('form');
-    form.action = '/clientOrder/cartOrder';
-    form.method = 'POST';
-
-    selectedItems.forEach(function (item) {
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'selectedItems[]';
-        input.value = JSON.stringify(item);
-        form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-}
-
-//======================
-
-//==============선택상품삭제=============
+//==============선택상품 삭제=============
 
 function deleteSelectedItems() {
     var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
@@ -218,7 +174,7 @@ function removeItemFromUI(cartCode) {
 //=========================================
 
 
-
+//선택상품 구매하기 alert창
 $(document).ready(function() {
     $('.select_order_btn').click(function(event) {
 
@@ -238,7 +194,7 @@ $(document).ready(function() {
 
 //여기부터
 
-// 페이지 로딩 시에도 한 번 호출
+// 체크박스에 클릭에 대한 값 변화
 document.addEventListener('DOMContentLoaded', function () {
     updateTotalPrice();
 
@@ -274,17 +230,6 @@ document.addEventListener('click', function (event) {
         }
 });
 
-// function updateAllCheckboxes(isChecked) {
-//     // 모든 행의 체크박스 상태 변경
-//     var checkboxes = document.querySelectorAll('.cart_table tbody tr td:first-child input');
-//     checkboxes.forEach(function (checkbox) {
-//         checkbox.checked = isChecked;
-//     });
-// }
-//이거 때문에 무한루프였던거 같은데
-
-
-
 //여기까지
 
 
@@ -294,8 +239,6 @@ document.addEventListener('click', function (event) {
 
 
 function updateTotalPrice() {
-    // 모든 체크된 체크박스 가져오기
-    // var checkedCheckboxes = document.querySelectorAll('.cart_table input.cartcheckbox:checked');
     var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
 
     // 총 상품 구매 금액 및 배송비를 저장할 변수 초기화
@@ -325,7 +268,7 @@ function updateTotalPrice() {
     console.log("Total Product Amount: " + totalProductAmount + ", Total Delivery Charge: " + totalDeliveryCharge);
 
 
-    // 총 상품 구매 금액이 10만원 이상인 경우 배송비를 0으로 설정
+    // 총 상품 구매 금액이 10만원 이상인 경우 배송비 0으로 설정
     if (totalProductAmount >= 100000) {
         totalDeliveryCharge = 0;
     }
@@ -341,4 +284,7 @@ function updateTotalPrice() {
     totalOrderElement.textContent = (totalProductAmount + totalDeliveryCharge).toLocaleString() + '원';
 
 }
+
+
+
 

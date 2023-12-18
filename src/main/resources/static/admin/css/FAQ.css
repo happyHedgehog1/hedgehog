@@ -177,7 +177,16 @@ input{
     text-align: center;
     border-right: #ebebeb 1px solid;
 }
+button#btnCommit {
+    width: 70px;
+    height: 30px;
+    margin-top: 30px;
+    color: white;
+    background-color: #A7727D;
+    border: 0;
+    font-size: 15px;
 
+}
 
 
 
@@ -292,8 +301,7 @@ button#btnDelete:active {
       margin-left: 24px;
   }
 
-
-#btnFAQAdd, #btnFAQAdd>a{
+#btnNoticeAdd, #btnNoticeAdd>a{
     display: flex;
     width: 130px;
     height: 50px;

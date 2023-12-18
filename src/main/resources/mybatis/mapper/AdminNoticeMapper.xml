@@ -12,6 +12,7 @@
         <result property="views" column="views"/>
         <result property="state" column="state"/>
         <result property="post_code" column="post_code"/>
+        <result property="post_type" column="post_type"/>
         <association property="id" resultMap="AdminUserDTOResultMap"/>
     </resultMap>
 
@@ -22,6 +23,7 @@
 
     <select id="searchNotice" resultMap="AdminFAQResultMap">
         SELECT
+
         A.post_code,
             A.title,
             A.content,
@@ -32,6 +34,7 @@
             A.state
         FROM tbl_admin_bulletin_board A
                  JOIN tbl_user B ON A.user_code = B.user_code
+        WHERE A.post_type = '공지사항'
         <where>
         <if test="notSearchStartDay != ''">
             <if test="notSearchEndDay != ''">
@@ -56,6 +59,7 @@
                 </if>
 
             </if>
+
         </where>
         and A.post_type = '공지사항'
     </select>

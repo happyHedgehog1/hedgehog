@@ -144,11 +144,6 @@ td {
 
 }
 
-/*.select_btn{*/
-/*  display:flex;*/
-
-/*}*/
-
 .select_all_btn{
   display: grid;
   border: 2px solid #d09191;

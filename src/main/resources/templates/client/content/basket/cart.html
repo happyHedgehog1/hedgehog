@@ -27,7 +27,7 @@
                              <div></div>
                 </div>
 
-<form action="/clientOrder/cartOrder" method="post">
+<form  action="/clientOrder/cartOrder" method="post">
 
             <table class="cart_table">
                           <thead>
@@ -36,7 +36,7 @@
                                  <th>이미지</th>
                                  <th>상품명</th>
                                  <th>판매가</th>
-                                 <th>적립포인트</th>
+                                 <th>예상 적립금</th>
                                  <th>수량</th>
                                  <th>배송비</th>
                                  <th>합계</th>
@@ -53,6 +53,7 @@
                                <td th:text="${item.productName}">상품명</td>
                                <td th:text="${item.price}">가격</td>
                                <td th:text="${item.savedMoney}">적립금</td>
+<!--                            <td th:text="${item.savedMoney * item.amount}">적립금</td>-->
                                <td class="cart_numbrt_btn">
                             <div class="quantity-container" data-product-id="${item.productCode}">
                                     <input type="hidden" th:value="${item.productCode}" style="display:none;">
@@ -75,7 +76,7 @@
 
                                 <div class="sum_text">
                                     <h1>합계</h1>
-                                    <h3>고객님의 총 주문 합계 금액 입니다.</h3>
+                                    <h3>고객님의 총 주문 금액 입니다.</h3>
                                 </div>
 
                                 <div class="sum_text2">
@@ -87,7 +88,7 @@
                                 <div class="sum_text3">
                                     <!-- 수정된 부분: id 추가 -->
                                     <span id="totalPrice" >0원</span>
-                                    <div id="deliveryCharge">0원</div>
+                                    <span id="deliveryCharge">0원</span>
                                     <span id="totalOrder">0원</span>
                                 </div>
 
@@ -123,19 +124,23 @@
                 <br>
 
 </form>
-                <script>
-                    document.getElementById('orderForm').addEventListener('submit', function() {
-                        var checkboxes = document.querySelectorAll('.cartcheckbox:checked');
-                        checkboxes.forEach(function(checkbox) {
-                            var cartCode = checkbox.dataset.cartCode;
-                            var hiddenInput = document.createElement('input');
-                            hiddenInput.type = 'hidden';
-                            hiddenInput.name = 'cartcheckbox';
-                            hiddenInput.value = cartCode;
-                            document.getElementById('orderForm').appendChild(hiddenInput);
-                        });
-                    });
-                </script>
+<!--                <script>-->
+<!--                    function updateQuantity(button, change) {-->
+<!--                        // 관련 엘리먼트 가져오기-->
+<!--                        var container = button.closest('.quantity-container');-->
+<!--                        var displaySpan = container.querySelector('.quantity-display');-->
+<!--                        var inputField = document.getElementById('quantity-input-' + container.dataset.productId);-->
+
+<!--                        // 현재 수량 가져오기-->
+<!--                        var currentQuantity = parseInt(displaySpan.textContent);-->
+<!--                        var newQuantity = currentQuantity + change;-->
+
+<!--                        // 표시 및 숨겨진 입력 필드 업데이트-->
+<!--                        displaySpan.textContent = newQuantity;-->
+<!--                        inputField.value = newQuantity;-->
+<!--                    }-->
+<!--                </script>-->
+
             </div>
            </section>
 

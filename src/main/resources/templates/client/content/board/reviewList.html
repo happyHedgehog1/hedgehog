@@ -5,6 +5,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <th:block layout:fragment="content">
+    <script th:src="@{/client/js/reviewList.js}"></script>
     <link rel="stylesheet" th:href="@{/client/css/reviewList.css}">
 
     <section>
@@ -21,7 +22,8 @@
                     <caption>리뷰게시판</caption>
                 </table>
                 <hr style="border: 0.1px solid rgb(218, 217, 217);">
-                <div class="review_wrapper" th:each="review : ${reviewList}">
+                <div class="review_wrapper" th:each="review : ${reviewList}"
+                    th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                     <div class="reviewInfoWrap">
                         <!-- 제품 썸네일 -->
                         <div id="reviewInfo">
@@ -46,7 +48,7 @@
                                 <div th:text="${#dates.format(review.writeDate,'yyyy-MM-dd HH:MM')}"></div>
                             </div>
                         </div>
-                        <div id="userIdWrapper">아이디 : <span th:text="${review.memberId}"></span>
+                        <div id="userIdWrapper">아이디 : <span th:text="|${review.memberId[0] + #strings.repeat('*', review.memberId.length()-2) + review.memberId[review.memberId.length()-1]}|"></span>
                         </div>
                     </div>
                     <hr style="border: 0.1px solid rgb(218, 217, 217);">
