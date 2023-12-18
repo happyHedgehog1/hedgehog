@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항작성</title>
+    <title>FAQ작성</title>
     <link rel="stylesheet" th:href="@{/admin/css/noticeWrite.css}" type="text/css">
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -23,13 +23,13 @@
                         <div class="topbtnWrapper">
                             <div class="pageButton"><a href="../Service/Product-inquiry.html">상품 문의 관리</a></div>
                             <div class="pageButton"><a href="../Service/Product-review.html">상품 후기 관리</a></div>
-                            <div class="pageButton"><a href="../Service/FAQ.html">FAQ 관리</a></div>
-                            <div class="pageButton1"><a href="../Service/notice.html">공지사항 관리</a></div>
+                            <div class="pageButton1"><a href="../Service/FAQ.html">FAQ 관리</a></div>
+                            <div class="pageButton"><a href="../Service/notice.html">공지사항 관리</a></div>
                         </div>
                     </div>
+                    <form id="FAQWrite" th:action="@{/Service/FAQWrite}" method="post">
                     <div class="sectTopWrapper">
                         <div class="sectTop">
-                            <form id="noticeWrite" th:action="@{/Service/noticeWrite}" method="post">
                             <table class="tblTop">
                                 <colgroup>
                                     <col class="w200">
@@ -75,9 +75,9 @@
                             <div>
                                 <button type="submit" id="btnSearch"> 등록 </button>
                             </div>
-                            </form>
                         </div>    
                     </div>
+                    </form>
                 </div>
             <script th:src="@{/admin/js/noticeWrite.js}"></script>
 </th:block>

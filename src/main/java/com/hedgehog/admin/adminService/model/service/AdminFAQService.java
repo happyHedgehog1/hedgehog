@@ -11,6 +11,9 @@ public interface AdminFAQService {
 
     List<AdminFAQDTO> searchFAQ(AdminFAQForm form);
 
-    @Transactional
     void FAQStateUpdate(AdminFAQDTO faqdto) throws BoardException;
+
+    void insertFAQ(AdminFAQDTO adminFAQDTO) throws BoardException;
+
+    void insertNotice(AdminFAQDTO adminFAQDTO) throws BoardException;
 }

@@ -57,6 +57,7 @@
 
             </if>
         </where>
+        and A.post_type = '공지사항'
     </select>
 
     <update id="noticeStateUpdate" parameterType="_int">

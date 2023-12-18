@@ -14,4 +14,8 @@ public interface AdminFAQMapper {
     int FAQStateUpdate(AdminFAQDTO faqdto);
 
     int noticeStateUpdate(AdminFAQDTO faqdto);
+
+    int insertFAQ(AdminFAQDTO adminFAQDTO);
+
+    int insertNotice(AdminFAQDTO adminFAQDTO);
 }

@@ -24,7 +24,7 @@
                             <div class="pageButton"><a th:href="@{/Service/FAQPage}">FAQ 관리</a></div>
                             <div class="pageButton1"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                             </div>
-                        <div id="btnNoticeAdd"><a th:href="@{/Service/noticeWrite}">공지사항등록</a></div>
+                        <div id="btnNoticeAdd"><a th:href="@{/Service/noticeWritePage}">공지사항등록</a></div>
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
@@ -132,7 +132,7 @@
                                     <tr class="proSearchBottomtr" th:each="FAQ : ${ noticeList }">
                                     <td class="proSearchBottomCheck">
                                         <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
-                                               th:value="${FAQ.getPost_code()}">>
+                                               th:value="${FAQ.getPost_code()}">
                                     </td>
                                     <td th:text="${ FAQ.title }"></td>
                                     <td th:text="${ FAQ.content }"></td>

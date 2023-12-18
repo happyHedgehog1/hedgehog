@@ -8,6 +8,7 @@ import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +76,28 @@ public class AdminServiceController {
 
 
         return "admin/content/Service/Product-review-details";
+    }
+
+    @PostMapping(value = "/noticeWrite")
+    private String noticeWrite(@ModelAttribute AdminFAQDTO adminFAQDTO) throws BoardException {
+
+        log.info(adminFAQDTO + "-----------------------------");
+
+        adminFAQServiceImpl.insertNotice(adminFAQDTO);
+
+
+        return "admin/content/Service/notice";
+    }
+
+    @PostMapping(value = "/FAQWrite")
+    private String FAQWrite(@ModelAttribute AdminFAQDTO adminFAQDTO) throws BoardException {
+
+        log.info(adminFAQDTO + "-----------------------------");
+
+        adminFAQServiceImpl.insertFAQ(adminFAQDTO);
+
+
+        return "admin/content/Service/FAQ";
     }
 
 
@@ -359,9 +382,13 @@ public class AdminServiceController {
         return "admin/content/Service/autoMail";
     }
 
-    @GetMapping("/noticeWrite")
-    public String noticeWrite() {
+    @GetMapping("/noticeWritePage")
+    public String noticeWritePage() {
         return "admin/content/Service/noticeWrite";
+    }
+    @GetMapping("/FAQWritePage")
+    public String FAQWritePage() {
+        return "admin/content/Service/FAQWrite";
     }
 
     @GetMapping("/detail")

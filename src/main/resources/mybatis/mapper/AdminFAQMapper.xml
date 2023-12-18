@@ -64,5 +64,29 @@
         </choose>
         WHERE post_code = #{post_code}
     </update>
+    <insert id="insertFAQ" >
+        INSERT INTO tbl_admin_bulletin_board
+        (write_date,
+        content,
+        title,
+        post_type,
+        user_code,
+        state
+        )
+        values
+            (now(), #{content}, #{title}, 'FAQ', 2, #{state})
+    </insert>
+    <insert id="insertNotice" >
+        INSERT INTO tbl_admin_bulletin_board
+        (write_date,
+         content,
+         title,
+         post_type,
+         user_code,
+         state
+        )
+        values
+            (now(), #{content}, #{title}, '공지사항', 2, #{state})
+    </insert>
 
 </mapper>

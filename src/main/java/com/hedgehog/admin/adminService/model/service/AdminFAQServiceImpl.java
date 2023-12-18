@@ -40,6 +40,29 @@ public class AdminFAQServiceImpl implements AdminFAQService {
     }
     }
 
+    @Override
+    @Transactional
+    public void insertFAQ(AdminFAQDTO adminFAQDTO) throws BoardException {
+
+        log.info("");
+
+        int result = mapper.insertFAQ(adminFAQDTO);
+        if (!(result > 0)){
+            throw new BoardException("상태 변경에 실패하셨습니다.");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void insertNotice(AdminFAQDTO adminFAQDTO) throws BoardException {
+        log.info("");
+
+        int result = mapper.insertNotice(adminFAQDTO);
+        if (!(result > 0)){
+            throw new BoardException("상태 변경에 실패하셨습니다.");
+        }
+    }
+
     public void noticeStateUpdate(AdminFAQDTO faqdto) throws BoardException {
         log.info("");
 
