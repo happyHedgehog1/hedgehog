@@ -162,6 +162,11 @@ public class AdminServiceController {
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
         return "redirect:/Service/Product-review";
     }
+    //상품문의 답변
+    @GetMapping("/inquiryDetail")
+    public String productInquiryDetail() {
+        return "admin/content/Service/Product-inquiry-details";
+    }
 
 
     //FAQ 첫화면
@@ -354,9 +359,6 @@ public class AdminServiceController {
         return "admin/content/Service/noticeWrite";
     }
 
-    @GetMapping("/detail")
-    public String productInquiryDetail() {
-        return "admin/content/Service/Product-inquiry-details";
-    }
+
 
 }
