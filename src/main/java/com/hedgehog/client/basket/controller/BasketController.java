@@ -67,15 +67,14 @@ public class BasketController {
             @AuthenticationPrincipal LoginDetails loginDetails,
             @RequestBody List<Integer> cartCodes,
             RedirectAttributes redirectAttributes) {
-//        System.out.println("cartCode = " + cartCodes.get(0));
-//        System.out.println("cartCode = " + cartCodes.get(1));
+
         LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
 
         // cartCodes에 대한 삭제 로직 수행
         basketService.deleteCartItems(cartCodes);
-//        basketService.deleteCartItems();
+
         // 삭제가 완료된 후에 적절한 리다이렉트 또는 다른 동작을 수행
-        //redirectAttributes.addFlashAttribute("userCode", loginUserDTO.getUserCode());
+//        redirectAttributes.addFlashAttribute("userCode", loginUserDTO.getUserCode());
         return "success";
     }
 

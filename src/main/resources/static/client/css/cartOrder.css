@@ -80,15 +80,14 @@
 
 .total_price {
   display: flex;
-  justify-self: center;
-  min-width: 450px;
+  min-width: 100%;
   background-color: #f2f2f2;
   border: 1px solid #d09191;
   border-radius: 10px;
   padding: 5px;
-  width: 100%;
+  width: 450px;
+  height: 140px;
   justify-content: center;
-  align-items: center;
 
 
 }
