@@ -36,7 +36,6 @@
 
 .sectTop{
     position: relative;
-    height: 650px;
 }
 .sectTopTop{
     position: relative;
@@ -309,3 +308,34 @@ button#btnModalProdAdd:active {
     border: 0;
     font-size: 15px;
   }
+
+.center{
+    text-align: center;
+    height: 100px;
+}
+
+
+#btnEventSubmit{
+    display: block;
+    margin: auto;
+    width: 150px;
+    height: 70px;
+    margin-top: 30px;
+    color: white;
+    background-color: #A7727D;
+    border: 0;
+    font-size: 20px;
+    margin-bottom: 30px;
+
+}
+
+
+button#btnEventSubmit:active {
+    background-color: #3F464F;
+    width: 150px;
+    height: 70px;
+    margin-top: 30px;
+    color: white;
+    border: 0;
+    font-size: 20px;
+}

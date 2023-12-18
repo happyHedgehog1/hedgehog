@@ -31,13 +31,13 @@
                     <th>등록일</th>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td th:text="${event.get(0).postCode}"></td>
+                    <td th:text="${event.get(0).startDay}"></td>
+                    <td th:text="${event.get(0).endDay}"></td>
+                    <td th:text="${event.get(0).status == 'N' ? '이벤트 종료' : '이벤트 진행중'}" th:classappend="${event.get(0).status == 'N' ? 'colorRed' : ''}"></td>
+                    <td th:text="${event.get(0).title}"></td>
+                    <td th:text="${event.get(0).discount * 100 + '%'}"></td>
+                    <td th:text="${event.get(0).writeDate}"></td>
                 </tr>
                 <tr>
                     <th>No.</th>
@@ -46,12 +46,13 @@
                     <th>정가</th>
                     <th>할인가</th>
                 </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td colspan="3"></td>
-                <td></td>
-                <td></td>
+                <tr th:each="eventList, stat : ${event.get(0).getProductDTOList()}">
+                    <td th:text="${stat.index +1}"></td>
+                    <td><img class="reviewImg" th:src="@{|/thumbPath${event.get(0).attachment.get(0).savePath}|}"></td>
+                    <td th:text="${eventList.productName}"  colspan="3" ></td>
+                    <td th:text="${eventList.price}"></td>
+                    <td th:text="${eventList.price - (eventList.price * event.get(0).discount)}"></td>
+                    <td></td>
                 </tr>
 
             </table>

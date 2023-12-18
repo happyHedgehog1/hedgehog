@@ -18,21 +18,7 @@
 
 });
 
-    /**
-     * 이벤트 목록 조회 체크박스 상태 업데이트
-     */
-    $(document).ready(function () {
-        // 상위 체크박스를 클릭할 때
-        $(".eventSearchResult th input[type='checkbox']").change(function () {
-            // 해당 상위 체크박스의 체크 상태를 가져옴
-            var isChecked = $(this).prop("checked");
 
-            // 하위 체크박스들의 상태를 업데이트
-            $(".eventSearchBottomTr input[type='checkbox']").prop("checked", isChecked);
-
-        });
-
-    });
     /**
      * 이벤트 목록 조회 마우스 오버 메소드
      */
@@ -51,7 +37,7 @@
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsEvent[i].onclick = function() {
+                $tdsEvent[i].ondblclick = function() {
                     const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
                     const eventDetailUrl = "/event/eventDetailPage?postCode=" + postCode ;
 
@@ -104,8 +90,10 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const userCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    const unregisterDetailUrl = "/unregister/unregisterDetail?userCode=" + userCode;
+                    window.open(unregisterDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
@@ -132,7 +120,7 @@
                     const member_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
 
                     const memberDetailUrl = "/member/pointPage?member_code=" + member_code;
-                    window.open(memberDetailUrl, "_blank", "width=820, height=1000");
+                    window.open(memberDetailUrl, "_blank", "width=840, height=500");
                 };
             }
         }
@@ -158,7 +146,7 @@
                     const orderCode = this.parentNode.querySelector("td:nth-child(3)").innerText;
 
                     const orderDetailUrl = "/order/orderDetail?orderCode=" + orderCode;
-                    window.open(orderDetailUrl, "_blank", "width=1500, height=1000");
+                    window.open(orderDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
@@ -185,6 +173,9 @@
             }
             }
 
+        /**
+         * 상품 후기 온클릭
+         */
         if (document.querySelectorAll("#productReview td")) {
             const $tdsProduct = document.querySelectorAll("#productReview td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -200,8 +191,11 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const Review_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    const reviewDetailUrl = "/Service/reviewDetail?Review_code=" + Review_code;
+
+                    window.open(reviewDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
@@ -278,8 +272,6 @@
                 console.log('Selected upperCategoryCode:', upperCategoryCode);
             }
         }
-
-
         // Ajax를 이용하여 서버에서 데이터 가져오기
         $.ajax({
             url: '/product/category/' + upperCategoryCode,
@@ -299,3 +291,4 @@
             }
         });
     }
+

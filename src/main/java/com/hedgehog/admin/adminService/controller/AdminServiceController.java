@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminService.controller;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminService.model.dto.*;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
@@ -28,6 +29,21 @@ public class AdminServiceController {
         this.adminReviewServiceImpl = adminReviewServiceImpl;
         this.adminFAQServiceImpl = adminFAQServiceImpl;
 
+    }
+    @GetMapping("/reviewDetail")
+    public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
+        log.info("*********************** reviewDetail");
+        log.info("*********************** Review_code"+Review_code);
+
+        AdminReviewDTO adminReviewDTO = adminReviewServiceImpl.reviewDetail(Review_code);
+
+
+        log.info("*******************adminReviewDTO :" + adminReviewDTO);
+        model.addAttribute("adminReviewDTO", adminReviewDTO);
+
+
+
+        return "admin/content/Service/Product-review-details";
     }
 
 

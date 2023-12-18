@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminEvent.model.dto;
 
 import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
+import com.hedgehog.admin.adminProduct.model.dto.AttachmentDTO;
 import lombok.*;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public class AdminEventDTO {
     private double discount;
     private List<AdminEventProductListDTO> eventProductList;
     private List<AdminProductDTO> productDTOList;
+    private List<AttachmentDTO> attachment;
+
 }
