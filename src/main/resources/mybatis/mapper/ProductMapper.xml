@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.product.model.dao.ProductInfoMapper">
+
+    <resultMap id="ProductImgResultMap" type="ProductDetailDTO">
+        <id property="no" column="img_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="convertPath" column="convert_path"/>
+        <result property="imageClassification" column="image_classification"/>
+        <collection property="productText" resultMap="productTextResultMap"/>
+    </resultMap>
+
+    <resultMap id="productTextResultMap" type="ProductTextDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="productPrice" column="price"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+
+
+    <select id="selectProductDetail" resultMap="ProductImgResultMap">
+        SELECT
+            A.product_code,
+            B.convert_path,
+            B.image_classification,
+            A.product_name,
+            A.price,
+            D.name
+        FROM tbl_product A
+        LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
+        LEFT JOIN tbl_option_list C ON (A.product_code = C.product_code)
+        LEFT JOIN tbl_option D ON (C.option_code = D.option_code)
+        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND A.product_code = #{number}
+        AND C.exposure_status = 'Y' AND C.stock > 0
+
+    </select>
+
+
+
+
+
+</mapper>
