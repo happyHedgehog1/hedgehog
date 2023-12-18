@@ -164,7 +164,7 @@ public class BoardWriteController {
                     .toFile(convertFile);
 
             returnMap.put("convertPath", convertPath);
-            returnMap.put("savePath", fileUploadDirectory + "/" + convertName);
+            returnMap.put("savePath", fileUploadDirectory);
             returnMap.put("sourceName", originalFileName);
             returnMap.put("convertName", convertName);
             returnMap.put("url", "/thumbPath" + convertPath);
