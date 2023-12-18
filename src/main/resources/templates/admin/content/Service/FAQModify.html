@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ작성</title>
+    <title>FAQ수정</title>
     <link rel="stylesheet" th:href="@{/admin/css/noticeWrite.css}" type="text/css">
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -29,8 +29,9 @@
             </div>
             <div class="sectTopWrapper">
                 <div class="sectTop">
-                    <form id="FAQForm" th:action="@{/Service/FAQRegister}" method="post">
+                    <form id="FAQForm" th:action="@{/Service/FAQModify}" method="post">
 
+                        <input type="hidden" name="post_code" id="post_code" th:value="${adminNoticeDTO.post_code}">
                     <table class="tblTop">
                         <colgroup>
                             <col class="w200">
@@ -42,7 +43,7 @@
                             <td>
                                 <ul class="arrAlign">
                                     <li>
-                                        <input type="text" name="title" id="title">
+                                        <input type="text" name="title" id="title" th:value="${adminNoticeDTO.title}">
                                     </li>
                                     <li>
                                         <label for=""><input type="checkbox" name="" id=""> 상단고정</label>
@@ -53,7 +54,7 @@
                         <tr>
                             <th>내용</th>
                             <td>
-                                <textarea  id="summernote" class="summernote" name="content"></textarea>
+                                <textarea  id="summernote" class="summernote" name="content" th:utext="${adminNoticeDTO.content}"></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -63,8 +64,8 @@
                                     <li class="w200">
                                         <select name="state" id="state" >
                                             <option value="0" selected>전체</option>
-                                            <option value="1">공개</option>
-                                            <option value="2">비공개</option>
+                                            <option value="1" th:selected="${adminNoticeDTO.state == 'Y'}">공개</option>
+                                            <option value="2" th:selected="${adminNoticeDTO.state == 'N'}">비공개</option>
                                         </select>
                                     </li>
                                 </ul>
@@ -74,7 +75,7 @@
                         </tbody>
                     </table>
                     <div>
-                        <button id="btnSearch" type="submit"> 등록 </button>
+                        <button id="btnSearch" type="submit"> 수정 </button>
                     </div>
                     </form>
                 </div>

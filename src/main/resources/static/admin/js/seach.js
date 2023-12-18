@@ -218,13 +218,10 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
-                    const Review_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
 
-                    const reviewDetailUrl = "/Service/reviewDetail?Review_code=" + Review_code;
+                    location.href = "/Service/FAQModifyPage?postCode=" + postCode;
 
-                    window.open(reviewDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
@@ -247,8 +244,9 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    location.href = "/Service/noticeModifyPage?postCode=" + postCode;
                 };
             }
         }

@@ -61,6 +61,58 @@ public class AdminServiceController {
 //        }
 //        return jsonObject;
 //    }
+
+    @PostMapping(value = "/noticeModify")
+    public String noticeModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                            Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** adminFAQDTO"+adminFAQDTO);
+
+        adminFAQServiceImpl.FAQModify(adminFAQDTO);
+        return "admin/content/Service/notice";
+    }
+    @PostMapping(value = "/FAQModify")
+    public String FAQModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                            Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** adminFAQDTO"+adminFAQDTO);
+
+        adminFAQServiceImpl.FAQModify(adminFAQDTO);
+        return "admin/content/Service/FAQ";
+    }
+
+
+    @GetMapping("/noticeModifyPage")
+    public String noticeModifyPage(@RequestParam("postCode") int postCode, Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** postCode"+postCode);
+
+        AdminFAQDTO adminFAQDTO = adminFAQServiceImpl.FAQModifyPage(postCode);
+
+
+        log.info("*******************adminReviewDTO :" + adminFAQDTO);
+        model.addAttribute("adminNoticeDTO", adminFAQDTO);
+
+
+
+        return "admin/content/Service/noticeModify";
+    }
+
+    @GetMapping("/FAQModifyPage")
+    public String FAQModifyPage(@RequestParam("postCode") int postCode, Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** postCode"+postCode);
+
+        AdminFAQDTO adminFAQDTO = adminFAQServiceImpl.FAQModifyPage(postCode);
+
+
+        log.info("*******************adminReviewDTO :" + adminFAQDTO);
+        model.addAttribute("adminNoticeDTO", adminFAQDTO);
+
+
+
+        return "admin/content/Service/FAQModify";
+    }
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
         log.info("*********************** reviewDetail");
@@ -75,28 +127,6 @@ public class AdminServiceController {
 
 
         return "admin/content/Service/Product-review-details";
-    }
-
-    @PostMapping(value = "/noticeWrite")
-    private String noticeWrite(@ModelAttribute AdminFAQDTO adminFAQDTO) throws BoardException {
-
-        log.info(adminFAQDTO + "-----------------------------");
-
-        adminFAQServiceImpl.insertNotice(adminFAQDTO);
-
-
-        return "admin/content/Service/notice";
-    }
-
-    @PostMapping(value = "/FAQWrite")
-    private String FAQWrite(@ModelAttribute AdminFAQDTO adminFAQDTO) throws BoardException {
-
-        log.info(adminFAQDTO + "-----------------------------");
-
-        adminFAQServiceImpl.insertFAQ(adminFAQDTO);
-
-
-        return "admin/content/Service/FAQ";
     }
 
 
@@ -422,10 +452,7 @@ public class AdminServiceController {
     public String noticeWritePage() {
         return "admin/content/Service/noticeWrite";
     }
-    @GetMapping("/FAQWritePage")
-    public String FAQWritePage() {
-        return "admin/content/Service/FAQWrite";
-    }
+
 
     @GetMapping("/detail")
     public String productInquiryDetail() {
