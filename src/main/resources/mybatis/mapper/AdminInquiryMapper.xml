@@ -129,20 +129,15 @@
             A.post_type,
             B.id,
             A.answer_state,
-            C.content as comContent
-
-
-
-
+            C.content AS comContent
         FROM
             tbl_inquiry A
-
-                JOIN tbl_user B ON A.member_code = B.user_code
-                JOIN tbl_comment C ON A.inquiry_code = C.inquiry_code
-
-
-
-        WHERE A.inquiry_code =#{inqury_code}
+                JOIN
+            tbl_user B ON A.member_code = B.user_code
+                LEFT JOIN
+            tbl_comment C ON A.inquiry_code = C.inquiry_code
+        WHERE
+            A.inquiry_code = #{inquiry_code}
 
 
 

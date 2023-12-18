@@ -38,7 +38,7 @@ public class AdminServiceController {
 
         log.info("*********************** inquiryDetail");
         log.info("*********************** inquiry_code"+inquiry_code);
-        if ("Y".equals(answer_state)){
+
 
 
         AdminInquiryDTO adminInquiryDTO = adminInquiryServiceImpl.inquiryDetail(inquiry_code);
@@ -47,10 +47,8 @@ public class AdminServiceController {
         model.addAttribute("adminInquiryDTO", adminInquiryDTO);
 
         return "admin/content/Service/Product-inquiry-details";}
-        else {
-            return "admin/content/Service/Product-inquiry-details";
-            }
-        }
+
+
 
 //    //상품문의 답변
 //    @GetMapping("/inquiryComment")
