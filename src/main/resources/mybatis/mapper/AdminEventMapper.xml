@@ -112,26 +112,13 @@
     </select>
     <select id="searchProduct" resultMap="productResultMap">
         SELECT
-        product_code,
-        product_name,
-        price,
-        orderable_status,
-        stock,
-        sales_volume,
-        registration_date,
-        modification_date,
-        category_code,
-        FROM (
-        SELECT
         A.product_code,
         A.product_name,
         A.price,
         A.orderable_status,
         A.registration_date,
         A.modification_date,
-        A.category_code,
-        SUM(B.stock) as stock,
-        SUM(B.sales_volume) as sales_volume
+        A.category_code
         FROM
         tbl_product A
         join tbl_category C on A.category_code = C.category_code
@@ -161,7 +148,6 @@
         GROUP BY
         A.product_code, A.product_name, A.price, A.orderable_status, A.registration_date
         order by product_code
-        ) AS subquery
     </select>
     <update id="updateEventProgressionStatus" parameterType="Map">
         UPDATE tbl_product
