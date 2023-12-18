@@ -112,7 +112,7 @@ $(function () {
 
         // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
         if (thumbnailContainer.children('img').length + files.length > 3) {
-            var excessCount = thumbnailContainer.children('img').length + files.length - 5;
+            var excessCount = thumbnailContainer.children('img').length + files.length - 3;
             thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
         }
 
