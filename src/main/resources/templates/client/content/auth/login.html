@@ -25,21 +25,21 @@
                             <td colspan="5" id="id">아이디</td>
                         </tr>
                         <tr>
-                            <td colspan="5"><input type="text" id="input_id"  name="userId"></td>
+                            <td colspan="5"><input type="text" id="input_id" name="userId" th:value="${saveId}"></td>
                         </tr>
                         <tr>
                             <td colspan="5" id="password">비밀번호</td>
                         </tr>
                         <tr>
                             <td colspan="5">
-                                <input type="password" id="input_password"  name="userPwd">
+                                <input type="password" id="input_password" name="userPwd">
                             </td>
                         </tr>
                         <tr>
                             <td colspan="5">
                                 <div id="login_additional_wrap">
                                     <div id="save_id_wrap">
-                                        <input type="checkbox" name="saveId" id="save_id">
+                                        <input type="checkbox" name="saveId" id="save_id" th:checked="${saveIdCheck}">
                                         <label for="save_id">아이디저장</label>
                                     </div>
                                     <div id="login_additional_buttons">

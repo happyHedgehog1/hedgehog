@@ -1,12 +1,16 @@
 package com.hedgehog.config;
 
 import com.hedgehog.config.handler.AuthFailHandler;
+import com.hedgehog.config.handler.AuthSuccessHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,12 +19,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
     private final AuthFailHandler authFailHandler;
-
-    public SecurityConfig(AuthFailHandler authFailHandler) {
-        this.authFailHandler = authFailHandler;
-    }
+    private final AuthSuccessHandler successHandler;
 
     // 패스워드 인코딩후 저장할 예정
     @Bean
@@ -61,8 +63,8 @@ public class SecurityConfig {
                             login.loginPage("/auth/login");
                             login.usernameParameter("userId");
                             login.passwordParameter("userPwd");
+                            login.successHandler(successHandler);
                             login.failureHandler(authFailHandler);
-                            login.defaultSuccessUrl("/");
                         })
                 .logout( // 로그아웃 설정
                         logout -> {
