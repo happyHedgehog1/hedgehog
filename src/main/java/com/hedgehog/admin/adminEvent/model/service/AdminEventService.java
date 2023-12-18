@@ -7,7 +7,7 @@ import com.hedgehog.admin.adminProduct.model.dto.AdminProductDTO;
 import java.util.List;
 
 public interface AdminEventService {
-    public List<AdminEventDTO> searchEventList(AdminEventForm form);
+    List<AdminEventDTO> searchEventList(AdminEventForm form);
 
 
     List<AdminEventDTO> eventDetail(int postCode);
@@ -15,4 +15,6 @@ public interface AdminEventService {
     List<AdminProductDTO> searchProduct(AdminEventForm form);
 
     void updateEventStatus(AdminEventForm form);
+
+    void modifyEvent(AdminEventForm form);
 }

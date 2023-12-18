@@ -38,10 +38,10 @@
                 }
 
                 $tdsEvent[i].ondblclick = function() {
-                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
-                    const eventDetailUrl = "/event/eventDetailPage?postCode=" + postCode ;
+                    const postCode = this.parentNode.children[0].innerText;
+                    location.href = "/event/eventModify?postCode=" + postCode;
 
-                    window.open(eventDetailUrl, "_blank", "width=820, height=1000");
+
 
                 };
             }
@@ -200,6 +200,9 @@
             }
         }
 
+        /**
+         * FAQ 조회 온클릭
+         */
         if (document.querySelectorAll("#FAQ td")) {
             const $tdsProduct = document.querySelectorAll("#FAQ td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -217,10 +220,18 @@
                 $tdsProduct[i].ondblclick = function() {
                     const no = this.parentNode.children[0].innerText;
                     window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const Review_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    const reviewDetailUrl = "/Service/reviewDetail?Review_code=" + Review_code;
+
+                    window.open(reviewDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
 
+        /**
+         * 공지사항 온클릭
+         */
         if (document.querySelectorAll("#notice td")) {
             const $tdsProduct = document.querySelectorAll("#notice td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -242,6 +253,9 @@
             }
         }
 
+        /**
+         * 메일 발송내역 온클릭
+         */
         if (document.querySelectorAll("#emailHistory td")) {
             const $tdsProduct = document.querySelectorAll("#emailHistory td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -264,6 +278,10 @@
         }
     });
 
+    /**
+     * 서브카테고리 동적으로 가져오는 메소드
+     * @param select
+     */
     function setSelectBox(select) {
         for (let i = 0; i < $('#upperCategoryCode').children().length; i++) {
             if ($('#upperCategoryCode').children().eq(i).is(':selected')) {

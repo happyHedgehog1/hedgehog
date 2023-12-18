@@ -43,25 +43,63 @@ public class AdminEventServiceImpl implements AdminEventService{
     public void updateEventStatus(AdminEventForm form) {
         log.info("");
         log.info("");
-        //tbl_product의 각 제품의 event_progressionstatus를 Y로 변경
+        //tbl_product의 각 제품의 event_progressionstatus를 state의 값으로 변경
+
         for(int i = 0; i < form.getAllProductCodes().size(); i++) {
             int productCode = Integer.parseInt(form.getAllProductCodes().get(i));
             int result = mapper.updateEventProgressionStatus(productCode);
             log.info("--------------------productCode"+productCode);
 
         }
+        log.info("-------------------form" + form);
+
 //        tbl_event 테이블에 insert
-        int postCode = form.getPostCode();
         int result2 = mapper.insertEventTable(form);
+        int postCode = form.getPost_code();
+        form.setPost_code(postCode);
 //        tbl_event_product_list 테이블에 상품코드 insert
         log.info("-------------------postCode" + postCode);
 
         for(int i = 0; i < form.getAllProductCodes().size(); i++) {
             int productCode = Integer.parseInt(form.getAllProductCodes().get(i));
-            form.setSearchEndPrice(postCode);
+            form.setPost_code(postCode);
+            form.setSearchEndPrice(productCode);
             log.info("-------------------postCode" + postCode);
             int result3 = mapper.insertEventProductListTable(form);
         }
+
+    }
+
+    @Override
+    @Transactional
+    public void modifyEvent(AdminEventForm form) {
+        //tbl_product의 각 제품의 event_progressionstatus를 전부 N으로 변경
+        for(int i = 0; i < form.getProductCode().size(); i++) {
+            int productCode = Integer.parseInt(form.getProductCode().get(i));
+            int result = mapper.updateEventProgressionStatusN(productCode);
+            log.info("--------------------productCode"+productCode);
+        }
+        //새로 추가된 제품만 event_progressionstatus를 state값으로 변경
+        for(int i = 0; i < form.getAllProductCodes().size(); i++) {
+            int productCode = Integer.parseInt(form.getAllProductCodes().get(i));
+            int result1 = mapper.updateEventProgressionStatus(productCode);
+            log.info("--------------------productCode"+productCode);
+        }
+
+        //        tbl_event 테이블 update
+        int result2 = mapper.updateEventTable(form);
+
+        //        tbl_event_product_list 테이블에 상품코드 insert
+        int result3 = mapper.deleteEventProductList(form);
+
+        for(int i =0; i < form.getAllProductCodes().size(); i++){
+            int productCode = Integer.parseInt(form.getAllProductCodes().get(i));
+            form.setSearchEndPrice(productCode);
+
+            int result4 = mapper.insertEventProductListTable(form);
+        }
+
+
 
     }
 

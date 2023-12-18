@@ -15,8 +15,8 @@
         <result property="content" column="content"/>
         <result property="writeDate" column="write_date"/>
         <result property="modifyDate" column="modify_date"/>
-        <result property="price" column="discount"/>
-        <result property="postCode" column="post_code"/>
+        <result property="discount" column="discount"/>
+        <result property="price" column="price"/>
         <association property="eventProductList" resultMap="eventProductListResultMap"/>
         <association property="attachment" resultMap="attachmentResultMap"/>
         <collection property="productDTOList" resultMap="productResultMap"/>
@@ -62,7 +62,8 @@
             start_day,
             end_day,
             discount,
-            write_date
+            write_date,
+            modify_date
         FROM tbl_event
         <where>
             <if test="status == '1'">
@@ -95,6 +96,7 @@
             A.title,
             A.write_date,
             A.discount,
+            A.modify_date,
             B.product_code,
             B.category_code,
             B.product_name,
@@ -106,7 +108,7 @@
                  join tbl_event_product_list C ON A.post_code = C.post_code
                  join tbl_product B on C.product_code = B.product_code
                  join tbl_product_img D on B.product_code = D.product_code
-        WHERE A.post_code = #{postCode}
+        WHERE A.post_code = #{post_code}
     </select>
     <select id="searchProduct" resultMap="productResultMap">
         SELECT
@@ -118,7 +120,7 @@
         sales_volume,
         registration_date,
         modification_date,
-        category_code
+        category_code,
         FROM (
         SELECT
         A.product_code,
@@ -180,9 +182,9 @@
         content
         )
         values
-            ('2', #{searchStartDay}, #{searchEndDay}, #{status}, #{status}, now(), #{price}, '이벤트제목', '이벤트내용')
-        <selectKey keyColumn="postCode" resultType="_int" order="AFTER" keyProperty="post_code">
-            SELECT LAST_INSERT_ID() AS postCode
+            ('2', #{searchStartDay}, #{searchEndDay}, #{status}, #{status}, now(), #{price}, #{eventName}, '이벤트내용')
+        <selectKey keyColumn="post_code" resultType="_int" order="AFTER" keyProperty="post_code">
+            SELECT LAST_INSERT_ID() AS post_code
         </selectKey>
     </insert>
     <insert id="insertEventProductListTable">
@@ -191,6 +193,28 @@
          product_code
         )
         values
-            (#{postCode}, #{searchEndPrice})
+            (#{post_code}, #{searchEndPrice})
     </insert>
+    <update id="updateEventTable">
+        UPDATE tbl_event
+        SET
+            start_day = #{searchStartDay},
+            end_day = #{searchEndDay},
+            progress = #{status},
+            status = #{status},
+            title = #{eventName},
+            modify_date = now(),
+            discount = #{price}
+        WHERE post_code = #{post_code}
+    </update>
+    <update id="updateEventProgressionStatusN" parameterType="Map">
+        UPDATE tbl_product
+        SET
+            event_progressionstatus = 'N'
+        WHERE product_code = #{productCode}
+    </update>
+    <delete id="deleteEventProductList">
+        DELETE FROM tbl_event_product_list
+        where post_code = #{post_code}
+    </delete>
 </mapper>

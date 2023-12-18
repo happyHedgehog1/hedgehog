@@ -20,4 +20,10 @@ public interface AdminEventMapper {
     int insertEventTable(AdminEventForm form);
 
     int insertEventProductListTable(AdminEventForm form);
+
+    int updateEventTable(AdminEventForm form);
+
+    int updateEventProgressionStatusN(int productCode);
+
+    int deleteEventProductList(AdminEventForm form);
 }

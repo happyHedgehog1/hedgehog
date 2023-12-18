@@ -21,5 +21,6 @@ public class AdminEventForm {
     private int searchEndPrice;
     private double price;
     private List<String> allProductCodes;
-    private int postCode;
+    private int post_code;
+    private List<String > productCode;
 }

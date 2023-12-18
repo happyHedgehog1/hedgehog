@@ -29,9 +29,11 @@
             A.write_date,
             A.modify_date,
             A.views,
-            A.state
+            A.state,
+            A.post_type
         FROM tbl_admin_bulletin_board A
         JOIN tbl_user B ON A.user_code = B.user_code
+        where A.post_type = 'FAQ'
         <if test="faqSearchStartDay != ''">
             <if test="faqSearchEndDay != ''">
                 AND A.write_date BETWEEN #{faqSearchStartDay} AND #{faqSearchEndDay}

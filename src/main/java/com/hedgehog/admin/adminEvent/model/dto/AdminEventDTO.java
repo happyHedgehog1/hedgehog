@@ -24,6 +24,7 @@ public class AdminEventDTO {
     private String writeDate;
     private String modifyDate;
     private double discount;
+    private int price;
     private List<AdminEventProductListDTO> eventProductList;
     private List<AdminProductDTO> productDTOList;
     private List<AttachmentDTO> attachment;

@@ -129,6 +129,8 @@ public class AdminMemberServiceImpl implements AdminMemberService {
             log.info("메일 보내기 시작~~~~~~~~~~~~~");
             log.info("mailDTO" + mailDTO);
 
+
+
             // customer 테이블에서 customer_code를 기준으로 메일 주소를 가져온다
             for (int i = 0; i < mailDTO.getMemberId().size(); i++) {
                 int memberId = Integer.parseInt(mailDTO.getMemberId().get(i));

@@ -34,7 +34,7 @@
                     <td th:text="${event.get(0).postCode}"></td>
                     <td th:text="${event.get(0).startDay}"></td>
                     <td th:text="${event.get(0).endDay}"></td>
-                    <td th:text="${event.get(0).status == 'N' ? '이벤트 종료' : '이벤트 진행중'}" th:classappend="${event.get(0).status == 'N' ? 'colorRed' : ''}"></td>
+                    <td th:text="${event.get(0).status == 'N' ? '종료' : '진행중'}" th:classappend="${event.get(0).status == 'N' ? 'colorRed' : ''}"></td>
                     <td th:text="${event.get(0).title}"></td>
                     <td th:text="${event.get(0).discount * 100 + '%'}"></td>
                     <td th:text="${event.get(0).writeDate}"></td>

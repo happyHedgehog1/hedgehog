@@ -24,9 +24,42 @@ public class AdminEventListController {
         this.adminEventService = adminEventService;
     }
 
+    @PostMapping(value = "/modify", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String modify(@RequestBody AdminEventForm form) {
+        String post_code = String.valueOf(form.getPost_code());
+        String eventName = form.getEventName();
+        String searchStartDay = form.getSearchStartDay();
+        String status = form.getStatus();
+        String searchEndDay = form.getSearchEndDay();
+        List<String> allProductCodes = form.getAllProductCodes();
+        List<String > productCode = form.getProductCode();
+        double price = form.getPrice() * 0.01;
+        form.setPrice(price);
+
+        log.info("");
+        log.info("");
+        log.info("*************************" + post_code);
+        log.info("*************************" + eventName);
+        log.info("*************************" + status);
+        log.info("*************************" + searchStartDay);
+        log.info("*************************" + searchEndDay);
+        log.info("*************************" + price);
+        log.info("*************************" + allProductCodes);
+        log.info("*************************" + productCode);
+        log.info("*************************" + form);
+
+        adminEventService.modifyEvent(form);
+
+        return "admin/content/event/eventModify";
+
+    }
+
+
     @PostMapping(value = "/register", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String registerEvent(@RequestBody AdminEventForm form) {
+        String eventName = form.getEventName();
         String searchStartDay = form.getSearchStartDay();
         String status = form.getStatus();
         String searchEndDay = form.getSearchEndDay();
@@ -37,6 +70,7 @@ public class AdminEventListController {
 
         log.info("");
         log.info("");
+        log.info("*************************" + eventName);
         log.info("*************************" + status);
         log.info("*************************" + searchStartDay);
         log.info("*************************" + searchEndDay);
@@ -48,7 +82,7 @@ public class AdminEventListController {
 
         adminEventService.updateEventStatus(form);
 
-        return "admin/content/event/eventDetail";
+        return "admin/content/event/eventModify";
 
     }
 
@@ -93,7 +127,7 @@ public class AdminEventListController {
 
 
 
-    @GetMapping("/eventDetailPage")
+    @GetMapping("/eventModify")
     private String eventDetail(@RequestParam("postCode") int postCode, Model model){
         log.info("eventDetail ==================== start");
         log.info("postCode ==================== " + postCode);
@@ -104,7 +138,7 @@ public class AdminEventListController {
         model.addAttribute("event", adminEventDTO);
 
 
-        return "admin/content/event/eventDetail";
+        return "admin/content/event/eventModify";
 
     }
 

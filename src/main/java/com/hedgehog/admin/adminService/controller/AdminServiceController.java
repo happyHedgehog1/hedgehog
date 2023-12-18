@@ -31,6 +31,36 @@ public class AdminServiceController {
         this.adminFAQServiceImpl = adminFAQServiceImpl;
 
     }
+
+//    @ResponseBody
+//    @RequestMapping(value="/uploadSummernoteImageFile",method=RequestMethod.POST)
+//    public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
+//                                                HttpServletRequest request) {
+//        JsonObject jsonObject = new JsonObject();
+//        //파일저장 외부 경로, 파일명, 저장할 파일명
+//        try {
+//            String originalFileName = multipartFile.getOriginalFilename();
+//            String root = request.getSession().getServletContext().getRealPath("resources");
+//            String savePath = root + "\\image\review\summerImageFiles";
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//            String extension = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+//            String boardFileRename = sdf.format(new Date(System.currentTimeMillis())) + "." + extension;
+//            File targetFile = new File(savePath);
+//            if(!targetFile.exists()) {
+//                targetFile.mkdir();
+//            }
+//            multipartFile.transferTo(new File(savePath+"\\"+boardFileRename));
+//            System.out.println(savePath);
+//            jsonObject.addProperty("url","/resources/image/review/summerImageFiles/"+boardFileRename);
+//            jsonObject.addProperty("originName",originalFileName);
+//            jsonObject.addProperty("reponseCode","success");
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return jsonObject;
+//    }
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
         log.info("*********************** reviewDetail");

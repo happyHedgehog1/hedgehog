@@ -172,7 +172,7 @@ $(document).ready(function () {
                     '<td style="width: 50px;">' + productCode + '</td>' +
                     '<td>' + productName + '</td>' +
                     '<td style="width: 200px;">' + formattedPrice + '</td>' +
-                    '<td style="width: 140px;" style="color: #CD4747"></td>' +
+                    '<td style="width: 140px; color: #CD4747"></td>' +
                     '</tr>';
 
                 // 검색 결과 테이블에 추가
@@ -253,7 +253,7 @@ $(document).ready(function () {
     $("#btnEventSubmit").click(function (e) {
         e.preventDefault();
         console.log("작동");
-
+        var eventName = $("#eventName").val();
         var status = $("input[name='status']:checked").val();
         var searchStartDay = $("#searchStartDay").val();
         var searchEndDay = $("#searchEndDay").val();
@@ -269,6 +269,7 @@ $(document).ready(function () {
             url: "/event/register",
             contentType: "application/json; charset=UTF-8", // JSON 형식으로 요청을 보내도록 설정
             data: JSON.stringify({
+                eventName: eventName,
                 status: status,
                 searchStartDay: searchStartDay,
                 searchEndDay: searchEndDay,
@@ -281,6 +282,51 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.error("검색 오류:", error);
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $("#btnEventModifySubmit").click(function (e) {
+        e.preventDefault();
+        console.log("작동");
+        var productCode = [];
+        $('input[name="productCode"]').each(function () {
+            productCode.push($(this).val());});
+        var post_code = $("#postCode").val();
+        var eventName = $("#eventName").val();
+        var status = $("input[name='status']:checked").val();
+        var searchStartDay = $("#searchStartDay").val();
+        var searchEndDay = $("#searchEndDay").val();
+        var price = $("#price").val();
+        var allProductCodes = [];
+        $('input[name="resultCheckbox"]').each(function () {
+            allProductCodes.push($(this).closest('tr').find('td:eq(1)').text()); // 상품번호 열의 데이터 가져오기
+        });
+
+
+        $.ajax({
+            type: "POST",
+            url: "/event/modify",
+            contentType: "application/json; charset=UTF-8", // JSON 형식으로 요청을 보내도록 설정
+            data: JSON.stringify({
+                post_code: post_code,
+                eventName: eventName,
+                status: status,
+                searchStartDay: searchStartDay,
+                searchEndDay: searchEndDay,
+                price: price,
+                productCode:productCode,
+                allProductCodes: allProductCodes
+            }),
+            success: function (data) {
+                console.log("검색 결과:", data);
+                updateTable(data);
+            },
+            error: function (error) {
+                console.error("검색 오류:", error);
+
             }
         });
     });
