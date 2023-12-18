@@ -65,8 +65,8 @@ public class BasketController {
     @ResponseBody
     public String deleteSelectedItems(
             @AuthenticationPrincipal LoginDetails loginDetails,
-            @RequestBody List<Integer> cartCodes,
-            RedirectAttributes redirectAttributes) {
+            @RequestBody List<Integer> cartCodes) {
+
 
         LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
 

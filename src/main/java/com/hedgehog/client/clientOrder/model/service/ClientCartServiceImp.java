@@ -40,7 +40,7 @@ public class ClientCartServiceImp implements ClientCartService {
 //        Map<String, Object> parameters = new HashMap<>();
 //        parameters.put("userCode", userCode);
 //        parameters.put("usedPoints", usedPoints);
-        cartOrderMapper.updateUserPoint(userCode, usedPoints);
+//        cartOrderMapper.updateUserPoint(userCode, usedPoints);
     }
 
 

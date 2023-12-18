@@ -101,15 +101,13 @@
                     <br>
 
                 <div class="select_cart">
-                    <button class="select_delete_btn"  id="deleteSelectedItems" type="submit" onclick="deleteSelectedItems()" >선택 상품 삭제</button>
+                    <button class="select_delete_btn"  id="deleteSelectedItems" type="button"  >선택 상품 삭제</button>
                         <div class="select_order_btn2">
                             <button class="select_order_btn" id="selectOrderButton" typeof="submit" onclick="selectOrderItems()">선택상품주문하기</button>
+<!--                            <button class="select_order_btn" id="selectOrderButton" onclick="submitOrderForm('selectOrder')">선택상품주문하기</button>-->
 
-                            <!--                                  form태그로 감싸줘서 뭐가 체크되서 넘어가는지 알아야한다.
-                                                                  비동기처리를 하던가 아니면 폼태그로 값을 넘겨줘야되는데
-                                                                  여기서는 굳이 비동기 처리까지 할 필요가 없고 폼태그로 넘겨주면된다.
-                                                                  체크박스에 담긴 물품을 넘겨줘야하므로 체크박스에 해당하는 테이블부터 버튼까지 넘겨줬다.-->
                         </div>
+
                 </div>
 
                 <br>
@@ -117,6 +115,8 @@
                 <div class="select_all_btn2">
 
                     <button type="submit" class="select_all_btn" id="selectAllItems" onclick="selectAllItems()">전체상품주문하기</button>
+<!--                    <button class="select_all_btn" id="selectAllItems" onclick="submitOrderForm('selectAll')">전체상품주문하기</button>-->
+
                 </div>
 
                 <br>
@@ -124,22 +124,8 @@
                 <br>
 
 </form>
-<!--                <script>-->
-<!--                    function updateQuantity(button, change) {-->
-<!--                        // 관련 엘리먼트 가져오기-->
-<!--                        var container = button.closest('.quantity-container');-->
-<!--                        var displaySpan = container.querySelector('.quantity-display');-->
-<!--                        var inputField = document.getElementById('quantity-input-' + container.dataset.productId);-->
 
-<!--                        // 현재 수량 가져오기-->
-<!--                        var currentQuantity = parseInt(displaySpan.textContent);-->
-<!--                        var newQuantity = currentQuantity + change;-->
 
-<!--                        // 표시 및 숨겨진 입력 필드 업데이트-->
-<!--                        displaySpan.textContent = newQuantity;-->
-<!--                        inputField.value = newQuantity;-->
-<!--                    }-->
-<!--                </script>-->
 
             </div>
            </section>

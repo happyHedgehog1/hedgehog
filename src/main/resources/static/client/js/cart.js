@@ -85,13 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //============================
 
-//======================전체상품 & 선택상품 주문하기 버튼 누르면 실행 ==========================
+// ======================전체상품 & 선택상품 주문하기 버튼 누르면 실행 ==========================
+
 document.addEventListener('DOMContentLoaded', function () {
 
     var selectAllItemsButton = document.getElementById('selectAllItems');
     selectAllItemsButton.addEventListener('click', function () {
         selectAllItems();
-        window.location.href = "/clientOrder/cartOrder";//이거 안써도 넘어가짐
+        // window.location.href = "/clientOrder/cartOrder";//이거 안써도 넘어가짐
 
     });
 
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectOrderButton = document.getElementById('selectOrderButton');
     selectOrderButton.addEventListener('click', function () {
         selectOrderItems();
-        window.location.href = "/clientOrder/cartOrder";
+        // window.location.href = "/clientOrder/cartOrder";
 
     });
 });
@@ -125,8 +126,18 @@ function selectOrderItems(){
 }
 
 //==============선택상품 삭제=============
-
+document.addEventListener("DOMContentLoaded", function () {
+    // 삭제 버튼에 클릭 이벤트 리스너 등록
+    var deleteButton = document.getElementById('deleteSelectedItems');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function () {
+            deleteSelectedItems();
+        });
+    }
+});
 function deleteSelectedItems() {
+    console.log("deleteSelectedItems function called");
+
     var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
 
     var cartCodes = Array.from(checkedCheckboxes).map(function (checkbox) {

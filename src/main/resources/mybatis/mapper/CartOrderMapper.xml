@@ -40,34 +40,6 @@
         group by cart_code
     </select>
 
-<!--    <select id="cartOrderSelect" resultMap="CartOrderSelectResultMap">-->
-<!--        SELECT-->
-<!--        A.cart_code,-->
-<!--        A.product_code,-->
-<!--        C.img_code,-->
-<!--        B.product_name,-->
-<!--        B.price,-->
-<!--        (B.price * 0.01) AS 적립금,-->
-<!--        B.delivery_charge,-->
-<!--        (B.price * A.amount + B.delivery_charge) AS 합계-->
-<!--        FROM-->
-<!--        tbl_cart A-->
-<!--        left join-->
-<!--        tbl_product B ON A.product_code = B.product_code-->
-<!--        left join-->
-<!--        tbl_product_img C ON B.product_code = C.product_code-->
-<!--        WHERE-->
-<!--        A.cart_code IN-->
-<!--        <foreach collection="cartcheckbox" item="cartCode" open="(" separator="," close=")" >-->
-<!--            #{cartCode}-->
-<!--        </foreach>-->
-<!--        AND cartcheckbox IS NOT NULL-->
-<!--        group by cart_code-->
-<!--    </select>-->
-
-
-
-
 
 
 
@@ -80,12 +52,12 @@
     </select>
 
 
-
-    <update id="updateUserPoint" parameterType="java.util.Map" >
-        UPDATE tbl_member
-        SET point = point - #{usedPoints}
-        WHERE member_code = #{userCode}
-    </update>
+<!--결제시 적립금을 서버에 업데이트하는 쿼리문-->
+<!--    <update id="updateUserPoint" >-->
+<!--        UPDATE tbl_member-->
+<!--        SET point = point - #{usedPoints}-->
+<!--        WHERE member_code = #{userCode}-->
+<!--    </update>-->
 
 
     <resultMap id="getOrderInfoResultMap" type="com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO">

@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var totalSum = 0;
         var deliveryCharge = 0;
 
-        var userTotalPoints = parseInt(document.getElementById('userTotalPoints').textContent.replace('원', '').trim());
-
         // 각 주문 테이블 행을 순회하며 각 항목 계산
         document.querySelectorAll('#orderTableBody tr').forEach(function (row) {
 
@@ -27,11 +25,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('totalPrice').textContent = totalSum.toLocaleString() + '원';
         document.getElementById('deliveryCharge').textContent = deliveryCharge.toLocaleString() + '원';
 
-        // 사용자에게 보여줄 적립금 업데이트
-        document.getElementById('userTotalPoints').textContent = userTotalPoints.toLocaleString() + '원';
+
 
         // 결제 예정 금액 업데이트
-        var totalOrder = totalSum + deliveryCharge - userTotalPoints;
+        var totalOrder = totalSum + deliveryCharge ;
         document.getElementById('totalOrder').textContent = totalOrder.toLocaleString() + '원';
     }
 
@@ -39,42 +36,68 @@ document.addEventListener("DOMContentLoaded", function () {
     updateTotal();
 });
 
+function updatePointsOnScreen() {
+    // 총 결제 금액
+    var totalOrderAmount = parseInt(document.getElementById('totalOrder').textContent.replace('원', '').trim());
 
-
-
-//적립금 적용 버튼
-
-function applyPoints() {
     // 사용자가 입력한 적립금
     var enteredPoints = parseInt(document.getElementById('pointInput').value);
 
-    // 현재 총 주문 금액
-    var totalOrderAmount = parseInt(document.getElementById('totalOrder').textContent.replace('원', '').trim());
+    // 현재 보유 중인 적립금
+    var userTotalPointsElement = document.getElementById('userTotalPoints');
+    var currentPoints = parseInt(userTotalPointsElement.textContent.replace('원', '').trim());
 
-    // AJAX를 사용하여 서버에 데이터 전송
-    fetch('/clientOrder/cartOrder', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            enteredPoints: enteredPoints,
-            totalOrderAmount: totalOrderAmount,
-        }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            // 서버 응답을 처리하는 로직
+    // 적립금이 결제 예정 금액을 초과하여 차감되지 않도록 처리
+    var validEnteredPoints = Math.min(enteredPoints, totalOrderAmount);
 
-            // 응답 데이터로 화면 업데이트
-            document.getElementById('totalOrder').textContent = data.updatedTotal.toLocaleString() + '원';
-            document.getElementById('userTotalPoints').textContent = data.updatedUserPoints.toLocaleString() + '원';
-        })
-        .catch(error => {
-            // 오류 처리 로직
-            console.error(error);
-        });
+    // 총 결제 금액에서 입력한 적립금 차감
+    var updatedTotalOrderAmount = totalOrderAmount - validEnteredPoints;
+
+    // 사용자 보유 적립금에서 입력한 적립금 차감
+    var updatedUserPoints = currentPoints - validEnteredPoints;
+
+    // 화면에 총 결제 금액 업데이트
+    document.getElementById('totalOrder').textContent = updatedTotalOrderAmount.toLocaleString() + '원';
+
+    // 화면에 보유 적립금 업데이트
+    userTotalPointsElement.textContent = updatedUserPoints.toLocaleString() + '원';
 }
+
+
+
+//적립금 적용 버튼 이건 결제했을때 업데이트되야됨 아직 실행안됨
+//
+// function applyPoints() {
+//     // 사용자가 입력한 적립금
+//     var enteredPoints = parseInt(document.getElementById('pointInput').value);
+//
+//     // 현재 총 주문 금액
+//     var totalOrderAmount = parseInt(document.getElementById('totalOrder').textContent.replace('원', '').trim());
+//
+//     // AJAX를 사용하여 서버에 데이터 전송
+//     fetch('/clientOrder/cartOrder', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//             enteredPoints: enteredPoints,
+//             totalOrderAmount: totalOrderAmount,
+//         }),
+//     })
+//         .then(response => response.text())
+//         .then(data => {
+//             // 서버 응답을 처리하는 로직
+//
+//             // 응답 데이터로 화면 업데이트
+//             document.getElementById('totalOrder').textContent = data.updatedTotal.toLocaleString() + '원';
+//             document.getElementById('userTotalPoints').textContent = data.updatedUserPoints.toLocaleString() + '원';
+//         })
+//         .catch(error => {
+//             // 오류 처리 로직
+//             console.error(error);
+//         });
+// }
 
 
 

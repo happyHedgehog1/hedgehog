@@ -32,7 +32,7 @@ public class ClientOrderController {
 
     @PostMapping("/cartOrder")
     public ModelAndView clientOrder(@AuthenticationPrincipal LoginDetails loginDetails,
-                                    @RequestParam List<Integer> cartcheckbox,
+                                    @RequestParam(name = "cartcheckbox") List<Integer> cartcheckbox,
                                     @RequestParam List<Integer> hdAmount,
                                     ModelAndView mv) {
 
@@ -60,26 +60,35 @@ public class ClientOrderController {
 
 
         // 사용자의 적립금이 결제 예정 금액보다 작으면 적립금 모두 사용
-        int usedPoints = Math.min(totalSum, point);
-
-        // 적립금 사용 후의 결제 예정 금액 계산
-        int paymentAmount = totalSum - usedPoints;
-
-        // 사용자의 적립금을 업데이트
-        clientCartService.updateUserPoint(loginUserDTO.getUserCode(), usedPoints);
-
-        // ModelAndView에 결제 예정 금액 및 사용된 적립금 정보 추가
-        mv.addObject("paymentAmount", paymentAmount);//결제예정금액
-        mv.addObject("usedPoints", usedPoints);
-
-        //주문정보에서 사용자 정보
-        OrderInfoDTO orderInfo = clientCartService.getOrderInfo(loginUserDTO.getUserCode());
-        mv.addObject("phone", orderInfo.getPhone());
-        mv.addObject("email" , orderInfo.getEmail());
+//        int usedPoints = Math.min(totalSum, point);
+//
+//        // 적립금 사용 후의 결제 예정 금액 계산
+//        int paymentAmount = totalSum - usedPoints;
+//
+//        // 사용자의 적립금을 업데이트
+//        clientCartService.updateUserPoint(loginUserDTO.getUserCode(), usedPoints);
+//
+//        // ModelAndView에 결제 예정 금액 및 사용된 적립금 정보 추가
+//        mv.addObject("paymentAmount", paymentAmount);//결제예정금액
+//        mv.addObject("usedPoints", usedPoints);
+//
+//        //주문정보에서 사용자 정보
+//        OrderInfoDTO orderInfo = clientCartService.getOrderInfo(loginUserDTO.getUserCode());
+//        mv.addObject("phone", orderInfo.getPhone());
+//        mv.addObject("email" , orderInfo.getEmail());
 
 
 
         mv.setViewName("/client/content/clientOrder/cartOrder");
+
+        return mv;
+    }
+
+    @PostMapping("/cartOrder/info")
+    public ModelAndView OrderSaved(@AuthenticationPrincipal LoginDetails loginDetails,
+                                        ModelAndView mv){
+
+
 
         return mv;
     }

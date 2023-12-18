@@ -32,7 +32,7 @@
 
                 <div class="order_info">주문내역</div>
 
-<form id="orderForm" action="/clientOrder/cartOrder" method="post">
+<!--<form id="orderForm" action="/clientOrder/cartOrder" method="post">-->
             <table class="cart_table" id="orderTable">
 
                 <thead>
@@ -62,12 +62,12 @@
                         <td > <span th:if="${totalSum > 100000}">(배송비 무료)</span>
                             <span th:unless="${totalSum > 100000}" th:text="${item.deliveryCharge} + '원'">배송비</span>
                         </td>
-
-                        <td>
-                            <span th:text="*{item.price * hdAmountList[index.index]}"></span>
-                            <span th:text="${totalSum > 100000 ? '(배송비 무료)' : item.deliveryCharge + '원'}"></span>
+                        <td th:text="(${item.price * hdAmountList[index.index]} + (${totalSum > 100000 ? 0 : item.deliveryCharge}))">
                         </td>
-<!--                        <td th:text="(${item.price * hdAmountList[index.index]} + (${totalSum > 100000 ? 0 : item.deliveryCharge}))">-->
+
+<!--                        <td>-->
+<!--                            <span th:text="*{item.price * hdAmountList[index.index]}"></span>-->
+<!--                            <span th:text="${totalSum > 100000 ? '(배송비 무료)' : item.deliveryCharge + '원'}"></span>-->
 <!--                        </td>-->
 
 
@@ -105,7 +105,7 @@
             <div class="input-group">
                 <label for="pointInput"></label>
                 <input id="pointInput" type="number" placeholder="사용할 적립금 입력">
-                <button onclick="applyPoints()">적립금 적용</button>
+                <button onclick="updatePointsOnScreen()">적립금 적용</button>
             </div>
             <span id="totalOrder">0원</span>
         </div>
@@ -221,7 +221,7 @@
                     </div>
                     <br>
 
-</form>
+<!--</form>-->
             </div>
             <br><br>
 

@@ -65,8 +65,6 @@ public class BasketServiceImpl implements BasketService {
     // 반복문을 통해서 장바구니개코드값을 리스트로 가져와서 삭제해준다.
     @Override
     public void deleteCartItems(List<Integer> cartCode) {
-
-
         basketMapper.deleteCartItems(cartCode);
 
     }

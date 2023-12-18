@@ -15,7 +15,7 @@ public interface CartOrderMapper {
 
     int getOrderPoint(int userCode);
 
-    void updateUserPoint(int userCode, int usedPoints);
+//    void updateUserPoint(int userCode, int usedPoints);
 
     OrderInfoDTO getOrderInfo(int userCode);
 
