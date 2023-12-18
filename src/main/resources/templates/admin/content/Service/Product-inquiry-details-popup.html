@@ -10,14 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
-    <div id="wrap">
-        <header><a href="#">
-            <div class="logobackground">
-                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
-                <h2>문의글 답변</h2>
-            </div>
-        </a>
-        </header>
+<div id="wrap">
+    <header><a href="#">
+        <div class="logobackground">
+            <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+            <h2>문의글 답변</h2>
+        </div>
+    </a>
+    </header>
     <div class="body">
         <div class="wrap">
             <div class="answer"> 고객 문의 내용</div>
@@ -43,13 +43,16 @@
             </table>
             <div class="question"> 답변</div>
             <table>
-
+                <tr>
+                    <th>제목</th>
+                    <td><input type="text" name="" id=""></td>
+                </tr>
                 <tr>
                     <th>답변내용</th>
                     <td>
 
 
-                        <textarea id="summernote" th:text="${adminInquiryDTO.answer_state} eq 'Y' ? ${adminInquiryDTO.comContent} : ''"></textarea>
+                        <div id="summernote"></div>
 
 
 
@@ -57,12 +60,12 @@
                 </tr>
             </table>
             <div class="bottombtn">
-            <button id="btn">등록</button>
-        </div>
-        </div>
+                <button id="btn">등록</button>
+            </div>
         </div>
     </div>
-    <script th:src="@{/admin/js/Product-inquiry-details.js}"></script>
+</div>
+<script th:src="@{/admin/js/Product-inquiry-details.js}"></script>
 
 
 </body>

@@ -30,6 +30,37 @@ public class AdminServiceController {
         this.adminFAQServiceImpl = adminFAQServiceImpl;
 
     }
+
+    //상품문의 상세보기
+    @GetMapping("/inquiryDetail")
+    public String InquiryDetail(@RequestParam("inquiry_code")int inquiry_code,
+                                @RequestParam("answer_state") String answer_state, Model model) {
+
+        log.info("*********************** inquiryDetail");
+        log.info("*********************** inquiry_code"+inquiry_code);
+        if ("Y".equals(answer_state)){
+
+
+        AdminInquiryDTO adminInquiryDTO = adminInquiryServiceImpl.inquiryDetail(inquiry_code);
+
+        log.info("===========================adminInquiryDTO" + adminInquiryDTO);
+        model.addAttribute("adminInquiryDTO", adminInquiryDTO);
+
+        return "admin/content/Service/Product-inquiry-details";}
+        else {
+            return "admin/content/Service/Product-inquiry-details";
+            }
+        }
+
+//    //상품문의 답변
+//    @GetMapping("/inquiryComment")
+//    public String inquiryComment(@RequestParam ("inquiry_code")int inquiry_code,Model model){
+//        AdminCommentDTO adminCommentDTO = adminInquiryServiceImpl.inquiryComment(inquiry_code);
+//        log.info("===========================adminInquiryDTO" + adminCommentDTO);
+//        model.addAttribute("adminInquiryDTO", adminCommentDTO);
+//        return   "admin/content/Service/Product-inquiry-comment";
+//    }
+    //상품리뷰 상세보기
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
         log.info("*********************** reviewDetail");
@@ -178,11 +209,7 @@ public class AdminServiceController {
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
         return "redirect:/Service/Product-review";
     }
-    //상품문의 답변
-    @GetMapping("/inquiryDetail")
-    public String productInquiryDetail() {
-        return "admin/content/Service/Product-inquiry-details";
-    }
+
 
 
     //FAQ 첫화면

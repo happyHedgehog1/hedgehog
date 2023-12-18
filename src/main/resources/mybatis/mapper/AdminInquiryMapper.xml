@@ -15,7 +15,10 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="state" column="state"/>
+        <result property="comContent" column="comContent"/>
+
         <association property="id" resultMap="adminUserDTOResultMap"/>
+
     </resultMap>
     <resultMap id="commentResultMap" type="AdminCommentDTO">
     <id property="comment_code" column="comment_code"/>
@@ -23,7 +26,7 @@
     <result property="user_code" column="user_code"/>
     <result property="write_date" column="write_date"/>
     <result property="modify_date" column="modify_date"/>
-    <result property="content" column="content"/>
+    <result property="comContent" column="content"/>
     </resultMap>
     <resultMap id="productResultMap" type="AdminProductDTO">
     <id property="productCode" column="product_code"/>
@@ -116,5 +119,33 @@
         WHERE inquiry_code = #{inquiry_code}
     </update>
 
+    <select id="inquiryDetail" resultMap="inquiryResultMap">
+        SELECT
+            A.inquiry_code,
+            A.title,
+            A.content,
+            A.state,
+            A.write_date,
+            A.post_type,
+            B.id,
+            A.answer_state,
+            C.content as comContent
+
+
+
+
+        FROM
+            tbl_inquiry A
+
+                JOIN tbl_user B ON A.member_code = B.user_code
+                JOIN tbl_comment C ON A.inquiry_code = C.inquiry_code
+
+
+
+        WHERE A.inquiry_code =#{inqury_code}
+
+
+
+    </select>
 
 </mapper>

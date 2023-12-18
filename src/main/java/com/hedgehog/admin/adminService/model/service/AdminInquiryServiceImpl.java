@@ -1,6 +1,7 @@
 package com.hedgehog.admin.adminService.model.service;
 
 import com.hedgehog.admin.adminService.model.dao.AdminInquiryMapper;
+import com.hedgehog.admin.adminService.model.dto.AdminCommentDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryForm;
 import com.hedgehog.admin.exception.BoardException;
@@ -37,4 +38,18 @@ public class AdminInquiryServiceImpl implements AdminInquiryService {
             throw new BoardException("상태 변경에 실패하셨습니다.");
         }
     }
+    @Override
+    public AdminInquiryDTO inquiryDetail(int inquiryCode) {
+    log.info("");
+    log.info("");
+    log.info("inquiryDetail -------------------------- 시작~~~~~~~~~");
+
+    AdminInquiryDTO adminInquiryDTO = null;
+
+    adminInquiryDTO = mapper.inquiryDetail(inquiryCode);
+    log.info("inquiryDetail =========" + adminInquiryDTO);
+
+    return adminInquiryDTO;
+    }
+
 }

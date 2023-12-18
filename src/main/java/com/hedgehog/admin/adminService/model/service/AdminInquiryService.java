@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminService.model.service;
 
+import com.hedgehog.admin.adminService.model.dto.AdminCommentDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryForm;
 import com.hedgehog.admin.exception.BoardException;
@@ -12,4 +13,8 @@ public interface AdminInquiryService {
 
     @Transactional
     void inqStateUpdate(AdminInquiryDTO inquiryDTO) throws BoardException;
+
+    AdminInquiryDTO inquiryDetail(int inquiryCode);
+
+
 }
