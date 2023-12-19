@@ -243,6 +243,14 @@
                         </div>
                     </div>
             <script th:src="@{/admin/js/event.js}"></script>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
 </th:block>
 
 </body>

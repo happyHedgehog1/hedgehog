@@ -235,10 +235,10 @@ $(document).on('input', '#price', function () {
 
     // 모든 상품에 대해 할인 적용가 계산 및 업데이트
     $('input[name="resultCheckbox"]').each(function () {
-        var formattedPrice = $(this).closest('tr').find('td:eq(3)').text(); // 판매가 열의 데이터 가져오기
-        var originalPrice = Number(formattedPrice.replace(/[^\d]/g, '')); // 금액에서 쉼표 등을 제외한 숫자만 추출
-        var discountedPrice = originalPrice * (1 - salenum / 100); // 할인 적용가 계산
-        var formattedDiscountedPrice = discountedPrice.toLocaleString(); // 쉼표를 추가하여 금액 포맷팅
+        var formattedPrice = $(this).closest('tr').find('td:eq(3)').text();
+        var originalPrice = Number(formattedPrice.replace(/[^\d]/g, ''));
+        var discountedPrice = originalPrice * (1 - salenum / 100);
+        var formattedDiscountedPrice = discountedPrice.toLocaleString();
 
         // 할인 적용가 열 업데이트
         var discountedPriceCell = $(this).closest('tr').find('td:eq(4)');
@@ -302,14 +302,14 @@ $(document).ready(function () {
         var price = $("#price").val();
         var allProductCodes = [];
         $('input[name="resultCheckbox"]').each(function () {
-            allProductCodes.push($(this).closest('tr').find('td:eq(1)').text()); // 상품번호 열의 데이터 가져오기
+            allProductCodes.push($(this).closest('tr').find('td:eq(1)').text());
         });
 
 
         $.ajax({
             type: "POST",
             url: "/event/modify",
-            contentType: "application/json; charset=UTF-8", // JSON 형식으로 요청을 보내도록 설정
+            contentType: "application/json; charset=UTF-8",
             data: JSON.stringify({
                 post_code: post_code,
                 eventName: eventName,

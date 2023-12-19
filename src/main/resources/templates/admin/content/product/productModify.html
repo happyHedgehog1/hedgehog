@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품수정</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+    <script th:src="@{/admin/js/productModify.js}"></script>
 
     <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
 </head>
@@ -189,13 +190,19 @@
                                         <label for="thumbnail">대표이미지 지정</label>
                                         <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
                                         <div id="thumbnailPreview">
-                                            <img id="previewImage1" th:src="@{|/thumbPath${product.attachment[0].getThumbnailPath()}|}" style="width: 200px">
+                                            <img id="previewImage1" alt="">
+                                        </div>
+                                        <div id="thumbnailPreview1">
+                                            <img id="previewImage11" th:src="@{|/thumbPath${product.attachment[0].getThumbnailPath()}|}" style="width: 200px">
                                         </div>
                                     </div>
                                     <div class="img-file2">
                                         <label for="sub_thumbnail">대표이미지 지정2</label>
                                         <input type="file" id="sub_thumbnail" name="sub_thumbnail" accept="image/*" multiple>
                                         <div id="subThumbnailPreview">
+                                            <img id="subpreviewImage" alt="">
+                                        </div>
+                                        <div id="subThumbnailPreview1">
                                             <span>
                                             <img id="subpreviewImage1" alt="" style="width: 80px"
                                                  th:src="@{|/thumbPath${product.attachment[1].getThumbnailPath()}|}">
@@ -208,9 +215,12 @@
                                     </div>
                                     <div class="img-file3">
                                         <label for="proImg">제품 상세이미지</label>
-                                        <input type="file" id="proImg" name="proImg" accept="image/*">
                                         <div id="proPreview" style="max-width: 200px; max-height: 200px; overflow: hidden;">
-                                            <img id="previewImage2" alt="" style="width: 100%; height: auto;"
+                                            <img id="previewImage2" alt="" style="width: 100%; height: auto;">
+                                        </div>
+                                        <input type="file" id="proImg" name="proImg" accept="image/*">
+                                        <div id="proPreview1" style="max-width: 200px; max-height: 200px; overflow: hidden;">
+                                            <img id="previewImage3" alt="" style="width: 100%; height: auto;"
                                                  th:src="@{|/thumbPath${product.attachment[4].getThumbnailPath()}|}">
                                         </div>
                                     </div>
@@ -275,15 +285,13 @@
                 setSelectBox($(this));
             });
         });
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
     </script>
 </th:block>
-<script th:src="@{/admin/js/productModify.js}"></script>
-<script th:inline="javascript">
-    var message = [[${message}]];
-    if (message) {
-        alert(message);
-    }
-</script>
+
 </body>
 </html>
 

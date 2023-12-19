@@ -43,20 +43,8 @@ $(document).ready(function () {
         $(this).closest("tr.optionList").remove();
     });
 
-    $("#file").on("change", function (e) {
-        var files = e.target.files;
-        var i, f;
-        for (i = 0; i != files.length; ++i) {
-            f = files[i];
-            var reader = new FileReader();
-            reader.onload = function (e) {};
-            reader.readAsBinaryString(f);
-        }
-    });
-
-    // 이미지 미리보기 업데이트
-    function updateImagePreview(inputId, previewId, maxWidth) {
-        $("#" + inputId).change(function (event) {
+    $(function(){
+        $("#thumbnail").change(function(event){
             const file = event.target.files;
 
             var image = new Image();
@@ -64,21 +52,68 @@ $(document).ready(function () {
 
             image.src = ImageTempUrl;
 
-            image.style.width = maxWidth + 'px';
+            image.style.width = '200px';
+
 
             // 이전 이미지를 제거하고 새로운 이미지를 추가
-            $("#" + previewId).empty().append(image);
+            $("#thumbnailPreview").empty().append(image);
         });
-    }
+    });
 
-    // 썸네일 미리보기 업데이트
-    updateImagePreview("thumbnail", "thumbnailPreview", 200);
+    $(function () {
+        $("#sub_thumbnail").change(function (event) {
+            const files = event.target.files;
 
-    // 서브 썸네일 미리보기 업데이트
-    updateImagePreview("sub_thumbnail", "subThumbnailPreview", 100);
+            // 최대 3개까지만 허용
+            if (files.length > 3) {
+                alert("최대 3개의 이미지만 선택할 수 있습니다.");
+                // 선택된 파일 초기화
+                $("#sub_thumbnail").val('');
+                return;
+            }
 
-    // 제품 이미지 미리보기 업데이트
-    updateImagePreview("proImg", "proPreview", 200);
+            // 미리보기를 담을 컨테이너 엘리먼트 가져오기
+            var thumbnailContainer = $("#subThumbnailPreview");
+
+            // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
+            if (thumbnailContainer.children('img').length + files.length > 3) {
+                var excessCount = thumbnailContainer.children('img').length + files.length - 3;
+                thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
+            }
+
+            // 새로 추가한 이미지를 배열에 추가
+            for (var i = 0; i < files.length; i++) {
+                var image = new Image();
+                var ImageTempUrl = window.URL.createObjectURL(files[i]);
+
+                image.src = ImageTempUrl;
+
+                image.style.width = '80px';
+                image.style.marginRight = '5px';
+
+                // 새로운 이미지를 뒤로 추가
+                thumbnailContainer.append(image);
+            }
+        });
+    });
+
+    $(function(){
+        $("#proImg").change(function(event){
+            const file = event.target.files;
+
+            var image = new Image();
+            var ImageTempUrl = window.URL.createObjectURL(file[0]);
+
+            image.src = ImageTempUrl;
+
+            image.style.width = '200px';
+
+            // 이전 이미지를 제거하고 새로운 이미지를 추가
+            $("#proPreview").empty().append(image);
+        });
+    });
+
+
 
     // 옵션 수량이 변경될 때 전체 재고 업데이트
     $("#productAdd").on("input", "input[name='optionList[0].stock']", function () {

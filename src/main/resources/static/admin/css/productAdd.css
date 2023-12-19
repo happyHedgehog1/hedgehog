@@ -422,3 +422,49 @@ input[type="file"] {
     cursor: pointer;
 }
 
+#thumbnailPreview {
+    margin-left: 10px;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 1; /* 이 부분을 추가하면서 z-index 값을 조절합니다. */
+}
+
+#thumbnailPreview1 {
+    margin-left: 10px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    z-index: 0; /* 이 부분을 추가하면서 z-index 값을 조절합니다. */
+}
+
+#subThumbnailPreview {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 1; /* 이 부분을 추가하면서 z-index 값을 조절합니다. */
+}
+
+#subThumbnailPreview1 {
+    margin-left: 10px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    z-index: 0; /* 이 부분을 추가하면서 z-index 값을 조절합니다. */
+}
+
+#proPreview {
+    margin-left: 10px;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 1; /* 이 부분을 추가하면서 z-index 값을 조절합니다. */
+}
+
+#proPreview1 {
+    margin-left: 10px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    z-index: 0; /* 이 부분을 추가하면서 z-index 값을 조절합니다. */
+}

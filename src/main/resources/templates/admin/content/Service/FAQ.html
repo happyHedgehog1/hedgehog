@@ -140,9 +140,17 @@
 
                         </select>
                             <button id="btnCommit" type="submit">적용</button>
+                        </form>
                     </div>
-    </form>
                 </div>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
 </th:block>
 </body>
 </html>
