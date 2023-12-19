@@ -290,3 +290,15 @@ tbody td:nth-child(3):hover {
     display: flex;
     flex-direction: row;
 }
+
+#list {
+    padding: 10px;
+    color: #747E8A;
+}
+
+#goOrderDeliveryInfo:hover {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: black;
+}

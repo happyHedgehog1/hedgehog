@@ -1,6 +1,7 @@
 package com.hedgehog.client.board.model.dao;
 
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
+import com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,5 +12,9 @@ public interface BoardWriteMapper {
 
     Integer getLastInsertCode();
 
-    int insertPostImage(Integer inquiryCode, List<UploadedImageDTO> uploadedImageList);
+    int insertPostImageInquiry(Integer inquiryCode, List<UploadedImageDTO> uploadedImageList);
+
+    String findMyIdByOrderDetailsCode(int orderDetailsCode);
+
+    OrderDetailsDTO selectOrderDetail(int orderDetailsCode);
 }
