@@ -5,56 +5,46 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <th:block layout:fragment="content">
-    <script th:src="@{/client/js/login.js}" defer></script>
-    <link rel="stylesheet" th:href="@{/client/css/login.css}">
+    <script th:src="@{/client/js/guestOrderSearch.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/client/css/guestOrderSearch.css}">
 
     <section>
-        <!-- 여기에 작성 -->
         <div id="main_category_route">
             <ul class="route_list">
-                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}" alt="메인화면"></li>
+                <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
+                                                                     alt="메인화면"></li>
                 <li>&gt;</li>
                 <li>비회원주문조회</li>
             </ul>
             <div id="contents">
-                <form action="" method="post" id="search_form">
-                    <table class="contents-table">
-                        <caption>비회원 주문/배송 조회</caption>
+                <form action="/myshop/orderDetails" method="get">
+                    <table id="contents-table">
+                        <caption>비회원 주문 조회</caption>
                         <tr>
                             <td colspan="5" id="order_number">주문번호</td>
                         </tr>
                         <tr>
-                            <td colspan="5"><input type="text" id="input_order" name="order"
-                                                   placeholder="주문 시 발급받은 이메일 주소 입력"></td>
+                            <td colspan="5"><input type="text" id="order_code" name="orderCode" placeholder="주문번호를 입력">
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="5" id="email">이메일주소</td>
                         </tr>
                         <tr>
-                            <td colspan="3"><input type="text" id="input_email" name="email"
-                                                   placeholder="주문 시 입력한 이메일 주소 입력"></td>
-                            <td colspan="2"><input type="button" value="이메일인증" id="email_button"></td>
-                        </tr>
-                        <tr id="authentication_row">
-                            <td>인증번호</td>
-                            <td colspan="2"><input type="text" id="input_authentication" name="authentication"></td>
-                            <td><input type="button" id="authentication_button" value="인증하기"></td>
-                            <td id="timer">
-                                <div><span>05:00</span><img src="../image/reloadButton/reload.png" alt="시간연장"
-                                                            id="reload"></div>
+                            <td colspan="5">
+                                <input type="email" id="input_email" name="email" placeholder="이메일 주소 입력">
                             </td>
                         </tr>
-                        <tr id="authentication_complete_row">
-                            <td colspan="5"></td>
-                        </tr>
                         <tr>
-                            <td colspan="5"><input type="submit" id="search_button" value="조회"></td>
-                        </tr>
+                            <td colspan="5">
+                                <input type="submit" id="search_button" value="인증하기">
+                            </td>
+
                     </table>
                 </form>
             </div>
         </div>
-
+        <!-- 여기까지 -->
     </section>
     <script th:inline="javascript">
         var message = [[${message}]];

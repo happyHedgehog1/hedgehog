@@ -14,6 +14,7 @@ public class OrderDetailsCollect {
     // tbl_order
     private int orderCode; // 주문 코드
     private int orderCustomerCode; // 유저 코드
+    private String orderCustomerState; // 일반회원(Y), 게스트(N)
     private Timestamp orderCreationDate; // 주문 작성 시기
     private int pointUsage; // 포인트 사용량
     private String orderState; // 주문 상태

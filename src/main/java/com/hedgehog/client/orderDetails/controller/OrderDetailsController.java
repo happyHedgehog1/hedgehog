@@ -7,6 +7,8 @@ import com.hedgehog.client.orderDetails.model.dto.OrderDetailsCollect;
 import com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO;
 import com.hedgehog.client.orderDetails.model.dto.OrderListDTO;
 import com.hedgehog.client.orderDetails.model.service.OrderDetailsService;
+import com.hedgehog.common.common.exception.UserCertifiedException;
+import com.hedgehog.common.common.exception.UserEmailNotFoundException;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsPagenation;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsSelectCriteria;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
@@ -164,10 +169,52 @@ public class OrderDetailsController {
     @GetMapping("/orderDetails")
     public String orderDetailsInfo(@AuthenticationPrincipal LoginDetails loginDetails,
                                    @RequestParam int orderCode,
-                                   Model model) {
+                                   @RequestParam(required = false) String email,
+                                   Model model,
+                                   RedirectAttributes redirectAttributes) {
         if (loginDetails == null) {
-            log.info("로그인하지 않아서 메인으로 돌아갑니다.");
-            return "redirect:/";
+            Integer newOrderCode = orderDetailsService.selectOrderCode(orderCode, email);
+            log.info("newOrderCode: " + newOrderCode);
+            if (newOrderCode == null || newOrderCode != orderCode) {
+                log.info("계정정보가 달라서 메인으로 돌아갑니다.");
+                redirectAttributes.addFlashAttribute("message", "계정정보가 달라서 메인으로 돌아갑니다.");
+                return "redirect:/";
+            }
+            OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
+
+
+            log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
+
+
+            model.addAttribute("orderDetails", orderDetailsCollect);
+            int sumCostPrice = orderDetailsCollect
+                    .getOrderDetailsList()
+                    .stream()
+                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getCostPrice() * orderDetail.getCount()));
+            model.addAttribute("sumCostPrice", sumCostPrice);
+            int sumReducedPrice = orderDetailsCollect
+                    .getOrderDetailsList()
+                    .stream()
+                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReducedPrice() * orderDetail.getCount()));
+            model.addAttribute("sumReducedPrice", sumReducedPrice);
+            int sumDeliveryCharge = orderDetailsCollect
+                    .getOrderDetailsList()
+                    .stream()
+                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getDeliveryCharge() * orderDetail.getCount()));
+            model.addAttribute("sumDeliveryCharge", sumDeliveryCharge);
+            int sumPointCharge = orderDetailsCollect
+                    .getOrderDetailsList()
+                    .stream()
+                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
+            model.addAttribute("sumPointCharge", sumPointCharge);
+            model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
+            int sumReviewPoint = orderDetailsCollect
+                    .getOrderDetailsList()
+                    .stream()
+                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
+            model.addAttribute("sumReviewPoint", sumReviewPoint);
+
+            return "/client/content/myshop/orderDetails";
         } else {
             int userCode = loginDetails.getLoginUserDTO().getUserCode();
             boolean result = orderDetailsService.isYourOrder(userCode, orderCode);
@@ -211,5 +258,24 @@ public class OrderDetailsController {
 
             return "/client/content/myshop/orderDetails";
         }
+    }
+
+    @PostMapping("/orderDetails")
+    public String guestOrderDetails(@RequestParam(required = false) Integer orderCode,
+                                    @RequestParam(required = false) String email,
+                                    RedirectAttributes redirectAttributes) {
+        Map<String, Object> response = new HashMap<>();
+        if (orderCode == null || email == null) {
+            redirectAttributes.addFlashAttribute("message", "주문번호 또는 이메일을 입력해주세요.");
+            return "redirect:/myshop/guestOrderSearch";
+        }
+        Integer newOrderCode = orderDetailsService.selectOrderCode(orderCode, email); // 현재 주문번호에 알맞는 이메일이 있는지. 그리고 같은지
+
+        if (newOrderCode == null) {
+            redirectAttributes.addFlashAttribute("message", "조건에 맞는 비회원이 없습니다.\n다시입력해주세요.");
+            return "redirect:/myshop/guestOrderSearch";
+        }
+
+        return "/myshop/orderDetails?orderCode=" + newOrderCode + "&email=" + email;
     }
 }

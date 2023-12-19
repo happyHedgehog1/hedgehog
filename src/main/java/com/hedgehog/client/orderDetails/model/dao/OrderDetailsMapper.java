@@ -17,4 +17,6 @@ public interface OrderDetailsMapper {
     int isYourOrder(int userCode, int orderCode);
 
     OrderDetailsCollect getOrderDetails(int orderCode);
+
+    Integer selectOrderCode(Integer orderCode, String email);
 }

@@ -50,10 +50,16 @@ public class OrderDetailsService {
 
     public OrderDetailsCollect getOrderDetails(int orderCode) {
         OrderDetailsCollect orderDetailsCollect = mapper.getOrderDetails(orderCode);
-                log.info("");
+        log.info("");
         log.info("");
         log.info("OrderDetailsService : getOrderDetails ... : " + orderDetailsCollect);
 
         return orderDetailsCollect;
+    }
+
+    public Integer selectOrderCode(Integer orderCode, String email) {
+        Integer newOrderCode = mapper.selectOrderCode(orderCode, email);
+        log.info("가져온 newOrderCode... : "+newOrderCode);
+        return newOrderCode;
     }
 }

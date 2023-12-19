@@ -63,7 +63,9 @@
                         <td th:text="무료" th:if="${orderDetail.pointCharge}==0"></td>
                         <td th:text="${orderDetails.orderState}"></td>
                         <td>
-                            <button type="button" data-product-code="${orderDetail.productCode}">리뷰하기</button>
+                            <button type="button" data-product-code="${orderDetail.productCode}"
+                                    th:if="${orderDetails.orderCustomerState=='Y'}">리뷰하기
+                            </button>
                         </td>
                     </tr>
                     </tbody>

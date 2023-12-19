@@ -131,6 +131,7 @@
     <resultMap id="orderDetailsCollectResultMap" type="com.hedgehog.client.orderDetails.model.dto.OrderDetailsCollect">
         <id property="orderCode" column="order_code"/>
         <result property="orderCustomerCode" column="order_customer_code"/>
+        <result property="orderCustomerState" column="order_customer_state"/>
         <result property="orderCreationDate" column="order_creation_date"/>
         <result property="pointUsage" column="point_usage"/>
         <result property="orderState" column="order_state"/>
@@ -160,6 +161,7 @@
     <select id="getOrderDetails" resultMap="orderDetailsCollectResultMap">
         SELECT A.order_code         order_code,
                A.customer_code      order_customer_code,
+               A.state              order_customer_state,
                A.creation_date      order_creation_date,
                A.point_usage        point_usage,
                A.state              order_state,
@@ -208,5 +210,13 @@
                  JOIN tbl_product_img J ON G.product_code = J.product_code
         WHERE A.order_code = #{orderCode}
           AND J.image_classification = 'Thumbnails'
+    </select>
+    <select id="selectOrderCode">
+        SELECT B.order_code
+        FROM tbl_customer A
+                 JOIN tbl_order B ON A.customer_code = B.customer_code
+        WHERE A.email = #{email}
+          AND B.order_code = #{orderCode}
+          AND A.member_state = 'N'
     </select>
 </mapper>

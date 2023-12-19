@@ -14,11 +14,11 @@ section {
     max-width: 70em;
     margin-bottom: 5em;
     padding-top: 7em;
-    width:33em;
+    width: 33em;
 }
 
 #route_home,
-#route_login{
+#route_login {
     cursor: pointer;
 }
 
@@ -31,48 +31,48 @@ input,
 button {
     width: 100%;
 }
-#contents-table{
+
+#contents-table {
     table-layout: fixed;
-    width:100%;
+    width: 100%;
 }
-#contents-table>caption {
+
+#contents-table > caption {
     font-size: 1.5em;
     padding: 5px;
     font-weight: bold;
 }
 
-#userId,
+#order_code,
 #input_email,
 #email_authentication_number,
-#email_button,
 #email_authentication_button {
     border: 0;
     border-radius: 8px;
 }
 
 
-#input_email,
-#email_button {
+#input_email {
     margin-bottom: 0.3em;
 }
 
 
-#userId,
+#order_code,
 #input_email,
-#email_button,
 #search {
     height: 3em;
     font-size: 1em;
     padding: 0px;
 }
 
-#userId,
+#order_code,
 #input_email,
 #email_authentication_number {
     background-color: #ECECEC;
     padding-left: 0.5em;
 }
-#user_id,
+
+#order_number,
 #email {
     font-weight: bold;
 }
@@ -82,19 +82,6 @@ button {
     height: 2em;
 }
 
-#email_button {
-    border: 2px solid #A7727D;
-    font-size: 0.8em;
-    height: 48px;
-    padding: 1em;
-    cursor: pointer;
-    transition: 200ms;
-}
-
-#email_button:hover {
-    color: white;
-    background-color: #A7727D;
-}
 
 #email_authentication_button {
     font-size: 0.8em;
@@ -117,7 +104,7 @@ button {
     font-size: 0.9em;
 }
 
-#timer>div {
+#timer > div {
     display: flex;
 }
 
@@ -128,7 +115,7 @@ button {
     cursor: pointer;
 }
 
-#search_button {
+#search_button{
     border-radius: 0.7em;
     border: 3px solid #a7727d;
     background-color: #A7727D;
@@ -140,10 +127,7 @@ button {
     cursor: pointer;
 }
 
-#search_button:hover {
+#search_button:hover{
     color: black;
     background-color: white;
-}
-#authentication_row{
-    display:none;
 }
