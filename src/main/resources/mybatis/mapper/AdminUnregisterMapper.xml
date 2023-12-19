@@ -14,7 +14,7 @@
         <result property="cancel_date" column="cancel_date"/>
         <association property="user" resultMap="adminUserDTOResultMap"/>
         <association property="user" resultMap="adminUserDTOResultMap"/>
-            </resultMap>
+    </resultMap>
 
     <resultMap id="adminUserDTOResultMap" type="AdminUserDTO">
         <id property="user_code" column="user_code"/>
@@ -37,6 +37,7 @@
         <result property="email" column="email"/>
         <result property="phone" column="phone"/>
         <result property="certification_number" column="certification_number"/>
+        <result property="id" column="id"/>
     </resultMap>
     <resultMap id="autoMailResultMap" type="com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO">
         <id property="formCode" column="form_code"/>
@@ -123,9 +124,11 @@
     </select>
     <select id="searchMail" resultMap="adminCustomerDTOResultMap">
         SELECT
-            email
+            a.email,
+            b.id
         FROM
-            tbl_customer
+            tbl_customer A
+                join tbl_user B on A.customer_code = B.user_code
         where
             customer_code =  #{user_code}
     </select>
@@ -137,5 +140,11 @@
     FROM TBL_MAILFORM
     WHERE form_code = #{i}
     </select>
+    <update id="userTableStateUpdate" parameterType="_int">
+        UPDATE tbl_user
+        SET
+            withdraw_state = 'N'
+        WHERE user_code = #{user_code}
+    </update>
 
 </mapper>

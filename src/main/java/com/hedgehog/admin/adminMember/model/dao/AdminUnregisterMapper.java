@@ -21,4 +21,6 @@ public interface AdminUnregisterMapper {
     AdminSendMailDTO searchMailForm(int i);
 
     AdminCustomerDTO searchMail(int userCode);
+
+    void userTableStateUpdate(AdminUnregisterDTO adminUnregisterDTO);
 }

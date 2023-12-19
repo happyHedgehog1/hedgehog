@@ -14,5 +14,6 @@ public class AdminCustomerDTO {
     private String email;
     private String phone;
     private String certification_number;
+    private String id;
 
 }

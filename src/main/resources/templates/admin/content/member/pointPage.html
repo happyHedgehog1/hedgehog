@@ -47,6 +47,14 @@
                 <button type="submit">적립금 적용</button>
             </form>
         </div>
+        <script th:inline="javascript">
+
+            var message = [[${message}]];
+            if (message) {
+                alert(message);
+            }
+
+        </script>
     </div>
 </div>
 </body>

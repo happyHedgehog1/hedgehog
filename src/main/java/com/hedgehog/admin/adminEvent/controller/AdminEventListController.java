@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,15 @@ public class AdminEventListController {
         this.adminEventService = adminEventService;
     }
 
+    /**
+     * 이벤트 수정을 위해 정보 비동기로 가져오는 메소드
+     * @param form
+     * @return
+     */
     @PostMapping(value = "/modify", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String modify(@RequestBody AdminEventForm form) {
+    public String modify(@RequestBody AdminEventForm form,
+                         RedirectAttributes rttr) {
         String post_code = String.valueOf(form.getPost_code());
         String eventName = form.getEventName();
         String searchStartDay = form.getSearchStartDay();
@@ -50,15 +57,23 @@ public class AdminEventListController {
         log.info("*************************" + form);
 
         adminEventService.modifyEvent(form);
+        rttr.addFlashAttribute("message", "이벤트 수정에 성공하였습니다.");
+
 
         return "admin/content/event/eventModify";
 
     }
 
 
+    /**
+     * 이벤트 등록 메소드
+     * @param form
+     * @return
+     */
     @PostMapping(value = "/register", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String registerEvent(@RequestBody AdminEventForm form) {
+    public String registerEvent(@RequestBody AdminEventForm form,
+                                RedirectAttributes rttr) {
         String eventName = form.getEventName();
         String searchStartDay = form.getSearchStartDay();
         String status = form.getStatus();
@@ -81,6 +96,8 @@ public class AdminEventListController {
 
 
         adminEventService.updateEventStatus(form);
+        rttr.addFlashAttribute("message", "이벤트 등록에 성공하였습니다.");
+
 
         return "admin/content/event/eventModify";
 
