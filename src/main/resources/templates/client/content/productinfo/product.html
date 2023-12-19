@@ -12,27 +12,29 @@
 
     <section>
       <div class="wrap">
-        <div class="product_wrap">
+        <div class="product_wrap" >
           <ul class="product_photos">
-            <li class="product_main_photo"><img src="/client/images/main_category/bead_room/bed/1/main.jpg" alt=""></li>
+            <li class="product_main_photo">
+              <img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt="대표이미지">
+            </li>
             <li>
               <div class="product_sub_photos">
-                <a href="/client/images/main_category/bead_room/bed/1/sub1.jpg" title="image1"><img src="/client/images/main_category/bead_room/bed/1/sub1.jpg" alt=""></a>
-                <a href="/client/images/main_category/bead_room/bed/1/sub2.jpg" title="image2"><img src="/client/images/main_category/bead_room/bed/1/sub2.jpg" alt=""></a>
-                <a href="/client/images/main_category/bead_room/bed/1/sub3.jpg" title="image3"><img src="/client/images/main_category/bead_room/bed/1/sub3.jpg" alt=""></a>
-                <a href="/client/images/main_category/bead_room/bed/1/sub4.jpg" title="image4"><img src="/client/images/main_category/bead_room/bed/1/sub4.jpg" alt=""></a>
+                <a th:href="@{|/thumbPath${productDetail[0].convertPath}|}" title="image1"><img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt=""></a>
+                <a th:href="@{|/thumbPath${productDetail[1].convertPath}|}" title="image2"><img th:src="@{|/thumbPath${productDetail[1].convertPath}|}" alt=""></a>
+                <a th:href="@{|/thumbPath${productDetail[2].convertPath}|}" title="image3"><img th:src="@{|/thumbPath${productDetail[2].convertPath}|}" alt=""></a>
+                <a th:href="@{|/thumbPath${productDetail[3].convertPath}|}" title="image4"><img th:src="@{|/thumbPath${productDetail[3].convertPath}|}" alt=""></a>
               </div>
             </li>
           </ul>
 
           <div class="product_text">
             <div>1인가구</div>
-            <h3>평상형 수납침대</h3>
+            <h3 th:text="${productDetail[0].productText[0].productName}">평상형 수납침대</h3>
             <hr>
             <div class="product_text_wrap">
               <div class="product_price">
                 <span>판매가</span>
-                <span>￦295,000원</span>
+                <span th:text="'￦'+${productDetail[0].productText[0].productPrice}">￦295,000원</span>
               </div>
               <div class="option">
                 <label for="color">색상</label><select name="option_color" id="color">
@@ -86,7 +88,7 @@
 
         <!-- 상세이미지 -->
         <div class="page_view">
-          <img src="/client/images/page.png" alt="">
+          <img th:src="@{/client/images/page.png}" alt="">
         </div>
 
         <!-- 평균리뷰 -->
@@ -105,7 +107,6 @@
           <ul th:onclick="openModal()">
             <li>
               <img th:src="@{/client/images/review_photo/1.png}" alt="">
-<!--              <img th:src="@{/client/images/review_photo/1.png}" alt="">-->
             </li>
           </ul>
           <div class="review_page_number">1</div>
@@ -192,6 +193,16 @@
 
       </div>
     </section>
+
+    <script>
+      $("#thumbnailArea > div").click(function(){
+        const number = $(this).find("label").text();
+        console.log(number);
+        location.href = "/productinfo/product/" + number;
+      });
+    </script>
+
+
     <script th:src="@{/client/js/product.js}"></script>
   </th:block>
 </html>

@@ -109,7 +109,7 @@ h3{
 }
 button{
   padding: 10px 50px;
-  border: 0px solid #A7727D;
+  border: 1px solid #A7727D;
   cursor: pointer;
   transition: 200ms;
   background-color: white;

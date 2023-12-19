@@ -28,7 +28,7 @@ section {
 
 
 #input_title {
-    width: calc(100% - 5px);
+    /*width: calc(100% - 5px);*/
     border: 1px solid gray;
     border-radius: 0.3em;
     height: 1.7em;
@@ -46,11 +46,11 @@ section {
     height: 30px;
 }
 
-#review_body_title {
+#question_body_title {
     display: flex;
 }
 
-#review_body_title:first-child {
+#question_body_title:first-child {
     padding-top: 0.3em;
 }
 
@@ -59,7 +59,7 @@ section {
     grid-template-columns:0.8fr 1fr;
     padding-top: 0.5em;
     padding-bottom: 1em;
-    
+
 }
 
 #productName_and_ratings {
@@ -67,16 +67,6 @@ section {
     flex-direction: column;
     gap: 20px;
     justify-content: space-evenly;
-}
-
-
-#empty_star,
-#full_star {
-    display: none;
-}
-
-.star {
-    width: 3em;
 }
 
 #contents {
@@ -99,54 +89,69 @@ section {
 
 }
 
-#bottom_buttons>button:first-child {
+#bottom_buttons > input {
+    border-radius: 0.3em;
+    padding: 0.5em 1em;
+    font-size: 15px;
+    transition: 200ms;
+}
+
+#goback_button:first-child {
     border: 1.5px solid #A7727D;
-    border-radius: 0.7em;
-    padding-top: 0.7em;
-    padding-bottom: 0.7em;
-    width: 6em;
     background-color: white;
     color: black;
-    font-size: 15px;
 }
 
-#bottom_buttons>button:last-child {
-    border-radius: 0.7em;
-    padding-top: 0.7em;
-    padding-bottom: 0.7em;
-    width: 7em;
-    border: 0;
+#submit_button:last-child {
+    border: 1.5px solid white;
     background-color: #A7727D;
     color: white;
-    font-size: 15px;
-
-}
-#contents_table{
-    padding-top:3em;
-    width: 1200px;
 }
 
-#top_title{
+#goback_button:first-child:hover {
+    border: 1.5px solid white;
+    background-color: #A7727D;
+    color: white;
+}
+
+#submit_button:hover {
+    border: 1.5px solid #A7727D;
+    background-color: white;
+    color: black;
+}
+
+#contents_table {
+    padding-top: 3em;
+    width: 55em;
+}
+
+#top_title {
     font-size: 20px;
     text-align: center;
     padding-bottom: 1em;
 }
 
-#info{
+#info {
     font-size: 15px;
     color: #707070;
 }
 
-#main_category_route{
-    width: 1200px;
+#main_category_route {
+    /*width: 1200px;*/
 }
 
-tr{
+tr {
     height: 40px;
 }
 
-#input_option{
-    margin-top: 15px;
+#input_option,
+#input_order_number,
+#input_product_name{
     height: 30px;
-    width: 300px;
+    /*width: 300px;*/
+}
+
+.number,
+.product_number {
+    /*display: none;*/
 }
