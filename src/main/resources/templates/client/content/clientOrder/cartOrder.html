@@ -32,7 +32,7 @@
 
                 <div class="order_info">주문내역</div>
 
-<!--<form id="orderForm" action="/clientOrder/cartOrder" method="post">-->
+<form method="post" action="/clientOrder/processPayment">
             <table class="cart_table" id="orderTable">
 
                 <thead>
@@ -105,7 +105,8 @@
             <div class="input-group">
                 <label for="pointInput"></label>
                 <input id="pointInput" type="number" placeholder="사용할 적립금 입력">
-                <button onclick="updatePointsOnScreen()">적립금 적용</button>
+                <input type="button" value="적립금 적용" onclick="updatePointsOnScreen()">
+                <input type="button" value="적립금 초기화" onclick="resetPointsOnScreen()">
             </div>
             <span id="totalOrder">0원</span>
         </div>
@@ -115,6 +116,7 @@
     <br>
     <br>
 
+</form>
 
                 <br>
                 <hr>
@@ -214,14 +216,13 @@
                         <br>
 
                         <div class="buying">
-                            <button type="submit" class="buying2">결제하기</button>
+                            <button type="submit" class="buying2" id="paymentButton">결제하기</button>
                         </div>
 
 
                     </div>
                     <br>
 
-<!--</form>-->
             </div>
             <br><br>
 

@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     function updateTotal() {
         var totalSum = 0;
         var deliveryCharge = 0;
@@ -22,47 +23,69 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // 합계 업데이트
-        document.getElementById('totalPrice').textContent = totalSum.toLocaleString() + '원';
+        document.getElementById('totalPrice').textContent = (totalSum + '').replace(/,/g, '') + '원';
+
         document.getElementById('deliveryCharge').textContent = deliveryCharge.toLocaleString() + '원';
 
 
 
         // 결제 예정 금액 업데이트
-        var totalOrder = totalSum + deliveryCharge ;
-        document.getElementById('totalOrder').textContent = totalOrder.toLocaleString() + '원';
+        var totalOrder = Math.max(0, totalSum + deliveryCharge);
+        document.getElementById('totalOrder').textContent = totalOrder + '원';
+
     }
 
-    // 페이지 로드시 초기 합계 계산 및 업데이트
+    // 페이지 로드시 초기 합계 계산 및 업데이트 이건 적립금을 초기화 하기 위해서 저장해둔다
     updateTotal();
+    originalUserTotalPoints = document.getElementById("userTotalPoints").innerText;
+    originalTotalOrder = document.getElementById("totalOrder").innerText;
+
+
+
+
 });
-
 function updatePointsOnScreen() {
-    // 총 결제 금액
-    var totalOrderAmount = parseInt(document.getElementById('totalOrder').textContent.replace('원', '').trim());
+    // 입력된 적립금 값 가져오기
+    var enteredPoints = parseInt(document.getElementById("pointInput").value);
 
-    // 사용자가 입력한 적립금
-    var enteredPoints = parseInt(document.getElementById('pointInput').value);
+    // 현재 총 주문 금액 가져오기
+    var totalOrderAmount = parseInt(document.getElementById("totalOrder").innerText);
 
-    // 현재 보유 중인 적립금
-    var userTotalPointsElement = document.getElementById('userTotalPoints');
-    var currentPoints = parseInt(userTotalPointsElement.textContent.replace('원', '').trim());
+    // 현재 보유 적립금 가져오기
+    var userTotalPoints = parseInt(document.getElementById("userTotalPoints").innerText);
 
-    // 적립금이 결제 예정 금액을 초과하여 차감되지 않도록 처리
-    var validEnteredPoints = Math.min(enteredPoints, totalOrderAmount);
+    // 입력된 적립금이 음수이거나 보유 적립금보다 많은지 확인
+    if (enteredPoints < 0 || enteredPoints > userTotalPoints) {
+        // 사용자에게 메시지 표시: "적립금을 올바르게 입력해주세요."
+        alert("적립금을 올바르게 입력해주세요.");
+        // 입력 필드 초기화 또는 기타 조치 수행
+        document.getElementById("pointInput").value = "";
+    } else {
+        // 결제 예정 금액에서 입력된 적립금 차감
+        var newTotalOrderAmount = Math.max(0, totalOrderAmount - enteredPoints);
 
-    // 총 결제 금액에서 입력한 적립금 차감
-    var updatedTotalOrderAmount = totalOrderAmount - validEnteredPoints;
+        // 보유 적립금에서 입력된 적립금 차감
+        var newUserTotalPoints = Math.max(0, userTotalPoints - enteredPoints);
 
-    // 사용자 보유 적립금에서 입력한 적립금 차감
-    var updatedUserPoints = currentPoints - validEnteredPoints;
-
-    // 화면에 총 결제 금액 업데이트
-    document.getElementById('totalOrder').textContent = updatedTotalOrderAmount.toLocaleString() + '원';
-
-    // 화면에 보유 적립금 업데이트
-    userTotalPointsElement.textContent = updatedUserPoints.toLocaleString() + '원';
+        // 결과를 화면에 업데이트
+        document.getElementById("totalOrder").innerText = newTotalOrderAmount + "원";
+        document.getElementById("userTotalPoints").innerText = newUserTotalPoints + "원";
+    }
 }
 
+function resetPointsOnScreen(){
+
+    // 입력된 적립금 입력 필드 초기화
+    document.getElementById("pointInput").value = "";
+
+    document.getElementById("totalOrder").innerText = originalTotalOrder;
+    document.getElementById("userTotalPoints").innerText = originalUserTotalPoints;
+
+    // 사용자에게 초기화되었음을 알리는 메시지 표시 (예: alert)
+    alert("적립금이 초기화되었습니다.");
+
+
+}
 
 
 //적립금 적용 버튼 이건 결제했을때 업데이트되야됨 아직 실행안됨
@@ -98,6 +121,37 @@ function updatePointsOnScreen() {
 //             console.error(error);
 //         });
 // }
+
+//결제하기버튼을 누르면 실행될 로직 첫번째로 적립금을 업데이트
+document.addEventListener("DOMContentLoaded", function () {
+    var paymentButton = document.getElementById("paymentButton");
+
+    paymentButton.addEventListener("click", function () {
+        // 여기에 결제하기 버튼이 클릭되었을 때 실행될 코드를 추가합니다.
+        // 예를 들어, 적립금 업데이트 요청을 서버에 보내고, 결제 모듈 호출 등을 수행할 수 있습니다
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -142,3 +196,4 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+

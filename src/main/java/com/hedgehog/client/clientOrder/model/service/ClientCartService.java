@@ -8,11 +8,12 @@ import java.util.List;
 public interface ClientCartService {
 
     List<CartSelectDTO> selectCartOrder(List<Integer> cartcheckbox);
-    int getOrderPoint(int userCode);
 
-    void updateUserPoint(int userCode, int usedPoints);
+    int getOrderPoint(int userCode);
 
     OrderInfoDTO getOrderInfo(int userCode);
 
+
+    int updateUserPoint(int userCode, int usedPoints);
 
 }

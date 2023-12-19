@@ -5,7 +5,6 @@ import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface CartOrderMapper {
@@ -15,8 +14,7 @@ public interface CartOrderMapper {
 
     int getOrderPoint(int userCode);
 
-//    void updateUserPoint(int userCode, int usedPoints);
-
     OrderInfoDTO getOrderInfo(int userCode);
 
+    int updateUserPoint(int userCode, int usedPoints);
 }

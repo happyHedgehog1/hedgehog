@@ -34,19 +34,15 @@ public class ClientCartServiceImp implements ClientCartService {
     }
 
 
-    @Transactional
-    @Override
-    public void updateUserPoint(int userCode, int usedPoints) {
-//        Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("userCode", userCode);
-//        parameters.put("usedPoints", usedPoints);
-//        cartOrderMapper.updateUserPoint(userCode, usedPoints);
-    }
-
 
     @Override
     public OrderInfoDTO getOrderInfo(int userCode) {
         return cartOrderMapper.getOrderInfo(userCode);
+    }
+
+    @Override
+    public int updateUserPoint(int userCode, int usedPoints) {
+        return cartOrderMapper.updateUserPoint(userCode, usedPoints);
     }
 
 

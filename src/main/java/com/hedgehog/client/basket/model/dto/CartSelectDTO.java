@@ -18,4 +18,5 @@ public class CartSelectDTO {
     private int amount;
     private int deliveryCharge;
     private int productSum;
+    private String formattedPrice;
 }
