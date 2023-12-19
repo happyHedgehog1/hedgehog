@@ -112,7 +112,7 @@ $(function () {
 
         // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
         if (thumbnailContainer.children('img').length + files.length > 3) {
-            var excessCount = thumbnailContainer.children('img').length + files.length - 5;
+            var excessCount = thumbnailContainer.children('img').length + files.length - 3;
             thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
         }
 
@@ -225,36 +225,36 @@ let message = null;
 if(message != null && message !== 'null') {
     alert(message);
 }
-
-    // $("#btnAdd").on("click", function () {
-    //     var productName = document.getElementById($('#productName'));
-    //     var price = parseFloat(document.getElementById('price').value);
-    //     var upperCategoryCode = document.getElementById('upperCategoryCode');
-    //     var salesStart = document.getElementById('salesStart').value;
-    //     var salesEnd = document.getElementById('salesEnd').value;
-    //     var subCategoryName = document.getElementById($('#subCategoryName'));
-    //     var optionIndex = 0;  // 예시로 초기값을 0으로 설정
-    //     var optionCode = $("#optionDTO\\[" + optionIndex + "\\]\\.optionCode").val();
-    //     var optionName = $("#optionDTO\\[" + optionIndex + "\\]\\.optionName").val();
-    //     var Stock = $("#optionList\\[" + optionIndex + "\\]\\.stock").val();
-    //     var thumbnail = $("#thumbnail")[0].files[0]; // 파일을 가져오려면 [0].files[0]로 접근
-    //     var sub_thumbnail = $("#sub_thumbnail")[0].files; // 여러 파일을 가져오려면 [0].files로 접근
-    //     var proImg = $("#proImg")[0].files[0];
-    //     if (typeof price !== 'string'|| !price || price.value === '0') {
-    //         alert("상위 카테고리 코드는 문자열로 입력되어야 합니다.");
-    //         return;  // 함수 종료
-    //     }
-    //     if (isNaN(price) || !productName || upperCategoryCode === '' || salesStart === '' || salesStart.value === '' || salesEnd === '' ||price.trim() === "") {
-    //         alert("모든 정보를 입력해주세요");
-    //     } else {
-    //         // 폼 데이터에 변환된 값을 설정
-    //         $("#upperCategoryCode").val(upperCategoryCode);
-    //         $("#price").val(price);
-    //
-    //         // 서버로 데이터 전송
-    //         $("#productAdd").submit();
-    //     }
-    //
-    //
-    // })
-// }
+//
+// $("#btnAdd").on("click", function () {
+//     var salesStart = $("#salesStart").val();
+//     var salesEnd = $("#salesEnd").val();
+//     var productName = $("#productName").val();
+//     var price = parseInt($("#price").val(), 10);
+//     var upperCategoryCode = parseInt($("#upperCategoryCode").val(), 10);
+//     var optionCode = $("#optionDTO\\[0\\]\\.optionCode").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
+//     var optionName = $("#optionDTO\\[0\\]\\.optionName").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
+//     var stock = $("#optionList\\[0\\]\\.stock").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
+//     var thumbnail = $("#thumbnail").val();
+//     var sub_thumbnail = $("#sub_thumbnail").val();
+//     var proImg = $("#proImg").val();
+//
+//     필드 중 하나라도 비어있을 때 경고창 띄우기
+//     if (salesStart === '' ||
+//         salesEnd === '' ||
+//         productName === "" ||
+//         price === "" ||
+//         upperCategoryCode === "" ||
+//         optionCode === "" ||
+//         optionName === "" ||
+//         stock === "" ||
+//         thumbnail === "" ||
+//         sub_thumbnail === "" ||
+//         proImg === ""
+//     ) {
+//         alert("모든 필드를 입력하세요.");
+//     }
+// });
+//
+//
+//

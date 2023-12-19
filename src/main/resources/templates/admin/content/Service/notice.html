@@ -24,7 +24,7 @@
                             <div class="pageButton"><a th:href="@{/Service/FAQPage}">FAQ 관리</a></div>
                             <div class="pageButton1"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
                             </div>
-                        <div id="btnNoticeAdd"><a th:href="@{/Service/noticeWrite}">공지사항등록</a></div>
+                        <div id="btnNoticeAdd"><a th:href="@{/Service/noticeWritePage}">공지사항등록</a></div>
                     </div>
                     <div class="sectTopWrapper">
                         <div class="sectTop">
@@ -122,7 +122,6 @@
                                             <tr class="searchResult">
                                                 <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
                                                 <th>제목</th>
-                                                <th>내용</th>
                                                 <th>작성자</th>
                                                 <th>등록일자</th>
                                                 <th>수정일자</th>
@@ -134,8 +133,7 @@
                                         <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
                                                th:value="${FAQ.getPost_code()}">
                                     </td>
-                                    <td th:text="${ FAQ.title }"></td>
-                                    <td th:text="${ FAQ.content }"></td>
+                                    <td th:text="${#strings.length(FAQ.title) > 10 ? #strings.substring(FAQ.title, 0, 10) + '..' : FAQ.title}"></td>
                                     <td th:text="${ FAQ.id.id }"></td>
                                     <td th:text="${ FAQ.write_date }"></td>
                                     <td th:text="${ FAQ.modify_date }"></td>
@@ -157,7 +155,14 @@
                         </form>
                     </div>
                 </div>
+    <script th:inline="javascript">
 
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
 </th:block>
 </body>
 </html>

@@ -23,6 +23,9 @@ public class AdminInquiryDTO {
     private String content;
     private String state;
     private AdminUserDTO id;
+    private String comContent;
+
+
 
 
 }

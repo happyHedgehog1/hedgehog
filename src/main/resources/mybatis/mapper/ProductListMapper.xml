@@ -89,6 +89,7 @@
         LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
         LEFT JOIN tbl_category C ON (A.category_code = C.category_code)
         WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND C.state = 'Y' AND B.image_classification = 'Thumbnails'
+        AND A.event_progressionstatus = 'N'
         AND (
             (#{type} = 'bed' AND c.name = '침대')
         OR

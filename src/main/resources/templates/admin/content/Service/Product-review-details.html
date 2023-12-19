@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 후기</title>
+    <link rel="stylesheet" th:href="@{/admin/css/Product-inquiry-details.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="wrap">
+        <header><a href="#">
+            <div class="logobackground">
+                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h2 >상품 후기</h2>
+            </div>
+        </a>
+        </header>
+    <div class="body">
+        <div class="wrap">
+            <table>
+                <tr>
+                    <th>아이디</th>
+                    <th>제품명</th>
+                    <th>평점</th>
+                    <th>등록일</th>
+                    <th>공개여부</th>
+                </tr>
+                <tr>
+                    <td th:text="${adminReviewDTO.getId().id}"></td>
+                    <td th:text="${adminReviewDTO.product.productName}"></td>
+                    <td th:text="${adminReviewDTO.grade}"></td>
+                    <td th:text="${adminReviewDTO.write_date}"></td>
+                    <td th:text="${adminReviewDTO.state}"></td>
+                </tr>
+                <tr>
+                    <th>후기 내용</th>
+                    <td th:text="${adminReviewDTO.content}" colspan="4"></td>
+                </tr>
+                <tr>
+                    <th>후기 사진</th>
+                    <td th:text="${adminReviewDTO.content}" colspan="4"></td>
+                </tr>
+            </table>
+        </div>
+        </div>
+        </div>
+    </div>
+    <script th:src="@{/admin/js/Product-inquiry-details.js}" th:inline="javascript">
+
+
+            var message = [[${message}]];
+            if (message) {
+            alert(message);
+        }
+
+
+    </script>
+
+</body>
+</html>

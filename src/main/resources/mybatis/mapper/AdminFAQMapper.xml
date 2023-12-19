@@ -65,4 +65,33 @@
         WHERE post_code = #{post_code}
     </update>
 
+    <select id="FAQModifyPage" resultMap="FAQResultMap">
+        SELECT
+            A.post_code,
+            A.title,
+            A.content,
+            B.id,
+            A.write_date,
+            A.modify_date,
+            A.views,
+            A.state
+        FROM tbl_admin_bulletin_board A
+                 JOIN tbl_user B ON A.user_code = B.user_code
+        WHERE A.post_code = #{postCode}
+    </select>
+    <update id="FAQModify">
+        UPDATE tbl_admin_bulletin_board
+        SET
+            content = #{content},
+            title = #{title},
+            state =
+                <choose>
+                    <when test="state == 1"> 'Y'</when>
+                    <when test="state == 2"> 'N'</when>
+                </choose>,
+            modify_date = now()
+        where post_code = #{post_code}
+    </update>
+
+
 </mapper>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"  th:href="@{/admin/css/autoMail/viewport/modify.css}">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <title>Document</title>
@@ -17,7 +17,7 @@
 </head>
 <body>
 <form id="memberForm" th:action="@{/member/sendMail}" method="post" enctype="multipart/form-data">
-    <label>메일 제목 <input type="text" th:value="${sendMailDTO.title}" name="title" id="title"></label>
+    <label>메일 제목 <input type="text" id="title" th:value="${sendMailDTO.title}" name="title" ></label>
 <!--    <input type="hidden" id="memberIds" name="memberId" th:value="${sendMailDTO.memberId}" />-->
 <!--<th:block th:text="${sendMailDTO.memberId}"/>-->
 
@@ -33,7 +33,14 @@
 <!--        </tr>-->
 <!--    </table>-->
 </form>
-<script>
+<script th:inline="javascript">
+
+    var message = [[${message}]];
+    if (message) {
+        alert(message);
+        window.opener.location.reload();
+        window.close();
+    }
     $(document).ready(function() {
         // Summernote 초기화
         $('#summernote').summernote({
@@ -59,11 +66,14 @@
             $('#summernoteContent').val($('#summernote').summernote('code'));
 
 
-
             // 폼 제출
             $('#memberForm').submit();
+
         });
     });
+
+
+
 </script>
 </body>
 </html>

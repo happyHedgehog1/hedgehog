@@ -1,55 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminlayout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  th:href="@{/admin/css/autoMail/viewport/modify.css}">
+    <title>공지사항 수정</title>
+    <link rel="stylesheet" th:href="@{/admin/css/noticeWrite.css}" type="text/css">
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <title>Document</title>
-    <style>
-        .summernote {
-            width: 100px;
-        }
-    </style>
 </head>
 <body>
-<form id="memberForm" th:action="@{/autoMailModify/modifyMail}" method="post">
-    <input type="hidden" name="formCode" th:value="${adminAutoMailDTO.formCode}">
-    <label>메일 제목 <input type="text" th:value="${adminAutoMailDTO.title}" name="title" id="title"></label>
-    <textarea id="summernote" class="summernote" name="content" th:utext="${adminAutoMailDTO.content}"></textarea>
-    <button type="submit">저장</button>
-</form>
-<script>
-    $(document).ready(function() {
-        // Summernote 초기화
-        $('#summernote').summernote({
-            placeholder: '',
-            tabsize: 2,
-            height: 1000, // 필요에 따라 높이 조정
-            width: 800,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
+<th:block layout:fragment="content">
+        <div class="pageBody">
+            <div class="mainHd">
+                <div class="topTitle">
+                    <h4>게시판관리</h4>
+                </div>
+                <div class="topbtnWrapper">
+                    <div class="pageButton"><a th:href="@{/Service/productInquiryPage}">상품 문의 관리</a></div>
+                    <div class="pageButton"><a th:href="@{/Service/Product-reviewPage}">상품 후기 관리</a></div>
+                    <div class="pageButton"><a th:href="@{/Service/FAQPage }">FAQ 관리</a></div>
+                    <div class="pageButton1"><a th:href="@{/Service/noticePage}">공지사항 관리</a></div>
+                </div>
+            </div>
+            <div class="sectTopWrapper">
+                <div class="sectTop">
+                    <form id="FAQForm" th:action="@{/Service/noticeModify}" method="post">
+                        <input type="hidden" name="post_code" id="post_code" th:value="${adminNoticeDTO.post_code}">
+                    <table class="tblTop">
+                        <colgroup>
+                            <col class="w200">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>제목</th>
+                            <td>
+                                <ul class="arrAlign">
+                                    <li>
+                                        <input type="text" name="title" id="title" th:value="${adminNoticeDTO.title}">
+                                    </li>
+                                    <li>
+                                        <label for=""><input type="checkbox" name="" id=""> 상단고정</label>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td>
+                                <textarea  id="summernote" class="summernote" name="content" th:utext="${adminNoticeDTO.content}"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>공개여부</th>
+                            <td>
+                                <ul class="arrAlign">
+                                    <li class="w200">
+                                        <select name="state" id="state" >
+                                            <option value="0" selected>전체</option>
+                                            <option value="1" th:selected="${adminNoticeDTO.state == 'Y'}">공개</option>
+                                            <option value="2" th:selected="${adminNoticeDTO.state == 'N'}">비공개</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
 
-        // 저장 버튼 클릭 이벤트
-        $('#submit').on('click', function() {
-            // Summernote 내용을 textarea에 설정
-            $('#summernoteContent').val($('#summernote').summernote('code'));
+                        </tbody>
+                    </table>
+                    <div>
+                        <button id="btnSearch" type="submit"> 수정 </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/admin/js/noticeWrite.js}" th:inline="javascript">
+            $(document).ready(function() {
+                // Summernote 초기화
+                $('#summernote').summernote({
+                    placeholder: '',
+                    tabsize: 2,
+                    height: 500, // 필요에 따라 높이 조정
+                    width: 800,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link',]],
+                        ['view', ['fullscreen', 'codeview']]
+                    ]
+                });
 
-            // 폼 제출
-            $('#memberForm').submit();
-        });
-    });
-</script>
+                // 저장 버튼 클릭 이벤트
+                $('#submit').on('click', function() {
+                    // Summernote 내용을 textarea에 설정
+                    $('#summernoteContent').val($('#summernote').summernote('code'));
+
+                    // 폼 제출
+                    $('#FAQForm').submit();
+                });
+            });
+
+                var message = [[${message}]];
+                if (message) {
+                alert(message);
+            }
+
+        </script>
+
+</th:block>
 </body>
 </html>

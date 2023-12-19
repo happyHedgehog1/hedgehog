@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminlayout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 상품 등록</title>
+    <link rel="stylesheet" th:href="@{/admin/css/eventProdAdd.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<th:block layout:fragment="content">
+                <div class="pageBody">
+                    <div class="mainHd">
+                        <div class="topTitle">
+                        <h4>이벤트 상품 등록</h4>
+                        <br>
+                        </div>
+                        <div class="box"></div>
+                    </div>
+                    <div class="sectTopTop">
+                        <div class="sectTop">
+                            <div th:each="productCode : ${event.get(0).getProductDTOList()}">
+                                <input type="hidden" name="productCode" id="productCode" th:value="${productCode.productCode}">
+                            </div>
+                            <table class="tblTop">
+                                <colgroup>
+                                    <col class="w200">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <th>이벤트명</th>
+                                    <td>
+                                        <input type="text" name="eventName" id="eventName" style="width: 170px" th:value="${event.get(0).title}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                        <th>진행여부</th>    
+                                            <td>
+                                                <ul class="arrAlign">
+                                                    <li class="w200">
+                                                        <label>
+                                                            <input type="radio" name="status" value="Y" th:checked="${event.get(0).status == 'Y'}"><span> 진행함</span>
+                                                        </label>
+                                                    </li>
+                                                    <li class="w25">
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        <label>
+                                                            <input type="radio" name="status" value="N" th:checked="${event.get(0).status == 'N'}"><span> 진행안함</span>
+                                                        </label>
+                                                    </li>
+                                                </ul>  
+                                            </td>   
+                                    </tr>    
+                                    <tr>        
+                                        <th>기간설정</th>    
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <input type="date" name="searchStartDay" id="searchStartDay" style="width: 170px" th:value="${event.get(0).startDay.substring(0,10)}">
+                                                </li>
+                                                <li class="w25">
+                                                    ~
+                                                </li>
+                                                <li>
+                                                    <input type="date" name="searchEndDay" id="searchEndDay" style="width: 170px" th:value="${event.get(0).endDay.substring(0,10)}">
+                                                </li>
+                                            </ul>  
+                                        </td>    
+                                    </tr>
+                                    <tr>        
+                                        <th>혜택설정</th>    
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <label for="salenum">
+                                                        <input type="text" name="price" id="price" style="width:173px;" th:value="${event.get(0).discount * 100}">
+                                                    </label>
+                                                </li>
+                                                <li class="w25">
+                                                    &nbsp;
+                                                </li>
+                                                <li >
+
+                                                        <span>% 할인</span>
+                                                    </label>
+                                                </li>
+                                            </ul>  
+                                        </td>      
+                                    </tr> 
+                                    <tr>        
+                                        <th>상품선택</th>
+                                        <input type="hidden" th:value="${event.get(0).postCode}" id="postCode" name="postCode">
+                                    </tr> 
+                                    <tr>        
+                                        <th colspan="2">
+                                            <div class="eventProdList">
+                                            <table class="result">
+                                                <colgroup>
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%; color: #CD4747 ">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr class="searchResult">
+                                                        <th><input type="checkbox" name="chk_all_product" ></th>
+                                                        <th>상품번호</th>
+                                                        <th>상품명</th>
+                                                        <th>판매가</th>
+                                                        <th>할인 적용가</th>
+                                                    </tr>
+                                                    <tr th:each="productList : ${event.get(0).getProductDTOList()}">
+                                                        <td><input type="checkbox" name="resultCheckbox" th:value="${productList.productCode}"></td>
+                                                        <td th:text="${productList.productCode}"></td>
+                                                        <td th:text="${productList.productName}"></td>
+                                                        <td th:text="${#numbers.formatInteger(productList.price, 3, 'COMMA') + '원'}"></td>
+                                                        <td style="width: 140px; color: #CD4747" th:text="${#numbers.formatInteger((productList.price - (event.get(0).discount * productList.price)),3,'COMMA')} + '원'"></td>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </th>    
+                                    </tr> 
+                                </tbody>    
+                            </table>
+                            <div class="bottombtn">
+                                <div><button id="btnEventDelete"> 선택삭제 </button></div>
+                                <div><button id="btnEventAdd"> 상품추가 </button></div>
+                            </div>
+                            <div  class="center">
+                            <button type="submit" id="btnEventModifySubmit" name="btnEventModifySubmit" style="width: 200px">이벤트 정보 수정</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                    <div class="modal" id="myModal">
+                        <div class="modalContent">
+                            <span id="closeModal">&times;</span>
+                            <div class="modalTop">
+                                <div class="modalTitle"><h4>이벤트 상품 추가</h4></div>
+                                    <table class="modalTable1">
+                                    <colgroup>
+                                        <col class="w140">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+
+                                    <tr>
+                                            <th>키워드</th>    
+                                                <td>
+                                                    <ul class="arrAlign">
+                                                        <li class="w200">
+                                                            <select name="prdKeyword" id="prdKeyword" >
+                                                                <option value="prdName" selected>상품명</option>
+                                                                <option value="prdNumber">상품번호</option>
+                                                            </select>
+                                                        </li>
+                                                        <li class="w25">
+                                                            &nbsp;
+                                                        </li>                                                    
+                                                        <li>
+                                                            <input type="text" name="searchValue" id="searchValue">
+                                                        </li>
+                                                    </ul>    
+                                                </td>   
+                                        </tr>
+                                    <tr>
+                                        <th>카테고리</th>
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <select name="upperCategoryCode" id="upperCategoryCode" onchange="setSelectBox(this)">
+                                                        <option value="0" selected>상위 카테고리</option>
+                                                        <option value="1" >침실</option>
+                                                        <option value="2" >거실</option>
+                                                        <option value="3" >서재</option>
+                                                        <option value="4" >주방</option>
+                                                    </select>
+                                                </li>
+                                                <li class="w25">
+                                                    &nbsp;
+                                                </li>
+                                                <li class="w200">
+                                                    <select name="subCategoryName" id="subCategoryName">
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>판매가</th>
+                                        <td>
+                                            <ul class="arrAlign">
+                                                <li class="w200">
+                                                    <input type="number" name="searchStartPrice" id="searchStartPrice" value="0">
+                                                </li>
+                                                <li class="w25">
+                                                    &nbsp;~
+                                                </li>
+                                                <li class="w200">
+                                                    <input type="number" name="searchEndPrice" id="searchEndPrice" value="0">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>    
+                                </table>
+                                <div>
+                                    <button id="btnPrdSearch"> 검색 </button>
+                                </div>
+                                </form>
+                                <div>
+                                    <b>상품 검색 결과</b> (총 : <span class="colorRed"></span> / 판매중 : <span class="colorRed">2</span> / 품절 : <span class="colorRed">1</span> )
+                                </div>
+                                <div class="modalResultTable">
+                                    <table class="modalTable2">
+                                        <colgroup>
+                                            <col class="w140">
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr class="searchResult">
+                                                <th><input type="checkbox" name="" id="" style="width: 140px;"></th>
+                                                <th style="width: 140px;">상품번호</th>
+                                                <th>상품명</th>
+                                                <th style="width: 200px;">판매가</th>
+                                                <th style="width: 140px;">등록일(수정일)</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <button id="btnModalProdAdd">선택한 상품 추가</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <script th:src="@{/admin/js/event.js}"></script>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
+</th:block>
+
+</body>
+</html>

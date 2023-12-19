@@ -120,7 +120,7 @@ CREATE TABLE `tbl_delivery`
     `delivery_address`  VARCHAR(50) NOT NULL,
     `delivery_requests` VARCHAR(100),
     `arrival_time`      DATETIME,
-    `recipent_name`     VARCHAR(50) NOT NULL,
+    `recipient_name`     VARCHAR(50) NOT NULL,
     `recipient_phone`   VARCHAR(20),
     `state`             VARCHAR(20) NOT NULL,
     PRIMARY KEY (`delivery_code`)
@@ -293,7 +293,7 @@ CREATE TABLE `tbl_post_img`
     `modify_date`   DATETIME,
     `source_path`   VARCHAR(255)        NOT NULL,
     `convert_path`  VARCHAR(255)        NOT NULL,
-    `state`         CHAR(1) DEFAULT 'N' NOT NULL,
+    `state`         CHAR(1) DEFAULT 'Y' NOT NULL,
     `post_type`     VARCHAR(30)         NOT NULL,
     `source_name`   VARCHAR(255)        NOT NULL,
     `convert_name`  VARCHAR(255)        NOT NULL,
@@ -451,11 +451,11 @@ ALTER TABLE `tbl_order_list`
 ALTER TABLE `tbl_order_list`
     ADD CONSTRAINT `tbl_order_list_FK2` FOREIGN KEY (`payment_code`) REFERENCES `tbl_payment` (`payment_code`);
 ALTER TABLE `tbl_post_img`
-    ADD CONSTRAINT `tbl_post_img_FK` FOREIGN KEY (`post_code`) REFERENCES `tbl_event` (`post_code`);
+    ADD CONSTRAINT `tbl_post_img_FK` FOREIGN KEY (`event_code`) REFERENCES `tbl_event` (`post_code`);
 ALTER TABLE `tbl_post_img`
-    ADD CONSTRAINT `tbl_post_img_FK1` FOREIGN KEY (`post_code`) REFERENCES `tbl_inquiry` (`inquiry_code`);
+    ADD CONSTRAINT `tbl_post_img_FK1` FOREIGN KEY (`inquiry_code`) REFERENCES `tbl_inquiry` (`inquiry_code`);
 ALTER TABLE `tbl_post_img`
-    ADD CONSTRAINT `tbl_post_img_FK2` FOREIGN KEY (`post_code`) REFERENCES `tbl_review` (`review_code`);
+    ADD CONSTRAINT `tbl_post_img_FK2` FOREIGN KEY (`review_code`) REFERENCES `tbl_review` (`review_code`);
 ALTER TABLE `tbl_product`
     ADD CONSTRAINT `tbl_product_FK` FOREIGN KEY (`category_code`) REFERENCES `tbl_category` (`category_code`);
 ALTER TABLE `tbl_product_img`

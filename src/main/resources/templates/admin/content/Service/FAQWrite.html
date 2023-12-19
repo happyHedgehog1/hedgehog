@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <script th:src="@{/admin/js/noticeWrite.js}">
+        <script th:src="@{/admin/js/noticeWrite.js}" th:inline="javascript">
             $(document).ready(function() {
                 // Summernote 초기화
                 $('#summernote').summernote({
@@ -94,8 +94,8 @@
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
-                        ['view', ['fullscreen', 'codeview', 'help']]
+                        ['insert', ['link']],
+                        ['view', ['fullscreen', 'codeview']]
                     ]
                 });
 
@@ -108,6 +108,10 @@
                     $('#FAQForm').submit();
                 });
             });
+                var message = [[${message}]];
+                if (message) {
+                alert(message);
+            }
         </script>
 
 </th:block>

@@ -58,6 +58,14 @@
             </table>
         </div>
     </div>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
 </div>
 </body>
 </html>

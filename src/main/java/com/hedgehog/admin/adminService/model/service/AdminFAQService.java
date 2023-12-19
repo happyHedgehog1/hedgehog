@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminService.model.service;
 
 import com.hedgehog.admin.adminService.model.dto.AdminFAQDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminFAQForm;
+import com.hedgehog.admin.adminService.model.dto.AdminNoticeDTO;
 import com.hedgehog.admin.exception.BoardException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,4 +23,8 @@ public interface AdminFAQService {
 
     @Transactional
     void FAQRegister(AdminFAQDTO adminFAQDTO) throws BoardException;
+
+    AdminFAQDTO FAQModifyPage(int postCode);
+
+    void FAQModify(AdminFAQDTO adminFAQDTO);
 }

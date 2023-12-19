@@ -10,4 +10,6 @@ public interface AdminReviewMapper {
     List<AdminReviewDTO> searchReview(AdminReviewForm form);
 
     int revStateUpdate(AdminReviewDTO reviewDTO);
+
+    AdminReviewDTO reviewDetail(int Review_code);
 }

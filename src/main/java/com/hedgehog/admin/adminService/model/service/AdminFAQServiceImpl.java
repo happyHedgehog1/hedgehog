@@ -3,6 +3,7 @@ package com.hedgehog.admin.adminService.model.service;
 import com.hedgehog.admin.adminService.model.dao.AdminFAQMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminFAQDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminFAQForm;
+import com.hedgehog.admin.adminService.model.dto.AdminNoticeDTO;
 import com.hedgehog.admin.exception.BoardException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -67,4 +68,19 @@ public class AdminFAQServiceImpl implements AdminFAQService {
         throw new BoardException("상태 변경에 실패하셨습니다.");
     }
     }
+
+    @Override
+    public AdminFAQDTO FAQModifyPage(int postCode) {
+
+        AdminFAQDTO adminFAQDTO = mapper.FAQModifyPage(postCode);
+        return adminFAQDTO;
+    }
+
+    @Override
+    @Transactional
+    public void FAQModify(AdminFAQDTO adminFAQDTO) {
+        int result = mapper.FAQModify(adminFAQDTO);
+    }
+
+
 }

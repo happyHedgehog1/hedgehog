@@ -92,6 +92,7 @@
                 </if>
             </if>
             AND A.state = 'Y'
+            ORDER BY A.write_date DESC
             LIMIT #{ startRow }, #{ limit }
         </where>
     </select>
@@ -170,6 +171,7 @@
             <if test="orderBy == 'gradeDESC'">
                 A.grade DESC
             </if>
+            , A.write_date DESC
         </if>
         LIMIT  #{ startRow }, #{ limit }
     </select>
@@ -234,6 +236,7 @@
             <if test="orderBy == 'viewsDESC'">
                 A.views DESC
             </if>
+            , A.write_date DESC
         </if>
         LIMIT  #{ startRow }, #{ limit }
     </select>
@@ -298,6 +301,7 @@
             <if test="orderBy == 'viewsDESC'">
                 A.views DESC
             </if>
+            , A.write_date DESC
         </if>
         LIMIT  #{ startRow }, #{ limit }
     </select>

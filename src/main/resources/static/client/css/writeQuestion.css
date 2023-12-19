@@ -1,0 +1,157 @@
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
+}
+
+#contents {
+    align-self: center;
+    /* min-width는 선택 */
+    /* max-width는 선택 */
+    padding-bottom: 30px;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
+#contents td {
+    padding-top: 0.2em;
+    padding-bottom: 0.3em;
+}
+
+
+#input_title {
+    /*width: calc(100% - 5px);*/
+    border: 1px solid gray;
+    border-radius: 0.3em;
+    height: 1.7em;
+}
+
+#title {
+    width: 6em;
+    padding-left: 5px;
+}
+
+#title,
+#input_title {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    height: 30px;
+}
+
+#question_body_title {
+    display: flex;
+}
+
+#question_body_title:first-child {
+    padding-top: 0.3em;
+}
+
+#photo_and_ratings {
+    display: grid;
+    grid-template-columns:0.8fr 1fr;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+
+}
+
+#productName_and_ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-evenly;
+}
+
+#contents {
+    align-self: center;
+}
+
+/* summernote */
+.note-editor.note-frame {
+    margin-right: 5px;
+}
+
+#product_img {
+    height: 100px;
+    padding-left: 200px;
+}
+
+#bottom_buttons {
+    padding: 5px;
+    margin-top: 2em;
+
+}
+
+#bottom_buttons > input {
+    border-radius: 0.3em;
+    padding: 0.5em 1em;
+    font-size: 15px;
+    transition: 200ms;
+}
+
+#goback_button:first-child {
+    border: 1.5px solid #A7727D;
+    background-color: white;
+    color: black;
+}
+
+#submit_button:last-child {
+    border: 1.5px solid white;
+    background-color: #A7727D;
+    color: white;
+}
+
+#goback_button:first-child:hover {
+    border: 1.5px solid white;
+    background-color: #A7727D;
+    color: white;
+}
+
+#submit_button:hover {
+    border: 1.5px solid #A7727D;
+    background-color: white;
+    color: black;
+}
+
+#contents_table {
+    padding-top: 3em;
+    width: 55em;
+}
+
+#top_title {
+    font-size: 20px;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+#info {
+    font-size: 15px;
+    color: #707070;
+}
+
+#main_category_route {
+    /*width: 1200px;*/
+}
+
+tr {
+    height: 40px;
+}
+
+#input_option,
+#input_order_number,
+#input_product_name{
+    height: 30px;
+    /*width: 300px;*/
+}
+
+.number,
+.product_number {
+    /*display: none;*/
+}

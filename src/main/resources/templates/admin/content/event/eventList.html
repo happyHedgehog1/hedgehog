@@ -102,9 +102,7 @@
                                 </colgroup>
                                 <tbody>
                                             <tr class="eventSearchResult">
-                                                <th>
-                                                    <input type="checkbox" name="resultCheckbox" >
-                                                </th>
+                                                <th>No.</th>
                                                 <th>진행여부</th>
                                                 <th>이벤트 진행명</th>
                                                 <th>이벤트 시작일</th>
@@ -112,15 +110,18 @@
                                                 <th>할인율</th>
                                                 <th>등록일</th>                                                    
                                     </tr> 
-                                    <tr class="eventSearchBottomTr"  th:each="event : ${ eventList }" >
-                                        <td class="eventSearchBottomCheck">
-                                                <input type="checkbox" name="resultCheckbox" id="resultCheckbox" th:value="${event.postCode}">
-                                        <td th:text="${event.status == 'N' ? '이벤트 종료' : '이벤트 진행중'}" th:classappend="${event.status == 'N' ? 'colorRed' : ''}"></td>
+                                    <tr class="eventSearchBottomTr"  th:each="event,stat : ${ eventList }" >
+                                        <td th:text="${event.postCode}"></td>
+                                        <td th:text="${ event.status == 'N' ? '이벤트 종료' : '이벤트 진행중'}" th:classappend="${event.status == 'N' ? 'colorRed' : ''}"></td>
                                         <td th:text="${ event.title }"></td>
                                         <td th:text="${ event.startDay}"></td>
                                         <td th:text="${ event.endDay }"></td>
                                         <td th:text="${ event.discount } + '%'"></td>
-                                        <td th:text="${ event.writeDate }"></td>
+                                        <td>
+                                            <span th:text="${event.writeDate}"></span>
+                                            <br>
+                                            <span th:if="${event.modifyDate != null}" th:text="${'(' + event.modifyDate + ')'}"></span>
+                                        </td>
                                     </tr>    
 
                                 </tbody>
@@ -130,6 +131,14 @@
 
                         </div>
                     </div>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
 </th:block>
 </body>
 </html>

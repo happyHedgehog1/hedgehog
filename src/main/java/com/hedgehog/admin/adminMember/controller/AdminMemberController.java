@@ -29,12 +29,11 @@ public class AdminMemberController {
         this.adminMemberServiceimpl = adminMemberService;
     }
 
-
-
-
-
-
-
+    /**
+     * 메일 양식을 가져와서 화면에 띄우는 메소드
+     * @param memberCode
+     * @return
+     */
     @PostMapping(value = "/selectMemberSendMailPage")
     private ModelAndView selectMemberSendMailPage(@RequestParam("resultCheckbox")List<String> memberCode){
         log.info("");
@@ -50,9 +49,6 @@ public class AdminMemberController {
 
         log.info("~~~~~~~~~~~~~~~~sendMailDTO : {}", sendMailDTO);
 
-
-
-
         ModelAndView mv = new ModelAndView();
         mv.addObject("sendMailDTO", sendMailDTO);
         mv.setViewName("admin/content/member/sendMail");
@@ -64,10 +60,16 @@ public class AdminMemberController {
 
     }
 
+    /**
+     * 메일 발송하는 메소드
+     * @param mailDTO
+     * @param rttr
+     * @return
+     * @throws UnregistException
+     */
     @PostMapping(value = "/sendMail")
-    private String sendMail(
-                            @ModelAttribute AdminSendMailDTO mailDTO
-
+    private String sendMail(@ModelAttribute AdminSendMailDTO mailDTO
+                            ,RedirectAttributes rttr
                              ) throws UnregistException {
         log.info("");
         log.info("");
@@ -82,13 +84,14 @@ public class AdminMemberController {
 //        }
 //메일 보내는 메소드
         adminMemberServiceimpl.sendMail(mailDTO);
+        rttr.addFlashAttribute("message", "메일 전송이 성공하였습니다.");
 
 //        메일 히스토리 테이블에 등록하는 메소드 Transactional때매 따로 생성
 //        adminMemberServiceimpl.insertMailHistoryTable(mailDTO);
 
 
 
-        return "admin/content/member/membersearch";
+        return "admin/content/member/blank";
     }
 
 
@@ -132,6 +135,8 @@ public class AdminMemberController {
 
     /**
      * 회원조회 페이지에서 회원 탈퇴 시키는 메소드
+     * 회원 탈퇴하면 user 테이블의 withdraw_state를 Y로 변경하고,
+     * withdraw 테이블에 해당 member insert한다
      * @param memberId
      * @param rttr
      * @return
@@ -159,7 +164,7 @@ public class AdminMemberController {
 
         }
 
-        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
+        rttr.addFlashAttribute("message", "회원탈퇴 신청되었습니다. 탈퇴 확정은 탈퇴회원조회 페이지에서 진행해주세요.");
         return "redirect:/member/membersearchPage";
     }
 

@@ -18,21 +18,7 @@
 
 });
 
-    /**
-     * 이벤트 목록 조회 체크박스 상태 업데이트
-     */
-    $(document).ready(function () {
-        // 상위 체크박스를 클릭할 때
-        $(".eventSearchResult th input[type='checkbox']").change(function () {
-            // 해당 상위 체크박스의 체크 상태를 가져옴
-            var isChecked = $(this).prop("checked");
 
-            // 하위 체크박스들의 상태를 업데이트
-            $(".eventSearchBottomTr input[type='checkbox']").prop("checked", isChecked);
-
-        });
-
-    });
     /**
      * 이벤트 목록 조회 마우스 오버 메소드
      */
@@ -51,11 +37,11 @@
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsEvent[i].onclick = function() {
-                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
-                    const eventDetailUrl = "/event/eventDetailPage?postCode=" + postCode ;
+                $tdsEvent[i].ondblclick = function() {
+                    const postCode = this.parentNode.children[0].innerText;
+                    location.href = "/event/eventModify?postCode=" + postCode;
 
-                    window.open(eventDetailUrl, "_blank", "width=820, height=1000");
+
 
                 };
             }
@@ -104,8 +90,10 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const userCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    const unregisterDetailUrl = "/unregister/unregisterDetail?userCode=" + userCode;
+                    window.open(unregisterDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
@@ -132,7 +120,7 @@
                     const member_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
 
                     const memberDetailUrl = "/member/pointPage?member_code=" + member_code;
-                    window.open(memberDetailUrl, "_blank", "width=820, height=1000");
+                    window.open(memberDetailUrl, "_blank", "width=840, height=500");
                 };
             }
         }
@@ -158,12 +146,14 @@
                     const orderCode = this.parentNode.querySelector("td:nth-child(3)").innerText;
 
                     const orderDetailUrl = "/order/orderDetail?orderCode=" + orderCode;
-                    window.open(orderDetailUrl, "_blank", "width=1500, height=1000");
+                    window.open(orderDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
 
-
+        /**
+         * 상품 문의 온클릭
+         */
             if (document.querySelectorAll("#productInquiry td")) {
             const $tdsProduct = document.querySelectorAll("#productInquiry td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -179,12 +169,19 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const inquiry_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+                    const answer_state = this.parentNode.children[5].innerText;
+                    const inquiryDetailUrl = "/Service/inquiryDetail?inquiry_code=" + inquiry_code+ "&answer_state=" + answer_state;
+                    window.open(inquiryDetailUrl, "_blank", "width=840, height=700");
                 };
             }
-            }
 
+
+
+            }
+        /**
+         * 상품 후기 온클릭
+         */
         if (document.querySelectorAll("#productReview td")) {
             const $tdsProduct = document.querySelectorAll("#productReview td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -200,12 +197,18 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const Review_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    const reviewDetailUrl = "/Service/reviewDetail?Review_code=" + Review_code;
+
+                    window.open(reviewDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }
 
+        /**
+         * FAQ 조회 온클릭
+         */
         if (document.querySelectorAll("#FAQ td")) {
             const $tdsProduct = document.querySelectorAll("#FAQ td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -221,12 +224,17 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    location.href = "/Service/FAQModifyPage?postCode=" + postCode;
+
                 };
             }
         }
 
+        /**
+         * 공지사항 온클릭
+         */
         if (document.querySelectorAll("#notice td")) {
             const $tdsProduct = document.querySelectorAll("#notice td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -242,12 +250,16 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const postCode = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+
+                    location.href = "/Service/noticeModifyPage?postCode=" + postCode;
                 };
             }
         }
 
+        /**
+         * 메일 발송내역 온클릭
+         */
         if (document.querySelectorAll("#emailHistory td")) {
             const $tdsProduct = document.querySelectorAll("#emailHistory td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -270,6 +282,10 @@
         }
     });
 
+    /**
+     * 서브카테고리 동적으로 가져오는 메소드
+     * @param select
+     */
     function setSelectBox(select) {
         for (let i = 0; i < $('#upperCategoryCode').children().length; i++) {
             if ($('#upperCategoryCode').children().eq(i).is(':selected')) {
@@ -278,8 +294,6 @@
                 console.log('Selected upperCategoryCode:', upperCategoryCode);
             }
         }
-
-
         // Ajax를 이용하여 서버에서 데이터 가져오기
         $.ajax({
             url: '/product/category/' + upperCategoryCode,
@@ -299,3 +313,4 @@
             }
         });
     }
+

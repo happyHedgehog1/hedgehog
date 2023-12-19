@@ -143,7 +143,7 @@
                                     <td th:text="${ order.getTotalCount() }"></td>
                                     <td th:text="${ order.userDTO.getName() }"></td>
                                     <td th:text="${ order.getState() }"></td>
-                                    <td th:text="${ order.getSumPrice() }"></td>
+                                    <td th:text="${ #numbers.formatInteger(order.getSumPrice(), 3, 'COMMA') + '원' }"></td>
                                 </tr>   
 
                             </tbody>
@@ -164,6 +164,14 @@
                     </div>
                 </div>
                 </div>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
                 </th:block>
 
 

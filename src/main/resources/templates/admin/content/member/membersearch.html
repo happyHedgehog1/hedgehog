@@ -102,7 +102,7 @@
                             <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:140px;" onclick="submitForm('memberForm', 'memberWithdraw');">
                                 회원탈퇴
                             </button>
-                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:200px;" onclick="submitForm('memberForm', 'selectMemberSendMailPage');">
+                            <button type="button" class="btn-black ml-10 btn-buying-limit" style="width:200px;" onclick="openPopup('memberForm', 'selectMemberSendMailPage');">
                                 선택회원 메일발송
                             </button>
                         </div>
@@ -163,12 +163,35 @@
         </div>
     </section>
 
-    <script>
+    <script th:inline="javascript">
         function openPopup(formId, action) {
-            var form = document.getElementById(formId);
-            form.action = action;  // 팝업 창을 열 때는 action을 변경하지 않습니다.
-            window.open(form.action, 'Popup', 'width=1000,height=500');
+            if (action === 'selectMemberSendMailPage') {
+                var form = document.getElementById(formId);
+                var popup = window.open('', 'Popup', 'width=1000,height=800');
+
+                // 새로운 form을 생성하여 데이터를 복사합니다.
+                var popupForm = document.createElement('form');
+                popupForm.method = 'post';
+                popupForm.action = form.action + action;
+
+                // 원래 폼의 데이터를 새로운 폼에 복사합니다.
+                Array.from(form.elements).forEach(function (element) {
+                    if (element.tagName.toLowerCase() !== 'button') {
+                        var clone = element.cloneNode(true);
+                        clone.value = element.value;
+                        popupForm.appendChild(clone);
+                    }
+                });
+
+                // 새로운 폼을 body에 추가하고 제출합니다.
+                popup.document.body.appendChild(popupForm);
+                popupForm.submit();
+            } else {
+                // 다른 액션에 대해서는 일반적인 폼 제출을 수행합니다.
+                submitForm(formId, action);
+            }
         }
+
 
         function submitForm(formId, action) {
             var form = document.getElementById(formId);
@@ -176,9 +199,12 @@
             form.submit();
         }
 
-
-
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
     </script>
+
 </th:block>
 </body>
 </html>

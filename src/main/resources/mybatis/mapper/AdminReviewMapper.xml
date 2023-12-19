@@ -12,9 +12,9 @@
         <result property="write_date" column="write_date"/>
         <result property="member_code" column="member_code"/>
         <result property="state" column="state"/>
-        <!--        <association property="attachment" resultMap="attachmentResultMap"/>-->
         <association property="product" resultMap="adminProductDTOResultMap"/>
         <association property="id" resultMap="adminUserDTOResultMap"/>
+        <collection property="attachment" resultMap="attachmentResultMap"/>
     </resultMap>
     <resultMap id="adminProductDTOResultMap" type="AdminProductDTO">
         <id property="productCode" column="product_code"/>
@@ -24,28 +24,35 @@
         <id property="user_code" column="user_code"/>
         <result property="id" column="id"/>
     </resultMap>
-    <!--    <resultMap id="attachmentResultMap" type="AttachmentDTO">-->
-    <!--        <id property="productCode" column="product_code"/>-->
-    <!--        <result property="originalName" column="source_name"/>-->
-    <!--        <result property="thumbnailPath" column="source_path"/>-->
-    <!--        <result property="savedName" column="convert_name"/>-->
-    <!--        <result property="savePath" column="convert_path"/>-->
-    <!--        <result property="fileType" column="image_classification"/>-->
-    <!--        <result property="status" column="image_status"/>-->
-    <!--    </resultMap>-->
+        <resultMap id="attachmentResultMap" type="com.hedgehog.admin.adminProduct.model.dto.AttachmentDTO">
+            <id property="productCode" column="product_code"/>
+            <result property="originalName" column="source_name"/>
+            <result property="thumbnailPath" column="source_path"/>
+            <result property="savedName" column="convert_name"/>
+            <result property="savePath" column="convert_path"/>
+            <result property="fileType" column="image_classification"/>
+            <result property="status" column="image_status"/>
+        </resultMap>
 
     <select id="searchReview" resultMap="reviewResultMap">
         SELECT
         A.review_code,
         A.content,
         B.product_name,
+        B.product_code,
         A.grade,
         C.id,
         A.write_date,
-        A.state
+        A.state,
+        d.img_code,
+        d.convert_path,
+        d.save_path,
+        d.convert_name,
+        d.image_classification
         FROM tbl_review A
         JOIN tbl_product B ON A.product_code = B.product_code
         JOIN tbl_user C ON A.member_code = C.user_code
+        join tbl_product_img D on A.product_code = D.product_code
         <where>
             <if test="revSearchStartDay != ''">
                 <if test="revSearchEndDay != ''">
@@ -82,8 +89,6 @@
             </if>
 
         </where>
-
-
     </select>
 
     <update id="revStateUpdate" parameterType="_int">
@@ -96,6 +101,28 @@
         </choose>
         WHERE review_code = #{review_code}
     </update>
+    <select id="reviewDetail" resultMap="reviewResultMap">
+        SELECT
+        A.review_code,
+        A.content,
+        B.product_name,
+        B.product_code,
+        A.grade,
+        C.id,
+        A.write_date,
+        A.state,
+        d.img_code,
+        d.convert_path,
+        d.save_path,
+        d.convert_name,
+        d.image_classification
+        FROM tbl_review A
+        JOIN tbl_product B ON A.product_code = B.product_code
+        JOIN tbl_user C ON A.member_code = C.user_code
+        join tbl_product_img D on A.product_code = D.product_code
+        WHERE A.review_code =#{Review_code}
+
+    </select>
 
 
 </mapper>

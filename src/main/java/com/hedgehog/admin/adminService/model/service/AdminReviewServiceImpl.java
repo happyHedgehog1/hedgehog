@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminService.model.service;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminUnregisterDTO;
 import com.hedgehog.admin.adminService.model.dao.AdminReviewMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminReviewDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminReviewForm;
@@ -32,5 +33,19 @@ public class AdminReviewServiceImpl implements AdminReviewService{
     if (!(result > 0)){
         throw new BoardException("상태 변경에 실패하셨습니다.");
     }
+    }
+
+    @Override
+    public AdminReviewDTO reviewDetail(int Review_code) {
+        log.info("");
+        log.info("");
+        log.info("reviewDetail -------------------------- 시작~~~~~~~~~");
+
+        AdminReviewDTO adminReviewDTO = null;
+
+        adminReviewDTO = mapper.reviewDetail(Review_code);
+        log.info("reviewDetail -------------------------- 끗~~~~~~~~~" + adminReviewDTO);
+
+        return adminReviewDTO;
     }
 }

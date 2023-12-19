@@ -1,5 +1,5 @@
 $('#summernote').summernote({
-    placeholder: '공지사항을 입력하세요플레',
+    placeholder: '공지사항을 입력하세요',
     tabsize: 2,
     height: 300,
     toolbar: [
@@ -8,8 +8,8 @@ $('#summernote').summernote({
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],
-      ['insert', ['link', 'picture', 'video']],
-      ['view', ['fullscreen', 'codeview', 'help']]
+      ['insert', ['link']],
+      ['view', ['fullscreen', 'codeview']]
     ]
   });
 
