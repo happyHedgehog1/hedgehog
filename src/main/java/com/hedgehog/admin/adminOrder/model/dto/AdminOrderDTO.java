@@ -26,4 +26,5 @@ public class AdminOrderDTO extends AdminAllMemberDTO {
     private AdminProductDTO productDTO;
     private int totalCount;
     private AdminCustomerDTO adminCustomerDTO;
+    private AdminDeliveryDTO deliveryDTO;
 }
