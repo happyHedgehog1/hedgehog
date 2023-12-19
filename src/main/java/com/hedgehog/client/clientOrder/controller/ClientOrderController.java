@@ -45,15 +45,6 @@ public class ClientOrderController {
         List<CartSelectDTO> cartList = clientCartService.selectCartOrder(cartcheckbox);
         mv.addObject("cartList", cartList);
         log.info("cartList" + cartList);
-//        long productPrice;
-//        productPrice = Long.parseLong(String.valueOf(cartList.get(0).getPrice()));
-//        NumberFormat numberFormat = new NumberStyleFormatter("#,###").getNumberFormat(Locale.getDefault());
-//        String formattedPrice = numberFormat.format(productPrice);
-//        mv.addObject("productPrice", productPrice);
-//
-//        Long productPriceObject = Long.valueOf(productPrice);
-//        log.info("상품가격 타입: " + productPriceObject.getClass().getName());
-
 
         mv.addObject("hdAmountList", hdAmount);
         log.info("hdAmount" + hdAmount);
@@ -124,6 +115,7 @@ public class ClientOrderController {
 //
 //
 //
+
     //주문서작성에서 결제예정금액이 10만원이 넘어가면 배송비가 무료를 표현하기 위해서 구하는 전체상품 합계금액
     private int calculateTotalSum(List<CartSelectDTO> cartList, List<Integer> hdAmountList) {
         int totalSum = 0;
@@ -147,21 +139,6 @@ public class ClientOrderController {
         OrderInfoDTO orderInfo = clientCartService.getOrderInfo(loginUserDTO.getUserCode());
         mv.addObject("phone", orderInfo.getPhone());
         mv.addObject("email" , orderInfo.getEmail());
-
-    }
-
-        public void cartOrderInfo(LoginDetails loginDetails,
-                              Model mv){
-        //적립금, 주문지명, 휴대전화, 이메일, 주소는 직접
-        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
-        int point = clientCartService.getOrderPoint(loginUserDTO.getUserCode());
-        mv.addAttribute("name", loginUserDTO.getName());
-        mv.addAttribute("point", point);
-
-        //주문정보에서 사용자 정보
-        OrderInfoDTO orderInfo = clientCartService.getOrderInfo(loginUserDTO.getUserCode());
-        mv.addAttribute("phone", orderInfo.getPhone());
-        mv.addAttribute("email" , orderInfo.getEmail());
 
     }
 
