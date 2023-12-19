@@ -108,7 +108,7 @@
         </where>
     </select>
 
-    <update id="inqStateUpdate" parameterType="_int">
+    <update id="inqStateUpdate" parameterType="AdminCommentDTO">
         UPDATE tbl_inquiry
         SET state =
         <choose>
@@ -122,6 +122,7 @@
     <select id="inquiryDetail" resultMap="inquiryResultMap">
         SELECT
             A.inquiry_code,
+            A.member_code,
             A.title,
             A.content,
             A.state,

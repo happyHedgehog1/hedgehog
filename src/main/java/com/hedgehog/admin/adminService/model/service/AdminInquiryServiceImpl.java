@@ -1,7 +1,6 @@
 package com.hedgehog.admin.adminService.model.service;
 
 import com.hedgehog.admin.adminService.model.dao.AdminInquiryMapper;
-import com.hedgehog.admin.adminService.model.dto.AdminCommentDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryForm;
 import com.hedgehog.admin.exception.BoardException;
@@ -51,5 +50,6 @@ public class AdminInquiryServiceImpl implements AdminInquiryService {
 
     return adminInquiryDTO;
     }
+
 
 }

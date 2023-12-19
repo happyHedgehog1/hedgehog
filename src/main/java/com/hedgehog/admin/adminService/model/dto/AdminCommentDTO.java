@@ -14,5 +14,7 @@ public class AdminCommentDTO {
     private int user_code;
     private Date write_date;
     private Date modify_date;
-    private String comContent;
+    private String content;
+    private String answer_state;
+
 }

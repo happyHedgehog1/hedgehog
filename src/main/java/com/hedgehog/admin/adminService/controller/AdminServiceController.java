@@ -1,7 +1,7 @@
 package com.hedgehog.admin.adminService.controller;
 
-import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminService.model.dto.*;
+import com.hedgehog.admin.adminService.model.service.AdminCommentServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
@@ -22,13 +22,15 @@ public class AdminServiceController {
     private final AdminInquiryServiceImpl adminInquiryServiceImpl;
     private final AdminFAQServiceImpl adminFAQServiceImpl;
     private final AdminReviewServiceImpl adminReviewServiceImpl;
+    private final AdminCommentServiceImpl adminCommentServiceImpl;
 
 
-    public AdminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl) {
+    public AdminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl, AdminCommentServiceImpl adminCommentServiceImpl) {
         this.adminInquiryServiceImpl = adminInquiryServiceImpl;
         this.adminReviewServiceImpl = adminReviewServiceImpl;
         this.adminFAQServiceImpl = adminFAQServiceImpl;
 
+        this.adminCommentServiceImpl = adminCommentServiceImpl;
     }
 
     //상품문의 상세보기
@@ -375,6 +377,30 @@ public class AdminServiceController {
     @GetMapping("/FAQWritePage")
     public String FAQWritePage() {
         return "admin/content/Service/FAQWrite";
+    }
+    //상품문의 답변
+    @PostMapping("/inquiryComment")
+    public String inquiryComment(@ModelAttribute AdminCommentDTO adminCommentDTO,
+                                 @RequestParam("inquiry_code") int inquiry_code,
+                                 @RequestParam("user_code") int user_code,
+                                 Model model) throws BoardException {
+        log.info("");
+        log.info("");
+        log.info("문의답변~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+
+        // adminCommentDTO에 inquiry_code 설정
+        adminCommentDTO.setInquiry_code(inquiry_code);
+        adminCommentDTO.setUser_code(user_code);
+
+        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+
+
+        adminCommentServiceImpl.inquiryComment(adminCommentDTO);
+        model.addAttribute("comment_code",adminCommentDTO.getComment_code());
+        model.addAttribute("inquiry_code", inquiry_code);
+
+        return "admin/content/Service/Product-inquiry";
     }
 
 

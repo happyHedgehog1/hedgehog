@@ -17,4 +17,5 @@ public interface AdminInquiryService {
     AdminInquiryDTO inquiryDetail(int inquiryCode);
 
 
+
 }
