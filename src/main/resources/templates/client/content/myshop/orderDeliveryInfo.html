@@ -81,7 +81,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="order : ${orderList}" onclick="showDetails(this)">
+                    <tr class="order_row" th:each="order : ${orderList}" th:attr="data-order-code=${order.orderCode}">
                         <td>
                             <th:block th:text="${#dates.format(order.creationDate, 'yyyy-MM-dd')}"></th:block>
                             <br>

@@ -120,7 +120,7 @@ CREATE TABLE `tbl_delivery`
     `delivery_address`  VARCHAR(50) NOT NULL,
     `delivery_requests` VARCHAR(100),
     `arrival_time`      DATETIME,
-    `recipent_name`     VARCHAR(50) NOT NULL,
+    `recipient_name`     VARCHAR(50) NOT NULL,
     `recipient_phone`   VARCHAR(20),
     `state`             VARCHAR(20) NOT NULL,
     PRIMARY KEY (`delivery_code`)

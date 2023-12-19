@@ -1,29 +1,34 @@
 
-body{
+body {
     height: 100vh;
 }
 
 /* 경로 텍스트 */
 
-.route_list{
+.route_list {
     display: flex;
     font-size: 14px;
 }
 
-.route_list img{
+#route_home,
+#route_mypage {
+    cursor: pointer;
+}
+
+.route_list img {
     width: 20px;
 }
 
-.route_list li{
+.route_list li {
     padding: 0 5px;
 }
 
-section{
+section {
     padding-top: 150px;
     font-size: 18px;
 }
 
-#product_table{
+#product_table {
     width: 1200px;
     border: 1px solid black;
     text-align: center;
@@ -31,30 +36,30 @@ section{
 
 }
 
-.table_subject{
+.table_subject {
     background-color: #EDDBC7;
     text-align: center;
 }
 
-.table_subject th{
+.table_subject th {
     padding: 5px 0;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
 
 }
 
-.table_subject th:last-child{
+.table_subject th:last-child {
     border-right: none;
 }
 
-.tbody tr td{
+.tbody tr td {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     padding: 5px 0;
 
 }
 
-.tbody tr td button{
+.tbody tr td button {
 
     padding: 7px 10px;
     border: 1px solid #A7727D;
@@ -63,14 +68,14 @@ section{
 
 }
 
-.tbody tr td img{
+.tbody tr td img {
     width: 100px;
     height: 70px;
     background-color: #A7727D;
     display: inline-block;
 }
 
-.tbody tr td button{
+.tbody tr td button {
     transition: 150ms;
 }
 
@@ -79,47 +84,44 @@ section{
     color: white;
 }
 
-.tbody tr td:last-child{
+.tbody tr td:last-child {
     border-right: none;
 }
 
-tfoot tr td{
+tfoot tr td {
     padding: 5px 0;
 }
 
 /* 배송 정보 */
-#delivery_info{
+#delivery_info {
     width: 1200px;
     border: 1px solid black;
     margin-bottom: 50px;
 }
 
 
-
-#delivery_info tr td{
+#delivery_info tr td {
     padding: 10px;
 }
 
-#delivery_info tbody tr td{
+#delivery_info tbody tr td {
     border-right: 1px solid black;
     border-top: 1px solid black;
 
 }
 
-#delivery_info tbody tr:first-child td{
+#delivery_info tbody tr:first-child td {
     border-top: none;
 }
 
-#delivery_info tbody tr td:last-child{
+#delivery_info tbody tr td:last-child {
     border-right: none;
-    
+
 }
 
 
-
-
 /* 제목 */
-.subject{
+.subject {
     background-color: #EDDBC7;
     width: 250px;
     padding: 10px 0;
@@ -128,29 +130,28 @@ tfoot tr td{
 
 /* 상품금액 */
 
-#cost_info{
+#cost_info {
     border: 1px solid black;
 }
 
 #cost_info {
     width: 1200px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr) ;
+    grid-template-columns: repeat(5, 1fr);
     text-align: center;
 }
 
-#cost_info ul{
+#cost_info ul {
     border-right: 1px solid black;
     padding: 30px;
 }
 
 
-
-#cost_info ul:last-child{
+#cost_info ul:last-child {
     border-right: none;
 }
 
-#cost_info ul li{
+#cost_info ul li {
     line-height: 30px;
 }
 
@@ -160,55 +161,52 @@ tfoot tr td{
 #cost_info .equal,
 #cost_info .plus {
     position: relative;
-    
+
 }
 
 
-#cost_info .minus::before ,
-#cost_info .plus::after{
+#cost_info .minus::before,
+#cost_info .plus::after {
     content: "";
     position: absolute;
     height: 15px;
     width: 60px;
     background-color: #A7727D;
     top: 45%;
-    right: -10%;
-    border-radius: 20%;
+    right: -12%;
+    /*border-radius: 20%;*/
 
 }
 
 
-#cost_info .plus::before{
+#cost_info .plus::before {
     content: "";
     position: absolute;
     height: 65px;
-    width: 10px;
+    width: 15px;
     background-color: #A7727D;
     top: 25%;
-    right: -2%;
-    border-radius: 20%;
+    right: -3%;
 }
 
-#cost_info .equal::after{
+#cost_info .equal::after {
     content: "";
     position: absolute;
     height: 15px;
     width: 60px;
     background-color: #A7727D;
-    top: 40%;
-    right: -10%;
-    border-radius: 20%;
+    top: 38%;
+    right: -12%;
 }
 
-#cost_info .equal::before{
+#cost_info .equal::before {
     content: "";
     position: absolute;
     height: 15px;
     width: 60px;
     background-color: #A7727D;
-    top: 60%;
-    right: -10%;
-    border-radius: 20%;
+    top: 58%;
+    right: -12%;
 }
 
 /* 포인트 및 적립정보 */
@@ -220,19 +218,18 @@ tfoot tr td{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 100px;
-
 }
 
-#point_info > div{
+#point_info > div {
     border: 1px solid black;
 }
 
-#point_info > div:first-child{
+#point_info > div:first-child {
     border-right: none;
 }
 
 
-.point_wrap div:first-child{
+.point_wrap div:first-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -240,48 +237,48 @@ tfoot tr td{
 }
 
 /* 포인트 적립 정렬 */
-.point_wrap div span{
+.point_wrap div span {
     padding-left: 55px;
 }
 
-.point_wrap div div:last-child{
+.point_wrap div div:last-child {
     font-size: 16px;
 }
 
 
-
-#point_info .point_wrap ul{
+#point_info .point_wrap ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 10px 0;
     text-align: center;
 
 }
-#point_info .payment_wrap ul{
+
+#point_info .payment_wrap ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 10px 0;
     text-align: center;
 }
 
-#point_info .payment_wrap .date{
+#point_info .payment_wrap .date {
     text-align: right;
     padding-right: 20px;
 
 }
 
-.point, .payment{
+.point, .payment {
     border-top: 1px solid black;
 
 }
 
-.page_number{
+.page_number {
     text-align: center;
     margin-bottom: 100px;
     cursor: pointer;
 }
 
-.payment button{
+.payment input, #goback_button {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
@@ -290,8 +287,16 @@ tfoot tr td{
     transition: 150ms;
 }
 
-.payment button:hover{
+.payment input:hover, #goback_button:hover {
     background-color: #A7727D;
     color: white;
 
+}
+
+#button_wrap {
+    /*width: 1200px;*/
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+    margin-bottom: 100px;
 }

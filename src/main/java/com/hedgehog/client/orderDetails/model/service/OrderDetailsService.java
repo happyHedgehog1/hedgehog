@@ -2,6 +2,7 @@ package com.hedgehog.client.orderDetails.model.service;
 
 import com.hedgehog.client.orderDetails.model.dao.OrderDetailsMapper;
 import com.hedgehog.client.orderDetails.model.dto.OrderDTO;
+import com.hedgehog.client.orderDetails.model.dto.OrderDetailsCollect;
 import com.hedgehog.client.orderDetails.model.dto.OrderListDTO;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsSelectCriteria;
 import lombok.AllArgsConstructor;
@@ -39,5 +40,20 @@ public class OrderDetailsService {
         log.info("OrderDetailsService : selectOrderInfoList ... : " + result);
 
         return result;
+    }
+
+
+    public boolean isYourOrder(int userCode, int orderCode) {
+        int result = mapper.isYourOrder(userCode, orderCode);
+        return result == 1;
+    }
+
+    public OrderDetailsCollect getOrderDetails(int orderCode) {
+        OrderDetailsCollect orderDetailsCollect = mapper.getOrderDetails(orderCode);
+                log.info("");
+        log.info("");
+        log.info("OrderDetailsService : getOrderDetails ... : " + orderDetailsCollect);
+
+        return orderDetailsCollect;
     }
 }

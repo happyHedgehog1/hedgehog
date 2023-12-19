@@ -311,9 +311,9 @@ VALUES (2, 3, '#000000', 300000, 0, 0, 3000, 300000, 1);
 /*6번 user가 구매한 내역 하나,*/
 /*5번 user가 구매한 내역 하나,*/
 /*state 에는 배송중, 배송완료*/
-INSERT INTO tbl_delivery(recipent_name, delivery_address, delivery_requests, recipient_phone, arrival_time, state)
+INSERT INTO tbl_delivery(recipient_name, delivery_address, delivery_requests, recipient_phone, arrival_time, state)
 VALUES ('받는사람이름입니다.', '서울시 종로구 머시기', '바닥에 놓고 가주세요', '010-9999-9999', '2020-01-03 23:12:03', '배송완료');
-INSERT INTO tbl_delivery(recipent_name, delivery_address, delivery_requests, recipient_phone, arrival_time, state)
+INSERT INTO tbl_delivery(recipient_name, delivery_address, delivery_requests, recipient_phone, arrival_time, state)
 VALUES ('받는사람이름입니다.2', '서울시 종로구 머시기2', '바닥에 놓고 가주세요2', '010-9999-9998', '2020-02-05 23:12:03', '배송완료');
 
 /*결제내역*/

@@ -3,42 +3,43 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.client.orderDetails.model.dao.OrderDetailsMapper">
-<select id="selectTotalCountOrderInfo">
-    /*tbl_order 에서 데이터를 가져온다.
-    이때 orderDeliveryInfo인 경우와
-    exchangePaybackInfo인 경우. 두가지를 생각해야 한다.*/
-    /*int userCode, OrderDTO order, String info*/
-    SELECT COUNT(*)
-    FROM tbl_order A
-    <where>
-        <if test="order.state == 0 and info == 'exchangePaybackInfo'">
-            A.state IN('환불중','환불완료','교환중','교환완료')
-        </if>
-        <if test="order.state == 1">
-            A.state = '환불중'
-        </if>
-        <if test="order.state == 2">
-            A.state = '환불완료'
-        </if>
-        <if test="order.state == 3">
-            A.state = '교환중'
-        </if>
-        <if test="order.state == 4">
-            A.state = '교환완료'
-        </if>
-        <if test="order.state == 5 and info == 'orderDeliveryInfo'">
-            A.state = '배송대기'
-        </if>
-        <if test="order.state == 6 and info == 'orderDeliveryInfo'">
-            A.state = '배송중'
-        </if>
-        <if test="order.state == 7 and info == 'orderDeliveryInfo'">
-            A.state = '배송완료'
-        </if>
-        AND A.customer_code = #{userCode}
-        AND A.creation_date BETWEEN #{order.dateStart} AND #{order.dateEnd}
-    </where>
-</select>
+    <select id="selectTotalCountOrderInfo">
+        /*tbl_order 에서 데이터를 가져온다.
+        이때 orderDeliveryInfo인 경우와
+        exchangePaybackInfo인 경우. 두가지를 생각해야 한다.*/
+        /* userCode, OrderDTO order, info*/
+        SELECT COUNT(*)
+        FROM tbl_order A
+        <where>
+            <if test="order.state == 0 and info == 'exchangePaybackInfo'">
+                A.state IN('환불중','환불완료','교환중','교환완료')
+            </if>
+            <if test="order.state == 1">
+                A.state = '환불중'
+            </if>
+            <if test="order.state == 2">
+                A.state = '환불완료'
+            </if>
+            <if test="order.state == 3">
+                A.state = '교환중'
+            </if>
+            <if test="order.state == 4">
+                A.state = '교환완료'
+            </if>
+            <if test="order.state == 5 and info == 'orderDeliveryInfo'">
+                A.state = '배송대기'
+            </if>
+            <if test="order.state == 6 and info == 'orderDeliveryInfo'">
+                A.state = '배송중'
+            </if>
+            <if test="order.state == 7 and info == 'orderDeliveryInfo'">
+                A.state = '배송완료'
+            </if>
+            AND A.customer_code = #{userCode}
+            AND A.creation_date BETWEEN #{order.dateStart} AND #{order.dateEnd}
+
+        </where>
+    </select>
     <resultMap id="orderListDTOResultMap" type="com.hedgehog.client.orderDetails.model.dto.OrderListDTO">
         <id property="orderCode" column="order_code"/>
         <result property="creationDate" column="creation_date"/>
@@ -70,6 +71,7 @@
         JOIN tbl_product_img B ON A.product_code = B.product_code
         JOIN tbl_order_details C ON A.order_code = C.order_code
         JOIN tbl_product D ON A.product_code = D.product_code
+
         <where>
             <if test="orderDetailsSelectCriteria.order.state == 0 and info == 'exchangePaybackInfo'">
                 A.state IN('환불중','환불완료','교환중','교환완료')
@@ -99,8 +101,112 @@
             AND A.creation_date BETWEEN #{orderDetailsSelectCriteria.order.dateStart} AND
             #{orderDetailsSelectCriteria.order.dateEnd}
             AND B.image_classification = 'Thumbnails'
+
         </where>
         GROUP BY A.order_code
         LIMIT #{orderDetailsSelectCriteria.startRow}, #{orderDetailsSelectCriteria.limit}
+
+    </select>
+    <select id="isYourOrder">
+        SELECT COUNT(*)
+        FROM tbl_order
+        WHERE customer_code = #{userCode}
+          AND order_code = #{orderCode}
+    </select>
+    <resultMap id="orderDetailsDTOResultMap" type="com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO">
+        <id property="orderDetailsCode" column="order_details_code"/>
+        <result property="count" column="count"/>
+        <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImage" column="product_image_path"/>
+        <result property="optionCode" column="option_code"/>
+        <result property="optionName" column="option_name"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="pointCharge" column="point_charge"/>
+        <result property="reducedPrice" column="reduced_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="finalPrice" column="final_price"/>
+        <result property="reviewPoint" column="review_point"/>
+    </resultMap>
+    <resultMap id="orderDetailsCollectResultMap" type="com.hedgehog.client.orderDetails.model.dto.OrderDetailsCollect">
+        <id property="orderCode" column="order_code"/>
+        <result property="orderCustomerCode" column="order_customer_code"/>
+        <result property="orderCreationDate" column="order_creation_date"/>
+        <result property="pointUsage" column="point_usage"/>
+        <result property="orderState" column="order_state"/>
+        <result property="deliveryCode" column="delivery_code"/>
+        <result property="deliveryAddress" column="delivery_address"/>
+        <result property="deliveryRequest" column="delivery_request"/>
+        <result property="arrivalTime" column="arrival_time"/>
+        <result property="recipientName" column="recipient_name"/>
+        <result property="recipientPhone" column="recipient_phone"/>
+        <result property="deliveryState" column="delivery_state"/>
+        <result property="paymentCode" column="payment_code"/>
+        <result property="paymentDetails" column="payment_details"/>
+        <result property="paymentCompleteState" column="payment_complete_state"/>
+        <result property="paymentCompleteDate" column="payment_complete_date"/>
+        <result property="paymentState" column="payment_state"/>
+        <result property="exchangeCode" column="exchange_code"/>
+        <result property="exchangeDate" column="exchange_date"/>
+        <result property="exchangeCause" column="exchange_cause"/>
+        <result property="exchangeInquiryCode" column="exchange_inquiry_code"/>
+        <result property="refundCode" column="refund_code"/>
+        <result property="refundDate" column="refund_date"/>
+        <result property="refundCause" column="refund_cause"/>
+        <result property="refundInquiryCode" column="refund_inquiry_code"/>
+        <collection property="orderDetailsList" ofType="com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO"
+                    resultMap="orderDetailsDTOResultMap"/>
+    </resultMap>
+    <select id="getOrderDetails" resultMap="orderDetailsCollectResultMap">
+        SELECT A.order_code         order_code,
+               A.customer_code      order_customer_code,
+               A.creation_date      order_creation_date,
+               A.point_usage        point_usage,
+               A.state              order_state,
+               C.delivery_code      delivery_code,
+               C.delivery_address   delivery_address,
+               C.delivery_requests  delivery_request,
+               C.arrival_time       arrival_time,
+               C.recipient_name     recipient_name,
+               C.recipient_phone    recipient_phone,
+               C.state              delivery_state,
+               D.payment_code       payment_code,
+               D.details            payment_details,
+               D.complete_state     payment_complete_state,
+               D.date               payment_complete_date,
+               D.state              payment_state,
+               E.exchange_code      exchange_code,
+               E.date               exchange_date,
+               E.cause              exchange_cause,
+               E.inquiry_code       exchange_inquiry_code,
+               F.refund_code        refund_code,
+               F.date               refund_date,
+               F.cause              refund_cause,
+               F.inquiry_code       refund_inquiry_code,
+               G.order_details_code order_details_code,
+               G.count              count,
+               G.product_code       product_code,
+               I.product_name       product_name,
+               J.convert_path       product_image_path,
+               H.option_code        option_code,
+               H.name               option_name,
+               G.delivery_charge    delivery_charge,
+               G.point_charge       point_charge,
+               G.reduced_price      reduced_price,
+               G.cost_price         cost_price,
+               G.final_price        final_price,
+               G.review_point       review_point
+        FROM tbl_order A
+                 JOIN tbl_order_list B ON A.order_code = B.order_code
+                 JOIN tbl_delivery C ON B.delivery_code = C.delivery_code
+                 JOIN tbl_payment D ON B.payment_code = D.payment_code
+                 LEFT JOIN tbl_exchange E ON D.payment_code = E.payment_code
+                 LEFT JOIN tbl_refund F ON D.payment_code = F.payment_code
+                 JOIN tbl_order_details G ON A.order_code = G.order_code
+                 JOIN tbl_option H ON G.option_code = H.option_code
+                 JOIN tbl_product I ON G.product_code = I.product_code
+                 JOIN tbl_product_img J ON G.product_code = J.product_code
+        WHERE A.order_code = #{orderCode}
+          AND J.image_classification = 'Thumbnails'
     </select>
 </mapper>
