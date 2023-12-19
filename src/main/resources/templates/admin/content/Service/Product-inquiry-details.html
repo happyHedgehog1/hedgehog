@@ -20,44 +20,58 @@
         </header>
     <div class="body">
         <div class="wrap">
+            <form id="inquiryComment" th:action="@{ /Service/inquiryComment}" method="post">
             <div class="answer"> 고객 문의 내용</div>
             <table>
                 <tr>
+                    <th>유형</th>
                     <th>제목</th>
                     <td>내용</td>
                     <th>작성자</th>
-                    <td>김씌</td>
-                    <th>작성일자</th>
-                    <td>2023-11-11 09:00</td>
+                    <th>등록일</th>
+                    <th>답변여부</th>
+                    <th>공개여부</th>
                 </tr>
                 <tr>
-                    <th>내용</th>
-                    <td colspan="5">ㅇㅇㅇㅇㅇㅇㅇㅇㅇ<br>
-                        으아아아아ㅏ아아아<br>
-                        아아아ㅏ아아앙
-                    </td>
+
+                    <td th:text="${adminInquiryDTO.post_type}"></td>
+                    <td th:text="${adminInquiryDTO.title}"></td>
+                    <td th:text="${adminInquiryDTO.content}"></td>
+                    <td th:text="${adminInquiryDTO.getId().id}"></td>
+                    <td th:text="${adminInquiryDTO.write_date}"></td>
+                    <td th:text="${adminInquiryDTO.answer_state}"></td>
+                    <td th:text="${adminInquiryDTO.state}"></td>
+                    <input type="hidden" id="inquiry_code" name="inquiry_code" th:value="${adminInquiryDTO.inquiry_code}" />
+                    <input type="hidden" id="answer_state" name="answer_state" th:value="${adminInquiryDTO.answer_state}" />
+                    <input type="hidden" id="user_code" name="user_code" th:value="${adminInquiryDTO.member_code}" />
                 </tr>
             </table>
             <div class="question"> 답변</div>
             <table>
+
                 <tr>
-                    <th>제목</th>
-                    <td><input type="text" name="" id=""></td>
-                </tr>
-                <tr>
-                    <th>문의내용</th>
-                    <td>                                            
-                        <div id="summernote"></div>
+                    <th>답변내용</th>
+                    <td>
+
+
+                        <div id="summernote" th:text="${adminInquiryDTO.answer_state} eq 'Y' ? ${adminInquiryDTO.comContent} : ''"></div>
+                        <input type="hidden" id="content" name="content" />
+
+
+
+
                     </td>
                 </tr>
             </table>
             <div class="bottombtn">
-            <button id="btn">등록</button>
+            <button type="submit" id="btn">등록</button>
         </div>
+            </form>
         </div>
         </div>
     </div>
     <script th:src="@{/admin/js/Product-inquiry-details.js}"></script>
+
 
 </body>
 </html>

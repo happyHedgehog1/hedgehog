@@ -151,7 +151,9 @@
             }
         }
 
-
+        /**
+         * 상품 문의 온클릭
+         */
             if (document.querySelectorAll("#productInquiry td")) {
             const $tdsProduct = document.querySelectorAll("#productInquiry td");
             for (let i = 0; i < $tdsProduct.length; i++) {
@@ -167,12 +169,16 @@
                 }
 
                 $tdsProduct[i].ondblclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                    const inquiry_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
+                    const answer_state = this.parentNode.children[5].innerText;
+                    const inquiryDetailUrl = "/Service/inquiryDetail?inquiry_code=" + inquiry_code+ "&answer_state=" + answer_state;
+                    window.open(inquiryDetailUrl, "_blank", "width=840, height=700");
                 };
             }
-            }
 
+
+
+            }
         /**
          * 상품 후기 온클릭
          */

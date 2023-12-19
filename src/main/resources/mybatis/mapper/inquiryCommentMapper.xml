@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminService.model.dao.AdminCommentMapper">
+    <resultMap id="inquiryComment" type="AdminCommentDTO">
+        <id property="comment_code" column="comment_code"/>
+        <result property="inquiry_code" column="inquiry_code"/>
+        <result property="user_code" column="user_code"/>
+        <result property="write_date" column="write_date"/>
+        <result property="modify_date" column="modify_date"/>
+        <result property="content" column="content"/>
+
+    </resultMap>
+
+
+
+
+
+    <insert id="inquiryComment">
+        INSERT INTO tbl_comment (
+            inquiry_code,
+            user_code,
+            write_date,
+            content
+
+        ) VALUES (
+                     #{inquiry_code},
+                     #{user_code},
+                     now(),
+                     #{content}
+
+                 )
+    </insert>
+
+    <update id="inquiryCommentUpdate">
+        UPDATE tbl_comment
+        SET
+            content = #{content},
+            modify_date = now()
+        WHERE
+
+       inquiry_code = #{inquiry_code}
+    </update>
+    <update id="updateState">
+        UPDATE tbl_inquiry
+        SET
+            answer_state = 'Y'
+        where
+            inquiry_code = #{inquiry_code}
+    </update>
+
+</mapper>

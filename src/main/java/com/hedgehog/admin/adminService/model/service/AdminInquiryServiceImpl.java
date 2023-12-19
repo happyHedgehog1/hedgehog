@@ -37,4 +37,19 @@ public class AdminInquiryServiceImpl implements AdminInquiryService {
             throw new BoardException("상태 변경에 실패하셨습니다.");
         }
     }
+    @Override
+    public AdminInquiryDTO inquiryDetail(int inquiryCode) {
+    log.info("");
+    log.info("");
+    log.info("inquiryDetail -------------------------- 시작~~~~~~~~~");
+
+    AdminInquiryDTO adminInquiryDTO = null;
+
+    adminInquiryDTO = mapper.inquiryDetail(inquiryCode);
+    log.info("inquiryDetail =========" + adminInquiryDTO);
+
+    return adminInquiryDTO;
+    }
+
+
 }

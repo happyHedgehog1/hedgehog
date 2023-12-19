@@ -12,5 +12,10 @@ public interface AdminInquiryMapper {
 
     //상품문의 상태변경
     int inqStateUpdate(AdminInquiryDTO inquiryDTO);
+    //상품문의 상세보기
+    AdminInquiryDTO inquiryDetail(int inquiryCode);
+
+
+
 }
 

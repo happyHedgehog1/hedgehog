@@ -1,7 +1,7 @@
 package com.hedgehog.admin.adminService.controller;
 
-import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
 import com.hedgehog.admin.adminService.model.dto.*;
+import com.hedgehog.admin.adminService.model.service.AdminCommentServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
@@ -23,13 +23,15 @@ public class AdminServiceController {
     private final AdminInquiryServiceImpl adminInquiryServiceImpl;
     private final AdminFAQServiceImpl adminFAQServiceImpl;
     private final AdminReviewServiceImpl adminReviewServiceImpl;
+    private final AdminCommentServiceImpl adminCommentServiceImpl;
 
 
-    public AdminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl) {
+    public AdminServiceController(AdminInquiryServiceImpl adminInquiryServiceImpl, AdminReviewServiceImpl adminReviewServiceImpl, AdminFAQServiceImpl adminFAQServiceImpl, AdminCommentServiceImpl adminCommentServiceImpl) {
         this.adminInquiryServiceImpl = adminInquiryServiceImpl;
         this.adminReviewServiceImpl = adminReviewServiceImpl;
         this.adminFAQServiceImpl = adminFAQServiceImpl;
 
+        this.adminCommentServiceImpl = adminCommentServiceImpl;
     }
 
 //    @ResponseBody
@@ -113,6 +115,35 @@ public class AdminServiceController {
 
         return "admin/content/Service/FAQModify";
     }
+
+    //상품문의 상세보기
+    @GetMapping("/inquiryDetail")
+    public String InquiryDetail(@RequestParam("inquiry_code")int inquiry_code,
+                                @RequestParam("answer_state") String answer_state, Model model) {
+
+        log.info("*********************** inquiryDetail");
+        log.info("*********************** inquiry_code"+inquiry_code);
+
+
+
+        AdminInquiryDTO adminInquiryDTO = adminInquiryServiceImpl.inquiryDetail(inquiry_code);
+
+        log.info("===========================adminInquiryDTO" + adminInquiryDTO);
+        model.addAttribute("adminInquiryDTO", adminInquiryDTO);
+
+        return "admin/content/Service/Product-inquiry-details";}
+
+
+
+//    //상품문의 답변
+//    @GetMapping("/inquiryComment")
+//    public String inquiryComment(@RequestParam ("inquiry_code")int inquiry_code,Model model){
+//        AdminCommentDTO adminCommentDTO = adminInquiryServiceImpl.inquiryComment(inquiry_code);
+//        log.info("===========================adminInquiryDTO" + adminCommentDTO);
+//        model.addAttribute("adminInquiryDTO", adminCommentDTO);
+//        return   "admin/content/Service/Product-inquiry-comment";
+//    }
+    //상품리뷰 상세보기
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
         log.info("*********************** reviewDetail");
@@ -261,6 +292,7 @@ public class AdminServiceController {
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
         return "redirect:/Service/Product-review";
     }
+
 
 
     //FAQ 첫화면
@@ -429,6 +461,30 @@ public class AdminServiceController {
     public String FAQWritePage() {
         return "admin/content/Service/FAQWrite";
     }
+    //상품문의 답변
+    @PostMapping("/inquiryComment")
+    public String inquiryComment(@ModelAttribute AdminCommentDTO adminCommentDTO,
+                                 @RequestParam("inquiry_code") int inquiry_code,
+                                 @RequestParam("user_code") int user_code,
+                                 Model model) throws BoardException {
+        log.info("");
+        log.info("");
+        log.info("문의답변~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+
+        // adminCommentDTO에 inquiry_code 설정
+        adminCommentDTO.setInquiry_code(inquiry_code);
+        adminCommentDTO.setUser_code(user_code);
+
+        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+
+
+        adminCommentServiceImpl.inquiryComment(adminCommentDTO);
+        model.addAttribute("comment_code",adminCommentDTO.getComment_code());
+        model.addAttribute("inquiry_code", inquiry_code);
+
+        return "admin/content/Service/Product-inquiry";
+    }
 
 
 
@@ -458,5 +514,6 @@ public class AdminServiceController {
     public String productInquiryDetail() {
         return "admin/content/Service/Product-inquiry-details";
     }
+
 
 }
