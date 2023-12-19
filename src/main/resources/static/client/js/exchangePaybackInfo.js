@@ -45,3 +45,28 @@ $(document).click(function () {
         }
     })
 })
+
+$(document).ready(function () {
+    $('.order_row').click(function () {
+        var orderCode = parseInt($(this).data("order-code"));
+        console.log(orderCode);
+
+        $.ajax({
+            type: "POST",
+            url: "/myshop/memberOrderDetails",
+            data: {orderCode: orderCode},
+            success: function (response) {
+                console.log(response);
+                if (response === "success") {
+                    window.location.href = "/myshop/orderDetails?orderCode=" + orderCode;
+                } else {
+                    // 실패했을 경우
+                }
+            },
+            error: function (error) {
+                console.error("Error:", error);
+                // 오류가 나올 경우.
+            }
+        })
+    })
+})

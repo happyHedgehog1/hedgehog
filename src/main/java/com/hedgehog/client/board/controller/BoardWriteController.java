@@ -7,6 +7,8 @@ import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
 import com.hedgehog.client.board.model.dto.UploadedImageListDTO;
 import com.hedgehog.client.board.model.service.BoardWriteService;
+import com.hedgehog.client.orderDetails.model.dto.OrderDetailsCollect;
+import com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -90,7 +93,7 @@ public class BoardWriteController {
             // 4. insert tbl_post_img .. 이 네가지가 트랜잭션 하나이므로. Service를 부른다.
             boolean isSuccess = boardWriteService.questionRegist(userCode, option, inputTitle, newEditorData, uploadedImageList);
 
-            if(!isSuccess){
+            if (!isSuccess) {
                 redirectAttributes.addFlashAttribute("message", "알 수 없는 오류가 발생했습니다. 메인화면으로 나갑니다.");
                 return "redirect:/";
             }
@@ -99,7 +102,6 @@ public class BoardWriteController {
             redirectAttributes.addFlashAttribute("message", "알 수 없는 오류가 발생했습니다. 메인화면으로 나갑니다.");
             return "redirect:/";
         }
-//        boardWriteService.questionRegist(option, orderNumber, productName, inputTitle, editordata, uploadedImages);
         return "redirect:/board/questionList";
     }
 
@@ -180,4 +182,87 @@ public class BoardWriteController {
 
         return returnMap;
     }
+
+    @GetMapping("/writeReview")
+    public String writeReview(@AuthenticationPrincipal LoginDetails loginDetails,
+                              @RequestParam int orderDetailsCode,
+                              RedirectAttributes redirectAttributes,
+                              Model model) {
+        if (loginDetails == null) {
+            redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다. 메인으로 돌아갑니다.");
+            return ("redirect:/");
+        }
+        log.info("orderDetailsCode ... 잘 왔나 : " + orderDetailsCode);
+        // orderDetailsCode 를 이용해서.
+        // 1. 내 계정이 맞는가를 찾아야 한다.
+        String userId = loginDetails.getUsername();
+        log.info("현재 로그인한 아이디.... : " + userId);
+        String myId = boardWriteService.findMyIdByOrderDetailsCode(orderDetailsCode);
+        if (!myId.equals(userId)) {
+            redirectAttributes.addFlashAttribute("message", "리뷰하려는 제품상세와 계정정보가 일치하지 않습니다. \n메인으로 돌아갑니다.");
+            return ("redirect:/");
+        }
+
+        OrderDetailsDTO orderDetailsDTO = boardWriteService.selectOrderDetail(orderDetailsCode);
+        model.addAttribute("orderDetailsDTO", orderDetailsDTO);
+        return "/client/content/board/writeReview";
+    }
+
+    @PostMapping("/writeReview")
+    public String reviewRegist(@AuthenticationPrincipal LoginDetails loginDetails,
+                               @RequestParam String editordata,
+                               @RequestParam String uploadedImages,
+                               @RequestParam String orderDetailsCode,
+                               @RequestParam String stars,
+                               RedirectAttributes redirectAttributes) {
+        int userCode = loginDetails.getLoginUserDTO().getUserCode();
+        log.info("현재 로그인한 계정 코드... : " + userCode);
+        log.info("");
+        log.info("");
+        log.info("내가 입력한 summernote ...");
+        log.info(editordata);
+        log.info("내가 입력한 uploadedImages ...");
+        log.info(uploadedImages);
+        log.info("내가 입력한 orderDetailsCode ...");
+        log.info(orderDetailsCode);
+        log.info("내가 입력한 stars ...");
+        log.info(stars);
+        try {
+            List<UploadedImageDTO> uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<>() {
+            });
+            log.info("이제 JSON으로 고친 값...");
+            for (UploadedImageDTO image : uploadedImageList) {
+                log.info("Convert Path: " + image.getConvertPath());
+                log.info("Save Path: " + image.getSavePath());
+                log.info("Source Name: " + image.getSourceName());
+                log.info("Convert Name: " + image.getConvertName());
+            }
+            // 1. 현재 로그인한 계정의 정보
+            // 2. insert tbl_review
+            // 3. 게시글의 번호 가져오기
+            // 4. insert tbl_post_img ..
+            // 5. update tbl_order_details .. 이 다섯가지가 트랜잭션 하나이므로. Service를 부른다.
+            String userId = loginDetails.getUsername();
+            log.info("현재 로그인한 아이디.... : " + userId);
+            String myId = boardWriteService.findMyIdByOrderDetailsCode(Integer.parseInt(orderDetailsCode));
+            if (!myId.equals(userId)) {
+                redirectAttributes.addFlashAttribute("message", "리뷰하려는 제품상세와 계정정보가 일치하지 않습니다. \n메인으로 돌아갑니다.");
+                return ("redirect:/");
+            }
+
+            OrderDetailsDTO orderDetailsDTO = boardWriteService.selectOrderDetail(Integer.parseInt(orderDetailsCode));
+            boolean isSuccess = boardWriteService.reviewRegist(userCode, orderDetailsDTO, stars, uploadedImageList);
+
+            if (!isSuccess) {
+                redirectAttributes.addFlashAttribute("message", "알 수 없는 오류가 발생했습니다. 메인화면으로 나갑니다.");
+                return "redirect:/";
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "알 수 없는 오류가 발생했습니다. 메인화면으로 나갑니다.");
+            return "redirect:/";
+        }
+        return "redirect:/board/reviewList";
+    }
+
 }

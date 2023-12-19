@@ -22,6 +22,12 @@
                     <caption>리뷰게시판</caption>
                 </table>
                 <hr style="border: 0.1px solid black;height:0.1em;background:black;">
+                <ul id="list">
+                    <li>리뷰는 회원만 가능합니다.</li>
+                    <li>주문 상세 내역에서 리뷰가 가능합니다.</li>
+                    <li id="goOrderDeliveryInfo" onclick="location.href='/myshop/orderDeliveryInfo'" style="cursor:pointer;"> > > 주문 내역 보러 가기</li>
+                </ul>
+                <hr style="border: 0.1px solid black;height:0.1em;background:black;">
                 <div class="review_wrapper" th:each="review : ${reviewList}"
                      th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                     <div class="reviewInfoWrap">

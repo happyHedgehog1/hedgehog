@@ -74,7 +74,9 @@
                                    onclick="location.href='/board/questionList'">
                         </div>
                     </form>
-                    <button id="write_button" onclick="location.href='/board/writeQuestion'">글쓰기</button>
+                    <button id="write_button" sec:authorize="hasAuthority('MEMBER')"
+                            onclick="location.href='/board/writeQuestion'">글쓰기
+                    </button>
                 </div>
                 <div id="bottom_buttons">
                     <!--맨 앞으로-->
