@@ -10,11 +10,23 @@ import java.util.List;
 public interface BoardWriteMapper {
     int insertTblInquiry(int userCode, String option, String inputTitle, String newEditordata);
 
-    Integer getLastInsertCode();
+    Integer getLastInsertCodeInquiry();
 
     int insertPostImageInquiry(Integer inquiryCode, List<UploadedImageDTO> uploadedImageList);
 
     String findMyIdByOrderDetailsCode(int orderDetailsCode);
 
     OrderDetailsDTO selectOrderDetail(int orderDetailsCode);
+
+    int insertTblReview(int userCode, String editordata, OrderDetailsDTO orderDetailsDTO, String stars);
+
+    Integer getLastInsertCodeReview();
+
+    int insertPostImageReview(Integer reviewCode, List<UploadedImageDTO> uploadedImageList);
+
+    int updateReviewPoint(int orderDetailsCode);
+
+    Integer selectMemberPoint(int userCode);
+
+    void updateMemberPoint(int userCode, int point);
 }

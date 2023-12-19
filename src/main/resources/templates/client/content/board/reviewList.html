@@ -25,7 +25,9 @@
                 <ul id="list">
                     <li>리뷰는 회원만 가능합니다.</li>
                     <li>주문 상세 내역에서 리뷰가 가능합니다.</li>
-                    <li id="goOrderDeliveryInfo" onclick="location.href='/myshop/orderDeliveryInfo'" style="cursor:pointer;"> > > 주문 내역 보러 가기</li>
+                    <li id="goOrderDeliveryInfo" onclick="location.href='/myshop/orderDeliveryInfo'"
+                        style="cursor:pointer;"> > > 주문 내역 보러 가기
+                    </li>
                 </ul>
                 <hr style="border: 0.1px solid black;height:0.1em;background:black;">
                 <div class="review_wrapper" th:each="review : ${reviewList}"
@@ -58,13 +60,13 @@
                     <hr style="border: 0.1px solid rgb(218, 217, 217);">
                     <div class="review_content_wrapper">
                         <!--${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}-->
-                        <div th:utext="${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}"
-                             class="content">
-                        </div>
-                        <div class="img_and_btn">
-                            <!-- 사용자가 올린 후기 사진 -->
-                            <div class="review_img">
-                                <img src="" alt="후기사진이 여기 올라옵니다."></div>
+                        <!--                        <div th:utext="${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}"-->
+                        <!--                             class="content">-->
+                    </div>
+                    <div class="img_and_btn">
+                        <!-- 사용자가 올린 후기 사진 -->
+                        <div class="review_img" th:each="postImage : ${review.postImageList}">
+                            <img th:src="|/thumbPath${postImage.convertPath}|" alt="후기사진이 여기 올라옵니다." style="background: black;">
                         </div>
                     </div>
                     <hr style="border: 0.1px solid black;height:0.1em;background:black;">

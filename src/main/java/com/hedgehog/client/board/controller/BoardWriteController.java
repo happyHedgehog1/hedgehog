@@ -251,7 +251,7 @@ public class BoardWriteController {
             }
 
             OrderDetailsDTO orderDetailsDTO = boardWriteService.selectOrderDetail(Integer.parseInt(orderDetailsCode));
-            boolean isSuccess = boardWriteService.reviewRegist(userCode, orderDetailsDTO, stars, uploadedImageList);
+            boolean isSuccess = boardWriteService.reviewRegist(userCode, editordata, orderDetailsDTO, stars, uploadedImageList);
 
             if (!isSuccess) {
                 redirectAttributes.addFlashAttribute("message", "알 수 없는 오류가 발생했습니다. 메인화면으로 나갑니다.");
@@ -264,5 +264,4 @@ public class BoardWriteController {
         }
         return "redirect:/board/reviewList";
     }
-
 }

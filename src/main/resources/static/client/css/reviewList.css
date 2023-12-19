@@ -179,35 +179,18 @@ tbody td:nth-child(3):hover {
 
 .img_and_btn {
     display: flex;
-    flex-direction: column;
-    align-items: end;
-    justify-content: center;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .review_img {
-    height: 100px;
+    height: 260px;
+    overflow: auto;
 }
 
-#img_and_btn button {
-    width: 50px;
-    border: 1px solid #A7727D;
-    border-radius: 0.5em;
-    background-color: white;
-
-    cursor: pointer;
-
+.review_img img {
+    height: 200px;
 }
 
-#img_and_btn button:active {
-    width: 50px;
-    border: 1px solid #A7727D;
-    border-radius: 0.5em;
-    background-color: #A7727D;
-    color: white;
-    cursor: pointer;
-}
 
 #write_buttons_wrap {
     display: flex;

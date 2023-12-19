@@ -76,8 +76,8 @@ public class BoardController {
         mv.addObject("reviewList", reviewList);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("reviewList : BoardController... selectCriteria" + selectCriteria);
-        mv.setViewName("/client/content/board/reviewList");
 
+        mv.setViewName("/client/content/board/reviewList");
         log.info("reviewList : BoardController..... end..");
         return mv;
     }
