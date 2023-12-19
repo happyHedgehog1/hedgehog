@@ -157,7 +157,7 @@
             <when test="state == 4"> '환불완료'</when>
             <when test="state == 5"> '교환완료'</when>
         </choose>
-        WHERE order_code = #{orderCode}
+        WHERE delivery_code = #{orderCode}
     </update>
     <select id="orderDetail" resultMap="orderResultMap">
         SELECT

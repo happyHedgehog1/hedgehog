@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminOrder.controller;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminCustomerDTO;
 import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
 import com.hedgehog.admin.adminOrder.model.dto.AdminOrderForm;
 import com.hedgehog.admin.adminOrder.model.service.AdminOrderServiceImpl;
@@ -22,6 +23,34 @@ public class AdminOrderController {
 
     public AdminOrderController(AdminOrderServiceImpl adminOrderService) {
         this.adminOrderService = adminOrderService;
+    }
+
+    /**
+     * 교환신청 메소드
+     * @param orderCode
+     * @param cause
+     * @param rttr
+     * @return
+     */
+    @PostMapping(value = "/exchange")
+    private String exchange(@RequestParam("orderCode") int orderCode,
+                            @RequestParam("cause") String cause,
+                            RedirectAttributes rttr){
+        log.info("");
+        log.info("");
+        log.info("exchange~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~orderCode : {}", orderCode);
+        log.info("~~~~~~~~~~~~~~~~cause : {}", cause);
+
+        AdminOrderDTO orderDTO = new AdminOrderDTO();
+        orderDTO.setOrderCode(orderCode);
+        orderDTO.setCause(cause);
+
+        adminOrderService.exchange(orderDTO);
+
+        rttr.addFlashAttribute("message", "교환신청이 완료되었습니다.");
+
+        return "redirect: admin/content/order/orderDetail";
     }
 
     @GetMapping(value = "/orderDetail")

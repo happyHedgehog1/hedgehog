@@ -13,4 +13,6 @@ public interface AdminOrderService {
     public void orderStateUpdate(AdminOrderDTO orderDTO) throws OrderStateUpdateException;
 
     public AdminOrderDTO orderDetail(int orderCode);
+
+    public void exchange(AdminOrderDTO orderDTO);
 }

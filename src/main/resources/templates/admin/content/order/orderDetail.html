@@ -73,10 +73,12 @@
                     <td colspan="5" th:text="${orderDetail.deliveryDTO.deliveryRequests}"></td>
                 </tr>
                 <tr>
-                    <th><button onclick="showExchangeInput()">교환신청</button></th>
-                    <th><button onclick="showRefundInput()">환불신청</button></th>
-                    <th><input type="text" id="exchange" style="display:none;"></th>
-                    <th><input type="text" id="refund" style="display:none;"></th>
+                    <form id="orderStateForm" th:action="@{/order/}" method="post">
+                    <input type="hidden" name="orderCode" id="orderCode" th:value="${orderDetail.getOrderCode()}"/>
+                    <th><button onclick="submitForm('orderStateForm', 'exchange');">교환신청</button></th>
+                    <th><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
+                    <th><input type="text" id="cause" name="cause"></th>
+                    </form>
                 </tr>
             </table>
         </div>
@@ -88,13 +90,10 @@
     if (message) {
         alert(message);
     }
-    function showExchangeInput() {
-        // 교환신청 버튼 클릭 시 입력 필드 표시
-        document.getElementById('exchange').style.display = 'block';
-    }
-
-    function showRefundInput() {
-        document.getElementById('refund').style.display = 'block';
+    function submitForm(formId, action) {
+        var form = document.getElementById(formId);
+        form.action = form.action + action;  // action을 동적으로 설정
+        form.submit();
     }
 
 </script>

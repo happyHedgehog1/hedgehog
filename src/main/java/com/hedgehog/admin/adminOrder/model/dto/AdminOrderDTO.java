@@ -27,4 +27,5 @@ public class AdminOrderDTO extends AdminAllMemberDTO {
     private int totalCount;
     private AdminCustomerDTO adminCustomerDTO;
     private AdminDeliveryDTO deliveryDTO;
+    private String cause;
 }

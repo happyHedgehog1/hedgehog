@@ -15,5 +15,5 @@ public class AdminCustomerDTO {
     private String phone;
     private String certification_number;
     private String id;
-
+    private String cause;
 }
