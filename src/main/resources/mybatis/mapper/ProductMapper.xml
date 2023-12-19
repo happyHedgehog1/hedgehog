@@ -16,6 +16,7 @@
         <id property="productCode" column="product_code"/>
         <result property="productPrice" column="price"/>
         <result property="productName" column="product_name"/>
+        <result property="optionName" column="name"/>
     </resultMap>
 
 
