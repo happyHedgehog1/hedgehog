@@ -6,6 +6,7 @@ import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -233,7 +235,7 @@ public class AdminServiceController {
             }
         }
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
-        return "redirect:/Service/productInquiry";
+        return "redirect:/member/productInquiry";
     }
 
 
@@ -466,16 +468,22 @@ public class AdminServiceController {
     public String inquiryComment(@ModelAttribute AdminCommentDTO adminCommentDTO,
                                  @RequestParam("inquiry_code") int inquiry_code,
                                  @RequestParam("user_code") int user_code,
-                                 Model model) throws BoardException {
+                                 @RequestParam("inqtitle") String inqtitle,
+                                 @RequestParam("inqcontent") String inqcontent,
+                                 Model model) throws BoardException, MessagingException, UnsupportedEncodingException {
         log.info("");
         log.info("");
         log.info("문의답변~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
         log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+        log.info("~~~~~~~~~~~~~~~~inqtitle : {}", inqtitle);
+        log.info("~~~~~~~~~~~~~~~~inqcontent : {}", inqcontent);
 
         // adminCommentDTO에 inquiry_code 설정
         adminCommentDTO.setInquiry_code(inquiry_code);
         adminCommentDTO.setUser_code(user_code);
 
+        adminCommentDTO.getAdminInquiryDTO().setTitle(inqtitle);
+        adminCommentDTO.getAdminInquiryDTO().setContent(inqcontent);
         log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
 
 

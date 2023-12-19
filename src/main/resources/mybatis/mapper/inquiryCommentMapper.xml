@@ -10,8 +10,42 @@
         <result property="write_date" column="write_date"/>
         <result property="modify_date" column="modify_date"/>
         <result property="content" column="content"/>
+        <result property="email" column="email"/>
+        <association property="adminInquiryDTO" resultMap="adminInquiryDTO"/>
+        <association property="adminUserDTO" resultMap="adminUserDTO"/>
 
     </resultMap>
+
+    <resultMap id="adminInquiryDTO" type="AdminInquiryDTO">
+    <id property="inquiry_code" column="inquiry_code"/>
+        <result property="content" column="content"/>
+        <result property="title" column="title"/>
+
+    </resultMap>
+
+    <resultMap id="adminUserDTO" type="AdminUserDTO">
+        <id property="user_code" column="user_code"/>
+        <result property="id" column="id"/>
+    </resultMap>
+    <resultMap id="adminCustomerDTOResultMap" type="com.hedgehog.admin.adminMember.model.dto.AdminCustomerDTO">
+        <id property="customer_code" column="customer_code"/>
+        <result property="member_state" column="member_state"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="certification_number" column="certification_number"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+    <resultMap id="autoMailResultMap" type="com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO">
+        <id property="formCode" column="form_code"/>
+        <result property="name" column="name"/>
+        <result property="content" column="content"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="title" column="title"/>
+        <result property="mailList" column="email"/>
+    </resultMap>
+
 
 
 
@@ -50,4 +84,21 @@
             inquiry_code = #{inquiry_code}
     </update>
 
+    <select id="searchMail" resultMap="adminCustomerDTOResultMap">
+        SELECT
+            email
+
+        FROM tbl_customer
+
+        WHERE customer_code = ${user_code}
+    </select>
+
+    <select id="searchMailForm" resultMap="autoMailResultMap">
+        SELECT
+            name,
+            content,
+            title
+        FROM TBL_MAILFORM
+        WHERE form_code = #{i}
+    </select>
 </mapper>

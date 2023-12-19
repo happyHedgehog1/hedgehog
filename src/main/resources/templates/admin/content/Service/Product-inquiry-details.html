@@ -35,7 +35,7 @@
                 <tr>
 
                     <td th:text="${adminInquiryDTO.post_type}"></td>
-                    <td th:text="${adminInquiryDTO.title}"></td>
+                    <td th:text="${adminInquiryDTO.title}"  ></td>
                     <td th:text="${adminInquiryDTO.content}"></td>
                     <td th:text="${adminInquiryDTO.getId().id}"></td>
                     <td th:text="${adminInquiryDTO.write_date}"></td>
@@ -44,6 +44,8 @@
                     <input type="hidden" id="inquiry_code" name="inquiry_code" th:value="${adminInquiryDTO.inquiry_code}" />
                     <input type="hidden" id="answer_state" name="answer_state" th:value="${adminInquiryDTO.answer_state}" />
                     <input type="hidden" id="user_code" name="user_code" th:value="${adminInquiryDTO.member_code}" />
+                    <input type="hidden" id="inqtitle" name="inqtitle" th:value="${adminInquiryDTO.title}" />
+                    <input type="hidden" id="inqcontent" name="inqcontent" th:value="${adminInquiryDTO.content}" />
                 </tr>
             </table>
             <div class="question"> 답변</div>
