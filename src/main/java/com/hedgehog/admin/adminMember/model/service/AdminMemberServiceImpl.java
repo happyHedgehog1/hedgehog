@@ -8,6 +8,7 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeUtility;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -149,6 +150,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
                 mimeMessageHelper.setText(mailDTO.getContent(), true); //메일 내용 지정
                 mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
                 mimeMessageHelper.setTo(mailDTO.getMailList()); //받는 메일 주소 지정
+
+                mimeMessageHelper.addInline("image", new ClassPathResource("static/admin/images/logo.png"));
+
 
 
                 //첨부 파일이 있으면 반복문을 통해 파일 하나씩 helper에 넣어준다
