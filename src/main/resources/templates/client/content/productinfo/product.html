@@ -34,13 +34,17 @@
             <div class="product_text_wrap">
               <div class="product_price">
                 <span>판매가</span>
-                <span th:text="'￦'+${productDetail[0].productText[0].productPrice}">￦295,000원</span>
+                <span th:text="'￦'+${T(java.lang.String).format('%,d', productPrice)}"></span>
               </div>
-              <div class="option">
-                <label for="color">색상</label><select name="option_color" id="color">
-                <option value="white">흰색</option>
-                <option value="black">검정</option>
-              </select>
+              <div class="option" >
+                <label for="color">색상</label>
+                <select name="option_color" id="color">
+                  <th:block th:each="option : ${productOption}">
+
+                      <option th:text="${option}">흰색</option>
+                  </th:block>
+
+                </select>
               </div>
               <div class="info">
                 <div>
