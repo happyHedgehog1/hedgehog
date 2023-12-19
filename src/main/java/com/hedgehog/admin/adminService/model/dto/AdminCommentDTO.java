@@ -18,7 +18,8 @@ public class AdminCommentDTO {
     private String content;
     private String answer_state;
     private String email;
-    private AdminInquiryDTO adminInquiryDTO;
+    private String inqtitle;
+    private String inqcontent;
     private AdminUserDTO adminUserDTO;
 
 }

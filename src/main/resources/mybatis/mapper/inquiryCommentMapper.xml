@@ -93,7 +93,7 @@
         WHERE customer_code = ${user_code}
     </select>
 
-    <select id="searchMailForm" resultMap="autoMailResultMap">
+    <select id="searchmailForm" resultMap="autoMailResultMap">
         SELECT
             name,
             content,

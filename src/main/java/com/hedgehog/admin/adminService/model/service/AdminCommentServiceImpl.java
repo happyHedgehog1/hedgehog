@@ -51,8 +51,8 @@ public class AdminCommentServiceImpl implements AdminCommentService {
             log.info("sendMailDTO==================" + sendMailDTO.toString());
 
 
-                String inquiryTitle = adminCommentDTO.getAdminInquiryDTO().getTitle();  //inquiryTitle에 문의 제목 넣기
-                String inquiryContent = adminCommentDTO.getAdminInquiryDTO().getContent(); //inquiryContent 문의 내용 넣기
+                String inquiryTitle = adminCommentDTO.getInqtitle();  //inquiryTitle에 문의 제목 넣기
+                String inquiryContent = adminCommentDTO.getInqcontent(); //inquiryContent 문의 내용 넣기
                 String comment = adminCommentDTO.getContent(); // comment에 답변 내용 넣기
                 String emailContent = sendMailDTO.getContent() //가져온 메일 양식의 내용에 {} 내용을 위에 선언한 String값으로 대체하기
                         .replace("{inquiryTitle}", inquiryTitle)

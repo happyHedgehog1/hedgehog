@@ -481,9 +481,9 @@ public class AdminServiceController {
         // adminCommentDTO에 inquiry_code 설정
         adminCommentDTO.setInquiry_code(inquiry_code);
         adminCommentDTO.setUser_code(user_code);
+        adminCommentDTO.setInqtitle(inqtitle);
+        adminCommentDTO.setInqcontent(inqcontent);
 
-        adminCommentDTO.getAdminInquiryDTO().setTitle(inqtitle);
-        adminCommentDTO.getAdminInquiryDTO().setContent(inqcontent);
         log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
 
 
