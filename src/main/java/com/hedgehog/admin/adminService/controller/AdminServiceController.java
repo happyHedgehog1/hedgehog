@@ -491,7 +491,7 @@ public class AdminServiceController {
         model.addAttribute("comment_code",adminCommentDTO.getComment_code());
         model.addAttribute("inquiry_code", inquiry_code);
 
-        return "admin/content/Service/Product-inquiry";
+        return "admin/content/Service/blank";
     }
 
 
