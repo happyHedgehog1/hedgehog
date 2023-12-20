@@ -14,5 +14,7 @@ public interface AdminOrderService {
 
     public AdminOrderDTO orderDetail(int orderCode);
 
-    public void exchange(AdminOrderDTO orderDTO);
+    public void exchange(AdminOrderDTO orderDTO) throws OrderStateUpdateException;
+
+    void refund(AdminOrderDTO orderDTO) throws OrderStateUpdateException;
 }

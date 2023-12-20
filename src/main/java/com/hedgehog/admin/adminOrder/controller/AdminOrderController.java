@@ -34,8 +34,8 @@ public class AdminOrderController {
      */
     @PostMapping(value = "/exchange")
     private String exchange(@RequestParam("orderCode") int orderCode,
-                            @RequestParam("cause") String cause,
-                            RedirectAttributes rttr){
+                            @RequestParam("cause") String cause, Model model,
+                            RedirectAttributes rttr) throws OrderStateUpdateException {
         log.info("");
         log.info("");
         log.info("exchange~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
@@ -45,14 +45,60 @@ public class AdminOrderController {
         AdminOrderDTO orderDTO = new AdminOrderDTO();
         orderDTO.setOrderCode(orderCode);
         orderDTO.setCause(cause);
+        orderDTO.setState("6");
 
         adminOrderService.exchange(orderDTO);
 
+        AdminOrderDTO orderDetail = adminOrderService.orderDetail(orderCode);
+        model.addAttribute("orderDetail", orderDetail);
+
+
         rttr.addFlashAttribute("message", "교환신청이 완료되었습니다.");
 
-        return "redirect: admin/content/order/orderDetail";
+        return "redirect:/order/orderDetail?orderCode=" + orderCode;
     }
 
+    /**
+     * 환불신청 메소드
+     * @param orderCode
+     * @param cause
+     * @param model
+     * @param rttr
+     * @return
+     * @throws OrderStateUpdateException
+     */
+    @PostMapping(value = "/refund")
+    private String refund(@RequestParam("orderCode") int orderCode,
+                            @RequestParam("cause") String cause, Model model,
+                            RedirectAttributes rttr) throws OrderStateUpdateException {
+        log.info("");
+        log.info("");
+        log.info("exchange~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~orderCode : {}", orderCode);
+        log.info("~~~~~~~~~~~~~~~~cause : {}", cause);
+
+        AdminOrderDTO orderDTO = new AdminOrderDTO();
+        orderDTO.setOrderCode(orderCode);
+        orderDTO.setCause(cause);
+        orderDTO.setState("7");
+
+        adminOrderService.refund(orderDTO);
+
+        AdminOrderDTO orderDetail = adminOrderService.orderDetail(orderCode);
+        model.addAttribute("orderDetail", orderDetail);
+
+
+        rttr.addFlashAttribute("message", "환불신청이 완료되었습니다.");
+
+        return "redirect:/order/orderDetail?orderCode=" + orderCode;
+    }
+
+    /**
+     * 주문내역 상세창 내용 불러오는 메소드
+     * @param orderCode
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/orderDetail")
     private String orderDetail(@RequestParam int orderCode, Model model){
         log.info("");
@@ -69,7 +115,15 @@ public class AdminOrderController {
 
     }
 
-
+    /**
+     * 주문내역창에서 일괄처리 적용하는 메소드
+     *
+     * @param selectedOrderCodes
+     * @param selectedState
+     * @param rttr
+     * @return
+     * @throws OrderStateUpdateException
+     */
     @PostMapping(value = "/stateUpdate")
     private String orderStateUpdate(@RequestParam("resultCheckbox") List<String> selectedOrderCodes,
                                     @RequestParam("selectCommit") String selectedState,
@@ -99,6 +153,12 @@ public class AdminOrderController {
         return "redirect:/order/orderSearch";
     }
 
+    /**
+     * 주문내역 조회 메소드
+     * @param form
+     * @param mv
+     * @return
+     */
     @GetMapping(value = "/orderSearch")
     public ModelAndView orderSearch(@ModelAttribute AdminOrderForm form,
                                     ModelAndView mv){

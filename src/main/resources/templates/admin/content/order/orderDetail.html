@@ -72,12 +72,12 @@
                 <tr>
                     <td colspan="5" th:text="${orderDetail.deliveryDTO.deliveryRequests}"></td>
                 </tr>
-                <tr>
+                <tr th:if="${orderDetail.deliveryDTO.state == '배송완료'}">
                     <form id="orderStateForm" th:action="@{/order/}" method="post">
-                    <input type="hidden" name="orderCode" id="orderCode" th:value="${orderDetail.getOrderCode()}"/>
-                    <th><button onclick="submitForm('orderStateForm', 'exchange');">교환신청</button></th>
-                    <th><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
-                    <th><input type="text" id="cause" name="cause"></th>
+                        <input type="hidden" name="orderCode" id="orderCode" th:value="${orderDetail.getOrderCode()}"/>
+                        <th><button onclick="submitForm('orderStateForm', 'exchange');">교환신청</button></th>
+                        <th><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
+                        <th><input type="text" id="cause" name="cause"></th>
                     </form>
                 </tr>
             </table>
