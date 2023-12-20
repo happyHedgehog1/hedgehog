@@ -2,6 +2,7 @@ package com.hedgehog.client.product.model.service;
 
 import com.hedgehog.client.product.model.dao.ProductInfoMapper;
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
+import com.hedgehog.client.product.model.dto.ProductDetailReviewDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,4 +26,11 @@ public class ProductServiceImpl implements ProductService{
         return result;
     }
 
+    @Override
+    public List<ProductDetailReviewDTO> selectProductReview(int number) {
+
+        List<ProductDetailReviewDTO> result = mapper.selectProductReview(number);
+
+        return result;
+    }
 }
