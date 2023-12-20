@@ -2,27 +2,70 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hedgehog.admin.adminMain.model.dao.AdminDailyVisitorsServiceMapper">
+<mapper namespace="com.hedgehog.admin.adminMain.model.dao.AdminDailyVisitorsMapper">
 
 
 
-<!--<resultMap id="adminUserDTOResultMap" type="adminUserDTO">-->
-<!--    <id property="user_code" column="user_code"/>-->
-<!--    <result property="id" column="id"/>-->
-<!--    <result property="password" column="password"/>-->
-<!--    <result property="classify" column="classify"/>-->
-<!--    <result property="name" column="name"/>-->
-<!--    <result property="connection_date" column="connection_date"/>-->
-<!--    <result property="creation_date" column="creation_date"/>-->
-<!--    <result property="withdraw_state" column="withdraw_state"/>-->
-<!--</resultMap>-->
+<resultMap id="adminUserDTOResultMap" type="adminUserDTO">
+    <id property="user_code" column="user_code"/>
+    <result property="id" column="id"/>
+    <result property="password" column="password"/>
+    <result property="classify" column="classify"/>
+    <result property="name" column="name"/>
+    <result property="connection_date" column="connection_date"/>
+    <result property="creation_date" column="creation_date"/>
+    <result property="withdraw_state" column="withdraw_state"/>
+</resultMap>
 
-    <select id="dailyVisitors" parameterType="com.hedgehog.admin.adminMain.model.dto.AdminDailyVisitorsDTO">
+    <resultMap id="orderResultMap" type="AdminOrderDTO">
+        <id property="orderCode" column="order_code"/>
+        <result property="customerCode" column="customer_code"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="sumPrice" column="sum_price"/>
+        <result property="pointUsage" column="point_usage"/>
+        <result property="state" column="state"/>
+        <result property="productCode" column="product_code"/>
+        <result property="totalCount" column="total_count"/>
+        <association property="userDTO" resultMap="adminUserResultMap"/>
+        <association property="productDTO" resultMap="productResultMap"/>
+        <association property="adminCustomerDTO" resultMap="customerResultMap"/>
+        <association property="deliveryDTO" resultMap="deliveryResultMap"/>
+        <collection property="orderDetail" resultMap="orderDetailResultMap"/>
+    </resultMap>
+
+    <resultMap id="orderDetailResultMap" type="AdminOrderDetailDTO">
+        <id property="orderDetailsCode" column="order_details_code"/>
+        <result property="count" column="count"/>
+        <result property="productCode" column="product_code"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="point" column="point"/>
+        <result property="reducedPrice" column="reduced_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="finalPrice" column="final_price"/>
+        <result property="optionCode" column="option_code"/>
+    </resultMap>
+
+    <select id="dailyVisitors" resultMap="adminUserDTOResultMap">
         SELECT user_code, connection_date
         FROM tbl_user
         WHERE connection_date BETWEEN #{startOfDay} AND #{endOfDay}
     </select>
 
+    <select id = "dailySales">
+        SELECT SUM(od.final_price) AS totalSales
+        FROM tbl_order o
+                 JOIN tbl_order_details od ON o.order_code = od.order_code
+        WHERE o.creation_date BETWEEN #{startOfDay} AND #{endOfDay}
+
+    </select>
+
+    <select id="dailySaleVolume" resultMap="orderDetailResultMap">
+        SELECT COUNT(tbl_order_details.count)
+        FROM tbl_order_details
+                 INNER JOIN tbl_order ON tbl_order_details.order_code = tbl_order.order_code
+        WHERE tbl_order.creation_date BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
 
 
 </mapper>

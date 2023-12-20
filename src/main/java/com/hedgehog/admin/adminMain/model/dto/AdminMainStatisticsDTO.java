@@ -10,12 +10,12 @@ import java.util.List;
 @Setter
 @ToString
 public class AdminMainStatisticsDTO {
-    private List<String> sales;
-    private List<String> visitor;
-    private List<String> reviews;
-    private List<String> saleVolume;
-    private List<String> newMember;
-    private List<String> inquiry;
+    private int sales;
+    private int visitor;
+    private int reviews;
+    private int saleVolume;
+    private int newMember;
+    private int inquiry;
 
 
 

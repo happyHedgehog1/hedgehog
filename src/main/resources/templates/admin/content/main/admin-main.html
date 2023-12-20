@@ -19,11 +19,11 @@
                     </div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         매출
-                        <span class="fontRed">3,000,000원</span>
+                        <span class="fontRed" th:text="${dailySales.sales }"></span>
                         </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         방문자수
-                        <span class="fontRed">300명</span>
+                        <span class="fontRed" th:text="${dailyVisitors} + '명'"></span>
                         </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         한줄리뷰
@@ -31,7 +31,7 @@
                         </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         판매량
-                        <span class="fontRed">300개</span>
+                        <span class="fontRed" th:text="${ dailySales.saleVolume}">300개</span>
                         </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         신규회원수
