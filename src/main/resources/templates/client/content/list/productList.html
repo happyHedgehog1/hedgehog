@@ -49,7 +49,7 @@
                             </ul>
                             <ul class="gallery_list_text2">
                                 <li th:text="${product.adminProductDTO.productName}"></li>
-                                <li th:text="'￦' + ${product.adminProductDTO.price}"></li>
+                                <span th:text="'￦'+${T(java.lang.String).format('%,d', product.adminProductDTO.price)}"></span>
                             </ul>
                         </li>
                     </ul>

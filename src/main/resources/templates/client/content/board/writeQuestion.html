@@ -21,7 +21,7 @@
                 <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
                                                                      alt="메인화면"></li>
                 <li>&gt;</li>
-                <li>문의</li>
+                <li>문의하기</li>
             </ul>
             <div id="contents">
                 <form action="/board/writeQuestion" method="post">
@@ -89,7 +89,7 @@
                         </tr>
                     </table>
                     <!--                    <input type="hidden" id="uploadedImages" name="uploadedImages" value="">-->
-                    <input type="text" id="uploadedImages" name="uploadedImages" value="">
+                    <input type="hidden" id="uploadedImages" name="uploadedImages" value="[]" readonly>
                     <div id="bottom_buttons">
                         <input type="button" id="goback_button" value="뒤로가기">
                         <input type="submit" id="submit_button" value="작성하기">

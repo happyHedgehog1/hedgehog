@@ -86,13 +86,9 @@
                         <input type="hidden" name="postType" th:value="${postType}">
                         <input type="hidden" name="postCode" th:if="${postType==1}" th:value="${board.reviewCode}">
                         <input type="hidden" name="postCode" th:if="${postType==2}" th:value="${board.inquiryCode}">
-                        <input type="hidden" name="postCode" th:if="${postType==3 or postType==4}" th:value="${board.postCode}">
-                        <input type="hidden" name="userCode" th:if="${postType==1 or postType==2}"
-                               th:value="${board.memberCode}">
-                        <input type="hidden" name="userCode" th:if="${postType==3 or postType==4}"
-                               th:value="${board.userCode}">
-                        <button id="delete_btn">삭제하기</button>
-                        <button id="modify_btn">수정하기</button>
+                        <input type="hidden" name="postCode" th:if="${postType==3 or postType==4}"
+                               th:value="${board.postCode}">
+                        <button id="delete_btn" sec:authorize="hasAuthority('MEMBER')">삭제하기</button>
                     </div>
                 </div>
 

@@ -30,7 +30,7 @@
                         <th>배송비</th>
                         <th>적립포인트</th>
                         <th>상태</th>
-                        <th></th>
+                        <th th:if="${orderDetails.orderState=='배송완료'}"></th>
                     </tr>
                     </thead>
                     <tbody class="tbody">
@@ -62,9 +62,11 @@
                             th:if="${orderDetail.pointCharge > 0 and orderDetail.pointCharge < 1000}"></td>
                         <td th:text="무료" th:if="${orderDetail.pointCharge}==0"></td>
                         <td th:text="${orderDetails.orderState}"></td>
-                        <td>
-                            <button type="button" data-product-code="${orderDetail.productCode}"
-                                    th:if="${orderDetails.orderCustomerState=='Y'}">리뷰하기
+                        <td th:if="${orderDetails.orderState=='배송완료' and orderDetail.reviewPoint <= 0}">
+                            <button type="button"
+                                    sec:authorize="hasAuthority('MEMBER')"
+                                    th:onclick="'location.href=\'/board/writeReview?orderDetailsCode=' + ${orderDetail.orderDetailsCode} + '\''">
+                                리뷰하기
                             </button>
                         </td>
                     </tr>

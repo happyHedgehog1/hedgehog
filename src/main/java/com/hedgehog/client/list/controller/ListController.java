@@ -66,6 +66,8 @@ public class ListController {
         map.put("type", type);
         List<ProductListDTO> productList = productListService.selectProductList(map);
 
+
+
         log.info("selectCriteria===== : " + selectCriteria);
         log.info("type=========== {}", type);
         log.info("productList================================== : {} : " , productList);
