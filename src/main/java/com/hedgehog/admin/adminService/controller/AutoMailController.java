@@ -1,8 +1,13 @@
 package com.hedgehog.admin.adminService.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hedgehog.admin.adminService.model.dao.AdminAutoMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
 import com.hedgehog.admin.adminService.model.service.AdminAutoMailServiceImpl;
 import com.hedgehog.admin.exception.AdminProductAddException;
+import com.hedgehog.client.board.model.dto.UploadedImageDTO;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
@@ -12,12 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,9 +35,11 @@ import java.util.UUID;
 public class AutoMailController {
 
     private final AdminAutoMailServiceImpl autoMail;
+    private final ObjectMapper objectMapper;
 
-    public AutoMailController(AdminAutoMailServiceImpl autoMail) {
+    public AutoMailController(AdminAutoMailServiceImpl autoMail, ObjectMapper objectMapper) {
         this.autoMail = autoMail;
+        this.objectMapper = objectMapper;
     }
 
     @Value("img")
@@ -43,7 +53,7 @@ public class AutoMailController {
                            @RequestParam String title,
                            @RequestParam String summernote,
                            @RequestParam String sendDate,
-                           @RequestParam String chooseMember, RedirectAttributes rttr){
+                           @RequestParam String chooseMember, RedirectAttributes rttr) throws JsonProcessingException, MessagingException, UnsupportedEncodingException {
 
         log.info("메일보내기 시작~~~~~~~~~~~~~");
         log.info("uploadedImages~~~~~~~~~~~~~" + uploadedImages);
@@ -51,6 +61,17 @@ public class AutoMailController {
         log.info("summernote~~~~~~~~~~~~~" + summernote);
         log.info("sendDate~~~~~~~~~~~~~" +sendDate);
         log.info("chooseMember~~~~~~~~~~~~~" + chooseMember);
+        List<UploadedImageDTO> uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<List<UploadedImageDTO>>() {
+        });
+        log.info("이제 JSON으로 고친 값...");
+        for (UploadedImageDTO image : uploadedImageList) {
+            log.info("Convert Path: " + image.getConvertPath());
+            log.info("Save Path: " + image.getSavePath());
+            log.info("Source Name: " + image.getSourceName());
+            log.info("Convert Name: " + image.getConvertName());
+        }
+
+        boolean isSucces = autoMail.sendMail(uploadedImageList, title, summernote, sendDate, chooseMember);
 
         return "redirect: /Service/email";
     }
