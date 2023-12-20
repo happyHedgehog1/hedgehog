@@ -182,14 +182,15 @@ tbody td:nth-child(3):hover {
     padding: 10px;
 }
 
-.review_img {
-    height: 260px;
-    overflow: auto;
+.img_and_btn {
+    /*height: 200px;*/
+    overflow-x: scroll;
+    width: 55em;
 }
 
-.review_img img {
-    height: 200px;
-}
+/*.review_img img {*/
+/*    height: 250px;*/
+/*}*/
 
 
 #write_buttons_wrap {
@@ -284,4 +285,8 @@ tbody td:nth-child(3):hover {
     font-weight: bold;
     font-size: 1.1em;
     color: black;
+}
+
+.note-modal-content {
+    top: 7em;
 }

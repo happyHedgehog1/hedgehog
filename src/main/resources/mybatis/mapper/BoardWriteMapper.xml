@@ -113,4 +113,21 @@
         SET point=#{point}
         WHERE member_code = #{userCode}
     </update>
+    <resultMap id="productReviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ProductReviewDTO">
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+    </resultMap>
+    <select id="getReviewInfo" resultMap="productReviewDTOResultMap">
+        SELECT
+            A.reviews,
+            A.grade
+        FROM tbl_product A
+        WHERE A.product_code=#{productCode}
+    </select>
+    <update id="updateProductReviewCount">
+        UPDATE tbl_product
+        SET reviews=#{newProductReviewDTO.reviews},
+            grade=#{newProductReviewDTO.grade}
+        WHERE product_code=#{productCode}
+    </update>
 </mapper>

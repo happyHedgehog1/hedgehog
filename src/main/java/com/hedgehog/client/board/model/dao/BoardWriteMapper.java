@@ -1,5 +1,6 @@
 package com.hedgehog.client.board.model.dao;
 
+import com.hedgehog.client.board.model.dto.ProductReviewDTO;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
 import com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,7 @@ public interface BoardWriteMapper {
     Integer selectMemberPoint(int userCode);
 
     void updateMemberPoint(int userCode, int point);
+    ProductReviewDTO getReviewInfo(int productCode);
+    void updateProductReviewCount(ProductReviewDTO newProductReviewDTO, int productCode);
+
 }

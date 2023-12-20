@@ -146,7 +146,7 @@ tr {
 
 #input_option,
 #input_order_number,
-#input_product_name{
+#input_product_name {
     height: 30px;
     /*width: 300px;*/
 }
@@ -154,4 +154,8 @@ tr {
 .number,
 .product_number {
     /*display: none;*/
+}
+
+.note-modal-content {
+    top: 20em;
 }

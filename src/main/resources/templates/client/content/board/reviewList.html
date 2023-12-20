@@ -34,6 +34,7 @@
                      th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
                     <div class="reviewInfoWrap">
                         <div id="reviewInfo">
+                            <img th:src="|/thumbPath${review.productImgPath}|">
                             <div>
                                 <div>제품이름 :
                                     <th:block th:text="${review.productName}"></th:block>
@@ -58,16 +59,18 @@
                         </div>
                     </div>
                     <hr style="border: 0.1px solid rgb(218, 217, 217);">
-                    <div class="review_content_wrapper">
-                        <!--${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}-->
-                        <!--                        <div th:utext="${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}"-->
-                        <!--                             class="content">-->
-                    </div>
                     <div class="img_and_btn">
                         <!-- 사용자가 올린 후기 사진 -->
-                        <div class="review_img" th:each="postImage : ${review.postImageList}">
-                            <img th:src="|/thumbPath${postImage.convertPath}|" alt="후기사진이 여기 올라옵니다." style="background: black;">
+                        <div class="review_img" th:each="image : ${imageList}">
+                            <!--onload="fixImageSize(this)"-->
+                            <img th:src="|/thumbPath${image.convertPath}|"
+                                 th:if="${image.reviewCode==review.reviewCode}"
+                                 style="background: #a7727d;padding:5px;border:1px solid #a7727d;"
+                                 onerror="handleImageError(this)">
                         </div>
+                        <div class="only_text">글 리뷰입니다. 클릭하면 내용을 볼 수 있습니다.</div>
+                        <!--                        <div th:utext="${review.content.length() lt 70 ? review.content : review.content.substring(0, 67)+'...'}"-->
+                        <!--                             class="only_text">-->
                     </div>
                     <hr style="border: 0.1px solid black;height:0.1em;background:black;">
                 </div>

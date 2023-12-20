@@ -168,3 +168,6 @@ tr {
     width: 3em;
     cursor: pointer;
 }
+.note-modal-content {
+    top:20em;
+}

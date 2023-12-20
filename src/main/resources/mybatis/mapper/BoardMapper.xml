@@ -118,16 +118,6 @@
             AND A.state = 'Y'
         </where>
     </select>
-<!--    <resultMap id="postImageDTOResultMap" type="com.hedgehog.client.board.model.dto.PostImageDTO">-->
-<!--        <id property="postImageCode" column="post_img_code"/>-->
-<!--        <result property="eventCode" column="event_code"/>-->
-<!--        <result property="reviewCode" column="review_code"/>-->
-<!--        <result property="inquiryCode" column="inquiry_code"/>-->
-<!--        <result property="createDate" column="create_date"/>-->
-<!--        <result property="convertPath" column="convert_path"/>-->
-<!--        <result property="state" column="post_img_state"/>-->
-<!--        <result property="postType" column="post_type"/>-->
-<!--    </resultMap>-->
     <resultMap id="reviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ReviewDTO">
         <id property="reviewCode" column="review_code"/>
         <result property="productCode" column="product_code"/>
@@ -140,8 +130,6 @@
         <result property="writeDate" column="write_date"/>
         <result property="memberCode" column="member_code"/>
         <result property="memberId" column="member_id"/>
-<!--        <collection property="postImageList" resultMap="postImageDTOResultMap">-->
-<!--        </collection>-->
     </resultMap>
     <select id="selectReviewList" resultMap="reviewDTOResultMap">
         SELECT
@@ -156,21 +144,11 @@
         A.write_date,
         A.member_code,
         B.id member_id
-#                ,
-#         F.post_img_code post_img_code,
-#         F.event_code event_code,
-#         F.review_code review_code,
-#         F.inquiry_code inquiry_code,
-#         F.create_date create_date,
-#         F.convert_path convert_path,
-#         F.state post_img_state,
-#         F.post_type post_type
         FROM tbl_review A
         JOIN tbl_user B ON A.member_code = B.user_code
         JOIN tbl_product C ON A.product_code = C.product_code
         JOIN tbl_option D ON A.option_code = D.option_code
         JOIN tbl_product_img E ON A.product_code = E.product_code
-#         LEFT JOIN tbl_post_img F ON A.review_code=F.review_code
         <where>
             <if test="searchValue != '' and searchValue != null">
                 <if test="searchCondition == 'id'">
@@ -326,5 +304,32 @@
             , A.write_date DESC
         </if>
         LIMIT #{ startRow }, #{ limit }
+    </select>
+        <resultMap id="postImageDTOResultMap" type="com.hedgehog.client.board.model.dto.PostImageDTO">
+            <id property="postImageCode" column="post_img_code"/>
+            <result property="eventCode" column="event_code"/>
+            <result property="reviewCode" column="review_code"/>
+            <result property="inquiryCode" column="inquiry_code"/>
+            <result property="createDate" column="create_date"/>
+            <result property="convertPath" column="convert_path"/>
+            <result property="state" column="post_img_state"/>
+            <result property="postType" column="post_type"/>
+        </resultMap>
+    <select id="getReviewImage" resultMap="postImageDTOResultMap">
+        SELECT A.post_img_code,
+        A.event_code,
+        A.review_code,
+        A.inquiry_code,
+        A.create_date,
+        A.convert_path,
+        A.state post_img_state,
+        A.post_type
+        FROM tbl_post_img A
+        WHERE
+        A.state = 'Y' AND
+        A.review_code IN
+        <foreach item="item" index="index" collection="reviewCodes" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 </mapper>

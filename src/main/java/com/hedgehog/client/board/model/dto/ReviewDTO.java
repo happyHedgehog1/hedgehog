@@ -22,5 +22,4 @@ public class ReviewDTO {
     private Timestamp writeDate; //tbl_review의 write_date 작성시간. -> 수정 불가능하게? -> 가능은 한데 굳이 의미가 있는가.
     private int memberCode; // tbl_review의 member_code 멤버코드
     private String memberId; // tbl_user의 id 유저아이디
-//    private List<PostImageDTO> postImageList;
 }

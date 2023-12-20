@@ -149,4 +149,60 @@
         SET views = #{views}
         WHERE post_code = #{postCode}
     </insert>
+    <select id="getReviewUserCode">
+        SELECT A.member_code
+        FROM tbl_review A
+        WHERE A.review_code = #{postCode}
+    </select>
+    <select id="getInquiryUserCode">
+        SELECT A.member_code
+        FROM tbl_inquiry A
+        WHERE A.inquiry_code = #{postCode}
+    </select>
+    <update id="updateReviewState">
+        UPDATE tbl_review
+        SET state='N'
+        WHERE review_code = #{postCode}
+          AND member_code = #{userCode}
+    </update>
+    <update id="updateInquiryState">
+        UPDATE tbl_inquiry
+        SET state='N'
+        WHERE inquiry_code = #{postCode}
+          AND member_code = #{userCode}
+    </update>
+    <resultMap id="ReviewDeleteDTOResultMap" type="com.hedgehog.client.board.model.dto.ReviewDeleteDTO">
+        <result property="grade" column="grade"/>
+        <result property="productCode" column="product_code"/>
+    </resultMap>
+    <select id="getReviewPostGrade" resultMap="ReviewDeleteDTOResultMap">
+        SELECT grade, product_code
+        FROM tbl_review
+        WHERE review_code=#{postCode} AND member_code=#{userCode}
+    </select>
+    <update id="updateReviewPostImage">
+        UPDATE tbl_post_img
+        SET state='N'
+        WHERE review_code=#{postCode}
+    </update>
+    <update id="updateInquiryPostImage">
+        UPDATE tbl_post_img
+        SET state='N'
+        WHERE inquiry_code = #{postCode}
+    </update>
+    <resultMap id="productReviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ProductReviewDTO">
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+    </resultMap>
+    <select id="getReviewInfo" resultMap="productReviewDTOResultMap">
+        SELECT reviews, grade
+        FROM tbl_product
+        WHERE tbl_product.product_code = #{productCode}
+    </select>
+    <update id="updateProductReviewCount">
+        UPDATE tbl_product
+        SET reviews=#{newProductReviewDTO.reviews},
+            grade=#{newProductReviewDTO.grade}
+        WHERE product_code=#{productCode}
+    </update>
 </mapper>

@@ -1,6 +1,7 @@
 package com.hedgehog.client.board.model.service;
 
 import com.hedgehog.client.board.model.dao.BoardWriteMapper;
+import com.hedgehog.client.board.model.dto.ProductReviewDTO;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
 import com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO;
 import lombok.AllArgsConstructor;
@@ -43,9 +44,10 @@ public class BoardWriteService {
         log.info("getLastInsertCodeInquiry로 값을 받았냐... : " + inquiryCode);
         // 사진 넣기.
 
-
-        int result2 = mapper.insertPostImageInquiry(inquiryCode, uploadedImageList);
-
+        int result2 = 0;
+        if (uploadedImageList.size() != 0) {
+            result2 = mapper.insertPostImageInquiry(inquiryCode, uploadedImageList);
+        }
         if (result2 != uploadedImageList.size()) {
             return false;
         }
@@ -75,7 +77,9 @@ public class BoardWriteService {
         // 2. insert tbl_review
         // 3. 게시글의 번호 가져오기
         // 4. insert tbl_post_img ..
-        // 5. update tbl_order_details .. 이 다섯가지가 트랜잭션 하나이므로. Service를 부른다.
+        // 5. update tbl_order_details ..
+        // 6. select and update tbl_member -> point 목적
+        // 7. update tbl_product ...
         log.info("BoardWriteService 에 잘 왔나... reviewRegist : ");
         log.info("userCode >> " + userCode); // 현재 로그인한 유저 정보
         log.info("orderDetailsDTO >> " + orderDetailsDTO); // 현재 주문 상세 정보 제품 하나
@@ -103,18 +107,27 @@ public class BoardWriteService {
 
         // 5. update tbl_order_details ..
         int result3 = mapper.updateReviewPoint(orderDetailsDTO.getOrderDetailsCode());
-        if(result3!=1){
+        if (result3 != 1) {
             return false;
         }
         log.info("리뷰 포인트가 올라가긴 했냐 : " + result3);
 
         // 6. select and update tbl_member -> point 목적
         Integer point = mapper.selectMemberPoint(userCode);
-        if(point!=null){
+        if (point != null) {
             return false;
         }
-        point+=1000;
-        mapper.updateMemberPoint(userCode,point);
+        point += 1000;
+        mapper.updateMemberPoint(userCode, point);
+
+
+        // 6. update tbl_product ...
+        ProductReviewDTO productReviewDTO = mapper.getReviewInfo(orderDetailsDTO.getProductCode());
+        int reviews = productReviewDTO.getReviews();
+        double grade = productReviewDTO.getGrade();
+        ProductReviewDTO newProductReviewDTO = new ProductReviewDTO(reviews + 1, (grade * reviews + orderDetailsDTO.getReviewPoint()) / (reviews + 1));
+        mapper.updateProductReviewCount(newProductReviewDTO, orderDetailsDTO.getProductCode());
+
         return true;
     }
 }

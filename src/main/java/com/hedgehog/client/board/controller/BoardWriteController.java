@@ -241,7 +241,9 @@ public class BoardWriteController {
             // 2. insert tbl_review
             // 3. 게시글의 번호 가져오기
             // 4. insert tbl_post_img ..
-            // 5. update tbl_order_details .. 이 다섯가지가 트랜잭션 하나이므로. Service를 부른다.
+            // 5. update tbl_order_details ..
+            // 6. select and update tbl_member -> point 목적
+            // 7. update tbl_product ...
             String userId = loginDetails.getUsername();
             log.info("현재 로그인한 아이디.... : " + userId);
             String myId = boardWriteService.findMyIdByOrderDetailsCode(Integer.parseInt(orderDetailsCode));

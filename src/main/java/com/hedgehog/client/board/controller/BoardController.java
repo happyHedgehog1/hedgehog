@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.hedgehog.common.paging.Pagenation;
 
@@ -73,7 +74,13 @@ public class BoardController {
         List<ReviewDTO> reviewList = boardService.selectReviewList(selectCriteria);
 
         log.info("reviewList : BoardController... reviewList : " + reviewList);
+        log.info("... 사진도 가져와야 한다.");
+        List<Integer> reviewCodes = reviewList.stream().map(ReviewDTO::getReviewCode).collect(Collectors.toList());
+        List<PostImageDTO> imageList = boardService.getReviewImage(reviewCodes);
+        log.info("imageList : BoardController... imageList : " + imageList);
+
         mv.addObject("reviewList", reviewList);
+        mv.addObject("imageList", imageList);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("reviewList : BoardController... selectCriteria" + selectCriteria);
 
