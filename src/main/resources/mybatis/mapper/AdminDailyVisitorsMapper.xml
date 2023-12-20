@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.admin.adminMain.model.dao.AdminDailyVisitorsServiceMapper">
+
+
+
+<!--<resultMap id="adminUserDTOResultMap" type="adminUserDTO">-->
+<!--    <id property="user_code" column="user_code"/>-->
+<!--    <result property="id" column="id"/>-->
+<!--    <result property="password" column="password"/>-->
+<!--    <result property="classify" column="classify"/>-->
+<!--    <result property="name" column="name"/>-->
+<!--    <result property="connection_date" column="connection_date"/>-->
+<!--    <result property="creation_date" column="creation_date"/>-->
+<!--    <result property="withdraw_state" column="withdraw_state"/>-->
+<!--</resultMap>-->
+
+    <select id="dailyVisitors" parameterType="com.hedgehog.admin.adminMain.model.dto.AdminDailyVisitorsDTO">
+        SELECT user_code, connection_date
+        FROM tbl_user
+        WHERE connection_date BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
+
+
+
+</mapper>

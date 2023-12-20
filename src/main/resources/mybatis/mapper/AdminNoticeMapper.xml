@@ -34,7 +34,7 @@
             A.state
         FROM tbl_admin_bulletin_board A
                  JOIN tbl_user B ON A.user_code = B.user_code
-        WHERE A.post_type = '공지사항'
+
         <where>
         <if test="notSearchStartDay != ''">
             <if test="notSearchEndDay != ''">
@@ -60,8 +60,9 @@
 
             </if>
 
+            and A.post_type = '공지사항'
         </where>
-        and A.post_type = '공지사항'
+
     </select>
 
     <update id="noticeStateUpdate" parameterType="_int">
