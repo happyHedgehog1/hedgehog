@@ -28,4 +28,8 @@ public interface AuthService {
     UserDetails findByUserId(String username);
 
     List<PostDTO> getRegistPosts() throws UserRegistPostException;
+
+    boolean sendCheckEmailMail(String email, String randomCode) throws MessagingException, UnsupportedEncodingException;
+
+    boolean sendPasswordMail(String email, String password) throws MessagingException, UnsupportedEncodingException;
 }
