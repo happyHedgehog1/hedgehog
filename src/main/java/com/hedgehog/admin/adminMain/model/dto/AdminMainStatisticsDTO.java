@@ -1,5 +1,7 @@
 package com.hedgehog.admin.adminMain.model.dto;
 
+import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminReviewDTO;
 import lombok.*;
 
 import java.util.List;
@@ -16,6 +18,12 @@ public class AdminMainStatisticsDTO {
     private int saleVolume;
     private int newMember;
     private int inquiry;
+    private int user;
+    private int order;
+    private int delivery;
+    private List<AdminInquiryDTO> adminInquiryDTO;
+    private AdminReviewDTO reviewDTO;
+
 
 
 

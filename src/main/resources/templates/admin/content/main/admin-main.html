@@ -17,100 +17,109 @@
                     <div class="todayhd">
                     <b>오늘현황</b>
                     </div>
-                    <div class="top"><a th:href="@{/statistics/statistics}">
-                        매출
-                        <span class="fontRed" th:text="${dailySales.sales }"></span>
-                        </a></div>
+                    <div class="top">
+                        <a th:href="@{/statistics/statistics}">
+                            매출
+                            <span class="fontRed" th:text="${dailySales.sales != null && dailySales.sales != 0 ? #numbers.formatInteger(dailySales.sales, 3, 'COMMA') + '원' : '0원'}"></span>
+                        </a>
+                    </div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         방문자수
-                        <span class="fontRed" th:text="${dailyVisitors} + '명'"></span>
+                        <span class="fontRed" th:text="${dailyVisitors != null && dailyVisitors != 0 ? dailyVisitors + '명' : '0명'}"></span>
                         </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         한줄리뷰
-                        <span class="fontRed">40건</span>
+                        <span class="fontRed" th:text="${dailySales.reviews != null && dailySales.reviews != 0 ? dailySales.reviews + '개' : '0개'}"></span>
                         </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         판매량
-                        <span class="fontRed" th:text="${ dailySales.saleVolume}">300개</span>
-                        </a></div>
+                        <span class="fontRed" th:text="${dailySales.saleVolume != null && dailySales.saleVolume != 0 ? dailySales.saleVolume + '개' : '0개'}"></span>
+                                             </a></div>
                     <div class="top"><a th:href="@{/statistics/statistics}">
                         신규회원수
-                        <span class="fontRed">20명</span>
+                        <span class="fontRed" th:text="${dailySales.user != null && dailySales.user != 0 ? dailySales.user + '명' : '0명'}">20명</span>
                         </a></div>
-                    <div class="top"><a th:href="@{/statistics/statistics}">
+                    <div class="top" ><a th:href="@{/statistics/statistics}">
                         문의 등록
-                        <span class="fontRed">20건</span>
+                        <span class="fontRed" th:text="${dailySales.inquiry != null && dailySales.inquiry != 0 ? dailySales.inquiry + '건' : '0건'}"></span>
                         </a></div>
                 </div>
                 <div id="middleWrapper">
                     <div class="middlehd"><b>주문현황</b></div>
                     <div class="middle"><a href="#">
-                        배송대기
-                        <span class="fontRed">23건</span></a></div>
-                    <div class="middle"><a href="#">
                         배송중
-                        <span class="fontRed">300건</span></a></div>
+                        <span class="fontRed" th:text="${dailySales.order != null && dailySales.order != 0 ? dailySales.order + '건' : '0건'}"></span></a></div>
                     <div class="middle"><a href="#">
                         배송완료
-                        <span class="fontRed">50건</span></a></div>
+                        <span class="fontRed" th:text="${dailySales.delivery != null && dailySales.delivery != 0 ? dailySales.delivery + '건' : '0건'}"></span></a></div>
                 </div>
                 <div class="bottom">
-                    <table class="=bottomTable">
+                    <table class="=bottomTableLeft">
                         <tr>
-                            <td colspan="4" style="border-right: #d8d8d8 1px solid;"><a href="#">상품 문의</a></td>
-                            <td colspan="4"><a href="#">상품 후기</a></td>
+                            <th colspan="3" style="border-right: #d8d8d8 1px solid; border-bottom: #d8d8d8 1px solid;"><a href="#">문의 내역</a></th>
                         </tr>
                         <tr>
-                            <td class="tableProduct">상품명</td>
-                            <td class="tableTitle">제목</td>
-                            <td class="tableWriter">작성자</td>
-                            <td class="tableDate">작성일자</td>
-                            <td class="tableProduct">상품명</td>
-                            <td class="tableTitle">제목</td>
-                            <td class="tableWriter">작성자</td>
-                            <td class="tableDate">작성일자</td>
+                            <th class="tableTitle">제목</th>
+                            <th class="tableWriter">작성자</th>
+                            <th class="tableDate">작성일자</th>
                         </tr>
                         <tr>
-                            <td class="tableProduct">&nbsp;</td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
-                            <td class="tableProduct"></td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
+                            <td class="tableTitle" th:text="${inquiry.get(0).title}"></td>
+                            <td class="tableWriter" th:text="${inquiry.get(0).id.id}"></td>
+                            <td class="tableDate" th:text="${inquiry.get(0).write_date}"></td>
                         </tr>
                         <tr>
-                            <td class="tableProduct">&nbsp;</td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
-                            <td class="tableProduct"></td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
+                            <td class="tableTitle" th:text="${inquiry.get(1).title}"></td>
+                            <td class="tableWriter" th:text="${inquiry.get(1).id.id}"></td>
+                            <td class="tableDate" th:text="${inquiry.get(1).write_date}"></td>
                         </tr>
                         <tr>
-                            <td class="tableProduct">&nbsp;</td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
-                            <td class="tableProduct"></td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
+                            <td class="tableTitle" th:text="${inquiry.get(2).title}"></td>
+                            <td class="tableWriter" th:text="${inquiry.get(2).id.id}"></td>
+                            <td class="tableDate" th:text="${inquiry.get(2).write_date}"></td>
                         </tr>
                         <tr>
-                            <td class="tableProduct">&nbsp;</td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
-                            <td class="tableProduct"></td>
-                            <td class="tableTitle"></td>
-                            <td class="tableWriter"></td>
-                            <td class="tableDate"></td>
+                            <td class="tableTitle" th:text="${inquiry.get(3).title}"></td>
+                            <td class="tableWriter" th:text="${inquiry.get(3).id.id}"></td>
+                            <td class="tableDate" th:text="${inquiry.get(3).write_date}"></td>
                         </tr>
                     </table>
+                    <table class="=bottomTableRight">
+                        <tr>
+                            <th colspan="4" style="border-right: #d8d8d8 1px solid; border-bottom: #d8d8d8 1px solid;"><a href="#">상품 후기</a></th>
+                        </tr>
+                        <tr>
+                            <th class="tableProduct">제품명</th>
+                            <th class="tableTitle">내용</th>
+                            <th class="tableWriter">작성자</th>
+                            <th class="tableDate">작성일자</th>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle" th:text="${review.get(0).product.productName}"></td>
+                            <td class="tableWriter" th:text="${#strings.substring(review.get(0).content, 0, 10) + '...'}"></td>
+                            <td class="tableDate" th:text="${review.get(0).id.id}"></td>
+                            <td class="tableDate" th:text="${review.get(0).write_date}"></td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle" th:text="${review.get(1).product.productName}"></td>
+                            <td class="tableWriter" th:text="${#strings.substring(review.get(1).content, 0, 10) + '...'}"></td>
+                            <td class="tableDate" th:text="${review.get(1).id.id}"></td>
+                            <td class="tableDate" th:text="${review.get(1).write_date}"></td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle" th:text="${review.get(2).product.productName}"></td>
+                            <td class="tableWriter" th:text="${#strings.substring(review.get(2).content, 0, 10) + '...'}"></td>
+                            <td class="tableDate" th:text="${review.get(2).id.id}"></td>
+                            <td class="tableDate" th:text="${review.get(2).write_date}"></td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle" th:text="${review.get(3).product.productName}"></td>
+                            <td class="tableWriter" th:text="${#strings.substring(review.get(3).content, 0, 10) + '...'}"></td>
+                            <td class="tableDate" th:text="${review.get(3).id.id}"></td>
+                            <td class="tableDate" th:text="${review.get(3).write_date}"></td>
+                        </tr>
+                    </table>
+
                 </div>
                 </div>
                 </div>

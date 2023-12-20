@@ -47,7 +47,7 @@ a{
 #middleWrapper{
     width: 1500px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 80px);
     grid-template-areas: 
     "middlehd middlehd middlehd";
@@ -70,45 +70,31 @@ a{
 
 table {
     margin-top: 40px;
-    font-weight: bold;
     text-align: center;
-    font-size: 20px;
-    width: 1500px;
-    height: 230px;
+    font-size: 18px;
     border: 1px solid #d8d8d8;
     border-collapse: collapse;
     }
+th, td{
+    height: 60px;
+    border: #d8d8d8 1px solid;
+}
 
-    .tableProduct {
-        width: 10%;
-        height: 30px;
-        font-size: 15px;
-        border: 1px solid #d8d8d8;
-        border-collapse: collapse;
-    }
-    
-    .tableTitle {
-        width: 20%;
-        font-size: 15px;
-        border: 1px solid #d8d8d8;
-        border-collapse: collapse;
-    }
-    
-    .tableWriter {
-        width: 10%;
-        font-size: 15px;
 
-        border: 1px solid #d8d8d8;
-        border-collapse: collapse;
-    }
-    
-    .tableDate {
-        width: 10%;
-        font-size: 15px;
-        border: 1px solid #d8d8d8;
-        border-collapse: collapse;
-    }
+
+
 
     .totalWrapper{
         background-color: white;
+
+    }
+
+    .bottom{
+        display: flex;
+        width: 1500px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 80px);
+        grid-template-areas:
+    "middlehd middlehd middlehd";
     }
