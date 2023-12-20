@@ -235,7 +235,7 @@ public class AdminServiceController {
             }
         }
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
-        return "redirect:/member/productInquiry";
+        return "redirect:/Service/Product-inquiry";
     }
 
 
