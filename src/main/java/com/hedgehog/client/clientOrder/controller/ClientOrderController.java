@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -150,6 +149,16 @@ public class ClientOrderController {
 
 
         return mv;
+    }
+
+    @GetMapping("/orderCompleted") //주문완료페이지
+    public String orderCompleted(){
+        return "/client/content/cilentOrder/orderCompleted.html";
+    }
+
+    @GetMapping("/orderFailed") // 주문실패페이지
+    public String orderFailed(){
+        return "/client/content/cilentOrder/orderFailed.html";
     }
 
 }

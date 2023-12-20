@@ -152,6 +152,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+//카카오페이 관련 결제하기 버튼을 누르면 동작
+
+const adminKey = 'c84521fef561a0b8f63c5438a75390a6';
+const formData = new FormData();
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
