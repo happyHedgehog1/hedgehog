@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -39,7 +40,7 @@ public class WithdrawalReasonController {
         String loginUserPwd = loginUserDTO.getUserPwd();
         if (passwordEncoder.matches(inputPwd, loginUserPwd)) {
             // 비밀번호가 일치하는 경우
-            LocalDateTime commitDateTime = LocalDateTime.now().plusDays(7);
+            LocalDateTime commitDateTime = LocalDateTime.now().with(LocalTime.MIDNIGHT).plusDays(7);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             redirectAttributes.addFlashAttribute("message", "회원탈퇴 신청이 완료되었습니다.\n" +
                     commitDateTime.format(formatter) + " 이전에 들어오시면 탈퇴 신청이 취소됩니다.");

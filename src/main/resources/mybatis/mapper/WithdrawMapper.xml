@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.common.login.mapper.WithdrawMapper">
+    <resultMap id="withdrawStatusResultMap" type="com.hedgehog.common.login.dto.WithdrawStatus">
+        <id property="withdrawCode" column="withdraw_code"/>
+        <result property="userCode" column="user_code"/>
+        <result property="applyDate" column="apply_date"/>
+        <result property="state" column="state"/>
+        <result property="cause" column="cause"/>
+        <result property="commitDate" column="commit_date"/>
+        <result property="cancelDate" column="cancel_date"/>
+    </resultMap>
+    <select id="checkWithdraw" resultMap="withdrawStatusResultMap">
+        SELECT A.withdraw_code,
+               A.user_code,
+               A.apply_date,
+               A.state,
+               A.cause,
+               A.commit_date,
+               A.cancel_date
+        FROM tbl_withdraw A
+        JOIN tbl_user B ON A.user_code=B.user_code
+        WHERE B.id = #{userId}
+        ORDER BY A.state!='Y', A.apply_date DESC
+        LIMIT 1
+    </select>
+    <update id="updateCancelDate">
+        UPDATE tbl_withdraw
+        SET cancel_date=now()
+        WHERE withdraw_code=#{withdrawCode}
+    </update>
+</mapper>

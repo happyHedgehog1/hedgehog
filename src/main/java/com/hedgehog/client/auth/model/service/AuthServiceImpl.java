@@ -1,6 +1,5 @@
 package com.hedgehog.client.auth.model.service;
 
-import com.hedgehog.admin.exception.UnregistException;
 import com.hedgehog.client.auth.model.dao.AuthMapper;
 import com.hedgehog.client.auth.model.dto.*;
 import com.hedgehog.common.common.exception.UserCertifiedException;
@@ -29,6 +28,7 @@ import java.util.Objects;
 public class AuthServiceImpl implements AuthService {
     private final AuthMapper mapper;
     private final JavaMailSender javaMailSender;
+    private final String FROM_ADDRESS = "oneinfurniture0@gmail.com";
 
     @Override
     public boolean selectUserById(String userId) {
@@ -50,6 +50,7 @@ public class AuthServiceImpl implements AuthService {
         if (result <= 0)
             throw new UserCertifiedException("입력에 실패했습니다.");
         int certifiedNumber = mapper.selectLastInsertCertifiedNumber();
+
         return certifiedNumber;
     }
 
@@ -63,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public boolean registMember(MemberDTO newMember) throws MessagingException, UnsupportedEncodingException, UnregistException {
+    public boolean registMember(MemberDTO newMember) throws MessagingException, UnsupportedEncodingException {
         /*
          * 0. tbl_user에 아이디 있는지 검색하기.
          * 1. 아이디가 없으면 tbl_user에 아이디, 비밀번호, 이름 넣기.
@@ -107,29 +108,28 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // 여기까지 오면 메일 보내는 메서드를 만든다.
-        sendRegistEmail(newMember.getEmail(), newMember.getUserId());
+        boolean result7 = sendRegistEmail(newMember.getEmail(), newMember.getUserId());
 
-        return true; // 계정생성 성공할 경우
+        return result7; // 계정생성 성공할 경우
     }
 
-    private void sendRegistEmail(String email, String userId) throws MessagingException, UnsupportedEncodingException, UnregistException {
+    private boolean sendRegistEmail(String email, String userId) throws MessagingException, UnsupportedEncodingException {
         /*기본적인 원리는 다음과 같다.
          * 1. 보내고 싶은 이메일 주소를 가져온다.
          * 2. */
-        final String FROM_ADDRESS = "oneinfurniture0@gmail.com";
         int result = 0;
         log.info("");
-        RegistMailDTO registMailDTO = mapper.searchMailForm(1); // 가입인사 form 가져오기.
-        log.info("registMailDTO++++++++++++++++++++++++++++" + registMailDTO.toString());
+        MailDTO mailDTO = mapper.searchMailForm(1); // 가입인사 form 가져오기.
+        log.info("mailDTO++++++++++++++++++++++++++++" + mailDTO.toString());
 
-        String emailContent = registMailDTO.getContent()
+        String emailContent = mailDTO.getContent()
                 .replace("{memberId}", userId);
 
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
 
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
 
-        mimeMessageHelper.setSubject(MimeUtility.encodeText(registMailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
+        mimeMessageHelper.setSubject(MimeUtility.encodeText(mailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
         mimeMessageHelper.setText(emailContent, true); //메일 내용 지정
         mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
         mimeMessageHelper.setTo(email); //받는 메일 주소 지정
@@ -141,8 +141,9 @@ public class AuthServiceImpl implements AuthService {
         result++;
         log.info(" orderState result =================================== ", result);
         if (!(result > 0)) {
-            throw new UnregistException(" 수정에 실패하셨습니다.");
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -170,5 +171,68 @@ public class AuthServiceImpl implements AuthService {
             throw new UserRegistPostException("개인정보처리방침 또는 이용약관을 가져오지 못했습니다.");
         }
         return postList;
+    }
+
+
+    @Override
+    public boolean sendCheckEmailMail(String email, String randomCode) throws MessagingException, UnsupportedEncodingException {
+        int result = 0;
+        log.info("");
+        MailDTO mailDTO = mapper.searchMailForm(9); // 인증번호 발송 메일
+        log.info("mailDTO++++++++++++++++++++++++++++" + mailDTO.toString());
+
+        String emailContent = mailDTO.getContent()
+                .replace("{randomCode}", randomCode);
+
+        MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
+
+        mimeMessageHelper.setSubject(MimeUtility.encodeText(mailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
+        mimeMessageHelper.setText(emailContent, true); //메일 내용 지정
+        mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
+        mimeMessageHelper.setTo(email); //받는 메일 주소 지정
+
+        mimeMessageHelper.addInline("image", new ClassPathResource("static/admin/images/logo.png"));
+
+        javaMailSender.send(mimeMailMessage);
+
+        result++;
+        log.info(" orderState result =================================== ", result);
+        if (!(result > 0)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean sendPasswordMail(String email, String password) throws MessagingException, UnsupportedEncodingException {
+        int result = 0;
+        log.info("");
+        MailDTO mailDTO = mapper.searchMailForm(3); // 인증번호 발송 메일
+        log.info("mailDTO++++++++++++++++++++++++++++" + mailDTO.toString());
+
+        String emailContent = mailDTO.getContent()
+                .replace("{password}", password);
+
+        MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
+
+        mimeMessageHelper.setSubject(MimeUtility.encodeText(mailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
+        mimeMessageHelper.setText(emailContent, true); //메일 내용 지정
+        mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
+        mimeMessageHelper.setTo(email); //받는 메일 주소 지정
+
+        mimeMessageHelper.addInline("image", new ClassPathResource("static/admin/images/logo.png"));
+
+        javaMailSender.send(mimeMailMessage);
+
+        result++;
+        log.info(" orderState result =================================== ", result);
+        if (!(result > 0)) {
+            return false;
+        }
+        return true;
     }
 }

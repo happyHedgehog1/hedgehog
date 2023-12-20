@@ -1,5 +1,7 @@
 package com.hedgehog.config.handler;
 
+import com.hedgehog.common.common.exception.UserWithdrawCancelException;
+import com.hedgehog.common.common.exception.UserWithdrawException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,6 +36,10 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
             errorMessage = "존재하지 않는 아이디입니다.\n아이디를 확인해주세요.";
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
             errorMessage = "인증요청이 거부되었습니다.\n관리자에게 문의해주세요.";
+        } else if (exception instanceof UserWithdrawException) {
+            errorMessage = "탈퇴한 계정입니다.\n로그인 화면으로 돌아갑니다.";
+        } else if (exception instanceof UserWithdrawCancelException) {
+            errorMessage = "withdrawCancel";
         } else {
             errorMessage = "알수없는 오류가 발생했습니다.\n관리자에게 문의해주세요.";
         }

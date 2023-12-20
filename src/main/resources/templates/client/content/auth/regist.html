@@ -192,7 +192,11 @@
                                                             $('#reload_timer').text("05:00");
                                                             startCountdown();
                                                         });
-                                                    } else {
+                                                    } else if(result.result==="sendMiss"){
+                                                        alert("이메일 전송에 실패했습니다.");
+                                                        location.href="/auth/login";
+                                                    }
+                                                    else {
                                                         $('#email_button').css('display', '');
                                                         $('#email').prop('readonly', false);
                                                         $('#email_message').html('이미 있는 이메일입니다.<br>다시 입력해주세요.');
