@@ -2,7 +2,6 @@ package com.hedgehog.client.product.model.service;
 
 import com.hedgehog.client.product.model.dao.ProductInfoMapper;
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
-import com.hedgehog.client.product.model.dto.ProductTextDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

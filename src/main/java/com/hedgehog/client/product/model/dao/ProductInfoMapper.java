@@ -1,7 +1,6 @@
 package com.hedgehog.client.product.model.dao;
 
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
-import com.hedgehog.client.product.model.dto.ProductTextDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

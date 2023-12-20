@@ -37,6 +37,22 @@
 
     </select>
 
+    <select id="selectProductReview">
+        SELECT
+            AVG(A.grade / A.reviews) AS reviewAvg,
+            A.product_code,
+            C.id,
+            D.convert_path,
+            B.content,
+            B.write_date,
+            C.user_code,
+            C.id
+        FROM tbl_product A
+        LEFT JOIN tbl_review B ON (A.product_code = B.product_code)
+        LEFT JOIN tbl_user C on (B.member_code = C.user_code)
+        LEFT JOIN tbl_post_img D ON (D.review_code = B.review_code)
+    </select>
+
 
 
 

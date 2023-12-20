@@ -1,22 +1,15 @@
 package com.hedgehog.client.product.controller;
 
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
-import com.hedgehog.client.product.model.dto.ProductTextDTO;
 import com.hedgehog.client.product.model.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.javassist.compiler.ast.InstanceOfExpr;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.text.NumberFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -45,7 +38,9 @@ public class ProductController {
         log.info("상품정보=== " + productDetail);
         log.info("상품가격== " + productDetail.get(0).getProductText().get(0).getProductPrice());
 
-        long productPrice = Long.parseLong(productDetail.get(0).getProductText().get(0).getProductPrice());
+        long productPrice = Long.parseLong(productDetail.get(0).getProductText().get(0).getProductPrice());  /* 가격 확인 */
+
+
 
         Long productPriceObject = Long.valueOf(productPrice);
         log.info("상품가격 타입: " + productPriceObject.getClass().getName());
@@ -59,6 +54,10 @@ public class ProductController {
         List<String> optionNameList = new ArrayList<>(overlapOptionName);
 
         log.info("옵션확인========"+ optionNameList);
+
+        /* 리뷰 */
+
+
 
         model.addAttribute("productDetail", productDetail);
         model.addAttribute("productPrice", productPrice);

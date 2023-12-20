@@ -2,7 +2,6 @@ package com.hedgehog.client.list.service;
 
 import com.hedgehog.client.list.dao.ProductListMapper;
 import com.hedgehog.client.list.dto.ProductListDTO;
-import com.hedgehog.common.paging.SelectCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

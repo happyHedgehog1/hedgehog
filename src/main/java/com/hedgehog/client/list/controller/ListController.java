@@ -1,5 +1,4 @@
 package com.hedgehog.client.list.controller;
-import com.hedgehog.client.board.model.dto.QuestionDTO;
 import com.hedgehog.client.list.dto.ProductListDTO;
 import com.hedgehog.client.list.service.ProductListService;
 import com.hedgehog.common.paging.Pagenation;

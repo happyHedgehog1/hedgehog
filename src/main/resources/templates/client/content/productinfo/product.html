@@ -7,6 +7,7 @@
   <th:block layout:fragment="content">
 
   <link rel="stylesheet" th:href="@{/client/css/product.css}">
+    <script src="https://kit.fontawesome.com/{6726f2378f}.js" crossorigin="anonymous"></script>
 
     <div class="top"><a th:href="@{'#'}"></a></div>
 
@@ -92,7 +93,7 @@
 
         <!-- 상세이미지 -->
         <div class="page_view">
-          <img th:src="@{/client/images/page.png}" alt="">
+          <img th:src="@{|/thumbPath${productDetail[4].convertPath}|}"alt="">
         </div>
 
         <!-- 평균리뷰 -->
@@ -102,18 +103,24 @@
             <span>★★★★★</span>
           </li>
           <li>평균별점 5.0</li>
+          <li>dfdfdf</li>
+          <div th:text="${star1}">dfdf</div>
+          <div th:text="${star2}">dfdf</div>
+
+
         </ul>
 
         <!-- 포토후기 -->
 
         <div class="poto_review">
-          <h2>포토 상품후기</h2>
+          <h2>포토 리뷰</h2>
           <ul th:onclick="openModal()">
             <li>
               <img th:src="@{/client/images/review_photo/1.png}" alt="">
             </li>
           </ul>
-          <div class="review_page_number">1</div>
+          <div class="review_page_number">전체보기</div>
+
         </div>
 
 
@@ -128,6 +135,7 @@
                 <div class="modal_average_review">
                   <ul>
                     <li>★★★★☆</li><li>4</li>
+
                   </ul>
                   <ul>
                     <li>lyai** </li><li>23.12.03.</li>
