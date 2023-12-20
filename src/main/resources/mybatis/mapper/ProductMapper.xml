@@ -19,6 +19,12 @@
         <result property="optionName" column="name"/>
     </resultMap>
 
+    <resultMap id="ProductReviewResultMap" type="ProductDetailReviewDTO">
+        <result property="ReviewContent" column="content"/>
+        <result property="ReviewWriteDate" column="write_date"/>
+        <result property="ReviewId" column="id"/>
+    </resultMap>
+
 
     <select id="selectProductDetail" resultMap="ProductImgResultMap">
         SELECT
@@ -37,20 +43,16 @@
 
     </select>
 
-    <select id="selectProductReview">
+    <select id="selectProductReview" resultMap="ProductReviewResultMap">
         SELECT
             AVG(A.grade / A.reviews) AS reviewAvg,
-            A.product_code,
-            C.id,
-            D.convert_path,
             B.content,
             B.write_date,
-            C.user_code,
             C.id
         FROM tbl_product A
         LEFT JOIN tbl_review B ON (A.product_code = B.product_code)
-        LEFT JOIN tbl_user C on (B.member_code = C.user_code)
-        LEFT JOIN tbl_post_img D ON (D.review_code = B.review_code)
+        LEFT JOIN tbl_user C ON (B.member_code = C.user_code)
+        WHERE A.product_code = #{number} AND A.orderable_status = 'Y' AND B.state = 'Y'
     </select>
 
 

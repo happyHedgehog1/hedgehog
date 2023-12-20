@@ -1,6 +1,7 @@
 package com.hedgehog.client.product.controller;
 
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
+import com.hedgehog.client.product.model.dto.ProductDetailReviewDTO;
 import com.hedgehog.client.product.model.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,11 +58,32 @@ public class ProductController {
 
         /* 리뷰 */
 
+        List<ProductDetailReviewDTO> productDetailReview = productService.selectProductReview(number);
+
+        log.info("들고온상품리뷰관련결과값====="+ productDetailReview);
+
+        System.out.println("리뷰총갯수===" + productDetailReview.size());
+
+        int reviewCount = productDetailReview.size();
 
 
+        for (int i = 0; i < productDetailReview.size(); i++) {
+            String id = productDetailReview.get(i).getReviewId();
+
+            if (id != null) {
+                String replacedId = id.substring(0, 3) + id.substring(3,7).replaceAll(".", "*")+id.substring(7);
+                System.out.println("아이디삐처리======"+replacedId);
+
+                productDetailReview.get(i).setReviewId(replacedId);
+            }
+        }
+
+        System.out.println("아이디세터로넣은후확인=== " + productDetailReview.get(0).getReviewId());
         model.addAttribute("productDetail", productDetail);
         model.addAttribute("productPrice", productPrice);
         model.addAttribute("productOption", optionNameList);
+        model.addAttribute("productReview",productDetailReview);
+        model.addAttribute("reviewCount",reviewCount);
 
         return "client/content/productinfo/product";
     }

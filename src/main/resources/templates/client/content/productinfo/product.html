@@ -102,12 +102,7 @@
           <li>
             <span>★★★★★</span>
           </li>
-          <li>평균별점 5.0</li>
-          <li>dfdfdf</li>
-          <div th:text="${star1}">dfdf</div>
-          <div th:text="${star2}">dfdf</div>
-
-
+          <li th:text="'리뷰평점 '+${productReview.get(0).getReviewAvg()}">별점없음</li>
         </ul>
 
         <!-- 포토후기 -->
@@ -120,7 +115,6 @@
             </li>
           </ul>
           <div class="review_page_number">전체보기</div>
-
         </div>
 
 
@@ -167,12 +161,12 @@
         <div class="text_review">
           <div>
             <h2 id="rivew">상품후기</h2>
-            <ul class="text_review_list">
-              <li>1</li>
+            <ul class="text_review_list" th:each="Review : ${productReview}">
+              <li th:each="number : ${#numbers.sequence(1, reviewCount)}" th:text="${number}">오류</li>
               <li><span>★★★★☆</span></li>
-              <li>사진이랑 똑같고 배송이 빨라요!사진이랑 똑같고 배송이 빨라요!사진이랑 똑같고 배송이 빨라요!</li>
-              <li>lyai**</li>
-              <li>2023.11.10</li>
+              <li th:text="${productReview.get(0).getReviewContent()}">내용이 안불러와 졌네요</li>
+              <li th:text="${productReview.get(0).getReviewId()}">아이디</li>
+              <li th:if="${productReview.get(0).getReviewWriteDate() != null}" th:text="${#strings.substring(productReview.get(0).getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
             </ul>
             <div class="review_page_number">1</div>
           </div>
