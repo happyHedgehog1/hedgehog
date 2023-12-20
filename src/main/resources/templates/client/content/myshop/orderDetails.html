@@ -62,7 +62,7 @@
                             th:if="${orderDetail.pointCharge > 0 and orderDetail.pointCharge < 1000}"></td>
                         <td th:text="무료" th:if="${orderDetail.pointCharge}==0"></td>
                         <td th:text="${orderDetails.orderState}"></td>
-                        <td th:if="${orderDetails.orderState=='배송완료' and orderDetail.reviewPoint > 0}">
+                        <td th:if="${orderDetails.orderState=='배송완료' and orderDetail.reviewPoint <= 0}">
                             <button type="button"
                                     sec:authorize="hasAuthority('MEMBER')"
                                     th:onclick="'location.href=\'/board/writeReview?orderDetailsCode=' + ${orderDetail.orderDetailsCode} + '\''">

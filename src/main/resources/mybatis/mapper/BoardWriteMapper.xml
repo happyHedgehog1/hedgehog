@@ -22,11 +22,11 @@
             '기타')
         </if>
     </insert>
-    <select id="getLastInsertCode">
+    <select id="getLastInsertCodeInquiry">
         SELECT LAST_INSERT_ID()
         FROM tbl_inquiry LIMIT 1
     </select>
-    <insert id="insertPostImage">
+    <insert id="insertPostImageInquiry">
         INSERT INTO tbl_post_img (inquiry_code, create_date, convert_path,save_path,source_name,convert_name,post_type)
         VALUES
             <foreach collection="uploadedImageList" item="image" separator=",">
@@ -77,4 +77,57 @@
         WHERE G.order_details_code = #{orderDetailsCode}
           AND J.image_classification = 'Thumbnails'
     </select>
+    <insert id="insertTblReview">
+        INSERT INTO tbl_review(product_code, grade, content, write_date, option_code, member_code)
+        VALUES (#{orderDetailsDTO.productCode},
+                #{stars},
+                #{editordata},
+                now(),
+                #{orderDetailsDTO.optionCode},
+                #{userCode})
+    </insert>
+    <select id="getLastInsertCodeReview">
+        SELECT LAST_INSERT_ID()
+        FROM tbl_review
+        limit 1
+    </select>
+    <insert id="insertPostImageReview">
+        INSERT INTO tbl_post_img (review_code, create_date, convert_path,save_path,source_name,convert_name,post_type)
+        VALUES
+        <foreach collection="uploadedImageList" item="image" separator=",">
+            (#{reviewCode}, now(),#{image.convertPath}, #{image.savePath},#{image.sourceName}, #{image.convertName},'문의')
+        </foreach>
+    </insert>
+    <update id="updateReviewPoint">
+        UPDATE tbl_order_details
+        SET review_point=1000
+        WHERE order_details_code = #{orderDetailsCode}
+    </update>
+    <select id="selectMemberPoint">
+        SELECT A.point
+        FROM tbl_member A
+        WHERE A.member_code = #{userCode}
+    </select>
+    <update id="updateMemberPoint">
+        UPDATE tbl_member
+        SET point=#{point}
+        WHERE member_code = #{userCode}
+    </update>
+    <resultMap id="productReviewDTOResultMap" type="com.hedgehog.client.board.model.dto.ProductReviewDTO">
+        <result property="reviews" column="reviews"/>
+        <result property="grade" column="grade"/>
+    </resultMap>
+    <select id="getReviewInfo" resultMap="productReviewDTOResultMap">
+        SELECT
+            A.reviews,
+            A.grade
+        FROM tbl_product A
+        WHERE A.product_code=#{productCode}
+    </select>
+    <update id="updateProductReviewCount">
+        UPDATE tbl_product
+        SET reviews=#{newProductReviewDTO.reviews},
+            grade=#{newProductReviewDTO.grade}
+        WHERE product_code=#{productCode}
+    </update>
 </mapper>

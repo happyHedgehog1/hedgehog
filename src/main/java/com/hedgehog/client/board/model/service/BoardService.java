@@ -1,10 +1,7 @@
 package com.hedgehog.client.board.model.service;
 
 import com.hedgehog.client.board.model.dao.BoardMapper;
-import com.hedgehog.client.board.model.dto.FaqDTO;
-import com.hedgehog.client.board.model.dto.NoticeDTO;
-import com.hedgehog.client.board.model.dto.QuestionDTO;
-import com.hedgehog.client.board.model.dto.ReviewDTO;
+import com.hedgehog.client.board.model.dto.*;
 import com.hedgehog.common.paging.SelectCriteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,6 +84,15 @@ public class BoardService {
         log.info("");
         log.info("");
         log.info("BoardService : selectFaqList ... : " + result);
+
+        return result;
+    }
+
+    public List<PostImageDTO> getReviewImage(List<Integer> reviewCodes) {
+        List<PostImageDTO> result = mapper.getReviewImage(reviewCodes);
+        log.info("");
+        log.info("");
+        log.info("BoardService : getReviewImage ... : " + result);
 
         return result;
     }

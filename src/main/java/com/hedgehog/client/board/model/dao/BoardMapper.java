@@ -1,9 +1,6 @@
 package com.hedgehog.client.board.model.dao;
 
-import com.hedgehog.client.board.model.dto.FaqDTO;
-import com.hedgehog.client.board.model.dto.NoticeDTO;
-import com.hedgehog.client.board.model.dto.QuestionDTO;
-import com.hedgehog.client.board.model.dto.ReviewDTO;
+import com.hedgehog.client.board.model.dto.*;
 import com.hedgehog.common.paging.SelectCriteria;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -27,4 +24,6 @@ public interface BoardMapper {
     int selectTotalCountFaqList(Map<String, String> searchMap);
 
     List<FaqDTO> selectFaqList(SelectCriteria selectCriteria);
+
+    List<PostImageDTO> getReviewImage(List<Integer> reviewCodes);
 }

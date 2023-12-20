@@ -7,18 +7,22 @@ $(document).ready(function () {
         // 배송문의인 경우 Summernote 내용을 설정
         if (selectedOption === '1') {
             deliveryInquiryContent = "주문번호를 입력하시면 더 빠른 답변을 받으실 수 있습니다.";
+            alert(deliveryInquiryContent);
         } else if (selectedOption === '2') { //상품문의
             deliveryInquiryContent = "제품이름을 입력하시면 더 빠른 답변을 받으실 수 있습니다.";
+            alert(deliveryInquiryContent);
         } else if (selectedOption === '3') { //교환문의
             deliveryInquiryContent = "주문번호를 입력하시면 더 빠른 답변을 받으실 수 있습니다. \n교환 원하시는 제품의 재고가 부족할시 환불처리됩니다.";
+            alert(deliveryInquiryContent);
         } else if (selectedOption === '4') { //환불문의
             deliveryInquiryContent = "주문번호를 입력하시면 더 빠른 답변을 받으실 수 있습니다. \n환불처리는 7 ~ 10일 정도 소요됩니다.";
+            alert(deliveryInquiryContent);
         } else if (selectedOption === '5') { //기타문의
-            deliveryInquiryContent = " ";
+            deliveryInquiryContent = "";
         } else if (selectedOption === '0') { //기타문의
             deliveryInquiryContent = "문의 분류를 선택해주세요. ";
+            alert(deliveryInquiryContent);
         }
-        alert(deliveryInquiryContent);
     });
 
     // Summernote 초기화
