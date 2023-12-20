@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 public class KakaoPayController {
 
-
     private final KakaoPayService kakaoPayService;
 
     public KakaoPayController(KakaoPayService kakaoPayService) {
@@ -23,16 +22,33 @@ public class KakaoPayController {
 
     @PostMapping("/order/pay")
     @ResponseBody
-    public ReadyResponse payReady(@RequestParam int totalPayPrice, Model model) {
+    public ReadyResponse payReady(@RequestParam int totalPayPrice,
+                                  @RequestParam String name,
+                                  @RequestParam int totalPrice,
+                                  @RequestParam int discountPrice,
+                                  @RequestParam String tel,
+                                  @RequestParam String email,
+                                  @RequestParam String savedPoint,
+                                  @RequestParam int originalTotalOrder,
+                                  @RequestParam int deliveryPrice,
+                                  Model model) {
 
         log.info("주문가격:"+totalPayPrice);
-        // 카카오 결제 준비하기   - 결제요청 service 실행.
-        log.info("========================================================> 시작? 컨트롤 ? ");
-        ReadyResponse readyResponse = kakaoPayService.payReady(totalPayPrice);
-        model.addAttribute("totalOrder",totalPayPrice);
+        // 카카오 결제 준비하기 결제요청 service 실행.
+        log.info("이름" + name);
+        log.info("총 가격" + totalPrice);
+        log.info("할인 가격" + discountPrice);
+        log.info("email" + email);
+        log.info(" savedPoint" + savedPoint);
+        log.info("tel"+ tel);
+        log.info("originalTotalOrder"+ originalTotalOrder);
+        log.info("deliveryPrice"+ deliveryPrice);
+        log.info("==================================================== 컨트롤러 출력 시작 ");
+        ReadyResponse readyResponse = kakaoPayService.payReady(totalPayPrice, name, totalPrice,
+                discountPrice, tel, email, savedPoint, originalTotalOrder, deliveryPrice);
+//        model.addAttribute("totalOrder",totalPayPrice);
 
 
-//        model.addAttribute("totalOrder", totalPayPrice  );
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
         model.addAttribute("tid", readyResponse.getTid());
         log.info("결재고유 번호: " + readyResponse.getTid());
@@ -51,7 +67,7 @@ public class KakaoPayController {
         ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
 
 
-        log.info("----------어디까지 된거냐 여긴 컨트롤러 마지막 ");
+        log.info("=========================================컨트롤러 conpleted ");
 
         return "redirect:/client/content/clientOrder/orderCompleted";
 

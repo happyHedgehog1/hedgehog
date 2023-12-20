@@ -151,14 +151,14 @@ public class ClientOrderController {
         return mv;
     }
 
-    @GetMapping("/orderCompleted") //주문완료페이지
+    @GetMapping("/orderCompleted") //주문완료 페이지
     public String orderCompleted(){
-        return "/client/content/cilentOrder/orderCompleted.html";
+        return "/client/content/clientOrder/orderCompleted";
     }
 
-    @GetMapping("/orderFailed") // 주문실패페이지
+    @GetMapping("/orderFailed") // 주문실패 페이지
     public String orderFailed(){
-        return "/client/content/cilentOrder/orderFailed.html";
+        return "/client/content/clientOrder/orderFailed";
     }
 
 }
