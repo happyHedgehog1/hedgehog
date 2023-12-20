@@ -1,5 +1,6 @@
 package com.hedgehog.client.auth.controller;
 
+import com.hedgehog.admin.exception.UnregistException;
 import com.hedgehog.client.auth.model.dto.MemberDTO;
 import com.hedgehog.client.auth.model.dto.RegistrationForm;
 import com.hedgehog.client.auth.model.dto.PostDTO;
@@ -7,6 +8,7 @@ import com.hedgehog.client.auth.model.service.AuthServiceImpl;
 import com.hedgehog.client.auth.model.service.SearchUserInfoService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserRegistPostException;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +75,7 @@ public class AuthController {
     }
 
     @PostMapping("/regist")
-    public String registMember(@ModelAttribute RegistrationForm registrationForm, RedirectAttributes redirectAttributes) {
+    public String registMember(@ModelAttribute RegistrationForm registrationForm, RedirectAttributes redirectAttributes) throws UnregistException, MessagingException, UnsupportedEncodingException {
         System.out.println(registrationForm);
         MemberDTO newMember = new MemberDTO(
                 registrationForm.getUserId(),
@@ -113,7 +116,8 @@ public class AuthController {
         if (!isEmailExist) {
             int min = 100000;
             int max = 1000000;
-            int certifiedCode = registService.selectCertifiedNumber(String.valueOf(new Random().nextInt(max - min) + min));
+            String randomStr = String.valueOf(new Random().nextInt(max - min) + min);
+            int certifiedCode = registService.selectCertifiedNumber(randomStr);
             System.out.println(certifiedCode);
             response.put("certifiedCode", certifiedCode);
         }
