@@ -3,13 +3,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/privacyPolicy.css}">
-    <script th:src="@{/client/privacyPolicey.js}"></script>
-
+    <title>개인정보처리방침</title>
+</head>
+<body>
+<th:block layout:fragment="content">
     <section>
-        <!-- 여기에 작성 -->
         <div id="main_category_route">
             <ul class="route_list">
                 <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
@@ -31,6 +33,7 @@
             </div>
         </div>
     </section>
-
 </th:block>
+<script th:src="@{/client/privacyPolicey.js}"></script>
+</body>
 </html>

@@ -8,6 +8,15 @@ function redirectReviewDetail(postCode, searchCondition, searchValue, orderBy, p
     window.location.href = url;
 }
 
+function paging(currentPage, searchCondition, searchValue, orderBy) {
+    const url = '/board/reviewList' +
+        '?currentPage=' + currentPage +
+        '&searchCondition=' + searchCondition +
+        '&searchValue=' + searchValue +
+        '&orderBy=' + orderBy;
+    window.location.href = url;
+}
+
 $(document).ready(function () {
     document.querySelectorAll('.review_img').forEach(function (element) {
         if (element.children.length > 0) {
@@ -22,6 +31,25 @@ $(document).ready(function () {
 function handleImageError(img) {
     img.style.display = 'none';
 }
+
+$(document).ready(function () {
+    $('form').submit(function (event) {
+        const formData = $(this).serializeArray();
+        console.log(formData);
+        localStorage.setItem('ReviewFormData', JSON.stringify(formData));
+    })
+    let storedFormData = localStorage.getItem("ReviewFormData");
+    if (storedFormData) {
+        storedFormData = JSON.parse(storedFormData);
+        console.log(storedFormData);
+        $('[name=searchCondition] option[value=' + storedFormData[1].value + ']').prop('selected', true);
+        $('[name=searchValue]').val(storedFormData[2].value);
+        $('[name=orderBy] option[value=' + storedFormData[3].value + ']').prop('selected', true);
+    }
+});
+$(document).on('click', '#clear_button', function () {
+    localStorage.removeItem('ReviewFormData');
+})
 
 // function fixImageSize(img) {
 //     // 원하는 크기를 지정

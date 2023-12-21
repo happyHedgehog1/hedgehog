@@ -3,14 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
-    <script th:src="@{/client/js/boardDetail.js}"></script>
+<head th:with="pageTitle=${postType==1?('리뷰게시글 - '+ board.productName):
+                            (postType==2?('문의게시글 - ' + board.title):
+                            (postType==3?('공지사항 - ' + board.title):('자주하는질문' + board.title)))}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/boardDetail.css}">
-
+    <title th:text="${#strings.length(pageTitle) > 20 ? #strings.substring(pageTitle, 0, 20) + '..' : pageTitle}"></title>
+</head>
+<th:block layout:fragment="content">
     <section class="main_section">
         <div id="contents">
-
             <ul class="route_list">
                 <li id="route_home" onclick="location.href='/'"><img th:src="@{/client/images/icon/home.png}"
                                                                      alt="메인화면"></li>
@@ -23,15 +26,18 @@
                 <li>게시글</li>
             </ul>
             <br><br><br><br>
-
             <div class="start_board">
                 <div class="board">
                     <hr class="hr">
+                    <div class="board_title" th:if="${postType==1}">
+                        <div class="board_title2">제품이름</div>
+                        <div class="board_title3" th:text="${board.productName}"></div>
+                    </div>
                     <div class="board_title" th:unless="${postType==1}">
                         <div class="board_title2">제목</div>
                         <div class="board_title3" th:text="${board.title}"></div>
                     </div>
-                    <hr th:unless="${postType==1}">
+                    <hr>
                     <div class="board_write">
                         <div class="board_write2">아이디</div>
                         <div class="board_write3" th:if="${postType==1 or postType==2}"
@@ -52,13 +58,10 @@
                     </div>
                     <hr th:if="${postType==3 or postType==4}">
                     <br>
-
                     <div class="writing" th:utext="${board.content}"/>
                     <br>
-
                     <div th:if="${postType==2}">
                         <hr class="comment_hr">
-
                         <div class="main_comment" th:unless="${board.commentCode == null}">
                             <div class="main_comment2">작성날짜 :</div>
                             <div class="main_comment3"
@@ -67,20 +70,16 @@
                             <div class="main_comment5">관리자</div>
                         </div>
                         <hr th:unless="${board.commentCode == null}">
-                        <p class="comment_space" th:unless="${board.commentCode == null}"
-                           th:text="${board.commentContent}"></p>
+                        <div class="comment_space" th:unless="${board.commentCode == null}"
+                           th:utext="${board.commentContent}"></div>
                         <div class="none_comment" th:if="${board.commentCode == null}">
                             답변이 아직 없습니다!
                         </div>
-
                     </div>
                     <hr class="hr">
                     <br>
-
                     <br>
                     <br>
-
-
                     <div class="board_btn">
                         <button onclick="history.back()" id="back_btn">뒤로 가기</button>
                         <input type="hidden" name="postType" th:value="${postType}">
@@ -91,15 +90,10 @@
                         <button id="delete_btn" sec:authorize="hasAuthority('MEMBER')">삭제하기</button>
                     </div>
                 </div>
-
                 <br><br><br>
-
-
             </div>
-
-
         </div>
     </section>
-
+    <script th:src="@{/client/js/boardDetail.js}"></script>
 </th:block>
 </html>

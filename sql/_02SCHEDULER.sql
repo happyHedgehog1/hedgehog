@@ -5,9 +5,6 @@ CREATE EVENT IF NOT EXISTS updateWithdrawStatusEvent
             STARTS TIMESTAMP(CURRENT_DATE, '00:00:00')
     DO
     BEGIN
-        -- 1. 탈퇴 상태가 아니면서
-        -- 2. 신청한 시기보다 7일 이상이면
-        -- 3. commit_date를 지금 자정시간으로 설정하고 탈퇴상태로 바꾸기
         UPDATE tbl_withdraw
         SET state       = 'N',
             commit_date = CURRENT_TIMESTAMP

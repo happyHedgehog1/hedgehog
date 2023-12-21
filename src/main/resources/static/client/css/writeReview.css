@@ -46,11 +46,11 @@ section {
     height: 30px;
 }
 
-#question_body_title {
+#review_body_title {
     display: flex;
 }
 
-#question_body_title:first-child {
+#review_body_title:first-child {
     padding-top: 0.3em;
 }
 

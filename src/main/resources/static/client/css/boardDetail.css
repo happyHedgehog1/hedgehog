@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
-
-
 /* 여기부터 개인 css */
-
-
 .main_section {
     padding-top: 130px;
 }
@@ -21,44 +16,20 @@
     justify-content: center;
 }
 
-.board_title {
-    display: flex;
-    height: 30px;
-    align-items: center;
-}
-
-.board_title3 {
-    margin-left: 100px;
-}
-
-.board_write {
-    display: flex;
-    height: 30px;
-    align-items: center;
-}
-
-.board_write3 {
-    margin-left: 85px;
-}
-
-.board_date {
-    display: flex;
-    height: 30px;
-    align-items: center;
-}
-
-.board_date3 {
-    margin-left: 100px;
-}
-
+.board_title,
+.board_write,
+.board_date,
 .board_click {
     display: flex;
     height: 30px;
     align-items: center;
 }
 
-.board_click3 {
-    margin-left: 85px;
+.board_title2,
+.board_write2,
+.board_date2,
+.board_click2 {
+    width: 7em;
 }
 
 .event_img {
@@ -84,7 +55,7 @@
 
 .comment_space {
     height: 40px;
-    margin:1em;
+    margin: 1em;
 }
 
 .comment_hr {
@@ -161,6 +132,6 @@
 }
 
 
-.writing{
-    width:730px;
+.writing {
+    width: 730px;
 }

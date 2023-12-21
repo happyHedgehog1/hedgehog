@@ -17,7 +17,7 @@ public class WithdrawService {
     public int checkWithdrawStatus(String userId) {
         // 여기서 tbl_withdraw의 상태를 반환함.
         WithdrawStatus withdrawStatus = withdrawMapper.checkWithdraw(userId);
-        if (withdrawStatus == null) {
+        if (withdrawStatus == null || withdrawStatus.getCancelDate() != null) {
             return 0;
         }
         if (withdrawStatus.getState().equals("Y")) {
