@@ -3,12 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
-    <script th:src="@{/client/js/noticeList.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/noticeList.css}">
-
-
+    <title>공지사항</title>
+</head>
+<th:block layout:fragment="content">
     <section>
         <div id="main_category_route">
             <ul class="route_list">
@@ -31,10 +32,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="notice : ${noticeList}"
-                        th:onclick="'redirectNoticeDetail(' + @{${notice.postCode}} + ', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
+                    <tr th:each="notice, stat : ${noticeList}"
+                        th:onclick="|redirectNoticeDetail(@{${notice.postCode}},'@{${selectCriteria.orderBy}}',@{${selectCriteria.pageNo}})|">
                         <td style="display:none" th:text="${notice.userCode}"></td>
-                        <td class="noticeCode" th:text="${notice.postCode}"></td>
+                        <td class="noticeCode" th:text="${stat.index+1+selectCriteria.startRow}"></td>
                         <td class="title"
                             th:text="${notice.title.length() lt 20 ? notice.title : notice.title.substring(0, 17)+'...'}">
                         </td>
@@ -66,29 +67,29 @@
                 </div>
                 <div id="bottom_buttons">
                     <!--맨 앞으로-->
-                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.startPage} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                    <input th:onclick="|paging(@{${selectCriteria.startPage}},'@{${selectCriteria.orderBy}}')|"
                            th:disabled="${selectCriteria.pageNo == 1}"
                            type="button"
                            value="<<">
                     <!--이전 페이지로-->
-                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.pageNo - 1} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                    <input th:onclick="|paging(@{${selectCriteria.pageNo - 1}},'@{${selectCriteria.orderBy}}')|"
                            th:disabled="${selectCriteria.pageNo == 1}"
                            type="button"
                            value="<">
                     <!--숫자 버튼-->
                     <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-                        <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${page} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                        <input th:onclick="|paging(@{${page}},'@{${selectCriteria.orderBy}}')|"
                                th:disabled="${selectCriteria.pageNo == page}"
                                type="button"
                                th:value="${page}">
                     </th:block>
                     <!--다음 페이지로-->
-                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.pageNo + 1} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                    <input th:onclick="|paging(@{${selectCriteria.pageNo + 1}},'@{${selectCriteria.orderBy}}')|"
                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                            type="button"
                            value=">">
                     <!--맨 뒤로-->
-                    <input th:onclick="'location.href=\'/board/noticeList?currentPage=' + ${selectCriteria.endPage} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                    <input th:onclick="|paging(@{${selectCriteria.endPage}},'@{${selectCriteria.orderBy}}')|"
                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                            type="button"
                            value=">>">
@@ -96,22 +97,6 @@
             </div>
         </div>
     </section>
-    <script>
-        $(document).ready(function () {
-            $('form').submit(function (event) {
-                const formData = $(this).serializeArray();
-                localStorage.setItem('NoticeFormData', JSON.stringify(formData));
-            })
-            let storedFormData = localStorage.getItem("NoticeFormData");
-            if (storedFormData) {
-                storedFormData = JSON.parse(storedFormData);
-                console.log(storedFormData);
-                $('[name=orderBy] option[value=' + storedFormData[1].value + ']').prop('selected', true);
-            }
-        });
-        $(document).on('click', '#clear_button', function () {
-            localStorage.removeItem('NoticeFormData');
-        })
-    </script>
+    <script th:src="@{/client/js/noticeList.js}"></script>
 </th:block>
 </html>

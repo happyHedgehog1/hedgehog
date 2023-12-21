@@ -92,7 +92,7 @@
         FROM tbl_admin_bulletin_board
         WHERE post_type in ('이용약관','개인정보처리방침')
     </select>
-    <resultMap id="registMailDTOResultMap" type="com.hedgehog.client.auth.model.dto.RegistMailDTO">
+    <resultMap id="registMailDTOResultMap" type="com.hedgehog.client.auth.model.dto.MailDTO">
         <result property="content" column="content"/>
         <result property="title" column="title"/>
     </resultMap>

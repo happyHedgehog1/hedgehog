@@ -3,11 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
-    <script th:src="@{/client/js/guestOrderSearch.js}" defer></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/guestOrderSearch.css}">
-
+    <title>비회원주문조회</title>
+</head>
+<th:block layout:fragment="content">
     <section>
         <div id="main_category_route">
             <ul class="route_list">
@@ -17,7 +19,7 @@
                 <li>비회원주문조회</li>
             </ul>
             <div id="contents">
-                <form action="/myshop/orderDetails" method="get">
+                <form th:action="@{/myshop/orderDetails}" method="post">
                     <table id="contents-table">
                         <caption>비회원 주문 조회</caption>
                         <tr>
@@ -37,7 +39,7 @@
                         </tr>
                         <tr>
                             <td colspan="5">
-                                <input type="submit" id="search_button" value="인증하기">
+                                <input type="submit" id="search_button" value="검색하기">
                             </td>
 
                     </table>
@@ -52,7 +54,7 @@
             alert(message);
         }
     </script>
-
+    <script th:src="@{/client/js/guestOrderSearch.js}"></script>
 </th:block>
 
 </html>

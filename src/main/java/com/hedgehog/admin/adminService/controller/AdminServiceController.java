@@ -6,7 +6,10 @@ import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
+import com.hedgehog.client.product.model.service.ProductService;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -34,35 +38,6 @@ public class AdminServiceController {
         this.adminCommentServiceImpl = adminCommentServiceImpl;
     }
 
-//    @ResponseBody
-//    @RequestMapping(value="/uploadSummernoteImageFile",method=RequestMethod.POST)
-//    public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
-//                                                HttpServletRequest request) {
-//        JsonObject jsonObject = new JsonObject();
-//        //파일저장 외부 경로, 파일명, 저장할 파일명
-//        try {
-//            String originalFileName = multipartFile.getOriginalFilename();
-//            String root = request.getSession().getServletContext().getRealPath("resources");
-//            String savePath = root + "\\image\review\summerImageFiles";
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//            String extension = originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-//            String boardFileRename = sdf.format(new Date(System.currentTimeMillis())) + "." + extension;
-//            File targetFile = new File(savePath);
-//            if(!targetFile.exists()) {
-//                targetFile.mkdir();
-//            }
-//            multipartFile.transferTo(new File(savePath+"\\"+boardFileRename));
-//            System.out.println(savePath);
-//            jsonObject.addProperty("url","/resources/image/review/summerImageFiles/"+boardFileRename);
-//            jsonObject.addProperty("originName",originalFileName);
-//            jsonObject.addProperty("reponseCode","success");
-//        } catch (IllegalStateException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return jsonObject;
-//    }
 
     @PostMapping(value = "/noticeModify")
     public String noticeModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
@@ -233,7 +208,7 @@ public class AdminServiceController {
             }
         }
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
-        return "redirect:/Service/productInquiry";
+        return "redirect:/Service/Product-inquiry";
     }
 
 
@@ -264,6 +239,8 @@ public class AdminServiceController {
         return modelAndView;
     }
 
+    @Autowired
+    private ProductService productService;
     //상품리뷰 상태 업데이트
 
     @PostMapping(value = "/revStateUpdate")
@@ -466,15 +443,21 @@ public class AdminServiceController {
     public String inquiryComment(@ModelAttribute AdminCommentDTO adminCommentDTO,
                                  @RequestParam("inquiry_code") int inquiry_code,
                                  @RequestParam("user_code") int user_code,
-                                 Model model) throws BoardException {
+                                 @RequestParam("inqtitle") String inqtitle,
+                                 @RequestParam("inqcontent") String inqcontent,
+                                 Model model) throws BoardException, MessagingException, UnsupportedEncodingException {
         log.info("");
         log.info("");
         log.info("문의답변~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
         log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+        log.info("~~~~~~~~~~~~~~~~inqtitle : {}", inqtitle);
+        log.info("~~~~~~~~~~~~~~~~inqcontent : {}", inqcontent);
 
         // adminCommentDTO에 inquiry_code 설정
         adminCommentDTO.setInquiry_code(inquiry_code);
         adminCommentDTO.setUser_code(user_code);
+        adminCommentDTO.setInqtitle(inqtitle);
+        adminCommentDTO.setInqcontent(inqcontent);
 
         log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
 
@@ -483,7 +466,7 @@ public class AdminServiceController {
         model.addAttribute("comment_code",adminCommentDTO.getComment_code());
         model.addAttribute("inquiry_code", inquiry_code);
 
-        return "admin/content/Service/Product-inquiry";
+        return "admin/content/Service/blank";
     }
 
 

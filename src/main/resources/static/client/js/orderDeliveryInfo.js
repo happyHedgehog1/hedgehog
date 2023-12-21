@@ -6,6 +6,19 @@ document.addEventListener('DOMContentLoaded', function () {
     )
 });
 
+function changeDate(state, dateStart, dateEnd) {
+    paging(1, state, dateStart, dateEnd)
+}
+
+function paging(currentPage, state, dateStart, dateEnd) {
+    const url = '/myshop/orderDeliveryInfo' +
+        '?currentPage=' + currentPage +
+        '&state=' + state +
+        '&dateStart=' + dateStart +
+        '&dateEnd=' + dateEnd;
+    window.location.href = url;
+}
+
 $(document).click(function () {
     const dateStartInput = $('#date_start');
     const dateEndInput = $('#date_end');

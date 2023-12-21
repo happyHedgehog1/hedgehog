@@ -6,6 +6,6 @@
    <insert id="insertWithdrawalReason">
        INSERT INTO tbl_withdraw
            (user_code, apply_date, cause)
-       VALUES (#{userCode}, now(), #{summernote})
+       VALUES (#{userCode}, now(), #{summernoteContent})
    </insert>
 </mapper>

@@ -12,4 +12,6 @@ public interface AdminReviewMapper {
     int revStateUpdate(AdminReviewDTO reviewDTO);
 
     AdminReviewDTO reviewDetail(int Review_code);
+
+
 }

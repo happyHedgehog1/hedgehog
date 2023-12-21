@@ -3,17 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-
-<th:block layout:fragment="content">
-    <script th:src="@{/client/js/withdrawalReason.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/withdrawalReason.css}">
-
-    <!-- Summernote -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+    <title>회원탈퇴페이지</title>
+</head>
+<th:block layout:fragment="content">
     <section>
         <!-- 여기에 작성 -->
         <div id="main_category_route">
@@ -28,7 +25,7 @@
                 <li>회원탈퇴</li>
             </ul>
             <div id="contents">
-                <form action="/myshop/withdrawalReason/submit" method="post">
+                <form th:action="@{/myshop/withdrawalReason/submit}" method="post">
                     <ul id="remove_info">
                         <li>탈퇴 신청한 시점부터 1주일 뒤 아이디를 제외한 모든 개인 정보는 삭제됩니다.</li>
                         <li>그 이전에 접속하시면 탈퇴를 취소할 수 있습니다.</li>
@@ -54,35 +51,6 @@
         </div>
     </section>
     <script>
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                placeholder: '탈퇴하고 싶은 이유를 작성하시면 됩니다.',
-                height: 350,
-                maxHeight: 1000,
-                width: 700,
-                maxWidth: 700,
-                focus: true,
-                lang: "ko-KR",
-                disableDragAndDrop: true,
-                dialogsInBody: true,
-                callbacks: {},
-                toolbar: [],
-            });
-            $('#summernote').summernote('code', localStorage.getItem("summernoteContent") || '');
-        });
-        $('#summernote').on('summernote.keyup', function () {
-            const content = $(this).summernote('code');
-            const maxLength = 3000;
-            console.log(content.length);
-            if (content.length > maxLength) {
-                alert("글자수가 너무 많습니다. (3000자 이하)");
-                $(this).summernote('code', content.substring(0, maxLength));
-            }
-        })
-        $('form').submit(function () {
-            $('#summernoteContent').val($('#summernote').summernote('code'));
-            localStorage.setItem("summernoteContent", $('#summernote').summernote('code'));
-        })
     </script>
     <script th:inline="javascript">
         var message = [[${message}]];
@@ -90,5 +58,7 @@
             alert(message);
         }
     </script>
+    <script th:src="@{/client/js/withdrawalReason.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </th:block>
 </html>

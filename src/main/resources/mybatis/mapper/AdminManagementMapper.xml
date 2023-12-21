@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.admin.adminManagement.model.dao.AdminManagementMapper">
+    <select id="selectTotalCountAdminInfo">
+        SELECT
+            COUNT(*)
+        FROM tbl_user A
+                 JOIN tbl_authority_list B ON A.user_code = B.user_code
+                 JOIN tbl_authority C ON B.authority_code = C.authority_code
+                 LEFT JOIN tbl_withdraw D ON A.user_code = D.user_code
+        WHERE A.classify='관리자'
+        ORDER BY C.name='ADMIN', A.withdraw_state='Y', A.connection_date DESC;
+    </select>
     <resultMap id="AdminResultMap" type="com.hedgehog.admin.adminManagement.model.dto.AdminDTO">
         <id property="userCode" column="user_code"/>
         <result property="id" column="id"/>
@@ -28,7 +38,8 @@
         JOIN tbl_authority C ON B.authority_code = C.authority_code
         LEFT JOIN tbl_withdraw D ON A.user_code = D.user_code
         WHERE A.classify='관리자'
-        ORDER BY C.name='ADMIN', A.withdraw_state='Y', A.connection_date DESC;
+        ORDER BY C.name='ADMIN', A.withdraw_state='Y', A.connection_date DESC
+        LIMIT #{ startRow }, #{ limit }
     </select>
     <insert id="insertAdmin">
         INSERT INTO tbl_user(id, password, classify, name, creation_date)

@@ -30,9 +30,9 @@
                     <th>사용한 적립금</th>
                     <th>합계</th>
                 </tr>
-                    <td th:text="${orderDetail.getCreationDate()}"></td>
-                    <td th:text="${orderDetail.getOrderCode()}"></td>
-                    <td th:text="${orderDetail.getProductDTO().productName}"></td>
+                    <td th:text="${orderDetail.getCreationDate()}"/>
+                    <td th:text="${orderDetail.getOrderCode()}"/>
+                    <td th:text="${orderDetail.getProductDTO().productName}"/>
                     <td>
                         <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
                             <div th:text="${#numbers.formatInteger(orderDetail.getOrderDetail().get(orderStat.index).getCostPrice(), 3, 'COMMA') + '원'}"></div>
@@ -43,28 +43,43 @@
                         <div th:text="${#numbers.formatInteger(orderDetail.getOrderDetail().get(orderStat.index).getDeliveryCharge(), 3, 'COMMA') + '원'}"></div>
                     </div>
                 </td>
+                <td th:text="${orderDetail.pointUsage}"/>
                 </tr>
                 <tr>
-                    <th>이름</th>
-                    <th>연락처</th>
-                    <th>주소</th>
-                    <th>배송메모</th>
-                    <th>상태</th>
+                    <th>보내는분 이름</th>
+                    <th colspan="2">보내는분 연락처</th>
+                    <th>받는분 이름</th>
+                    <th colspan="2">받는분 연락처</th>
                 </tr>
                 <tr>
-                    <td th:text="${orderDetail.getUserDTO().name}"></td>
-                    <td th:text="${#strings.concat(#strings.substring(orderDetail.adminCustomerDTO.phone, 0, 3), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,3, 7), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,7))}"></td>
-                    <td>주소</td>
-                    <td>배송메모</td>
-                    <td th:text="${orderDetail.state}"></td>
+                    <td th:text="${orderDetail.userDTO.name}"/>
+                    <td colspan="2" th:text="${#strings.concat(#strings.substring(orderDetail.adminCustomerDTO.phone, 0, 3), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,3, 7), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,7))}"/>
+                    <td th:text="${orderDetail.deliveryDTO.recipientName}"/>
+                    <td colspan="2" th:text="${#strings.concat(#strings.substring(orderDetail.deliveryDTO.recipientPhone, 0, 3), '-', #strings.substring(orderDetail.deliveryDTO.recipientPhone,3, 7), '-', #strings.substring(orderDetail.deliveryDTO.recipientPhone,7))}"/>
+                </tr>
+                <tr>
+                    <th colspan="5">주소</th>
+                    <th rowspan="2">상태</th>
+                </tr>
+                <tr>
+                    <td colspan="5" th:text="${orderDetail.deliveryDTO.deliveryAddress}"></td>
+                </tr>
+                <tr>
+                    <th colspan="5">배송메모</th>
+                    <td rowspan="2" th:text="${orderDetail.deliveryDTO.state}"></td>
 
                 </tr>
                 <tr>
-                    <th>교환신청</th>
-                    <th>환불신청</th>
+                    <td colspan="5" th:text="${orderDetail.deliveryDTO.deliveryRequests}"></td>
                 </tr>
-<!--                <tr th:each="order : ${ orderDetail }">-->
-<!--                </tr>-->
+                <tr th:if="${orderDetail.deliveryDTO.state == '배송완료'}">
+                    <form id="orderStateForm" th:action="@{/order/}" method="post">
+                        <input type="hidden" name="orderCode" id="orderCode" th:value="${orderDetail.getOrderCode()}"/>
+                        <th><button onclick="submitForm('orderStateForm', 'exchange');">교환신청</button></th>
+                        <th><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
+                        <th><input type="text" id="cause" name="cause"></th>
+                    </form>
+                </tr>
             </table>
         </div>
     </div>
@@ -74,6 +89,11 @@
     var message = [[${message}]];
     if (message) {
         alert(message);
+    }
+    function submitForm(formId, action) {
+        var form = document.getElementById(formId);
+        form.action = form.action + action;  // action을 동적으로 설정
+        form.submit();
     }
 
 </script>

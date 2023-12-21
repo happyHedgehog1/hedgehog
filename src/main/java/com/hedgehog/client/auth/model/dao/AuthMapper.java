@@ -1,7 +1,7 @@
 package com.hedgehog.client.auth.model.dao;
 
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
-import com.hedgehog.client.auth.model.dto.RegistMailDTO;
+import com.hedgehog.client.auth.model.dto.MailDTO;
 import com.hedgehog.client.auth.model.dto.MemberDTO;
 import com.hedgehog.client.auth.model.dto.PostDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -36,5 +36,5 @@ public interface AuthMapper {
 
     List<PostDTO> getRegistPosts();
 
-    RegistMailDTO searchMailForm(int formCode);
+    MailDTO searchMailForm(int formCode);
 }

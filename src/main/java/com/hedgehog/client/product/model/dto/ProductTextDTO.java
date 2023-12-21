@@ -2,8 +2,6 @@ package com.hedgehog.client.product.model.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

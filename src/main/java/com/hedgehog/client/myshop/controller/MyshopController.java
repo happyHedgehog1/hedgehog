@@ -8,6 +8,7 @@ import com.hedgehog.client.myshop.model.dto.ModifyForm;
 import com.hedgehog.client.myshop.model.service.MyshopService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserEmailNotFoundException;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -82,7 +84,7 @@ public class MyshopController {
     @PostMapping(value = "/checkEmail", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public Map<String, Object> checkEmail(@AuthenticationPrincipal LoginDetails loginDetails,
-                                          @RequestParam String email) throws UserEmailNotFoundException, UserCertifiedException {
+                                          @RequestParam String email) throws UserEmailNotFoundException, UserCertifiedException, MessagingException, UnsupportedEncodingException {
         /*여기서는 여러가지 경우의 수를 생각할 수 있겠다.
          * 인증한 이메일과 원래 가지고 있는 이메일이 동일한가.*/
         Map<String, Object> response = new HashMap<>();
@@ -101,8 +103,14 @@ public class MyshopController {
             if (!isEmailExist) {
                 int min = 100000;
                 int max = 1000000;
-                int certifiedCode = authService.selectCertifiedNumber(String.valueOf(new Random().nextInt(max - min) + min));
+                String randomCode = String.valueOf(new Random().nextInt(max - min) + min);
+                int certifiedCode = authService.selectCertifiedNumber(randomCode);
                 System.out.println(certifiedCode);
+                boolean isEmailSend = authService.sendCheckEmailMail(email,randomCode);
+
+                if (!isEmailSend) {
+                    response.put("result", "sendMiss");
+                }
                 response.put("certifiedCode", certifiedCode);
             }
             response.put("result", isEmailExist ? "fail" : "success");

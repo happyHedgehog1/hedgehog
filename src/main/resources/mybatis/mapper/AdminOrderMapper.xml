@@ -15,6 +15,7 @@
         <association property="userDTO" resultMap="adminUserResultMap"/>
         <association property="productDTO" resultMap="productResultMap"/>
         <association property="adminCustomerDTO" resultMap="customerResultMap"/>
+        <association property="deliveryDTO" resultMap="deliveryResultMap"/>
         <collection property="orderDetail" resultMap="orderDetailResultMap"/>
     </resultMap>
     <resultMap id="orderDetailResultMap" type="AdminOrderDetailDTO">
@@ -61,6 +62,15 @@
         <result property="phone" column="phone"/>
         <result property="certification_number" column="certification_number"/>
     </resultMap>
+    <resultMap id="deliveryResultMap" type="AdminDeliveryDTO">
+        <id property="deliveryCode" column="delivery_code"/>
+        <result property="deliveryAddress" column="delivery_address"/>
+        <result property="deliveryRequests" column="delivery_requests"/>
+        <result property="arrivalTime" column="arrival_time"/>
+        <result property="recipientName" column="recipient_name"/>
+        <result property="recipientPhone" column="recipient_phone"/>
+        <result property="state" column="state"/>
+    </resultMap>
     <select id="searchOrderList" resultMap="orderResultMap">
         SELECT
             A.creation_date,
@@ -89,10 +99,10 @@
                 AND A.state LIKE CONCAT('배송완료')
             </if>
             <if test="state == 4">
-                AND A.state LIKE CONCAT('취소중')
+                AND A.state LIKE CONCAT('교환중')
             </if>
             <if test="state == 5">
-                AND A.state LIKE CONCAT('취소완료')
+                AND A.state LIKE CONCAT('교환완료')
             </if>
             <if test="state == 6">
                 AND A.state LIKE CONCAT('환불중')
@@ -140,13 +150,86 @@
                 <when test="state == 3"> '배송완료'</when>
                 <when test="state == 4"> '환불완료'</when>
                 <when test="state == 5"> '교환완료'</when>
+                <when test="state == 6"> '교환중'</when>
+                <when test="state == 7"> '환불중'</when>
             </choose>
         WHERE order_code = #{orderCode}
     </update>
+    <update id="deliveryStateUpdate">
+        UPDATE tbl_delivery
+        SET state =
+        <choose>
+            <when test="state == 1"> '배송대기'</when>
+            <when test="state == 2"> '배송중'</when>
+            <when test="state == 3"> '배송완료'</when>
+            <when test="state == 4"> '환불완료'</when>
+            <when test="state == 5"> '교환완료'</when>
+            <when test="state == 6"> '교환중'</when>
+            <when test="state == 7"> '환불중'</when>
+        </choose>
+        WHERE delivery_code = #{orderCode}
+    </update>
+    <update id="paymentTableUpdate">
+        UPDATE tbl_payment
+        SET state =
+        <choose>
+            <when test="state == 1"> '배송대기'</when>
+            <when test="state == 2"> '배송중'</when>
+            <when test="state == 3"> '배송완료'</when>
+            <when test="state == 4"> '환불완료'</when>
+            <when test="state == 5"> '교환완료'</when>
+            <when test="state == 6"> '교환중'</when>
+            <when test="state == 7"> '환불중'</when>
+        </choose>
+        WHERE payment_code = #{orderCode}
+    </update>
+    <update id="exchangeTableUpdate">
+        UPDATE tbl_exchange
+        SET
+            commit_date = now()
+        WHERE payment_code = #{orderCode}
+    </update>
+    <update id="refundTableUpdate">
+        UPDATE tbl_refund
+        SET
+            commit_date = now()
+        WHERE payment_code = #{orderCode}
+    </update>
+    <update id="deliverTableUpdate">
+        UPDATE TBL_DELIVERY
+        SET state =
+            <choose>
+                <when test="state == 4"> '환불완료'</when>
+                <when test="state == 5"> '교환완료'</when>
+                <when test="state == 6"> '교환중'</when>
+                <when test="state == 7"> '환불중'</when>
+            </choose>
+        WHERE delivery_code = #{orderCode}
+    </update>
+    <insert id="exchangeTableInsert">
+        INSERT INTO tbl_exchange(
+                                apply_date,
+                                cause,
+                                payment_code
+        )
+        values
+            (now(), #{cause}, #{orderCode})
+    </insert>
+    <insert id="refundTableInsert">
+        INSERT INTO tbl_refund(
+            apply_date,
+            cause,
+            payment_code
+        )
+        values
+            (now(), #{cause}, #{orderCode})
+    </insert>
+
     <select id="orderDetail" resultMap="orderResultMap">
         SELECT
             A.creation_date,
             A.order_code,
+            A.point_usage,
             B.product_code,
             B.product_name,
             D.name,
@@ -157,19 +240,22 @@
             c.count,
             c.reduced_price,
             c.cost_price,
-            c.final_price
+            c.final_price,
+            F.delivery_code,
+            G.delivery_address,
+            G.recipient_phone,
+            G.recipient_name,
+            G.state
         FROM TBL_ORDER A
                  JOIN tbl_product B on A.product_code = B.product_code
                  join tbl_order_details C on A.order_code = C.order_code
                  Join tbl_user D on A.customer_code = D.user_code
                  join tbl_customer E on A.customer_code = E.customer_code
+                 join tbl_order_list F on A.order_code = F.order_code
+                 join tbl_delivery G on F.delivery_code = G.delivery_code
         WHERE A.order_code = #{orderCode}
     </select>
-    <update id="deliverTableUpdate">
-        UPDATE TBL_DELIVERY
-        SET state = '환불완료'
-        WHERE delivery_code = #{orderCode}
-    </update>
+
 
 
 </mapper>

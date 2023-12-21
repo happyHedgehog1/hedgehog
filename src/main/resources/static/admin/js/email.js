@@ -1,5 +1,4 @@
 $('#summernote').summernote({
-    placeholder: 'Hello stand alone ui',
     tabsize: 2,
     height: 300,
     toolbar: [
@@ -8,24 +7,62 @@ $('#summernote').summernote({
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],
-      ['insert', ['link', 'picture', 'video']],
+      ['insert', ['link', 'picture']],
       ['view', ['fullscreen', 'codeview', 'help']]
-    ]
+    ],
+    callbacks: {
+        onImageUpload: function (files) {
+            uploadSummernoteImageFile(files[0], this);
+        },
+        onPaste: function (e) {
+            var clipboardData = e.originalEvent.clipboardData;
+            if (clipboardData && clipboardData.items && clipboardData.items.length) {
+                var item = clipboardData.items[0];
+                if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                    e.preventDefault();
+                }
+            }
+        }
+    }
   });
 
-  function updateCurrentTime() {
-    var currentTimeElement = document.getElementById("currentTime");
-    var currentTime = new Date();
-    var Year = currentTime.getFullYear();
-    var Month = currentTime.getMonth();
-    var date = currentTime.getDate();
+function uploadSummernoteImageFile(file, editor) {
+    data = new FormData();
+    data.append("file", file);
 
-
-    // 시간을 HTML 요소에 업데이트
-    currentTimeElement.textContent = Year + "년 " + Month + "월 " + date + "일";
+    $.ajax({
+        data: data,
+        type: "POST",
+        url: "/autoMailModify/uploadSummernoteImageFile",
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            // 반환받는 data의 url 값은
+            // <img th:src="|/thumbPath${order.convertPath}|" th:alt="|${order.orderCode}번 제품이미지|">
+            // 여기서 /thumbPath를 포함한 값이다. 하지만 데이터베이스에 저장되는건 뒤의 $ 부분
+            addImageInfoToHiddenInput(data.convertPath, data.savePath, data.sourceName, data.convertName);
+            $(editor).summernote('insertImage', data.url);
+            console.log(data);
+        }
+    })
 }
 
-// 페이지 로드 시 초기 업데이트
-updateCurrentTime();
+function addImageInfoToHiddenInput(convertPath, savePath, sourceName, convertName) {
+    var hiddenInputValue = $("#uploadedImages").val();
+    var newImageInfo = {
+        convertPath: convertPath,
+        savePath: savePath,
+        sourceName: sourceName,
+        convertName: convertName
+    };
+    try {
+        var updatedValue = hiddenInputValue ? JSON.parse(hiddenInputValue) : [];
+    } catch (e) {
+        console.error('Error parsing JSON:', e);
+        console.error('JSON String:', hiddenInputValue);
+    }
+    updatedValue.push(newImageInfo);
 
+    $("#uploadedImages").val(JSON.stringify(updatedValue));
+}
 

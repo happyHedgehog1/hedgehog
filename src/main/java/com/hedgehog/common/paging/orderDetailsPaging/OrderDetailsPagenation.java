@@ -74,8 +74,8 @@ public class OrderDetailsPagenation {
         System.out.println("startRow = " + startRow);
         System.out.println("endRow = " + endRow);
 
-        OrderDetailsSelectCriteria OrderDetailsSelectCriteria = new OrderDetailsSelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow, order);
+        OrderDetailsSelectCriteria orderDetailsSelectCriteria = new OrderDetailsSelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow, order);
 
-        return OrderDetailsSelectCriteria;
+        return orderDetailsSelectCriteria;
     }
 }

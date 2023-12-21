@@ -110,15 +110,23 @@ public class AuthController {
 
     @PostMapping(value = "/checkEmail", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public Map<String, Object> checkEmail(@RequestParam String email) throws UserCertifiedException {
+    public Map<String, Object> checkEmail(@RequestParam String email) throws UserCertifiedException, MessagingException, UnsupportedEncodingException {
         Map<String, Object> response = new HashMap<>();
         boolean isEmailExist = registService.selectMemberByEmail(email); // Member 부분에서
         if (!isEmailExist) {
             int min = 100000;
             int max = 1000000;
-            String randomStr = String.valueOf(new Random().nextInt(max - min) + min);
-            int certifiedCode = registService.selectCertifiedNumber(randomStr);
+            String randomCode = String.valueOf(new Random().nextInt(max - min) + min);
+            int certifiedCode = registService.selectCertifiedNumber(randomCode);
             System.out.println(certifiedCode);
+
+            // 여기서 email과 randomCode 를 이용하여 메일을 전송한다.
+
+            boolean isEmailSend = registService.sendCheckEmailMail(email, randomCode);
+            if (!isEmailSend) {
+                response.put("result", "sendMiss");
+            }
+
             response.put("certifiedCode", certifiedCode);
         }
         response.put("result", isEmailExist ? "fail" : "success");
@@ -144,12 +152,15 @@ public class AuthController {
 
     @PostMapping(value = "/searchId/checkEmail", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public Map<String, Object> searchIdCheckEmail(@RequestParam String email) {
+    public Map<String, Object> searchIdCheckEmail(@RequestParam String email) throws MessagingException, UnsupportedEncodingException {
         Map<String, Object> response = new HashMap<>();
         Integer certificationCode = searchUserInfoService.selectMemberByEmail(email); // Member 부분에서
         log.info("이메일이 존재한다.(있으면 숫자, 없으면 null) : " + certificationCode);
         if (certificationCode != null) {
             response.put("certifiedCode", certificationCode);
+        } else if (certificationCode == -1) {
+            response.put("result", "sendMiss");
+            return response;
         }
         response.put("result", certificationCode == null ? "fail" : "success");
         return response;
@@ -199,13 +210,16 @@ public class AuthController {
     @PostMapping(value = "/searchPassword/checkEmail", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public Map<String, Object> searchPasswordCheckEmail(@RequestParam String userId,
-                                                        @RequestParam String email) {
+                                                        @RequestParam String email) throws MessagingException, UnsupportedEncodingException {
         Map<String, Object> response = new HashMap<>();
         log.info("여기까진 접근했나?");
         Integer certificationCode = searchUserInfoService.selectMemberByUserIdAndEmail(userId, email); // Member 부분에서
         log.info("멤버가 존재한다.(있으면 숫자, 없으면 null) : " + certificationCode);
         if (certificationCode != null) {
             response.put("certifiedCode", certificationCode);
+        } else if (certificationCode == -1) {
+            response.put("result", "sendMiss");
+            return response;
         }
         response.put("result", certificationCode == null ? "fail" : "success");
         return response;
@@ -229,7 +243,7 @@ public class AuthController {
                            @RequestParam String email,
                            @RequestParam int emailAuthenticationNumber,
                            @RequestParam int hiddenCertifiedKey,
-                           RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes) throws MessagingException, UnsupportedEncodingException {
         /*
          * 네가지 정보를 다시 받아온다.
          * 아이디
@@ -241,8 +255,11 @@ public class AuthController {
         String newUserPassword = searchUserInfoService.insertUserPassword(userId, email, emailAuthenticationNumber, hiddenCertifiedKey);
 
         if (newUserPassword != null) {
-            redirectAttributes.addFlashAttribute("message", "새로운 비밀번호는 " + newUserPassword + " 입니다. 반드시 비밀번호를 바꿔주세요.");
+            redirectAttributes.addFlashAttribute("message", "임시비밀번호를 메일로 보냈습니다. 반드시 비밀번호를 변경해주세요.");
             return "redirect:/auth/login";
+        } else if (newUserPassword.equals("sendMiss")) {
+            redirectAttributes.addFlashAttribute("message", "임시비밀번호 전송을 실패했습니다. 메인화면으로 돌아갑니다.");
+            return "redirect:/";
         } else {
             redirectAttributes.addFlashAttribute("message", "알 수 없는 오류로 비밀번호 찾기에 실패했습니다. 메인화면으로 돌아갑니다.");
             return "redirect:/";
@@ -252,6 +269,10 @@ public class AuthController {
 
     @GetMapping("fail")
     public String loginFall(@RequestParam String message, Model model) {
+        if(message.equals("withdrawCancel")){
+            model.addAttribute("message","탈퇴 유예 기간 중에 접속했습니다.\n탈퇴신청을 해제합니다.");
+            return "/client/content/main/main";
+        }
         model.addAttribute("message", message);
         return "/client/content/auth/fail";
     }

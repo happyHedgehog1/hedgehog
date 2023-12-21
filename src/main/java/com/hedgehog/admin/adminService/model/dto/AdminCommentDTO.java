@@ -1,5 +1,6 @@
 package com.hedgehog.admin.adminService.model.dto;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminUserDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -16,5 +17,9 @@ public class AdminCommentDTO {
     private Date modify_date;
     private String content;
     private String answer_state;
+    private String email;
+    private String inqtitle;
+    private String inqcontent;
+    private AdminUserDTO adminUserDTO;
 
 }

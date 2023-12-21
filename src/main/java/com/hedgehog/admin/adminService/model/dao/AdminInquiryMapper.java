@@ -1,5 +1,7 @@
 package com.hedgehog.admin.adminService.model.dao;
 
+import com.hedgehog.admin.adminMember.model.dto.AdminCustomerDTO;
+import com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminInquiryForm;
 import org.apache.ibatis.annotations.Mapper;

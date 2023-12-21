@@ -10,6 +10,8 @@
         <result property="creationDate" column="creation_date"/>
         <result property="modifyDate" column="modify_date"/>
         <result property="title" column="title"/>
+        <result property="mail_code" column="mail_code"/>
+        <collection property="searchEmailList" column="email"/>
     </resultMap>
 <select id="previewMail">
 SELECT
@@ -25,4 +27,50 @@ WHERE form_code = #{formCode}
              modify_date = now()
         WHERE form_code = #{formCode}
     </update>
+    <select id="searchEmailList">
+        SELECT
+            A.email
+        from tbl_customer A
+                 JOIN tbl_member B on A.customer_code = B.member_code
+        where email_consent = 'Y'
+    </select>
+    <select id="searchCustomerList">
+        SELECT
+            A.customer_code
+        from tbl_customer A
+            JOIN tbl_member B on A.customer_code = B.member_code
+        where email_consent = 'Y'
+    </select>
+    <insert id="insertMailHistory" keyProperty="mail_code" useGeneratedKeys="true">
+        insert into tbl_mail_history (
+                                        content,
+                                        date,
+                                        title,
+                                        mail_list
+                ) values (
+                #{content}, now(), #{title}, #{mailList}
+                )
+    </insert>
+
+    <insert id="imgInsert">
+    INSERT INTO tbl_post_img (
+
+                            email_code,
+                            create_date,
+                            convert_path,
+                            save_path,
+                            source_name,
+                            convert_name,
+                            post_type)
+    VALUES
+    <foreach collection="uploadedImageList" item="image" separator=",">
+        (#{mailCode},
+         now(),
+         #{image.convertPath},
+         #{image.savePath},
+         #{image.sourceName},
+         #{image.convertName},
+         '이메일')
+    </foreach>
+</insert>
 </mapper>

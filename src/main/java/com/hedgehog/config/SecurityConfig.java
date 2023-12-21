@@ -1,5 +1,6 @@
 package com.hedgehog.config;
 
+import com.hedgehog.common.enums.UserRole;
 import com.hedgehog.config.handler.AuthFailHandler;
 import com.hedgehog.config.handler.AuthSuccessHandler;
 import lombok.AllArgsConstructor;
@@ -42,22 +43,30 @@ public class SecurityConfig {
                 .authorizeHttpRequests( // 페이지 권한 설정
                         //SUPER_ADMIN("SUPER_ADMIN"), ADMIN("ADMIN"), MEMBER("MEMBER"), GUEST("GUEST")
                         auth -> {
-//                            auth.requestMatchers("/event/*",
-//                                    "/adminmain/*",
-//                                    "/adminManagement/*",
-//                                    "/member/*",
-//                                    "/order/*",
-//                                    "/point/*",
-//                                    "/category/*",
-//                                    "/product/*",
-//                                    "/Service/*",
-//                                    "/autoMailModify/*",
-//                                    "/autoMailViewport/*",
-//                                    "/statistics/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.SUPER_ADMIN.getRole());
-//                            auth.requestMatchers("/").hasAnyAuthority(UserRole.MEMBER.getRole());
-                            auth.requestMatchers("/**").permitAll();
-//                            auth.anyRequest().authenticated();
+                            auth.requestMatchers("/adminmain/**",
+                                    "/product/**",
+                                    "/category/**",
+                                    "/member/**",
+                                    "/order/**",
+                                    "/Service/**",
+                                    "/adminManagement/**",
+                                    "/statistics/**",
+                                    "/event/**",
+                                    "/autoMailModify/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.SUPER_ADMIN.getRole());
+                            auth.requestMatchers("/board/writeQuestion/**",
+                                    "/board/writeReview/**",
+                                    "/board/uploadSummernoteImageFile/**",
+                                    "/myshop/**"
+                            ).hasAnyAuthority(UserRole.MEMBER.getRole());
+                            auth.requestMatchers("/myshop/guestOrderSearch**",
+                                    "/myshop/orderDetails**").permitAll();
+                            auth.anyRequest().permitAll();
+//                            auth.requestMatchers("/**")
+//                                    .permitAll();
                         })
+                .exceptionHandling(exceptionHandling -> {
+                    exceptionHandling.accessDeniedPage("/access-denied");
+                })
                 .formLogin( // 로그인 설정
                         login -> {
                             login.loginPage("/auth/login");

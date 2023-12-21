@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class RegistMailDTO {
+public class MailDTO {
     private String content;
     private String title;
 }

@@ -1,33 +1,31 @@
 package com.hedgehog.admin.adminManagement.model.service;
 
-import com.hedgehog.admin.adminManagement.controller.AdminManagementController;
 import com.hedgehog.admin.adminManagement.model.dao.AdminManagementMapper;
 import com.hedgehog.admin.adminManagement.model.dto.AdminDTO;
 import com.hedgehog.admin.adminManagement.model.dto.AdminRegistrationForm;
 import com.hedgehog.admin.adminManagement.model.dto.ChangePwdForm;
 import com.hedgehog.client.auth.model.dao.AuthMapper;
-import lombok.extern.slf4j.Slf4j;
+import com.hedgehog.common.paging.adminManagementPaging.AdminManagementSelectCriteria;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
+@AllArgsConstructor
 public class AdminManagementService {
     private final AdminManagementMapper mapper;
     private final AuthMapper authMapper;
 
-    @Autowired
-    public AdminManagementService(AdminManagementMapper mapper, AuthMapper authMapper) {
-        this.mapper = mapper;
-        this.authMapper = authMapper;
-    }
 
-    public List<AdminDTO> getAdminList() {
-        List<AdminDTO> adminList = mapper.getAdminList();
+    public int selectTotalCountAdminInfo() {
+        int result = mapper.selectTotalCountAdminInfo();
+        return result;
+    }
+    public List<AdminDTO> getAdminList(AdminManagementSelectCriteria adminManagementSelectCriteria) {
+        List<AdminDTO> adminList = mapper.getAdminList(adminManagementSelectCriteria);
         return adminList;
     }
 
@@ -84,4 +82,5 @@ public class AdminManagementService {
         boolean success = mapper.updateAdminPwd(newPwdForm)==1;
         return success;
     }
+
 }

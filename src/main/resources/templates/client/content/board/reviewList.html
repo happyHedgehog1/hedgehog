@@ -3,11 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
-    <script th:src="@{/client/js/reviewList.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/reviewList.css}">
-
+    <title>리뷰게시판</title>
+</head>
+<th:block layout:fragment="content">
     <section>
         <div id="main_category_route">
             <ul class="route_list">
@@ -31,7 +33,7 @@
                 </ul>
                 <hr style="border: 0.1px solid black;height:0.1em;background:black;">
                 <div class="review_wrapper" th:each="review : ${reviewList}"
-                     th:onclick="'redirectReviewDetail(' + @{${review.reviewCode}} + ',\''+@{${selectCriteria.searchCondition}}+'\', \''+@{${selectCriteria.searchValue}} + '\', \'' + @{${selectCriteria.orderBy}} + '\', ' + @{${selectCriteria.pageNo}}+');'">
+                     th:onclick="|redirectReviewDetail(@{${review.reviewCode}},'@{${selectCriteria.searchCondition}}','@{${selectCriteria.searchValue}}','@{${selectCriteria.orderBy}}',@{${selectCriteria.pageNo}})|">
                     <div class="reviewInfoWrap">
                         <div id="reviewInfo">
                             <img th:src="|/thumbPath${review.productImgPath}|">
@@ -99,56 +101,35 @@
             </div>
             <div id="bottom_buttons">
                 <!--맨 앞으로-->
-                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.startPage}  + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                <input th:onclick="|paging(@{${selectCriteria.startPage}},'@{(${selectCriteria.searchCondition}?:'')}','@{(${selectCriteria.searchValue}?:'')}','@{(${selectCriteria.orderBy}?:'gradeDESC')}')|"
                        th:disabled="${selectCriteria.pageNo == 1}"
                        type="button"
                        value="<<">
                 <!--이전 페이지로-->
-                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.pageNo - 1}  + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                <input th:onclick="|paging(@{${selectCriteria.pageNo - 1}},'@{(${selectCriteria.searchCondition}?:'')}','@{(${selectCriteria.searchValue}?:'')}','@{(${selectCriteria.orderBy}?:'gradeDESC')}')|"
                        th:disabled="${selectCriteria.pageNo == 1}"
                        type="button"
                        value="<">
                 <!--숫자 버튼-->
                 <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-                    <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${page} + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                    <input th:onclick="|paging(@{${page}},'@{(${selectCriteria.searchCondition}?:'')}','@{(${selectCriteria.searchValue}?:'')}','@{(${selectCriteria.orderBy}?:'gradeDESC')}')|"
                            th:disabled="${selectCriteria.pageNo == page}"
                            type="button"
                            th:value="${page}">
                 </th:block>
                 <!--다음 페이지로-->
-                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.pageNo + 1} + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                <input th:onclick="|paging(@{${selectCriteria.pageNo + 1}},'@{(${selectCriteria.searchCondition}?:'')}','@{(${selectCriteria.searchValue}?:'')}','@{(${selectCriteria.orderBy}?:'gradeDESC')}')|"
                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                        type="button"
                        value=">">
                 <!--맨 뒤로-->
-                <input th:onclick="'location.href=\'/board/reviewList?currentPage=' + ${selectCriteria.endPage} + '&searchCondition=' + @{(${selectCriteria.searchCondition}?:'')} + '&searchValue=' +@{(${selectCriteria.searchValue}?:'')} + '&orderBy=' + @{(${selectCriteria.orderBy}?:'gradeDESC')} + '\''"
+                <input th:onclick="|paging(@{${selectCriteria.endPage}},'@{(${selectCriteria.searchCondition}?:'')}','@{(${selectCriteria.searchValue}?:'')}','@{(${selectCriteria.orderBy}?:'gradeDESC')}')|"
                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
                        type="button"
                        value=">>">
             </div>
         </div>
-        </div>
     </section>
-    <script>
-        $(document).ready(function () {
-            $('form').submit(function (event) {
-                const formData = $(this).serializeArray();
-                console.log(formData);
-                localStorage.setItem('ReviewFormData', JSON.stringify(formData));
-            })
-            let storedFormData = localStorage.getItem("ReviewFormData");
-            if (storedFormData) {
-                storedFormData = JSON.parse(storedFormData);
-                console.log(storedFormData);
-                $('[name=searchCondition] option[value=' + storedFormData[1].value + ']').prop('selected', true);
-                $('[name=searchValue]').val(storedFormData[2].value);
-                $('[name=orderBy] option[value=' + storedFormData[3].value + ']').prop('selected', true);
-            }
-        });
-        $(document).on('click', '#clear_button', function () {
-            localStorage.removeItem('ReviewFormData');
-        })
-    </script>
-
+    <script th:src="@{/client/js/reviewList.js}"></script>
 </th:block>
 </html>
