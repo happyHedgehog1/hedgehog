@@ -1,5 +1,4 @@
-
-    $(document).ready(function () {
+$(document).ready(function () {
     // 상위 체크박스를 클릭할 때
     $(".searchResult th input[type='checkbox']").change(function () {
         // 해당 상위 체크박스의 체크 상태를 가져옴

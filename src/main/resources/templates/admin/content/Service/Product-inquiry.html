@@ -8,9 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품문의</title>
     <link rel="stylesheet" th:href="@{/admin/css/Product-inquiry.css}" type="text/css">
-    <script th:src="@{/admin/js/Product-inquiry.js}"></script>
     <script th:src="@{/admin/js/seach.js}"></script>
-
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -173,17 +171,7 @@
                 </div>
             </form>
         </div>
-
-
     </div>
-    <script th:inline="javascript">
-
-        var message = [[${message}]];
-        if (message) {
-            alert(message);
-        }
-
-    </script>
 </th:block>
 
 </body>
