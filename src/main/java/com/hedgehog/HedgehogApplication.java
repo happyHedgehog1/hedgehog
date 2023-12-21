@@ -13,5 +13,4 @@ public class HedgehogApplication {
     public static void main(String[] args) {
         SpringApplication.run(HedgehogApplication.class, args);
     }
-
 }

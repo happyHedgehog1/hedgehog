@@ -1,17 +1,13 @@
-package com.hedgehog.common.paging.orderDetailsPaging;
-
-import com.hedgehog.client.orderDetails.model.dto.OrderDTO;
-
-import java.time.LocalDate;
+package com.hedgehog.common.paging.adminManagementPaging;
 
 /*페이지 처리를 위함.*/
-public class OrderDetailsPagenation {
+public class AdminManagementPagenation {
 
     /*
      * OrderDetailsSelectCriteria는 sql쪽에서 계산을 편하게 하기 위한 DTO.
      * 그래서 최소한의 매개변수가 들어가고 이를 계산하여 OrderDetailsSelectCriteria가 출력되도록 한다.
      * */
-    public static OrderDetailsSelectCriteria getOrderDetailsSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, OrderDTO order) {
+    public static AdminManagementSelectCriteria getAdminManagementSelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount) {
         /*
          * pageNo은 현재 몇페이지인지
          * totalCount는 전체 게시물 수가 얼마인지. 이 두가지는 이미 넘어온 상태다. 그래서 나머지 변수만 선언해준다.
@@ -74,8 +70,8 @@ public class OrderDetailsPagenation {
         System.out.println("startRow = " + startRow);
         System.out.println("endRow = " + endRow);
 
-        OrderDetailsSelectCriteria orderDetailsSelectCriteria = new OrderDetailsSelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow, order);
+        AdminManagementSelectCriteria adminManagementSelectCriteria = new AdminManagementSelectCriteria(pageNo, totalCount, limit, buttonAmount, maxPage, startPage, endPage, startRow, endRow);
 
-        return orderDetailsSelectCriteria;
+        return adminManagementSelectCriteria;
     }
 }

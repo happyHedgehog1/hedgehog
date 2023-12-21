@@ -5,6 +5,9 @@ import com.hedgehog.admin.adminManagement.model.dto.AdminRegistrationForm;
 import com.hedgehog.admin.adminManagement.model.dto.ChangePwdForm;
 import com.hedgehog.admin.adminManagement.model.service.AdminManagementService;
 import com.hedgehog.client.auth.model.dto.LoginDetails;
+import com.hedgehog.common.paging.adminManagementPaging.AdminManagementPagenation;
+import com.hedgehog.common.paging.adminManagementPaging.AdminManagementSelectCriteria;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,24 +27,35 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/adminManagement")
+@AllArgsConstructor
 @Slf4j
 public class AdminManagementController {
     private final AdminManagementService adminManagementService;
     private final PasswordEncoder passwordEncoder;
 
-    public AdminManagementController(AdminManagementService adminManagementService, PasswordEncoder passwordEncoder) {
-        this.adminManagementService = adminManagementService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-
     /**
      * @return 관리자 관리 페이지 연결 메소드
      */
     @GetMapping("/adminManagement")
-    public String adminManagement(Model model) {
-        List<AdminDTO> adminList = adminManagementService.getAdminList();
+    public String adminManagement(Model model,
+                                  @RequestParam(value = "currentPage", defaultValue = "1") int pageNo) {
+        int totalCount = adminManagementService.selectTotalCountAdminInfo();
+        log.info("관리자의 총 인원수 (selectTotalCountAdminInfo) : " + totalCount);
+
+        /*한 페이지에 5개*/
+        int limit = 5;
+        /*한번에 페이징 버튼 5개*/
+        int buttonAmount = 5;
+        AdminManagementSelectCriteria adminManagementSelectCriteria = AdminManagementPagenation.getAdminManagementSelectCriteria(pageNo,totalCount, limit,buttonAmount);
+        log.info("");
+        log.info("");
+        log.info("페이징 처리를 담당할 DTO 출력 (AdminManagementPagenation.getAdminManagementSelectCriteria) : " + adminManagementSelectCriteria);
+
+
+        List<AdminDTO> adminList = adminManagementService.getAdminList(adminManagementSelectCriteria);
+        log.info("adminList... 페이징 처리 완료한 : "+adminList);
         model.addAttribute("adminList", adminList);
+        model.addAttribute("adminManagementSelectCriteria",adminManagementSelectCriteria); // 페이징 처리를 위한 값
         return "admin/content/adminManagement/adminManagement";
     }
 
