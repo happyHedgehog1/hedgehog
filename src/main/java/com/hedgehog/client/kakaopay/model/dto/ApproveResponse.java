@@ -22,10 +22,12 @@ public class ApproveResponse { //결제 승인을 위한
     private String item_code; // 상품 코드
     private int quantity; // 상품 수량
     private Integer tax_free_amount;
-    private Integer vat_amount;
     private String created_at; // 결제 요청 시간
     private String approved_at; // 결제 승인 시간
     private String payload; // 결제 승인 요청에 대해 저장 값, 요청 시 전달 내용
+
+
+
     private Amount amount; //결제 금액 정보
 
 }

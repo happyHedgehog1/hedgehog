@@ -72,7 +72,7 @@
 }
 
 #btnAdminAdd:active,
-#btnChangeMyPwd:active{
+#btnChangeMyPwd:active {
     background-color: #3F464F;
     border: 0;
     font-size: 20px;
@@ -201,7 +201,7 @@ td {
     text-align: center;
 }
 
-#adminPasswordChange, #regist_admin,#id_check_button {
+#adminPasswordChange, #regist_admin, #id_check_button {
     width: 200px;
     height: 40px;
     color: white;
@@ -280,4 +280,26 @@ td {
     align-content: center;
     justify-content: center;
     padding-top: 20px;
+}
+
+#bottom_buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#bottom_buttons input:hover {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#bottom_buttons input {
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+    padding: 0.3em;
+    background: #A7727D;
+    border-radius: 5px;
+    border: 0;
+    font-size: 1.1em;
 }

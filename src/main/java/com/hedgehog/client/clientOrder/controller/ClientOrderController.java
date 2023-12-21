@@ -5,18 +5,19 @@ import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import com.hedgehog.client.clientOrder.model.service.ClientCartServiceImp;
+import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
+import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
+import com.hedgehog.client.kakaopay.model.service.KakaoPayService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static java.lang.Integer.valueOf;
 
@@ -26,10 +27,12 @@ import static java.lang.Integer.valueOf;
 public class ClientOrderController {
 
     private final ClientCartServiceImp clientCartService;
+    private final KakaoPayService kakaoPayService;
 
     @Autowired
-    public ClientOrderController(ClientCartServiceImp clientCartService) {
+    public ClientOrderController(ClientCartServiceImp clientCartService, KakaoPayService kakaoPayService) {
         this.clientCartService = clientCartService;
+        this.kakaoPayService = kakaoPayService;
     }
 
     @PostMapping("/cartOrder")
@@ -62,58 +65,6 @@ public class ClientOrderController {
     }
 
 
-//    @PostMapping("/cartOrder")
-//    public String clientOrder(@AuthenticationPrincipal LoginDetails loginDetails,
-//                                    @RequestParam List<Integer> cartcheckbox,
-//                                    @RequestParam List<Integer> hdAmount,
-//                                    Model mv) {
-//
-//        System.out.println("cartIds = " + cartcheckbox);  // 6,7
-//        System.out.println("hdAmount = " + hdAmount); //숨겨진 수량
-//
-//        List<CartSelectDTO> cartList = clientCartService.selectCartOrder(cartcheckbox);
-//        mv.addAttribute("cartList", cartList);
-//        log.info("cartList" + cartList);
-//        log.info("tttttttttttest"+ (cartList.get(0).getPrice()));
-//        List<Integer> price= new ArrayList<>();
-//        for (int i = 0; i < cartcheckbox.size(); i++) {
-//             price.add(cartList.get(i).getPrice());
-//             log.info("cartList.get(i).getPrice()"+ cartList.get(i).getPrice());
-//            NumberFormat numberFormat = new NumberStyleFormatter("#,###").getNumberFormat(Locale.getDefault());
-//            String formattedPrice = numberFormat.format(cartList.get(i).getPrice());
-////            price.add(Integer.valueOf(formattedPrice));
-//            cartList.get(i).setFormattedPrice(formattedPrice);
-//        }
-//
-//        log.info("=========price======"+ price);
-//
-////        NumberFormat numberFormat = new NumberStyleFormatter("#,###").getNumberFormat(Locale.getDefault());
-////        String formattedPrice = numberFormat.format(cartList.get(i).getPrice(););
-////        mv.addAttribute("formattedPrice", cartList.get(i).getPrice(););
-////        log.info("formattedPrice=================="+ formattedPrice);
-//
-////        Long productPriceObject = Long.valueOf(productPrice);
-////        log.info("상품가격 타입: " + productPriceObject.getClass().getName());
-//
-//
-//        mv.addAttribute("hdAmountList", hdAmount);
-//        log.info("hdAmount" + hdAmount);
-//        mv.addAttribute("cartcheckbox", cartcheckbox);
-//
-//
-//        int totalSum = calculateTotalSum(cartList, hdAmount);
-//        mv.addAttribute("totalSum", totalSum);
-//
-//
-//        cartOrderInfo(loginDetails, mv);
-//
-//        return  "/client/content/clientOrder/cartOrder";
-//
-//
-//    }
-//
-//
-//
 
     //주문서작성에서 결제예정금액이 10만원이 넘어가면 배송비가 무료를 표현하기 위해서 구하는 전체상품 합계금액
     private int calculateTotalSum(List<CartSelectDTO> cartList, List<Integer> hdAmountList) {
@@ -143,22 +94,35 @@ public class ClientOrderController {
 
 
 
-    @PostMapping("/processPayment")
-    public ModelAndView processPayment(@AuthenticationPrincipal LoginDetails loginDetails,
-                                       ModelAndView mv){
 
 
-        return mv;
+    //여기부터 주문성공 및 실패 페이지
+
+    @GetMapping("/orderCompleted") //주문완료 페이지
+    public String orderCompleted(
+                                 @RequestParam("pg_token") String pgToken,
+                                 @ModelAttribute("tid") String tid,
+//                                 @RequestParam(value = "AllOriginalTotalOrder", required = false) int AllOriginalTotalOrder,
+//                                 HttpSession httpSession,
+                                 Model model
+    ){
+
+        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+        model.addAttribute("총 가격",approveResponse.getAmount().getTotal());
+//        int AllOriginalTotalOrder = (int) httpSession.getAttribute("AllOriginalTotalOrder");
+
+        model.addAttribute("주문번호", tid);
+//        model.addAttribute("AllOriginalTotalOrder", AllOriginalTotalOrder);
+
+
+
+
+        return "/client/content/clientOrder/orderCompleted";
     }
 
-    @GetMapping("/orderCompleted") //주문완료페이지
-    public String orderCompleted(){
-        return "/client/content/cilentOrder/orderCompleted.html";
-    }
-
-    @GetMapping("/orderFailed") // 주문실패페이지
+    @GetMapping("/orderFailed") // 주문실패 페이지
     public String orderFailed(){
-        return "/client/content/cilentOrder/orderFailed.html";
+        return "/client/content/clientOrder/orderFailed";
     }
 
 }

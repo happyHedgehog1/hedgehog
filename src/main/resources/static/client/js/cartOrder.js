@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     function updateTotal() {
+
+
         var totalSum = 0;
         var deliveryCharge = 0;
 
@@ -23,15 +25,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // 합계 업데이트
-        document.getElementById('totalPrice').textContent = (totalSum + '').replace(/,/g, '') + '원';
+        document.getElementById('productTotalPrice').textContent = (totalSum + '').replace(/,/g, '') + '원';
 
-        document.getElementById('deliveryCharge').textContent = deliveryCharge.toLocaleString() + '원';
+        document.getElementById('deliveryCharge').textContent = deliveryCharge + '원';
 
 
 
         // 결제 예정 금액 업데이트
         var totalOrder = Math.max(0, totalSum + deliveryCharge);
         document.getElementById('totalOrder').textContent = totalOrder + '원';
+
+        // 값을 넘겨주기 위해서 생성
+        var totalOrderValue = document.getElementById('totalOrder').textContent.trim();
 
     }
 
@@ -40,10 +45,39 @@ document.addEventListener("DOMContentLoaded", function () {
     originalUserTotalPoints = document.getElementById("userTotalPoints").innerText;
     originalTotalOrder = document.getElementById("totalOrder").innerText;
 
-
-
-
 });
+
+
+//     document.addEventListener("DOMContentLoaded", function () {
+//     // ... (기존 코드)
+//
+//     // "적립금 적용" 버튼에 대한 참조를 얻어옴
+//     var applyPointsButton = document.getElementById("applyPointsButton");
+//
+//     // "적립금 적용" 버튼 클릭 이벤트 리스너 등록
+//     applyPointsButton.addEventListener("click", function () {
+//     // 적립금 적용 함수 호출
+//     updatePointsOnScreen();
+//
+//     // 적립금 적용 버튼 비활성화
+//     applyPointsButton.disabled = true;
+// });
+//
+//     // "적립금 초기화" 버튼 클릭 이벤트 리스너 등록
+//     document.getElementById("resetPointsButton").addEventListener("click", function () {
+//     // 적립금 초기화 함수 호출
+//     resetPointsOnScreen();
+//
+//     // 적립금 적용 버튼 활성화
+//     applyPointsButton.disabled = false;
+// });
+//
+// });
+
+
+
+
+var newTotalOrderAmount = 0;
 function updatePointsOnScreen() {
     // 입력된 적립금 값 가져오기
     var enteredPoints = parseInt(document.getElementById("pointInput").value);
@@ -62,22 +96,26 @@ function updatePointsOnScreen() {
         document.getElementById("pointInput").value = "";
     } else {
         // 결제 예정 금액에서 입력된 적립금 차감
-        var newTotalOrderAmount = Math.max(0, totalOrderAmount - enteredPoints);
+        newTotalOrderAmount = Math.max(0, totalOrderAmount - enteredPoints);
 
         // 보유 적립금에서 입력된 적립금 차감
         var newUserTotalPoints = Math.max(0, userTotalPoints - enteredPoints);
 
         // 결과를 화면에 업데이트
+        // updatePointsOnScreen();
         document.getElementById("totalOrder").innerText = newTotalOrderAmount + "원";
         document.getElementById("userTotalPoints").innerText = newUserTotalPoints + "원";
+        console.log("New Total Order Amount: " + newTotalOrderAmount + "원");
     }
+
 }
+
+
 
 function resetPointsOnScreen(){
 
     // 입력된 적립금 입력 필드 초기화
     document.getElementById("pointInput").value = "";
-
     document.getElementById("totalOrder").innerText = originalTotalOrder;
     document.getElementById("userTotalPoints").innerText = originalUserTotalPoints;
 
@@ -85,6 +123,42 @@ function resetPointsOnScreen(){
     alert("적립금이 초기화되었습니다.");
 
 
+}
+
+
+//결제하기버튼을 누르면 실행될 로직 첫번째로 적립금을 업데이트
+document.addEventListener("DOMContentLoaded", function () {
+    var paymentButton = document.getElementById("paymentButton");
+
+    paymentButton.addEventListener("click", function () {
+        // 여기에 결제하기 버튼이 클릭되었을 때 실행될 코드를 추가합니다.
+        // 예를 들어, 적립금 업데이트 요청을 서버에 보내고, 결제 모듈 호출 등을 수행할 수 있습니다
+    });
+});
+
+
+function sendValuesToServer() {
+    var totalOrder = document.getElementById('totalOrder').innerText;
+    var userTotalPoints = document.getElementById('userTotalPoints').innerText;
+    var deliveryCharge = document.getElementById('deliveryCharge').innerText;
+
+    // AJAX로 서버에 값을 전송
+    $.ajax({
+        type: 'POST',
+        url: '/your-server-endpoint',  // 서버의 엔드포인트를 적절히 변경
+        data: {
+            totalOrder: totalOrder,
+            userTotalPoints: userTotalPoints,
+            deliveryCharge: deliveryCharge
+        },
+        success: function(response) {
+            // 서버 응답에 대한 처리
+            console.log(response);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
 }
 
 
@@ -122,35 +196,6 @@ function resetPointsOnScreen(){
 //         });
 // }
 
-//결제하기버튼을 누르면 실행될 로직 첫번째로 적립금을 업데이트
-document.addEventListener("DOMContentLoaded", function () {
-    var paymentButton = document.getElementById("paymentButton");
-
-    paymentButton.addEventListener("click", function () {
-        // 여기에 결제하기 버튼이 클릭되었을 때 실행될 코드를 추가합니다.
-        // 예를 들어, 적립금 업데이트 요청을 서버에 보내고, 결제 모듈 호출 등을 수행할 수 있습니다
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //카카오페이 관련 결제하기 버튼을 누르면 동작
 
@@ -159,9 +204,172 @@ const formData = new FormData();
 
 
 
+$(function(){
+    $("#btn-kakao-pay").click(function(){
+
+        // 필수입력값을 확인.
+        var name = $("input[name='pay-name']").val();
+        var phone = $("input[name='pay-phone']").val();
+        var email = $("input[name='pay-email']").val();
+        var deliveryName = $("input[name='pay-name2']").val();
+        var deliveryPhone = $("input[name='pay-phone2']").val();
+        var deliveryRequest = $("input[name='deliveryRequest']").val();
+        // var productName = $("input[name='productName']").val();
+
+        if(name == ""){
+            $("#name-input input[name='pay-name']").focus()
+        }
+        if(phone == ""){
+            $("#phone1-input input[name='pay-phone']").focus()
+        }
+        if(email == ""){
+            $("#email-input input[name='pay-email']").focus()
+        }
+        if(deliveryName == ""){
+            $("#name-input2 input[name='pay-name2']").focus()
+        }
+        if(deliveryPhone == ""){
+            $("#phone2-input input[name='pay-phone2']").focus()
+        }
+        if(deliveryRequest == ""){
+            $("#form-payment input[name='deliveryRequest']").focus()
+        }
+
+        // 결제 정보를 form에 저장한다.
+        // let totalPayPrice = parseInt($("#total-pay-price").val())
+        // let totalPrice = parseInt($("#total-price").val())
+        // let discountPrice = totalPrice - totalPayPrice
+
+        let AllOriginalTotalOrder = parseInt(document.getElementById("totalOrder").textContent.replace('원', '').trim());
+        //배송예정금액
+        let originalTotalOrder = parseInt(document.getElementById("productTotalPrice").textContent.replace('원', '').trim());
+        //이건 text를 통해서 가져와야됨
+        //상품합계금액
+        let deliveryPrice = parseInt(document.getElementById("deliveryCharge").textContent.replace('원', '').trim());
+        //배송비
+        let savedPoint = parseInt(document.getElementById("userTotalPoints").textContent.replace('원', '').trim());
+        //적립금을 사용학고 나서의 보유적립금
+        let usingPoint = originalTotalOrder + deliveryPrice - AllOriginalTotalOrder;
+        //적용을 누른 적립금
+
+        //==============================
+
+        ///////////////
+        // var inputName = $("#name-input").val(); // Input에 적은 이름
+        // var productTotal = $("#totalPrice").val(); // 상품 합계금액
+        // var deliveryPrice = $("#deliveryCharge").val();//배송비
+        // var totalOrder = $("#totalOrder").text(); //최종결제 금액
+        // // var discountPrice = (totalOrder - (productTotal + deliveryPrice)); //사용한 적립금
+        // var inputPhone = $("#phone2-input").val(); //전화번호
+        // var deliveryRequest = $("#deliveryRequest").val(); //배송요청사항
+        //////
+
+        // console.log(originalTotalOrder)
+
+        //setter로 받아서 파라미터를 넘겨주기
+
+        $.ajax({
+            type:'post'
+            ,url:'/order/pay'
+            ,data:{
+                name:name
+                ,phone:phone
+                ,email:email
+                //==============================
+                ,savedPoint:savedPoint
+                ,originalTotalOrder:originalTotalOrder
+                ,deliveryPrice:deliveryPrice
+                ,AllOriginalTotalOrder:AllOriginalTotalOrder
+                ,usingPoint:usingPoint
+                ,deliveryName:deliveryName
+                ,deliveryPhone:deliveryPhone
+                ,deliveryRequest:deliveryRequest
+                // ,productName:productName
+
+
+            },
+            success:function(response){
+                location.href = response.next_redirect_pc_url
+            }
+        })
+    })
+})
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const apiUrl = 'http://localhost:8080'
+//
+//
+// // 비동기 함수를 사용하여 서버에서 데이터 가져오기
+// async function fetchCartData() {
+//     try {
+//         const response = await fetch(apiUrl);
+//
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+//
+//         const data = await response.json();
+//
+//         // 가져온 데이터를 활용하여 페이지 업데이트
+//         updatePageWithData(data);
+//     } catch (error) {
+//         console.error('Error fetching data:', error.message);
+//     }
+// }
+//
+// // 페이지 업데이트 함수
+// function updatePageWithData(data) {
+//     // 화면에 표시하고 hidden input 필드에 값을 설정
+//     document.getElementById("cart-info").innerHTML = `
+//         <p>상품명: ${data["pay-name"]}</p>
+//         <p>전화번호: ${data["pay-phone"]}</p>
+//         <p>이메일: ${data["pay-email"]}</p>
+//         <p>총 결제 금액: ${data["total-pay-price"]}</p>
+//         <p>상품 가격 합계: ${data["total-price"]}</p>
+//         <p>포인트 사용: ${data["point-use"]}</p>
+//     `;
+//
+//     // hidden input 필드에 값을 설정
+//     document.getElementById("pay-name").value = data["pay-name"];
+//     document.getElementById("pay-phone").value = data["pay-phone"];
+//     document.getElementById("pay-email").value = data["pay-email"];
+//     document.getElementById("total-pay-price").value = data["total-pay-price"];
+//     document.getElementById("total-price").value = data["total-price"];
+//     document.getElementById("point-use").value = data["point-use"];
+// }
+//
+// // 페이지 로드 시 서버에서 데이터 가져오기
+// window.onload = fetchCartData;
+//
+//
+//
+//
 
 
 

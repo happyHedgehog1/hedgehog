@@ -36,7 +36,7 @@ function deleteAdmin(tag) {
             data: {userCode: userCode},
             success: function (response) {
                 console.log("삭제 성공:", response);
-                location.href="/adminManagement/adminManagement"
+                location.href = "/adminManagement/adminManagement"
             },
             error: function (error) {
                 console.log(error);
@@ -44,11 +44,29 @@ function deleteAdmin(tag) {
                 location.href = '/';
             }
         })
-    }else{
+    } else {
         alert("삭제하지 않습니다.");
     }
 }
-function inputPrimaryKey(tag){
+
+function inputPrimaryKey(tag) {
     const userRowChildren = tag.parentNode.parentNode.children;
     $('#userCode').val(userRowChildren[0].innerText);
 }
+
+function paging(currentPage) {
+    const url = '/adminManagement/adminManagement' +
+        '?currentPage=' + currentPage;
+    window.location.href = url;
+}
+
+$(document).ready(function () {
+    document.querySelectorAll("#bottom_buttons input")
+        .forEach((e) => {
+            if (e.disabled) {
+                e.style.color = "#945f6a";
+            } else {
+                e.style.color = "#fff";
+            }
+        })
+})
