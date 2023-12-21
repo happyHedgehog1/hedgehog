@@ -2,27 +2,161 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hedgehog.admin.adminMain.model.dao.AdminDailyVisitorsServiceMapper">
+<mapper namespace="com.hedgehog.admin.adminMain.model.dao.AdminDailyVisitorsMapper">
+<resultMap id="statisticsDTOResultMap" type="AdminMainStatisticsDTO">
+    <association property="adminInquiryDTO" resultMap="inquiryResultMap"/>
+</resultMap>
 
 
+<resultMap id="adminUserDTOResultMap" type="adminUserDTO">
+    <id property="user_code" column="user_code"/>
+    <result property="id" column="id"/>
+    <result property="password" column="password"/>
+    <result property="classify" column="classify"/>
+    <result property="name" column="name"/>
+    <result property="connection_date" column="connection_date"/>
+    <result property="creation_date" column="creation_date"/>
+    <result property="withdraw_state" column="withdraw_state"/>
+</resultMap>
 
-<!--<resultMap id="adminUserDTOResultMap" type="adminUserDTO">-->
-<!--    <id property="user_code" column="user_code"/>-->
-<!--    <result property="id" column="id"/>-->
-<!--    <result property="password" column="password"/>-->
-<!--    <result property="classify" column="classify"/>-->
-<!--    <result property="name" column="name"/>-->
-<!--    <result property="connection_date" column="connection_date"/>-->
-<!--    <result property="creation_date" column="creation_date"/>-->
-<!--    <result property="withdraw_state" column="withdraw_state"/>-->
-<!--</resultMap>-->
+    <resultMap id="orderResultMap" type="AdminOrderDTO">
+        <id property="orderCode" column="order_code"/>
+        <result property="customerCode" column="customer_code"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="sumPrice" column="sum_price"/>
+        <result property="pointUsage" column="point_usage"/>
+        <result property="state" column="state"/>
+        <result property="productCode" column="product_code"/>
+        <result property="totalCount" column="total_count"/>
+        <association property="userDTO" resultMap="adminUserResultMap"/>
+        <association property="productDTO" resultMap="productResultMap"/>
+        <association property="adminCustomerDTO" resultMap="customerResultMap"/>
+        <association property="deliveryDTO" resultMap="deliveryResultMap"/>
+        <collection property="orderDetail" resultMap="orderDetailResultMap"/>
+    </resultMap>
 
-    <select id="dailyVisitors" parameterType="com.hedgehog.admin.adminMain.model.dto.AdminDailyVisitorsDTO">
+    <resultMap id="orderDetailResultMap" type="AdminOrderDetailDTO">
+        <id property="orderDetailsCode" column="order_details_code"/>
+        <result property="count" column="count"/>
+        <result property="productCode" column="product_code"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="deliveryCharge" column="delivery_charge"/>
+        <result property="point" column="point"/>
+        <result property="reducedPrice" column="reduced_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="finalPrice" column="final_price"/>
+        <result property="optionCode" column="option_code"/>
+    </resultMap>
+
+    <resultMap id="inquiryResultMap" type="AdminInquiryDTO">
+    <id property="inquiry_code" column="inquiry_code"/>
+    <result property="member_code" column="member_code"/>
+    <result property="secret_state" column="secret_state"/>
+    <result property="password" column="password"/>
+    <result property="answer_state" column="answer_state"/>
+    <result property="write_date" column="write_date"/>
+    <result property="modify_date" column="modify_date"/>
+    <result property="post_type" column="post_type"/>
+    <result property="title" column="title"/>
+    <result property="content" column="content"/>
+    <result property="state" column="state"/>
+    <result property="comContent" column="comContent"/>
+    <association property="id" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+
+    <resultMap id="reviewResultMap" type="AdminReviewDTO">
+        <id property="review_code" column="review_code"/>
+        <result property="product_code" column="product_code"/>
+        <result property="option_code" column="option_code"/>
+        <result property="grade" column="grade"/>
+        <result property="content" column="content"/>
+        <result property="write_date" column="write_date"/>
+        <result property="member_code" column="member_code"/>
+        <result property="state" column="state"/>
+        <association property="product" resultMap="adminProductDTOResultMap"/>
+        <association property="id" resultMap="adminUserDTOResultMap"/>
+    </resultMap>
+    <resultMap id="adminProductDTOResultMap" type="AdminProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+
+
+    <select id="dailyVisitors" resultMap="adminUserDTOResultMap">
         SELECT user_code, connection_date
         FROM tbl_user
         WHERE connection_date BETWEEN #{startOfDay} AND #{endOfDay}
     </select>
 
+    <select id = "dailySales">
+        SELECT COALESCE(SUM(od.final_price), 0) AS totalSales
+        FROM tbl_order o
+                 JOIN tbl_order_details od ON o.order_code = od.order_code
+        WHERE o.creation_date  BETWEEN #{startOfDay} AND #{endOfDay}
 
+    </select>
+
+    <select id="dailySaleVolume" resultMap="orderDetailResultMap">
+        SELECT COUNT(tbl_order_details.count)
+        FROM tbl_order_details
+                 INNER JOIN tbl_order ON tbl_order_details.order_code = tbl_order.order_code
+        WHERE tbl_order.creation_date BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
+
+    <select id="dailyReviews">
+        SELECT write_date
+        FROM tbl_review
+        WHERE write_date BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
+
+    <select id="dailyUser">
+        SELECT creation_date
+        FROM tbl_user
+        WHERE creation_date BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
+
+    <select id="dailyInquiry">
+        SELECT write_date
+        FROM tbl_inquiry
+        WHERE write_date BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
+
+    <select id="dailyOrder">
+        SELECT state
+        FROM tbl_order
+        WHERE state = '배송중'
+    </select>
+
+    <select id="dailyDelivery">
+        SELECT arrival_time
+        FROM tbl_delivery
+        WHERE arrival_time BETWEEN #{startOfDay} AND #{endOfDay}
+    </select>
+
+    <select id="searchInquiry" resultMap="inquiryResultMap">
+        SELECT
+            A.title,
+            B.id,
+            A.write_date,
+            A.content
+        FROM
+            tbl_inquiry A
+                JOIN tbl_member C ON A.member_code = C.member_code
+                JOIN tbl_user B ON C.member_code = B.user_code
+        order by write_date desc
+        </select>
+    <select id="searchReview" resultMap="reviewResultMap">
+        SELECT
+            A.content,
+            B.product_name,
+            C.id,
+            A.write_date
+        FROM tbl_review A
+                 JOIN tbl_product B ON A.product_code = B.product_code
+                 JOIN tbl_user C ON A.member_code = C.user_code
+                 join tbl_product_img D on A.product_code = D.product_code
+        order by  A.write_date desc
+
+    </select>
 
 </mapper>

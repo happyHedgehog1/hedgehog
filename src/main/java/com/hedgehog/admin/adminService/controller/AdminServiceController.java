@@ -6,8 +6,10 @@ import com.hedgehog.admin.adminService.model.service.AdminFAQServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminInquiryServiceImpl;
 import com.hedgehog.admin.adminService.model.service.AdminReviewServiceImpl;
 import com.hedgehog.admin.exception.BoardException;
+import com.hedgehog.client.product.model.service.ProductService;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -266,6 +268,8 @@ public class AdminServiceController {
         return modelAndView;
     }
 
+    @Autowired
+    private ProductService productService;
     //상품리뷰 상태 업데이트
 
     @PostMapping(value = "/revStateUpdate")
