@@ -190,7 +190,7 @@
                         <tr>
                             <th id="reqest-header">배송요청사항</th>
                             <td id="reqest-header2">
-                                <input type="text" id="deliveryRequest" name="request">
+                                <input type="text" id="deliveryRequest" name="deliveryRequest">
                             </td>
 
                         </tr>
@@ -224,15 +224,15 @@
                     <br>
 
 <!--    테스트 -->
-    <input type="hidden" name="pay-name" th:value="name">
-    <input type="hidden" name="pay-phone" th:value="phone">
-    <input type="hidden" name="pay-email" th:value="email">
+<!--    <input type="hidden" name="pay-name" th:value="name">-->
+<!--    <input type="hidden" name="pay-phone" th:value="phone">-->
+<!--    <input type="hidden" name="pay-email" th:value="email">-->
 
-    <input type="hidden" id='total-pay-price' value="1000" >
+<!--    <input type="hidden" id='total-pay-price' value="1000" >-->
 <!--     결제예정금액-->
-    <input type="hidden" id='total-price' value='3000'>
+<!--    <input type="hidden" id='total-price' value='3000'>-->
 <!--    상품가격합계 -->
-    <input type="hidden" id='point-use' >
+<!--    <input type="hidden" id='point-use' >-->
 <!--    사용할 적립금 -->
 <script>
     // var inputName = $("#name-input").val(); // Input에 적은 이름
@@ -258,63 +258,6 @@
             </div>
 
         </section>
-
-
-<!--        <script>-->
-<!--            $(function(){-->
-<!--                $("#btn-kakao-pay").click(function(){-->
-<!--                    // 필수입력값을 확인.-->
-<!--                    var name = $("input[name='pay-name']").val();-->
-<!--                    var tel = $("input[name='pay-phone']").val();-->
-<!--                    var email = $("input[name='pay-email']").val();-->
-<!--                    if(name == ""){-->
-<!--                        $("#form-payment input[name='pay-name']").focus()-->
-<!--                    }-->
-<!--                    if(tel == ""){-->
-<!--                        $("#form-payment input[name='pay-phone']").focus()-->
-<!--                    }-->
-<!--                    if(email == ""){-->
-<!--                        $("#form-payment input[name='pay-email']").focus()-->
-<!--                    }-->
-<!--                    // 결제 정보를 form에 저장한다.-->
-<!--                    let totalPayPrice = parseInt($("#total-pay-price").val())-->
-<!--                    let totalPrice = parseInt($("#total-price").val())-->
-<!--                    let discountPrice = totalPrice - totalPayPrice-->
-<!--                    let usePoint = $("#point-use").val();-->
-<!--                    ///////////////-->
-<!--                    var inputName = $("#name-input").val(); // Input에 적은 이름-->
-<!--                    var productTotal = $("#totalPrice").val(); // 상품 합계금액-->
-<!--                    var deliveryPrice = $("#deliveryCharge").val();//배송비-->
-<!--                    var totalOrder = $("#totalOrder").text(); //최종결제 금액-->
-<!--                    // var discountPrice = (totalOrder - (productTotal + deliveryPrice)); //사용한 적립금-->
-<!--                    var inputPhone = $("#phone2-input").val(); //전화번호-->
-<!--                    var deliveryRequest = $("#deliveryRequest").val(); //배송요청사항-->
-<!--                    //////-->
-<!--                    console.log(totalPayPrice)-->
-<!--                    //setter로 받아서 파라미터를 넘겨주기-->
-<!--                    $.ajax({-->
-<!--                        type:'post'-->
-<!--                        ,url:'/order/pay'-->
-<!--                        ,data:{-->
-<!--                            totalPayPrice:totalPayPrice-->
-<!--                            ,name:name-->
-<!--                            ,sumPrice:totalPrice-->
-<!--                            ,discountPrice:discountPrice-->
-<!--                            ,totalPrice:totalPayPrice-->
-<!--                            ,tel:tel-->
-<!--                            ,email:email-->
-<!--                            ,usePoint:usePoint-->
-<!--                            ,deliveryPrice:deliveryPrice-->
-<!--                        },-->
-<!--                        success:function(response){-->
-<!--                            location.href = response.next_redirect_pc_url-->
-<!--                        }-->
-<!--                    })-->
-<!--                })-->
-<!--            })-->
-
-
-<!--            </script>-->
 
     </th:block>
 </html>

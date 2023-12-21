@@ -9,6 +9,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class KakaoPayService {
@@ -17,12 +19,13 @@ public class KakaoPayService {
 
     private static final String HOST = "https://kapi.kakao.com";
 
-    private ReadyResponse readyResponse;
+//    private ReadyResponse readyResponse;
 
-    public ReadyResponse payReady(int totalAmount, String name, int totalPrice,
-                                  int discountPrice, String tel,
-                                  String email, String savedPoint, int originalTotalOrder, int deliveryPrice) {
-
+    public ReadyResponse payReady( String name, String phone, String email,
+                                   String savedPoint, String originalTotalOrder,
+                                   String deliveryPrice, String AllOriginalTotalOrder,
+                                   String usingPoint, String deliveryName, String deliveryPhone,
+                                   String deliveryRequest) {
 
 
 
@@ -31,15 +34,16 @@ public class KakaoPayService {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         //parameters에 결제에 필요한 정보를 추가
 
-        parameters.add("cid", "TC0ONETIME");
-        parameters.add("partner_order_id", "4");
-        parameters.add("partner_user_id", "member0001");
-        parameters.add("item_name", "수납장");
-        parameters.add("quantity", "2");
-        parameters.add("total_amount", String.valueOf(totalAmount));
-        parameters.add("tax_free_amount", "0");
+//        String orderId = "100";
 
-        parameters.add("approval_url", "http://localhost:8080/clientOrder/orderCompleted"); // 결제승인시 넘어갈 url
+        parameters.add("cid", "TC0ONETIME"); //이거 테스트할땐 무조건 고정값으로 써야됨
+        parameters.add("partner_order_id", "10"); //주문번호
+        parameters.add("partner_user_id", name); //회원 네임인데 아이디로 가야겠네
+        parameters.add("item_name", "상품명이들어감");
+        parameters.add("quantity", "2");
+        parameters.add("total_amount", AllOriginalTotalOrder);
+        parameters.add("tax_free_amount", "0"); //비과세
+        parameters.add("approval_url", "http://localhost:8080/clientOrder/completed"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://localhost:8080/clientOrder/orderFailed"); // 결제취소시 넘어갈 url
         parameters.add("fail_url", "http://localhost:8080/clientOrder/orderFailed");
 

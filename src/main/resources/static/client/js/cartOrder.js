@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // 합계 업데이트
         document.getElementById('productTotalPrice').textContent = (totalSum + '').replace(/,/g, '') + '원';
 
-        document.getElementById('deliveryCharge').textContent = deliveryCharge.toLocaleString() + '원';
+        document.getElementById('deliveryCharge').textContent = deliveryCharge + '원';
 
 
 
@@ -209,24 +209,38 @@ $(function(){
 
         // 필수입력값을 확인.
         var name = $("input[name='pay-name']").val();
-        var tel = $("input[name='pay-phone']").val();
+        var phone = $("input[name='pay-phone']").val();
         var email = $("input[name='pay-email']").val();
+        var deliveryName = $("input[name='pay-name2']").val();
+        var deliveryPhone = $("input[name='pay-phone2']").val();
+        var deliveryRequest = $("input[name='deliveryRequest']").val();
+        // var productName = $("input[name='productName']").val();
 
         if(name == ""){
-            $("#form-payment input[name='pay-name']").focus()
+            $("#name-input input[name='pay-name']").focus()
         }
-        if(tel == ""){
-            $("#form-payment input[name='pay-phone']").focus()
+        if(phone == ""){
+            $("#phone1-input input[name='pay-phone']").focus()
         }
         if(email == ""){
-            $("#form-payment input[name='pay-email']").focus()
+            $("#email-input input[name='pay-email']").focus()
         }
-        // 결제 정보를 form에 저장한다.
-        let totalPayPrice = parseInt($("#total-pay-price").val())
-        let totalPrice = parseInt($("#total-price").val())
-        let discountPrice = totalPrice - totalPayPrice
+        if(deliveryName == ""){
+            $("#name-input2 input[name='pay-name2']").focus()
+        }
+        if(deliveryPhone == ""){
+            $("#phone2-input input[name='pay-phone2']").focus()
+        }
+        if(deliveryRequest == ""){
+            $("#form-payment input[name='deliveryRequest']").focus()
+        }
 
-        let newOriginalTotalOrder = originalTotalOrder - deliveryPrice;
+        // 결제 정보를 form에 저장한다.
+        // let totalPayPrice = parseInt($("#total-pay-price").val())
+        // let totalPrice = parseInt($("#total-price").val())
+        // let discountPrice = totalPrice - totalPayPrice
+
+        let AllOriginalTotalOrder = parseInt(document.getElementById("totalOrder").textContent.replace('원', '').trim());
         //배송예정금액
         let originalTotalOrder = parseInt(document.getElementById("productTotalPrice").textContent.replace('원', '').trim());
         //이건 text를 통해서 가져와야됨
@@ -234,7 +248,9 @@ $(function(){
         let deliveryPrice = parseInt(document.getElementById("deliveryCharge").textContent.replace('원', '').trim());
         //배송비
         let savedPoint = parseInt(document.getElementById("userTotalPoints").textContent.replace('원', '').trim());
-        //보유적립금
+        //적립금을 사용학고 나서의 보유적립금
+        let usingPoint = originalTotalOrder + deliveryPrice - AllOriginalTotalOrder;
+        //적용을 누른 적립금
 
         //==============================
 
@@ -247,8 +263,8 @@ $(function(){
         // var inputPhone = $("#phone2-input").val(); //전화번호
         // var deliveryRequest = $("#deliveryRequest").val(); //배송요청사항
         //////
-        console.log(totalPayPrice)
-        console.log(originalTotalOrder)
+
+        // console.log(originalTotalOrder)
 
         //setter로 받아서 파라미터를 넘겨주기
 
@@ -256,17 +272,19 @@ $(function(){
             type:'post'
             ,url:'/order/pay'
             ,data:{
-                totalPayPrice:totalPayPrice
-                ,name:name
-                ,sumPrice:totalPrice
-                ,discountPrice:discountPrice
-                ,totalPrice:totalPayPrice
-                ,tel:tel
+                name:name
+                ,phone:phone
                 ,email:email
-                ,savedPoint:savedPoint
                 //==============================
+                ,savedPoint:savedPoint
                 ,originalTotalOrder:originalTotalOrder
                 ,deliveryPrice:deliveryPrice
+                ,AllOriginalTotalOrder:AllOriginalTotalOrder
+                ,usingPoint:usingPoint
+                ,deliveryName:deliveryName
+                ,deliveryPhone:deliveryPhone
+                ,deliveryRequest:deliveryRequest
+                // ,productName:productName
 
 
             },

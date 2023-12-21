@@ -35,8 +35,9 @@
 
         <div class="oreder_number">
             <div class="order_number2">고객님이 주문하신 제품의 주문번호는 : &nbsp;</div>
-            <div class="oreder_number3">324234234</div>
-            <div class="order_number4">입나다.</div>
+<!--            <div class="oreder_number3">${orderNumber}</div>-->
+            <div class="oreder_number3" th:text="${tid}" ></div>
+            <div class="order_number4">입니다.</div>
         </div>
         <br>
         <div class="order_number5">주문내역 확인은 배송/마이페이지 등에서 확인하실 수 있습니다 </div>
@@ -60,7 +61,8 @@
 
                     <div class="sum_text3">
 
-                        <h3>200,000원</h3>
+<!--                        <h3>200,000원</h3>-->
+                        <p th:text="${AllOriginalTotalOrder}" >총 가격</p>
                     </div>
 
                 </div>
