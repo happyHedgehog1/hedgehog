@@ -89,10 +89,10 @@
     </select>
 
     <select id = "dailySales">
-        SELECT SUM(od.final_price) AS totalSales
+        SELECT COALESCE(SUM(od.final_price), 0) AS totalSales
         FROM tbl_order o
                  JOIN tbl_order_details od ON o.order_code = od.order_code
-        WHERE o.creation_date BETWEEN #{startOfDay} AND #{endOfDay}
+        WHERE o.creation_date  BETWEEN #{startOfDay} AND #{endOfDay}
 
     </select>
 
