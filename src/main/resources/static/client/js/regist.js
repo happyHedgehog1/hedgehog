@@ -1,7 +1,4 @@
-// const checkTrue = document.getElementById("check_true");
-// const checkFalse = document.getElementById("check_false");
-// console.log(checkTrue)
-// console.log(checkFalse)
+/*약관관련 사항 체크버튼 true, false 변경*/
 const agreeCheckImg = (checkImg) => {
     const checkbox = checkImg.nextElementSibling;
     if (checkbox.checked === true) {
@@ -15,21 +12,7 @@ const agreeCheckImg = (checkImg) => {
     }
 };
 
-let emailAuthentication = null;
-document.addEventListener("DOMContentLoaded", () => {
-    emailAuthentication = document.getElementById("email_authentication");
-    emailAuthentication.style.display = "none";
-});
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("regist_button").addEventListener("click", (e) => {
-        e.preventDefault();
-        let isValidate = validate();
-        if (isValidate) {
-            document.getElementById("regist").submit();
-        }
-    })
-})
-
+/*필수 입력을 js로 직접 구현*/
 function validate() {
     const contents = document.getElementById('contents');
     const checkbox1 = document.getElementById("agree1");
@@ -78,14 +61,12 @@ function validate() {
         gender[0].focus();
         return false;
     }
-
     const userId = document.getElementById("userId");
     if (userId.value.length <= 0) {
         alert("아이디를 입력해주세요.");
         userId.focus();
         return false;
     }
-
     const password = document.getElementById('userPwd');
     const password2 = document.getElementById("password2")
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])(?!.*\s).{7,13}$/;
@@ -136,3 +117,169 @@ function validate() {
     }
     return true;
 }
+
+$(document).ready(() => {
+    /*인증번호 입력구역 display:none*/
+    const emailAuthentication = document.getElementById("email_authentication");
+    emailAuthentication.style.display = "none";
+
+    /*회원가입 버튼 누를 경우. 전송되기전에 필수 입력을 하도록 하는 부분*/
+    document.getElementById("regist_button").addEventListener("click", (e) => {
+        e.preventDefault();
+        let isValidate = validate();
+        if (isValidate) {
+            document.getElementById("regist").submit();
+        }
+    })
+
+    /*아이디 체크하는 구역*/
+    let regexId = /[a-zA-Z\d]{8,20}$/;
+    $('#id_check_button').click(function () {
+        $('#id_check_button').css('display', 'none');
+        $('#regist_button').css('display', 'none');
+        $('#check_text').css('display', 'none');
+        $('#userId').prop('readonly', true);
+        const userId = $('#userId').val();
+        const isValid = regexId.test(userId);
+        if (isValid) {
+            $.ajax({
+                url: "/auth/checkId",
+                method: "POST",
+                data: {
+                    userId: userId
+                },
+                success: function (result) {
+                    if (result.result === "success") { // 아이디가 없으면
+                        $('#check_text').css('display', 'block');
+                        $('#check_text').text('중복체크 완료')
+                        $('#regist_button').css('display', 'block');
+                    } else { // 아이디가 있으면
+                        $('#id_check_button').css('display', 'inline');
+                        $('#check_text').css('display', 'block');
+                        $('#check_text').text('아이디가 있습니다.')
+                        $('#userId').prop('readonly', false);
+                        $('#regist_button').css('display', 'block');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                    location.href = '/';
+                }
+            })
+        } else {
+            $('#id_check_button').css('display', 'inline');
+            $('#check_text').css('display', 'block');
+            $('#check_text').html('규칙에 맞지 않습니다<br>다시입력해주세요.');
+            $('#userId').prop('readonly', false);
+            $('#regist_button').css('display', 'block');
+        }
+    });
+
+    /*이메일 인증번호를 보내는 구역*/
+    let countdownTimer = null;
+
+    function startCountdown() {
+        let timeRemaining = 299;
+        countdownTimer = setInterval(() => {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+            document.querySelector("#reload_timer").textContent = formattedTime;
+            if (timeRemaining <= -1) {
+                alert("시간초과로 새로고침됩니다.");
+                clearInterval(countdownTimer);
+                location.href = '/auth/regist';
+            }
+            timeRemaining--;
+        }, 1000);
+    }
+
+    let regexEmail = /^[a-zA-Z0-9._$+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    $('#email_button').click(function () {
+        $('#email_button').css('display', 'none');
+        const email = $('#email').val(); // 입력한 email 값
+        $('#email').prop('readonly', true);
+        const isValid = regexEmail.test(email); // email이 정규식에 맞는가.
+        if (isValid) {
+            $.ajax({
+                url: "/auth/checkEmail",
+                method: "POST",
+                data: {
+                    email: email
+                },
+                success: function (result) {
+                    if (result.result === "success") {
+                        $('#email_message').html('');
+                        $('#email_button').css('display', '');
+                        $('#email_button').val('인증완료');
+                        $(document).ready(() => $('#email_button').off("click"));
+                        $('#email_authentication').css('display', '');
+                        $('#hidden_certified_key').val(result.certifiedCode);
+                        startCountdown();
+                        $('#reload').click(() => {
+                            clearInterval(countdownTimer);
+                            $('#reload_timer').text("05:00");
+                            startCountdown();
+                        });
+                    } else if (result.result === "sendMiss") {
+                        alert("이메일 전송에 실패했습니다.");
+                        location.href = "/auth/login";
+                    } else {
+                        $('#email_button').css('display', '');
+                        $('#email').prop('readonly', false);
+                        $('#email_message').html('이미 있는 이메일입니다.<br>다시 입력해주세요.');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                    location.href = '/';
+                }
+            })
+        } else {
+            $('#email_button').css('display', '');
+            $('#email').prop('readonly', false);
+            $('#email_message').html('이메일 규칙에 맞지 않습니다.<br>다시시도해주세요.');
+        }
+    })
+
+    /*이메일 인증번호를 입력하는 구역*/
+    $('#email_authentication_button').click(function () {
+        clearInterval(countdownTimer); // 일단 타이머 중지.
+        $(document).ready(() => $('#reload').off("click")); // reload 버튼도 중지
+        const inputCertifiedCode = $("#email_authentication_number").val();
+        const certifiedKey = $('#hidden_certified_key').val();
+        $.ajax({
+            url: "/auth/emailCertify",
+            method: "POST",
+            data: {
+                inputCertifiedCode: inputCertifiedCode,
+                certifiedKey: certifiedKey
+            },
+            success: function (result) {
+                if (result.result === "success") {
+                    $("#email_input_wrap").css('display', 'none');
+                    $("#email_authentication").css('display', 'none');
+                    $("#email_message").css('font-size', '1.25em');
+                    $("#email_message").css('color', 'black');
+                    $("#email_message").html('인증이 완료되었습니다.');
+                } else {
+                    /*실패하면 타이머 다시 작동하기.*/
+                    $("#email_message").html('다시 입력해주세요.');
+                    startCountdown();
+                    $('#reload').click(() => {
+                        clearInterval(countdownTimer);
+                        $('#reload_timer').text("05:00");
+                        startCountdown();
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert('예상치 못한 오류가 발생했습니다.\n메인화면으로 돌아갑니다.');
+                location.href = '/';
+            }
+        });
+    });
+});

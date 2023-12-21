@@ -23,7 +23,7 @@
         FROM tbl_withdraw A
         JOIN tbl_user B ON A.user_code=B.user_code
         WHERE B.id = #{userId}
-        ORDER BY A.state!='Y', A.apply_date DESC
+        ORDER BY A.state!='Y', A.apply_date DESC, A.commit_date IS NOT NULL
         LIMIT 1
     </select>
     <update id="updateCancelDate">

@@ -15,8 +15,11 @@ $(document).ready(function () {
     $('#registReview').submit(function (event) {
         var stars = $("input[name='stars']").val();
         if (stars == '0') {
-            alert("별점을 입력하세요.");
             event.preventDefault();
+            alert("별점을 입력하세요.");
+        } else if ($('#summernote').val().length === 0) {
+            event.preventDefault();
+            alert('리뷰 내용을 입력해주세요.');
         }
     })
 

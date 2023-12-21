@@ -28,9 +28,6 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
-
-        HttpSession session = request.getSession();
         /*로그인에 성공하면 일단 Withdraw를 조사한다.*/
 
         String userId = authentication.getName();
