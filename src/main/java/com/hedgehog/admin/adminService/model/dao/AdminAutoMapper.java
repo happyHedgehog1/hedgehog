@@ -13,9 +13,10 @@ public interface AdminAutoMapper {
 
     int modifyMail(AdminAutoMailDTO mailDTO);
 
-    List<String> searchEmailList();
-
+    
     int insertMailHistory(AdminAutoMailDTO adminAutoMailDTO);
 
-    int imgInsert(List<UploadedImageDTO> uploadedImageList);
+    int imgInsert(List<UploadedImageDTO> uploadedImageList, int mailCode);
+
+    String[] searchEmailList();
 }

@@ -10,7 +10,7 @@
         <result property="creationDate" column="creation_date"/>
         <result property="modifyDate" column="modify_date"/>
         <result property="title" column="title"/>
-        <result property="mailCode" column="mail_code"/>
+        <result property="mail_code" column="mail_code"/>
         <collection property="searchEmailList" column="email"/>
     </resultMap>
 <select id="previewMail">
@@ -34,24 +34,27 @@ WHERE form_code = #{formCode}
                  JOIN tbl_member B on A.customer_code = B.member_code
         where email_consent = 'Y'
     </select>
-    <insert id="insertMailHistory">
-        insert into tbl_mail_history(
-                    content,
-                    date,
-                    title,
-                    mail_list,
-                                     user_code)
-        values (#{content}, now(), #{title}, #{mailList} , '3')
-        <selectKey keyColumn="mail_code" resultType="_int" order="AFTER" keyProperty="mail_code">
-            SELECT LAST_INSERT_ID() AS mail_code
-        </selectKey>
-    </insert>
-    <select id="searchUserCode">
-
-
+    <select id="searchCustomerList">
+        SELECT
+            A.customer_code
+        from tbl_customer A
+            JOIN tbl_member B on A.customer_code = B.member_code
+        where email_consent = 'Y'
     </select>
+    <insert id="insertMailHistory" keyProperty="mail_code" useGeneratedKeys="true">
+        insert into tbl_mail_history (
+                                        content,
+                                        date,
+                                        title,
+                                        mail_list
+                ) values (
+                #{content}, now(), #{title}, #{mailList}
+                )
+    </insert>
+
     <insert id="imgInsert">
     INSERT INTO tbl_post_img (
+
                             email_code,
                             create_date,
                             convert_path,
@@ -61,13 +64,13 @@ WHERE form_code = #{formCode}
                             post_type)
     VALUES
     <foreach collection="uploadedImageList" item="image" separator=",">
-        (#{eventCode},
+        (#{mailCode},
          now(),
          #{image.convertPath},
          #{image.savePath},
          #{image.sourceName},
          #{image.convertName},
-         '이벤트')
+         '이메일')
     </foreach>
 </insert>
 </mapper>

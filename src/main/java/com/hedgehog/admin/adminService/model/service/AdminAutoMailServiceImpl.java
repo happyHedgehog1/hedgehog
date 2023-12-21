@@ -13,9 +13,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.ListUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -55,7 +57,7 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
     public boolean sendMail(List<UploadedImageDTO> uploadedImageList, String title, String summernote, String sendDate, String chooseMember) throws MessagingException, UnsupportedEncodingException {
 
 //        마케팅 수신 동의한 메일주소랑 유저코드 가져오기
-        List<String> searchEmailList = mapper.searchEmailList();
+        String[] searchEmailList = mapper.searchEmailList();
         log.info(searchEmailList.toString());
 //        tbl_mail_history에 먼저 insert하고 mail_code를 가져온다
         AdminAutoMailDTO adminAutoMailDTO = new AdminAutoMailDTO();
@@ -63,18 +65,26 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         adminAutoMailDTO.setContent(summernote);
         adminAutoMailDTO.setCreationDate(sendDate);
 
-        String mailListString = String.join(",", searchEmailList);
 
-        adminAutoMailDTO.setMailList(mailListString);
 
         int result = mapper.insertMailHistory(adminAutoMailDTO);
+
+        log.info(adminAutoMailDTO.toString());
+        int mailCode = adminAutoMailDTO.getMail_code();
+
 //        이미지 테이블에 업로드
-        int result2 = mapper.imgInsert(uploadedImageList);
+//        adminAutoMailDTO.setEventCode();
+        log.info("이미지 테이블에 업로드 시작~~~~~~~~~~~~~~~~~~ uploadedImageList" + uploadedImageList);
+
+        int result2 = mapper.imgInsert(uploadedImageList, mailCode);
+        log.info("이미지 테이블에 끗~~~~~~~~~~~~~~~~~~");
+
         if(result2 != 1){
             return false;
         }
 //        메일보내기
 
+        log.info("메일 보내기 시작~~~~~~~~~~~~~~~~~~");
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
 
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
@@ -82,11 +92,14 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         mimeMessageHelper.setSubject(MimeUtility.encodeText(adminAutoMailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
         mimeMessageHelper.setText(adminAutoMailDTO.getContent(), true); //메일 내용 지정
         mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
-        mimeMessageHelper.setTo(adminAutoMailDTO.getMailList()); //받는 메일 주소 지정
+        mimeMessageHelper.setTo(searchEmailList); //받는 메일 주소 지정
+
+
 
         mimeMessageHelper.addInline("image", new ClassPathResource("static/admin/images/logo.png"));
 
         javaMailSender.send(mimeMailMessage);
+        log.info("메일 보내기 끗~~~~~~~~~~~~~~~~~~");
 
 
         return true;
