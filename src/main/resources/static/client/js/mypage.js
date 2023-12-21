@@ -38,7 +38,7 @@ function myReview() {
     }, {
         "name": "searchCondition", "value": "id"
     }, {
-        "name": "searchValue", "value": "qwer1234"
+        "name": "searchValue", "value": userId
     }, {
         "name": "orderBy", "value": "gradeDESC"
     }]

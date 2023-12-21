@@ -1,5 +1,6 @@
 package com.hedgehog.config;
 
+import com.hedgehog.common.enums.UserRole;
 import com.hedgehog.config.handler.AuthFailHandler;
 import com.hedgehog.config.handler.AuthSuccessHandler;
 import lombok.AllArgsConstructor;
@@ -44,7 +45,6 @@ public class SecurityConfig {
                         auth -> {
 //                            auth.requestMatchers("/event/*",
 //                                    "/adminmain/*",
-//                                    "/adminManagement/*",
 //                                    "/member/*",
 //                                    "/order/*",
 //                                    "/point/*",

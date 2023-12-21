@@ -3,11 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
-    <script th:src="@{/client/js/info.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/info.css}">
-
+    <title>회원정보</title>
+</head>
+<th:block layout:fragment="content">
     <section>
         <div id="main_category_route">
             <ul class="route_list">
@@ -51,7 +53,8 @@
                             </div>
                             <div>
                                 email 수신여부:
-                                <span th:text="${emailService=='Y'?'&nbsp;수신가능':'&nbsp;수신거부'}" style="color:red;"></span>
+                                <span th:text="${emailService=='Y'?'&nbsp;수신가능':'&nbsp;수신거부'}"
+                                      style="color:red;"></span>
                             </div>
                             <div>
                                 주문 및 배송 관련 정보는 수신 동의와 상관없이 자동 발송됩니다.
@@ -64,12 +67,12 @@
                     </tr>
                 </table>
                 <div id="bottom_buttons">
-                    <input type="button" name="regist_button" id="regist_button" value="뒤로가기" onclick="location.href='mypage'">
+                    <input type="button" name="regist_button" id="regist_button" value="뒤로가기"
+                           onclick="location.href='mypage'">
                 </div>
             </div>
         </div>
-
     </section>
-
+    <script th:src="@{/client/js/info.js}"></script>
 </th:block>
 </html>
