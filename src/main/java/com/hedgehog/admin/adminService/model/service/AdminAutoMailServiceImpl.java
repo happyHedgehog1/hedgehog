@@ -93,10 +93,8 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         mimeMessageHelper.setText(adminAutoMailDTO.getContent(), true); //메일 내용 지정
         mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
         mimeMessageHelper.setTo(searchEmailList); //받는 메일 주소 지정
+        mimeMessageHelper.setBcc(searchEmailList);
 
-
-
-        mimeMessageHelper.addInline("image", new ClassPathResource("static/admin/images/logo.png"));
 
         javaMailSender.send(mimeMailMessage);
         log.info("메일 보내기 끗~~~~~~~~~~~~~~~~~~");

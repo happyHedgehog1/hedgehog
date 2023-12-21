@@ -97,10 +97,11 @@
     </select>
 
     <select id="dailySaleVolume" resultMap="orderDetailResultMap">
-        SELECT COUNT(tbl_order_details.count)
-        FROM tbl_order_details
-                 INNER JOIN tbl_order ON tbl_order_details.order_code = tbl_order.order_code
-        WHERE tbl_order.creation_date BETWEEN #{startOfDay} AND #{endOfDay}
+        SELECT
+            creation_date
+        FROM tbl_order A
+            join tbl_order_details B on a.order_code = b.order_code
+        WHERE creation_date BETWEEN #{startOfDay} AND #{endOfDay}
     </select>
 
     <select id="dailyReviews">

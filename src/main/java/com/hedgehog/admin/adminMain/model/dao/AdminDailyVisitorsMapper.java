@@ -15,7 +15,6 @@ public interface AdminDailyVisitorsMapper {
 
     List<String> dailySales(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
-    List<String> dailySaleVolume(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
     List<String> dailyReviews(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
@@ -30,4 +29,6 @@ public interface AdminDailyVisitorsMapper {
     List<AdminInquiryDTO> searchInquiry();
 
     List<AdminReviewDTO> searchReview();
+
+    List<String> dailySaleVolume(LocalDateTime startOfDay, LocalDateTime endOfDay);
 }
