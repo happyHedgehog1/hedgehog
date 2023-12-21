@@ -13,6 +13,7 @@ import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsPagenation;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsSelectCriteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -91,6 +92,13 @@ public class OrderDetailsController {
         mv.addObject("state", state);
         mv.addObject("dateStart", dateStart);
         mv.addObject("dateEnd", dateEnd);
+
+        /*이부분에서 일주일전, 한달전, 세달전, 여섯달 전에 대한 변수를 반환한다.*/
+        mv.addObject("now", LocalDate.now());
+        mv.addObject("date7", LocalDate.now().minusDays(7));
+        mv.addObject("date30", LocalDate.now().minusMonths(1));
+        mv.addObject("date90", LocalDate.now().minusMonths(3));
+        mv.addObject("date180", LocalDate.now().minusMonths(6));
         return mv;
     }
 
@@ -151,6 +159,13 @@ public class OrderDetailsController {
         mv.addObject("state", state);
         mv.addObject("dateStart", dateStart);
         mv.addObject("dateEnd", dateEnd);
+
+        /*이부분에서 일주일전, 한달전, 세달전, 여섯달 전에 대한 변수를 반환한다.*/
+        mv.addObject("now", LocalDate.now());
+        mv.addObject("date7", LocalDate.now().minusDays(7));
+        mv.addObject("date30", LocalDate.now().minusMonths(1));
+        mv.addObject("date90", LocalDate.now().minusMonths(3));
+        mv.addObject("date180", LocalDate.now().minusMonths(6));
         return mv;
     }
 
@@ -172,110 +187,107 @@ public class OrderDetailsController {
                                    @RequestParam(required = false) String email,
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
-        if (loginDetails == null) {
-            Integer newOrderCode = orderDetailsService.selectOrderCode(orderCode, email);
-            log.info("newOrderCode: " + newOrderCode);
-            if (newOrderCode == null || newOrderCode != orderCode) {
-                log.info("계정정보가 달라서 메인으로 돌아갑니다.");
-                redirectAttributes.addFlashAttribute("message", "계정정보가 달라서 메인으로 돌아갑니다.");
-                return "redirect:/";
-            }
-            OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
-
-
-            log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
-
-
-            model.addAttribute("orderDetails", orderDetailsCollect);
-            int sumCostPrice = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getCostPrice() * orderDetail.getCount()));
-            model.addAttribute("sumCostPrice", sumCostPrice);
-            int sumReducedPrice = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReducedPrice() * orderDetail.getCount()));
-            model.addAttribute("sumReducedPrice", sumReducedPrice);
-            int sumDeliveryCharge = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getDeliveryCharge() * orderDetail.getCount()));
-            model.addAttribute("sumDeliveryCharge", sumDeliveryCharge);
-            int sumPointCharge = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
-            model.addAttribute("sumPointCharge", sumPointCharge);
-            model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
-            int sumReviewPoint = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
-            model.addAttribute("sumReviewPoint", sumReviewPoint);
-
-            return "/client/content/myshop/orderDetails";
-        } else {
-            int userCode = loginDetails.getLoginUserDTO().getUserCode();
-            boolean result = orderDetailsService.isYourOrder(userCode, orderCode);
-            if (!result) {
-                log.info("계정정보가 달라서 메인으로 돌아갑니다.");
-                return "redirect:/";
-            }
-
-            OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
-
-            log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
-
-
-            model.addAttribute("orderDetails", orderDetailsCollect);
-            int sumCostPrice = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getCostPrice() * orderDetail.getCount()));
-            model.addAttribute("sumCostPrice", sumCostPrice);
-            int sumReducedPrice = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReducedPrice() * orderDetail.getCount()));
-            model.addAttribute("sumReducedPrice", sumReducedPrice);
-            int sumDeliveryCharge = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getDeliveryCharge() * orderDetail.getCount()));
-            model.addAttribute("sumDeliveryCharge", sumDeliveryCharge);
-            int sumPointCharge = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
-            model.addAttribute("sumPointCharge", sumPointCharge);
-            model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
-            int sumReviewPoint = orderDetailsCollect
-                    .getOrderDetailsList()
-                    .stream()
-                    .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
-            model.addAttribute("sumReviewPoint", sumReviewPoint);
-
-            return "/client/content/myshop/orderDetails";
+        if(loginDetails==null){
+            log.info("잘못된 접근이라 메인으로 돌아갑니다.");
+            redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다. 메인으로 돌아갑니다.");
+            return "redirect:/";
         }
+        int userCode = loginDetails.getLoginUserDTO().getUserCode();
+        boolean result = orderDetailsService.isYourOrder(userCode, orderCode);
+        if (!result) {
+            log.info("계정정보가 달라서 메인으로 돌아갑니다.");
+            return "redirect:/";
+        }
+
+        OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
+
+        log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
+
+
+        model.addAttribute("orderDetails", orderDetailsCollect);
+        int sumCostPrice = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getCostPrice() * orderDetail.getCount()));
+        model.addAttribute("sumCostPrice", sumCostPrice);
+        int sumReducedPrice = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReducedPrice() * orderDetail.getCount()));
+        model.addAttribute("sumReducedPrice", sumReducedPrice);
+        int sumDeliveryCharge = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getDeliveryCharge() * orderDetail.getCount()));
+        model.addAttribute("sumDeliveryCharge", sumDeliveryCharge);
+        int sumPointCharge = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
+        model.addAttribute("sumPointCharge", sumPointCharge);
+        model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
+        int sumReviewPoint = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
+        model.addAttribute("sumReviewPoint", sumReviewPoint);
+
+        return "/client/content/myshop/orderDetails";
     }
 
     @PostMapping("/orderDetails")
     public String guestOrderDetails(@RequestParam(required = false) Integer orderCode,
                                     @RequestParam(required = false) String email,
-                                    RedirectAttributes redirectAttributes) {
-        Map<String, Object> response = new HashMap<>();
+                                    RedirectAttributes redirectAttributes,
+                                    Model model) {
         if (orderCode == null || email == null) {
             redirectAttributes.addFlashAttribute("message", "주문번호 또는 이메일을 입력해주세요.");
             return "redirect:/myshop/guestOrderSearch";
         }
         Integer newOrderCode = orderDetailsService.selectOrderCode(orderCode, email); // 현재 주문번호에 알맞는 이메일이 있는지. 그리고 같은지
-
+        // 물론 orderCode 를 넣어서 orderCode를 반환받는게 이상하지만, 이메일까지 들어가므로 null이 뜰 가능성이 충분히 있다.
         if (newOrderCode == null) {
             redirectAttributes.addFlashAttribute("message", "조건에 맞는 비회원이 없습니다.\n다시입력해주세요.");
             return "redirect:/myshop/guestOrderSearch";
         }
+        log.info("newOrderCode: " + newOrderCode);
+        if (newOrderCode != orderCode) {
+            log.info("계정정보가 달라서 메인으로 돌아갑니다.");
+            redirectAttributes.addFlashAttribute("message", "계정정보가 달라서 메인으로 돌아갑니다.");
+            return "redirect:/";
+        }
+        OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
 
-        return "/myshop/orderDetails?orderCode=" + newOrderCode + "&email=" + email;
+        log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
+
+        model.addAttribute("orderDetails", orderDetailsCollect);
+        int sumCostPrice = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getCostPrice() * orderDetail.getCount()));
+        model.addAttribute("sumCostPrice", sumCostPrice);
+        int sumReducedPrice = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReducedPrice() * orderDetail.getCount()));
+        model.addAttribute("sumReducedPrice", sumReducedPrice);
+        int sumDeliveryCharge = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getDeliveryCharge() * orderDetail.getCount()));
+        model.addAttribute("sumDeliveryCharge", sumDeliveryCharge);
+        int sumPointCharge = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
+        model.addAttribute("sumPointCharge", sumPointCharge);
+        model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
+        int sumReviewPoint = orderDetailsCollect
+                .getOrderDetailsList()
+                .stream()
+                .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
+        model.addAttribute("sumReviewPoint", sumReviewPoint);
+
+        return "/client/content/myshop/orderDetails";
     }
 }

@@ -305,16 +305,16 @@
         </if>
         LIMIT #{ startRow }, #{ limit }
     </select>
-        <resultMap id="postImageDTOResultMap" type="com.hedgehog.client.board.model.dto.PostImageDTO">
-            <id property="postImageCode" column="post_img_code"/>
-            <result property="eventCode" column="event_code"/>
-            <result property="reviewCode" column="review_code"/>
-            <result property="inquiryCode" column="inquiry_code"/>
-            <result property="createDate" column="create_date"/>
-            <result property="convertPath" column="convert_path"/>
-            <result property="state" column="post_img_state"/>
-            <result property="postType" column="post_type"/>
-        </resultMap>
+    <resultMap id="postImageDTOResultMap" type="com.hedgehog.client.board.model.dto.PostImageDTO">
+        <id property="postImageCode" column="post_img_code"/>
+        <result property="eventCode" column="event_code"/>
+        <result property="reviewCode" column="review_code"/>
+        <result property="inquiryCode" column="inquiry_code"/>
+        <result property="createDate" column="create_date"/>
+        <result property="convertPath" column="convert_path"/>
+        <result property="state" column="post_img_state"/>
+        <result property="postType" column="post_type"/>
+    </resultMap>
     <select id="getReviewImage" resultMap="postImageDTOResultMap">
         SELECT A.post_img_code,
         A.event_code,
@@ -326,10 +326,17 @@
         A.post_type
         FROM tbl_post_img A
         WHERE
-        A.state = 'Y' AND
-        A.review_code IN
-        <foreach item="item" index="index" collection="reviewCodes" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        A.state = 'Y'
+        <if test="reviewCodes != null and reviewCodes.size() > 0">
+            AND
+            A.review_code IN
+            <foreach item="item" index="index" collection="reviewCodes" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="reviewCodes == null or reviewCodes.size() == 0">
+            AND
+            A.post_type='null'
+        </if>
     </select>
 </mapper>

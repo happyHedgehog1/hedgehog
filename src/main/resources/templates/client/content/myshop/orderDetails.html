@@ -3,10 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<th:block layout:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/client/css/orderDetails.css}">
-
+    <title>주문상세페이지</title>
+</head>
+<th:block layout:fragment="content">
     <section>
         <div id="main_category_route">
             <ul class="route_list">
@@ -110,7 +113,6 @@
                     </tr>
                     <tr>
                         <td>휴대폰 번호</td>
-                        <!--<td th:text="${#strings.concat(#strings.substring(orderDetails.recipientPhone, 0, 3), #strings.repeat('*', orderDetails.recipientPhone.length()-3))}"></td>-->
                         <td th:text="${orderDetails.recipientPhone}"></td>
                     </tr>
                     <tr>
@@ -216,7 +218,6 @@
                         </div>
                         <div class="date"
                              th:text="${#dates.format(orderDetails.paymentCompleteDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
-
                     </div>
                 </div>
                 <div id="button_wrap">
