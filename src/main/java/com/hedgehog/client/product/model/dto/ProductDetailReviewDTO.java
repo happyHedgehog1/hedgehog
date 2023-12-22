@@ -12,5 +12,6 @@ public class ProductDetailReviewDTO {
     private String ReviewContent;
     private String ReviewWriteDate;
     private String ReviewId;
-    private double reviewAvg;
+    private double ReviewAvg;
+    private int Review;
 }
