@@ -217,7 +217,7 @@ button:hover {
   padding: 10px 0;
   font-size: 24px;
 }
-.average_review span{
+.average_review div{
   color: tomato;
   font-size: 40px;
 }
@@ -414,6 +414,8 @@ span{
 }
 
 
+
+
 .modal_average_review {
   display: flex;
   flex-direction: column; 
@@ -427,7 +429,7 @@ span{
 }
 
 .modal_average_review li {
-  width: 80px;
+  width: 100px;
   height: 30px;
   text-align: left; 
   margin-right: 30px; 
@@ -467,3 +469,5 @@ span{
   background-image: url("/client/images/icon/btn2.png");
   height: 70px;
 }
+
+
