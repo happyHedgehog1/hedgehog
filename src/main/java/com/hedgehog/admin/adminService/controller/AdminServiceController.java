@@ -34,107 +34,8 @@ public class AdminServiceController {
         this.adminInquiryServiceImpl = adminInquiryServiceImpl;
         this.adminReviewServiceImpl = adminReviewServiceImpl;
         this.adminFAQServiceImpl = adminFAQServiceImpl;
-
         this.adminCommentServiceImpl = adminCommentServiceImpl;
     }
-
-
-    @PostMapping(value = "/noticeModify")
-    public String noticeModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
-                            Model model){
-        log.info("*********************** FAQModify");
-        log.info("*********************** adminFAQDTO"+adminFAQDTO);
-
-        adminFAQServiceImpl.FAQModify(adminFAQDTO);
-        return "admin/content/Service/notice";
-    }
-    @PostMapping(value = "/FAQModify")
-    public String FAQModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
-                            Model model){
-        log.info("*********************** FAQModify");
-        log.info("*********************** adminFAQDTO"+adminFAQDTO);
-
-        adminFAQServiceImpl.FAQModify(adminFAQDTO);
-        return "admin/content/Service/FAQ";
-    }
-
-
-    @GetMapping("/noticeModifyPage")
-    public String noticeModifyPage(@RequestParam("postCode") int postCode, Model model){
-        log.info("*********************** FAQModify");
-        log.info("*********************** postCode"+postCode);
-
-        AdminFAQDTO adminFAQDTO = adminFAQServiceImpl.FAQModifyPage(postCode);
-
-
-        log.info("*******************adminReviewDTO :" + adminFAQDTO);
-        model.addAttribute("adminNoticeDTO", adminFAQDTO);
-
-
-
-        return "admin/content/Service/noticeModify";
-    }
-
-    @GetMapping("/FAQModifyPage")
-    public String FAQModifyPage(@RequestParam("postCode") int postCode, Model model){
-        log.info("*********************** FAQModify");
-        log.info("*********************** postCode"+postCode);
-
-        AdminFAQDTO adminFAQDTO = adminFAQServiceImpl.FAQModifyPage(postCode);
-
-
-        log.info("*******************adminReviewDTO :" + adminFAQDTO);
-        model.addAttribute("adminNoticeDTO", adminFAQDTO);
-
-
-
-        return "admin/content/Service/FAQModify";
-    }
-
-    //상품문의 상세보기
-    @GetMapping("/inquiryDetail")
-    public String InquiryDetail(@RequestParam("inquiry_code")int inquiry_code,
-                                @RequestParam("answer_state") String answer_state, Model model) {
-
-        log.info("*********************** inquiryDetail");
-        log.info("*********************** inquiry_code"+inquiry_code);
-
-
-
-        AdminInquiryDTO adminInquiryDTO = adminInquiryServiceImpl.inquiryDetail(inquiry_code);
-
-        log.info("===========================adminInquiryDTO" + adminInquiryDTO);
-        model.addAttribute("adminInquiryDTO", adminInquiryDTO);
-
-        return "admin/content/Service/Product-inquiry-details";}
-
-
-
-//    //상품문의 답변
-//    @GetMapping("/inquiryComment")
-//    public String inquiryComment(@RequestParam ("inquiry_code")int inquiry_code,Model model){
-//        AdminCommentDTO adminCommentDTO = adminInquiryServiceImpl.inquiryComment(inquiry_code);
-//        log.info("===========================adminInquiryDTO" + adminCommentDTO);
-//        model.addAttribute("adminInquiryDTO", adminCommentDTO);
-//        return   "admin/content/Service/Product-inquiry-comment";
-//    }
-    //상품리뷰 상세보기
-    @GetMapping("/reviewDetail")
-    public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
-        log.info("*********************** reviewDetail");
-        log.info("*********************** Review_code"+Review_code);
-
-        AdminReviewDTO adminReviewDTO = adminReviewServiceImpl.reviewDetail(Review_code);
-
-
-        log.info("*******************adminReviewDTO :" + adminReviewDTO);
-        model.addAttribute("adminReviewDTO", adminReviewDTO);
-
-
-
-        return "admin/content/Service/Product-review-details";
-    }
-
 
     //상품문의 첫화면
     @GetMapping("/productInquiryPage")
@@ -149,9 +50,9 @@ public class AdminServiceController {
         log.info(form.toString());
 
         List<AdminInquiryDTO> inquiryList = adminInquiryServiceImpl.searchInquiry(form);
-        log.info("inquiryList=============" + inquiryList);
+        log.info("inquiryList=============" + inquiryList); //상품문의 목록 조회
 
-        int totalResult = inquiryList.size();
+        int totalResult = inquiryList.size(); //전체 결과 수, 답변 및 미답변 수 계산
         int countY = 0;
         int countN = 0;
         for (int i = 0; i < inquiryList.size(); i++) {
@@ -167,15 +68,15 @@ public class AdminServiceController {
             }
         }
 
-
         log.info("=============================countY" + countY);
         log.info("=============================countN" + countN);
 
+        //모델과 뷰를 담은 ModelAndView 객체 생성
         ModelAndView modelAndView = new ModelAndView("admin/content/Service/Product-inquiry");
-        modelAndView.addObject("inquiryList", inquiryList);
-        modelAndView.addObject("totalResult", totalResult);
-        modelAndView.addObject("countY", countY);
-        modelAndView.addObject("countN", countN);
+        modelAndView.addObject("inquiryList", inquiryList); //상품 문의 목록을 모델에 추가
+        modelAndView.addObject("totalResult", totalResult); //전체 결과 수를 모델에 추가
+        modelAndView.addObject("countY", countY); // 답변완료 문의 수를 모델에 추가
+        modelAndView.addObject("countN", countN); // 미답변 문의 수를 모델에 추가
 
 
         log.info("totalResult" + String.valueOf(totalResult));
@@ -183,32 +84,87 @@ public class AdminServiceController {
         return modelAndView;
     }
 
+
+    //상품문의 상세보기
+    @GetMapping("/inquiryDetail")
+    public String InquiryDetail(@RequestParam("inquiry_code")int inquiry_code,
+                                @RequestParam("answer_state") String answer_state, Model model) {
+
+        log.info("*********************** inquiryDetail");
+        log.info("*********************** inquiry_code"+inquiry_code);
+
+
+        //inquiry_code를 사용하여 상품문의 상세정보를 조회 후 adminInquiryDTO에 저장
+        AdminInquiryDTO adminInquiryDTO = adminInquiryServiceImpl.inquiryDetail(inquiry_code);
+
+        log.info("===========================adminInquiryDTO" + adminInquiryDTO);
+        //조회한 상세정보 모델에 추가해서 view로 전달
+        model.addAttribute("adminInquiryDTO", adminInquiryDTO);
+        //상품문의 상세보기 화면으로 이동
+        return "admin/content/Service/Product-inquiry-details";}
+
+
     //상품문의 상태 업데이트
     @PostMapping(value = "/inqStateUpdate")
-    private String inqStateUpdate(@RequestParam("resultCheckbox") List<String> selectedInqCodes,
+    private String inqStateUpdate(@RequestParam("resultCheckbox") List<String> selectedInqCodes, // 체크박스로 선택된 상품문의코드 받기
                                   @RequestParam("inqSelectCommit") String selectedInqState,
                                   RedirectAttributes rttr) throws BoardException {
 
         log.info("=================================inqStateUpdate");
         log.info("=================================selectedInqCodes" + selectedInqCodes);
         log.info("=================================selectedInqState" + selectedInqState);
-
+        //선택된 상품문의 코드들 반복돌며 처리
         for (int i = 0; i < selectedInqCodes.size(); i++) {
+            //"on" 값이나 비어있는 값은 무시하고 계속 진행
             if ("on".equals(selectedInqCodes.get(i)) || selectedInqCodes.get(i).isEmpty()) {
                 continue;
             } else {
+                //선택된 상품문의 코드 정수로 변환
                 int inquiryCode = Integer.parseInt(selectedInqCodes.get(i));
                 log.info("inquiryCode=================" + inquiryCode);
                 AdminInquiryDTO inquiryDTO = new AdminInquiryDTO();
                 inquiryDTO.setInquiry_code(inquiryCode);
                 inquiryDTO.setState(selectedInqState);
-
+                //변경된 상태 확인
                 log.info("================inquiry" + inquiryDTO);
+                //serviceImpl 통해 상태 업데이트 수행
                 adminInquiryServiceImpl.inqStateUpdate(inquiryDTO);
             }
         }
         rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
         return "admin/content/Service/Product-inquiry";
+    }
+
+    //상품문의 답변
+    @PostMapping("/inquiryComment")
+    public String inquiryComment(@ModelAttribute AdminCommentDTO adminCommentDTO,
+                                 @RequestParam("inquiry_code") int inquiry_code,
+                                 @RequestParam("user_code") int user_code,
+                                 @RequestParam("inqtitle") String inqtitle,
+                                 @RequestParam("inqcontent") String inqcontent,
+                                 Model model) throws BoardException, MessagingException, UnsupportedEncodingException {
+        log.info("");
+        log.info("");
+        log.info("문의답변~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        //전달받은 매개변수들 확인
+        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+        log.info("~~~~~~~~~~~~~~~~inqtitle : {}", inqtitle);
+        log.info("~~~~~~~~~~~~~~~~inqcontent : {}", inqcontent);
+
+        // adminCommentDTO에 inquiry_code 설정
+        adminCommentDTO.setInquiry_code(inquiry_code);
+        adminCommentDTO.setUser_code(user_code);
+        adminCommentDTO.setInqtitle(inqtitle);
+        adminCommentDTO.setInqcontent(inqcontent);
+
+        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
+
+        //답변 처리 후 결과 모델에 추가
+        adminCommentServiceImpl.inquiryComment(adminCommentDTO);
+        model.addAttribute("comment_code",adminCommentDTO.getComment_code());
+        model.addAttribute("inquiry_code", inquiry_code);
+
+        return "admin/content/Service/blank";
     }
 
 
@@ -238,6 +194,24 @@ public class AdminServiceController {
 
         return modelAndView;
     }
+
+    //상품리뷰 상세보기
+    @GetMapping("/reviewDetail")
+    public String reviewDetail(@RequestParam("Review_code") int Review_code, Model model){
+        log.info("*********************** reviewDetail");
+        log.info("*********************** Review_code"+Review_code);
+
+        AdminReviewDTO adminReviewDTO = adminReviewServiceImpl.reviewDetail(Review_code);
+
+
+        log.info("*******************adminReviewDTO :" + adminReviewDTO);
+        model.addAttribute("adminReviewDTO", adminReviewDTO);
+
+
+
+        return "admin/content/Service/Product-review-details";
+    }
+
 
     @Autowired
     private ProductService productService;
@@ -343,6 +317,32 @@ public class AdminServiceController {
         return "admin/content/Service/FAQ";
     }
 
+    @PostMapping(value = "/FAQModify")
+    public String FAQModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                            Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** adminFAQDTO"+adminFAQDTO);
+
+        adminFAQServiceImpl.FAQModify(adminFAQDTO);
+        return "admin/content/Service/FAQ";
+    }
+
+    @GetMapping("/FAQModifyPage")
+    public String FAQModifyPage(@RequestParam("postCode") int postCode, Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** postCode"+postCode);
+
+        AdminFAQDTO adminFAQDTO = adminFAQServiceImpl.FAQModifyPage(postCode);
+
+
+        log.info("*******************adminReviewDTO :" + adminFAQDTO);
+        model.addAttribute("adminNoticeDTO", adminFAQDTO);
+
+
+
+        return "admin/content/Service/FAQModify";
+    }
+
 
     //공지사항 첫화면
     @GetMapping("/noticePage")
@@ -434,43 +434,38 @@ public class AdminServiceController {
         return "admin/content/Service/notice";
     }
 
+    @PostMapping(value = "/noticeModify")
+    public String noticeModify(@ModelAttribute AdminFAQDTO adminFAQDTO,
+                               Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** adminFAQDTO"+adminFAQDTO);
+
+        adminFAQServiceImpl.FAQModify(adminFAQDTO);
+        return "admin/content/Service/notice";
+    }
+
+    @GetMapping("/noticeModifyPage")
+    public String noticeModifyPage(@RequestParam("postCode") int postCode, Model model){
+        log.info("*********************** FAQModify");
+        log.info("*********************** postCode"+postCode);
+
+        AdminFAQDTO adminFAQDTO = adminFAQServiceImpl.FAQModifyPage(postCode);
+
+
+        log.info("*******************adminReviewDTO :" + adminFAQDTO);
+        model.addAttribute("adminNoticeDTO", adminFAQDTO);
+
+
+
+        return "admin/content/Service/noticeModify";
+    }
+
+
+
     @GetMapping("/FAQWritePage")
     public String FAQWritePage() {
         return "admin/content/Service/FAQWrite";
     }
-    //상품문의 답변
-    @PostMapping("/inquiryComment")
-    public String inquiryComment(@ModelAttribute AdminCommentDTO adminCommentDTO,
-                                 @RequestParam("inquiry_code") int inquiry_code,
-                                 @RequestParam("user_code") int user_code,
-                                 @RequestParam("inqtitle") String inqtitle,
-                                 @RequestParam("inqcontent") String inqcontent,
-                                 Model model) throws BoardException, MessagingException, UnsupportedEncodingException {
-        log.info("");
-        log.info("");
-        log.info("문의답변~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
-        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
-        log.info("~~~~~~~~~~~~~~~~inqtitle : {}", inqtitle);
-        log.info("~~~~~~~~~~~~~~~~inqcontent : {}", inqcontent);
-
-        // adminCommentDTO에 inquiry_code 설정
-        adminCommentDTO.setInquiry_code(inquiry_code);
-        adminCommentDTO.setUser_code(user_code);
-        adminCommentDTO.setInqtitle(inqtitle);
-        adminCommentDTO.setInqcontent(inqcontent);
-
-        log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
-
-
-        adminCommentServiceImpl.inquiryComment(adminCommentDTO);
-        model.addAttribute("comment_code",adminCommentDTO.getComment_code());
-        model.addAttribute("inquiry_code", inquiry_code);
-
-        return "admin/content/Service/blank";
-    }
-
-
-
 
     @GetMapping("/email")
     public String email() {
@@ -492,7 +487,6 @@ public class AdminServiceController {
         return "admin/content/Service/noticeWrite";
     }
 
-
     @GetMapping("/detail")
     public String productInquiryDetail() {
         return "admin/content/Service/Product-inquiry-details";
@@ -500,3 +494,9 @@ public class AdminServiceController {
 
 
 }
+
+
+
+
+
+
