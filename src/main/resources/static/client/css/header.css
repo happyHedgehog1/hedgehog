@@ -191,6 +191,10 @@ header {
     z-index: 999;
 }
 
+.side_menu .text5 {
+    color: #26A9F3;
+}
+
 .side_menu.active {
     transform: translateX(0);
 }
