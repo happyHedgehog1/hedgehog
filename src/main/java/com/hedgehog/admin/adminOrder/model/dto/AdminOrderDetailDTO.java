@@ -18,4 +18,5 @@ public class AdminOrderDetailDTO {
     private int costPrice;
     private int finalPrice;
     private String optionCode;
+    private int calPrice;
 }

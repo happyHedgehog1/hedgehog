@@ -145,7 +145,7 @@ $(document).ready(function () {
                     const orderCode = this.parentNode.querySelector("td:nth-child(3)").innerText;
 
                     const orderDetailUrl = "/order/orderDetail?orderCode=" + orderCode;
-                    window.open(orderDetailUrl, "_blank", "width=840, height=700");
+                    window.open(orderDetailUrl, "_blank", "width=1530, height=700");
                 };
             }
         }

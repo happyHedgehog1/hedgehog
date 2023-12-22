@@ -13,9 +13,9 @@
         <result property="productCode" column="product_code"/>
         <result property="totalCount" column="total_count"/>
         <association property="userDTO" resultMap="adminUserResultMap"/>
-        <association property="productDTO" resultMap="productResultMap"/>
         <association property="adminCustomerDTO" resultMap="customerResultMap"/>
         <association property="deliveryDTO" resultMap="deliveryResultMap"/>
+        <collection property="productDTO" resultMap="productResultMap"/>
         <collection property="orderDetail" resultMap="orderDetailResultMap"/>
     </resultMap>
     <resultMap id="orderDetailResultMap" type="AdminOrderDetailDTO">
@@ -79,7 +79,7 @@
             count(C.count) count,
             SUM(C.cost_price) cost_price,
             SUM(C.delivery_charge) delivery_charge,
-            SUM(C.cost_price) + SUM(C.delivery_charge) - SUM(C.reduced_price) - A.point_usage sum_price,
+            sum(C.cost_price * C.count) + SUM(C.delivery_charge) - SUM(C.reduced_price) - A.point_usage sum_price,
             A.point_usage,
             A.state,
             E.name
@@ -227,33 +227,29 @@
 
     <select id="orderDetail" resultMap="orderResultMap">
         SELECT
-            A.creation_date,
             A.order_code,
-            A.point_usage,
-            B.product_code,
-            B.product_name,
-            D.name,
-            A.state,
-            D.id,
-            E.phone,
+            A.creation_date,
+            D.product_name,
+            C.count,
+            C.cost_price,
             C.delivery_charge,
-            c.count,
-            c.reduced_price,
-            c.cost_price,
-            c.final_price,
-            F.delivery_code,
-            G.delivery_address,
-            G.recipient_phone,
+            A.point_usage,
+            A.state,
+            E.name,
+            F.phone,
+            c.order_details_code,
             G.recipient_name,
-            G.state
-        FROM TBL_ORDER A
-                 JOIN tbl_product B on A.product_code = B.product_code
-                 join tbl_order_details C on A.order_code = C.order_code
-                 Join tbl_user D on A.customer_code = D.user_code
-                 join tbl_customer E on A.customer_code = E.customer_code
-                 join tbl_order_list F on A.order_code = F.order_code
-                 join tbl_delivery G on F.delivery_code = G.delivery_code
-        WHERE A.order_code = #{orderCode}
+            G.recipient_phone,
+            g.delivery_address,
+            g.delivery_requests,
+            g.state
+        FROM tbl_order_details C
+                 JOIN tbl_order A ON A.order_code = C.order_code
+                 JOIN tbl_product D ON D.product_code = C.product_code
+                 JOIN tbl_user E on A.customer_code = E.user_code
+                 join tbl_customer F on A.customer_code = F.customer_code
+                 join tbl_delivery G on A.order_code = G.delivery_code
+        where A.order_code = #{orderCode}
     </select>
 
 
