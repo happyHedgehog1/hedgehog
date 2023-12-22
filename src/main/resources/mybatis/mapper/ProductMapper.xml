@@ -23,6 +23,7 @@
         <result property="ReviewContent" column="content"/>
         <result property="ReviewWriteDate" column="write_date"/>
         <result property="ReviewId" column="id"/>
+        <result property="Review" column="reviews"/>
     </resultMap>
 
 
@@ -45,10 +46,11 @@
 
     <select id="selectProductReview" resultMap="ProductReviewResultMap">
         SELECT
-            AVG(A.grade / A.reviews) AS reviewAvg,
+            AVG(A.grade / A.reviews) AS ReviewAvg,
             B.content,
             B.write_date,
-            C.id
+            C.id,
+            A.reviews
         FROM tbl_product A
         LEFT JOIN tbl_review B ON (A.product_code = B.product_code)
         LEFT JOIN tbl_user C ON (B.member_code = C.user_code)

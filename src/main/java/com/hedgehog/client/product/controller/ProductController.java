@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.*;
+
 
 @Controller
 @Slf4j
@@ -43,6 +45,14 @@ public class ProductController {
 
 
 
+        for (ProductDetailDTO prodDetail : productDetail) {
+            log.info("상품목록====" + prodDetail);
+
+
+
+        }
+
+
         Long productPriceObject = Long.valueOf(productPrice);
         log.info("상품가격 타입: " + productPriceObject.getClass().getName());
         log.info("상품가격=== " + productPrice);
@@ -54,36 +64,35 @@ public class ProductController {
 
         List<String> optionNameList = new ArrayList<>(overlapOptionName);
 
-        log.info("옵션확인========"+ optionNameList);
+        log.info("옵션확인========" + optionNameList);
 
         /* 리뷰 */
 
         List<ProductDetailReviewDTO> productDetailReview = productService.selectProductReview(number);
 
-        log.info("들고온상품리뷰관련결과값====="+ productDetailReview);
-
-        System.out.println("리뷰총갯수===" + productDetailReview.size());
-
-        int reviewCount = productDetailReview.size();
+        log.info("들고온상품리뷰관련결과값=====" + productDetailReview);
 
 
-        for (int i = 0; i < productDetailReview.size(); i++) {
-            String id = productDetailReview.get(i).getReviewId();
+        System.out.println("리뷰총갯===" + productDetailReview.size());  /*  null도 1로인식..  */
 
-            if (id != null) {
-                String replacedId = id.substring(0, 3) + id.substring(3,7).replaceAll(".", "*")+id.substring(7);
-                System.out.println("아이디삐처리======"+replacedId);
 
-                productDetailReview.get(i).setReviewId(replacedId);
-            }
-        }
+        System.out.println("사이즈===="+productDetailReview.size());
 
-        System.out.println("아이디세터로넣은후확인=== " + productDetailReview.get(0).getReviewId());
+        System.out.println("리뷰총갯수수수===" + productDetailReview.size());
+
+
+        String fullStarIcon = "fas fa-star";
+        String halfStarIcon = "fa-star-half";
+
+
         model.addAttribute("productDetail", productDetail);
         model.addAttribute("productPrice", productPrice);
         model.addAttribute("productOption", optionNameList);
-        model.addAttribute("productReview",productDetailReview);
-        model.addAttribute("reviewCount",reviewCount);
+        model.addAttribute("productReview", productDetailReview);
+        model.addAttribute("fullStarIcon",fullStarIcon);
+
+        System.out.println("총결과값=====" + productDetailReview);
+
 
         return "client/content/productinfo/product";
     }
