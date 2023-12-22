@@ -25,4 +25,5 @@ public class AdminAutoMailDTO {
     private String search;
     private String keyword;
     private String date;
+    private String mailsCode;
 }

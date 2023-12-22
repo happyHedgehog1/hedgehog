@@ -117,8 +117,15 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
 
     @Override
     public AdminAutoMailDTO emailDetail(int mailCode) {
-        return null;
+        log.info("emailDetail 시작~~~~~~~~~~~~~~~~~~");
+
+        AdminAutoMailDTO mailList = mapper.emailDetail(mailCode);
+        log.info("emailDetail 시작~~~~~~~~~~~~~~~~~~" + mailList);
+
+
+        return mailList;
+    }
     }
 
 
-}
+

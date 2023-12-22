@@ -273,13 +273,13 @@ $(document).ready(function () {
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsProduct[i].onclick = function() {
+                $tdsProduct[i].ondblclick = function() {
 
                     const mailCode = this.parentNode.querySelector("input[name='mailCode']").value;
 
                     const mailDetailUrl = "/autoMailModify/emailDetail?mailCode=" + mailCode;
 
-                    window.open(mailDetailUrl, "_blank", "width=840, height=700");
+                    window.open(mailDetailUrl, "_blank", "width=1000, height=1500");
                 };
             }
         }

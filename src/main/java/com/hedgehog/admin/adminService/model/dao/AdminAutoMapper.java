@@ -22,4 +22,6 @@ public interface AdminAutoMapper {
     String[] searchEmailList();
 
     List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailForm form);
+
+    AdminAutoMailDTO emailDetail(int mailCode);
 }

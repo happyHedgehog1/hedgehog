@@ -117,15 +117,14 @@
                                 <col>
                                 <col>
                                 <col>
-                                <col>
                                 <col class="w400">
+                                <col>
                             </colgroup>
                             <tbody>
                                         <tr class="searchResult">
                                             <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
                                             <th>주문일시</th>
                                             <th>주문번호</th>
-                                            <th>상품번호</th>
                                             <th>상품명</th>
                                             <th>수량</th>
                                             <th>주문자</th>
@@ -138,9 +137,8 @@
                                     </td>
                                     <td th:text="${ order.getCreationDate() }"></td>
                                     <td th:text="${ order.getOrderCode() }"></td>
-                                    <td th:text="${ order.getProductCode() }"></td>
-                                    <td th:text="${ order.getProductDTO().productName} +' 외 ' + ${(order.getTotalCount() - 1)} + '건'"></td>
-                                    <td th:text="${ order.getTotalCount() }"></td>
+                                    <td th:text="${order.orderDetail.get(0).count > 1 ? order.getProductDTO().productName + ' 외 ' + (order.orderDetail.get(0).count - 1) + '건' : order.getProductDTO().productName}"></td>
+                                    <td th:text="${ '총' + order.getTotalCount() + '개' }"></td>
                                     <td th:text="${ order.userDTO.getName() }"></td>
                                     <td th:text="${ order.getState() }"></td>
                                     <td th:text="${ #numbers.formatInteger(order.getSumPrice(), 3, 'COMMA') + '원' }"></td>

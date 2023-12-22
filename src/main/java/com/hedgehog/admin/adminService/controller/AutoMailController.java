@@ -56,7 +56,7 @@ public class AutoMailController {
         log.info("~~~~~~~~~~~~~~~~emailDetail : {}", mailDTO);
 
 
-        model.addAttribute("orderDetail", mailDTO);
+        model.addAttribute("mailDTO", mailDTO);
         return "admin/content/Service/emailDetail";
     }
 

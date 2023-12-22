@@ -72,22 +72,21 @@
         <result property="state" column="state"/>
     </resultMap>
     <select id="searchOrderList" resultMap="orderResultMap">
-        SELECT
+        SELECT A.order_code,
             A.creation_date,
-            A.order_code,
-            B.product_code,
-            B.product_name,
-            count(C.order_code) as total_count,
-            D.name,
+            D.product_name,
+            SUM(C.count) total_count,
+            count(C.count) count,
+            SUM(C.cost_price) cost_price,
+            SUM(C.delivery_charge) delivery_charge,
+            SUM(C.cost_price) + SUM(C.delivery_charge) - SUM(C.reduced_price) - A.point_usage sum_price,
+            A.point_usage,
             A.state,
-            sum(c.final_price) as sum_price,
-            D.id,
-            E.phone
-        FROM TBL_ORDER A
-        JOIN tbl_product B on A.product_code = B.product_code
-        join tbl_order_details C on A.order_code = C.order_code
-        Join tbl_user D on A.customer_code = D.user_code
-        join tbl_customer E on A.customer_code = E.customer_code
+            E.name
+        FROM tbl_order A
+        JOIN tbl_order_details C ON A.order_code = C.order_code
+        JOIN tbl_product D ON A.product_code = D.product_code
+        JOIN tbl_user E on A.customer_code = E.user_code
         <where>
             <if test="state == 1">
                 AND A.state LIKE CONCAT('배송대기')
@@ -140,6 +139,7 @@
             </if>
         </where>
         group by A.order_code
+        order by A.creation_date desc
     </select>
     <update id="orderStateUpdate" parameterType="_int">
         UPDATE TBL_ORDER

@@ -106,7 +106,7 @@
                                             <th>발송시간</th>
                                 </tr>
                                 <tr class="proSearchBottomtr" th:each="mail,state : ${mailList}">
-                                    <input type="hidden" th:value="${mail.mail_code}" name="mailCode">
+                                    <input type="hidden" th:value="${mail.mailsCode}" name="mailCode">
                                     <td th:text="${state.index +1}"/>
                                     <td th:text="${mail.title}"/>
                                     <td th:utext="${mail.content}"/>

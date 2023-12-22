@@ -20,35 +20,25 @@
     </header>
     <div class="body">
         <div class="wrap">
-            <div class="answer">.</div>
             <table >
                 <tr>
-                    <th>회원번호</th>
-                    <th>아이디</th>
-                    <th>이름</th>
-                    <th>휴대폰번호</th>
-                    <th>이메일</th>
-                    <th>총사용적립금</th>
-                    <th>사용가능 적립금</th>
+                    <th>메일 제목</th>
+                    <td th:text="${mailDTO.title}" colspan="3"/>
                 </tr>
                 <tr>
-
-                </tr>
-
-                <tr>
-                    <th>구매내역</th>
-
+                    <th>발신일</th>
+                    <td th:text="${mailDTO.date}" style="width: 200px"/>
+                    <th>총 발송 건수</th>
+                    <td th:text="${mailDTO.name} + '건'"/>
                 </tr>
                 <tr>
-                    <th>작성한 후기</th>
-
+                    <th>수신자 메일주소</th>
+                    <td th:text="${mailDTO.mailList}" colspan="3"/>
                 </tr>
                 <tr>
-                    <th>적립금관리</th>
-                    <th>회원탈퇴</th>
-                    <th>메일발송</th>
+                    <th>내용</th>
+                    <td  colspan="3" th:utext="${mailDTO.content}"/>
                 </tr>
-
             </table>
         </div>
     </div>
