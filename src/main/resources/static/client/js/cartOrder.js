@@ -205,7 +205,7 @@ const formData = new FormData();
 
 
 $(function(){
-    $("#btn-kakao-pay").click(function(){
+    $("#paymentButton").click(function(){
 
         // 필수입력값을 확인.
         var name = $("input[name='pay-name']").val();
@@ -266,11 +266,10 @@ $(function(){
 
         // console.log(originalTotalOrder)
 
-        //setter로 받아서 파라미터를 넘겨주기
 
         $.ajax({
-            type:'post'
-            ,url:'/order/pay'
+            url:'/kakao/pay'
+            ,type: 'POST'
             ,data:{
                 name:name
                 ,phone:phone
@@ -285,11 +284,12 @@ $(function(){
                 ,deliveryPhone:deliveryPhone
                 ,deliveryRequest:deliveryRequest
                 // ,productName:productName
-
-
             },
             success:function(response){
                 location.href = response.next_redirect_pc_url
+            },
+            error:function (error){
+                console.log(error)
             }
         })
     })

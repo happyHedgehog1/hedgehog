@@ -1,9 +1,18 @@
 package com.hedgehog.client.kakaopay.model.service;
+import com.hedgehog.client.auth.model.dto.LoginDetails;
+import com.hedgehog.client.auth.model.dto.LoginUserDTO;
+import com.hedgehog.client.basket.model.dto.CartSelectDTO;
+import com.hedgehog.client.kakaopay.model.dao.kakaoPayMapper;
 import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
 import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
+import org.apache.catalina.manager.util.SessionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -15,19 +24,44 @@ import java.util.List;
 @Service
 public class KakaoPayService {
 
+//
+////    @Autowired
+//    private final kakaoPayMapper kakaoMapper;
+//
 
 
     private static final String HOST = "https://kapi.kakao.com";
 
-//    private ReadyResponse readyResponse;
+//    public KakaoPayService(kakaoPayMapper kakaoMapper) {
+//        this.kakaoMapper = kakaoMapper;
+//    }
 
-    public ReadyResponse payReady( String name, String phone, String email,
+
+    private ReadyResponse readyResponse;
+
+    public ReadyResponse payReady(String name, String phone, String email,
                                    String savedPoint, String originalTotalOrder,
                                    String deliveryPrice, String AllOriginalTotalOrder,
                                    String usingPoint, String deliveryName, String deliveryPhone,
-                                   String deliveryRequest) {
+                                   String deliveryRequest
+//                                  @AuthenticationPrincipal LoginDetails loginDetails
+    ) {
 
 
+//        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
+//        List<CartSelectDTO> carts = kakaoMapper.getCartByUserNo(loginUserDTO.getUserCode());
+//
+//        String[] cartNames = new String[carts.size()];
+//        for (CartSelectDTO cart : carts){
+//            for (int i = 0; i < carts.size(); i++) {
+//                cartNames[i] = cart.getProductName();
+//            }
+//        }
+//        String itemName = cartNames[0] + " 그외 " + (carts.size()-1);//인덱스니까 -1
+//        log.info("상품명들 : " + itemName);
+//        String orderId = loginUserDTO.getUserCode() + itemName;
+//
+//        log.info("주문아이디인데 이거 나오냐" + orderId);
 
         log.info("======================================> 서비스 시작 ");
 
@@ -43,7 +77,7 @@ public class KakaoPayService {
         parameters.add("quantity", "2");
         parameters.add("total_amount", AllOriginalTotalOrder);
         parameters.add("tax_free_amount", "0"); //비과세
-        parameters.add("approval_url", "http://localhost:8080/clientOrder/completed"); // 결제승인시 넘어갈 url
+        parameters.add("approval_url", "http://localhost:8080/kakao/pay"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://localhost:8080/clientOrder/orderFailed"); // 결제취소시 넘어갈 url
         parameters.add("fail_url", "http://localhost:8080/clientOrder/orderFailed");
 
@@ -52,7 +86,7 @@ public class KakaoPayService {
         log.info("=================================================> parameters : " + parameters);
 
         //파라미터, 헤더
-        // HttpEntity를 생성하여 요청을 보낼 준비를 합니다.
+        // HttpEntity를 생성하여 외부 url에 요청을 보낼 준비를 합니다.
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
         // RestTemplate을 사용하여 외부 API에 POST 요청을 보냅니다.
@@ -77,17 +111,21 @@ public class KakaoPayService {
 
     public ApproveResponse payApprove(String tid, String pgToken){
 
+
+
+
         log.info("=================================================================> 서비스 응답 시작 ");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.add("cid", "TC0ONETIME");
         parameters.add("tid", tid);
         parameters.add("partner_order_id", "4"); // 주문명
-        parameters.add("partner_user_id", "admin");
+        parameters.add("partner_user_id", "1 in 가구");
         parameters.add("pg_token", pgToken);
 
 
         log.info("=================================================================> 서비스 중간 ");
+        // 하나의 map안에 header와 parameter값을 담아줌.
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
         log.info("==================================================================> 여기 ? " );
@@ -107,6 +145,7 @@ public class KakaoPayService {
         return approveResponse;
     }
 
+    //header 셋팅
     private HttpHeaders getHeaders(){
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "c84521fef561a0b8f63c5438a75390a6");

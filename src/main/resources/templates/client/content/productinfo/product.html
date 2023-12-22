@@ -4,10 +4,10 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <th:block layout:fragment="content">
+  <li layout:fragment="content">
 
   <link rel="stylesheet" th:href="@{/client/css/product.css}">
-    <script src="https://kit.fontawesome.com/{6726f2378f}.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6726f2378f.js" crossorigin="anonymous"></script>
 
     <div class="top"><a th:href="@{'#'}"></a></div>
 
@@ -20,10 +20,10 @@
             </li>
             <li>
               <div class="product_sub_photos">
-                <a th:href="@{|/thumbPath${productDetail[0].convertPath}|}" title="image1"><img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt=""></a>
-                <a th:href="@{|/thumbPath${productDetail[1].convertPath}|}" title="image2"><img th:src="@{|/thumbPath${productDetail[1].convertPath}|}" alt=""></a>
-                <a th:href="@{|/thumbPath${productDetail[2].convertPath}|}" title="image3"><img th:src="@{|/thumbPath${productDetail[2].convertPath}|}" alt=""></a>
-                <a th:href="@{|/thumbPath${productDetail[3].convertPath}|}" title="image4"><img th:src="@{|/thumbPath${productDetail[3].convertPath}|}" alt=""></a>
+                <a th:href="@{|/thumbPath${productDetail[0].convertPath}|}" title="image1"><img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt="Product Image" /></a>
+                <a th:href="@{|/thumbPath${productDetail[1].convertPath}|}" title="image2"><img th:src="@{|/thumbPath${productDetail[1].convertPath}|}" alt="Product Image" /></a>
+                <a th:href="@{|/thumbPath${productDetail[2].convertPath}|}" title="image3"><img th:src="@{|/thumbPath${productDetail[2].convertPath}|}" alt="Product Image" /></a>
+                <a th:href="@{|/thumbPath${productDetail[3].convertPath}|}" title="image4"><img th:src="@{|/thumbPath${productDetail[3].convertPath}|}" alt="Product Image" /></a>
               </div>
             </li>
           </ul>
@@ -73,7 +73,8 @@
 
         <div class="point_txt_wrap">
           <ul class="review">
-            <li><span>★</span>4.5 후기 3개</li>
+            <li th:if="${productReview.get(0) != null}" th:text="'리뷰('+${productReview.get(0).getReview()}+')'"></li>
+            <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"></li>
             <li><a th:href="@{'#rivew'}">더보기 +</a></li>
           </ul>
           <ul class="review_txt">
@@ -86,109 +87,132 @@
         <div class="detail_info ">
           <div>상세정보</div>
           <ul>
-            <li><a th:href="@{'#rivew'}">후기(3개)</a></li>
-            <li><a th:href="@{'#qa'}">Q&A</a></li>
+            <li th:if="${productReview.get(0) != null}" th:text="'리뷰('+${productReview.get(0).getReview()}+')'"><a th:href="@{'#rivew'}">상품후기</a></li>
+            <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"><a th:href="@{'#rivew'}">상품후기</a></li>
           </ul>
+<!--          <ul>-->
+<!--            <li><a th:href="@{'#qa'}">Q&A</a></li>-->
+<!--          </ul>-->
         </div>
 
         <!-- 상세이미지 -->
-        <div class="page_view">
-          <img th:src="@{|/thumbPath${productDetail[4].convertPath}|}"alt="">
+        <div class="page_view" th:each="detailsPage : ${productDetail}">
+          <img th:if="${detailsPage.getImageClassification() != null and detailsPage.getImageClassification() == 'proImg'}" th:src="@{|/thumbPath${detailsPage.getConvertPath()}|}"alt="상세페이지">
         </div>
 
-        <!-- 평균리뷰 -->
+        <!-- 평균리뷰 ===================-->
 
-        <ul class="average_review">
+        <ul class="average_review" th:if="${productReview.get(0) != null}">
           <li>
-            <span>★★★★★</span>
+            <div>★★★★★</div>
+            <div th:text="'리뷰평점 ' + ${productReview.get(0).getReviewAvg()}"></div>
+            <i th:class="${fullStarIcon}"></i>
           </li>
-          <li th:text="'리뷰평점 '+${productReview.get(0).getReviewAvg()}">별점없음</li>
         </ul>
 
-        <!-- 포토후기 -->
-
-        <div class="poto_review">
-          <h2>포토 리뷰</h2>
-          <ul th:onclick="openModal()">
-            <li>
-              <img th:src="@{/client/images/review_photo/1.png}" alt="">
-            </li>
-          </ul>
-          <div class="review_page_number">전체보기</div>
-        </div>
 
 
-        <div id="overlay">
-          <div id="myModal" class="modal">
-            <button id="closeModal">&times;</button>
-            <div class="content-container">
-              <div class="left-column">
-                <img th:src="@{/client/images/review_photo/1.png}" alt="후기사진">
-              </div>
-              <div class="right-column">
-                <div class="modal_average_review">
-                  <ul>
-                    <li>★★★★☆</li><li>4</li>
 
-                  </ul>
-                  <ul>
-                    <li>lyai** </li><li>23.12.03.</li>
-                  </ul>
+
+
+
+
+
+
+
+        <!-- 포토후기 ===========================-->
+
+        <div th:if="${productReview.get(0) != null}" th:each="prodreview : ${productReview}">
+          <div class="poto_review" >
+            <h2>포토 리뷰</h2>
+            <ul th:onclick="openModal()">
+              <li>
+                <img th:src="@{/client/images/review_photo/1.png}" alt="">
+              </li>
+            </ul>
+            <div class="review_page_number">전체보기</div>
+          </div>
+
+          <div id="overlay">
+            <div id="myModal" class="modal">
+              <button id="closeModal">&times;</button>
+              <div class="content-container">
+                <div class="left-column">
+                  <img th:src="@{/client/images/review_photo/1.png}" alt="후기사진">
                 </div>
-                <hr>
-                <div class="modal_option">
-                  평상형 수납침대 : 흰색
-                </div>
-                <hr>
-                <div class="modal_content">
-                  냄새안나고 너무 예뻐요~!!! <br>
-                  가격도 저렴하고 무료배송이라 늘 애용합니다 ~
-                </div>
-                <hr>
-                <div>
-                  <ul id="review-img">
-                    <li><img src="/client/images/review_photo/1.png" alt=""></li>
-                    <li><img src="/client/images/review_photo/2.png" alt=""></li>
-                  </ul>
+
+                <div class="right-column" >
+                  <div class="modal_average_review">
+                    <ul>
+                      <li>★★★★☆</li><li>4</li>
+
+                    </ul>
+                    <ul class="right-column-text">
+                      <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}">아이디 </li>
+                      <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
+                    </ul>
+                  </div>
+                  <hr>
+                  <div class="modal_option">
+                    <div th:text="${productDetail[0].productText[0].productName}"></div></div>
+                  <hr>
+                  <div class="modal_content" th:text="${prodreview.getReviewContent()}"></div>
+                  <hr>
+                  <div>
+                    <ul id="review-img">
+                      <li><img src="/client/images/review_photo/1.png" alt="">dfdfdf</li>
+                      <li><img src="/client/images/review_photo/2.png" alt="">werwer</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+
         <!-- 글 후기 -->
 
         <div class="text_review">
           <div>
             <h2 id="rivew">상품후기</h2>
-            <ul class="text_review_list" th:each="Review : ${productReview}">
-              <li th:each="number : ${#numbers.sequence(1, reviewCount)}" th:text="${number}">오류</li>
-              <li><span>★★★★☆</span></li>
-              <li th:text="${productReview.get(0).getReviewContent()}">내용이 안불러와 졌네요</li>
-              <li th:text="${productReview.get(0).getReviewId()}">아이디</li>
-              <li th:if="${productReview.get(0).getReviewWriteDate() != null}" th:text="${#strings.substring(productReview.get(0).getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
-            </ul>
+
+            <th:block th:if="${productReview.get(0) != null}">
+              <ul class="text_review_list" th:if="${not #lists.isEmpty(productReview)}" th:each="prodreview, number : ${productReview}">
+                <li th:text="${number.index + 1}">일련번호</li>
+                <li><span>★★★★☆</span></li>
+                <li th:text="${prodreview.getReviewContent()}">내용</li>
+                <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}"></li>
+                <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
+              </ul>
+
+
+            </th:block>
+            <div th:if="${productReview.get(0) == null}">후기가 없습니다.</div>
+
+
+
             <div class="review_page_number">1</div>
-          </div>
+
 
           <!-- Q&A -->
-          <h2 id="qa">Q&A</h2>
-          <div class="qa">
-            <ul class="main">
-              <li>1</li>
-              <li>배송관련</li>
-              <li>배송기간은 얼마나 걸리나요?</li>
-            </ul>
-            <div class="sub">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</div>
-          </div>
-          <div class="qa">
-            <ul class="main">
-              <li>2</li>
-              <li>배송관련</li>
-              <li>배송기간은 얼마나 걸리나요?</li>
-            </ul>
-            <div class="sub">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</div>
-          </div>
+<!--          <h2 id="qa">Q&A</h2>-->
+<!--          <div class="qa">-->
+<!--            <ul class="main">-->
+<!--              <li>1</li>-->
+<!--              <li>배송관련</li>-->
+<!--              <li>배송기간은 얼마나 걸리나요?</li>-->
+<!--            </ul>-->
+<!--            <div class="sub">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</div>-->
+<!--          </div>-->
+<!--          <div class="qa">-->
+<!--            <ul class="main">-->
+<!--              <li>2</li>-->
+<!--              <li>배송관련</li>-->
+<!--              <li>배송기간은 얼마나 걸리나요?</li>-->
+<!--            </ul>-->
+<!--            <div class="sub">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</div>-->
+<!--          </div>-->
 
           <p class="nonmember">
             비회원으로 주문하신 경우 당사 사이트 우측 상단의 [배송 조회 > 비회원 주문 확인] 메뉴에서 확인 가능하며 <br>

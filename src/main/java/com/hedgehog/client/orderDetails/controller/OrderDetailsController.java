@@ -66,7 +66,7 @@ public class OrderDetailsController {
         log.info("orderDeliveryInfo ===== 시작날짜: " + dateStart);
         log.info("orderDeliveryInfo ===== 끝날짜: " + dateEnd);
         /*이 위치에 오면 처음에 입력받은 값이 null이라고 할지라도 값이 모두 생긴다.*/
-        OrderDTO order = new OrderDTO(state, dateStart, dateEnd);
+        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.atStartOfDay().plusDays(1).minusSeconds(1));
         log.info("현재검색조건...order : " + order);
         String info = "orderDeliveryInfo";
         int totalCount = orderDetailsService.selectTotalCountOrderInfo(userCode, order, info);
@@ -133,7 +133,7 @@ public class OrderDetailsController {
         log.info("exchangePaybackInfo ===== 시작날짜: " + dateStart);
         log.info("exchangePaybackInfo ===== 끝날짜: " + dateEnd);
         /*이 위치에 오면 처음에 입력받은 값이 null이라고 할지라도 값이 모두 생긴다.*/
-        OrderDTO order = new OrderDTO(state, dateStart, dateEnd);
+        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.atStartOfDay().plusDays(1).minusSeconds(1));
         log.info("현재검색조건...order : " + order);
         String info = "exchangePaybackInfo";
         int totalCount = orderDetailsService.selectTotalCountOrderInfo(userCode, order, info);
@@ -187,7 +187,7 @@ public class OrderDetailsController {
                                    @RequestParam(required = false) String email,
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
-        if(loginDetails==null){
+        if (loginDetails == null) {
             log.info("잘못된 접근이라 메인으로 돌아갑니다.");
             redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다. 메인으로 돌아갑니다.");
             return "redirect:/";

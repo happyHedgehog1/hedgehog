@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class orderPaymentDTO {
 
+
     //tbl_payment 겳제내역
     private String paymentCode; //결제내역코드
     private String details; //결제정보
