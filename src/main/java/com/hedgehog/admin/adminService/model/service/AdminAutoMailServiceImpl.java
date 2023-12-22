@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminService.model.service;
 
 import com.hedgehog.admin.adminService.model.dao.AdminAutoMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailForm;
 import com.hedgehog.admin.exception.AdminProductAddException;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
 import jakarta.mail.MessagingException;
@@ -70,7 +71,7 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         int result = mapper.insertMailHistory(adminAutoMailDTO);
 
         log.info(adminAutoMailDTO.toString());
-        int mailCode = Integer.parseInt(adminAutoMailDTO.getMail_code());
+        int mailCode = adminAutoMailDTO.getMail_code();
 
 //        이미지 테이블에 업로드
 //        adminAutoMailDTO.setEventCode();
@@ -104,12 +105,19 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
     }
 
     @Override
-    public List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailDTO mailDTO) {
+    public List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailForm form) {
         log.info("searchEmailHistory 시작~~~~~~~~~~~~~~~~~~");
 
-        List<AdminAutoMailDTO> mailList = mapper.searchEmailHistory(mailDTO);
+        List<AdminAutoMailDTO> mailList = mapper.searchEmailHistory(form);
+        log.info("searchEmailHistory 시작~~~~~~~~~~~~~~~~~~" + mailList);
+
 
         return mailList;
+    }
+
+    @Override
+    public AdminAutoMailDTO emailDetail(int mailCode) {
+        return null;
     }
 
 

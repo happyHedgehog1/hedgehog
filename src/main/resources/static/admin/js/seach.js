@@ -274,8 +274,12 @@ $(document).ready(function () {
                 }
 
                 $tdsProduct[i].onclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+
+                    const mailCode = this.parentNode.querySelector("input[name='mailCode']").value;
+
+                    const mailDetailUrl = "/autoMailModify/emailDetail?mailCode=" + mailCode;
+
+                    window.open(mailDetailUrl, "_blank", "width=840, height=700");
                 };
             }
         }

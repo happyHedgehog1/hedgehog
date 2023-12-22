@@ -91,8 +91,8 @@
                         <table class="tblBottom" id="emailHistory">
                             <colgroup>
                                 <col class="w140">
-                                <col style="width: 100%;">
-                                <col class="w140">
+                                <col style="width: 300px">
+                                <col style="width: 100%">
                                 <col class="w140">
                                 <col class="w140">
                                 <col>
@@ -105,12 +105,13 @@
                                             <th>발송건수</th>
                                             <th>발송시간</th>
                                 </tr>
-<!--                                <tr class="proSearchBottomtr" th:each="mail,state : ${mailList}">-->
-<!--                                    <td/>-->
-<!--                                    <td th:text="${mail.title}"/>-->
-<!--                                    <td th:utext="${mail.content}"/>-->
-<!--                                    <td/>-->
-<!--                                    <td th:text="${mail.date}"/>-->
+                                <tr class="proSearchBottomtr" th:each="mail,state : ${mailList}">
+                                    <input type="hidden" th:value="${mail.mail_code}" name="mailCode">
+                                    <td th:text="${state.index +1}"/>
+                                    <td th:text="${mail.title}"/>
+                                    <td th:utext="${mail.content}"/>
+                                    <td th:text="${mail.name} +건"/>
+                                    <td th:text="${mail.date}"/>
                                 </tr>  
                             </tbody>
                         </table>

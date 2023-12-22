@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이메일 발송내역 상세조회</title>
+    <link rel="stylesheet" th:href="@{/admin/css/autoMail/viewport/viewport.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
+</head>
+<body>
+<div id="wrap">
+    <header>
+        <div class="logobackground">
+            <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+            <h2>이메일 발송내역 상세조회</h2>
+        </div>
+    </header>
+    <div class="body">
+        <div class="wrap">
+            <div class="answer">.</div>
+            <table >
+                <tr>
+                    <th>회원번호</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>휴대폰번호</th>
+                    <th>이메일</th>
+                    <th>총사용적립금</th>
+                    <th>사용가능 적립금</th>
+                </tr>
+                <tr>
+
+                </tr>
+
+                <tr>
+                    <th>구매내역</th>
+
+                </tr>
+                <tr>
+                    <th>작성한 후기</th>
+
+                </tr>
+                <tr>
+                    <th>적립금관리</th>
+                    <th>회원탈퇴</th>
+                    <th>메일발송</th>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
+</div>
+</body>
+</html>
