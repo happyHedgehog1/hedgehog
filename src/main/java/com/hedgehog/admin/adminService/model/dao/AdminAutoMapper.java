@@ -19,4 +19,6 @@ public interface AdminAutoMapper {
     int imgInsert(List<UploadedImageDTO> uploadedImageList, int mailCode);
 
     String[] searchEmailList();
+
+    List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailDTO mailDTO);
 }

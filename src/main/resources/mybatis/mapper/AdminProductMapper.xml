@@ -284,14 +284,24 @@
     </select>
     <select id="searchCategoryDetail" resultMap="productResultMap">
         select
-            *
+            a.category_code,
+            b.product_name,
+            a.name,
+            b.orderable_status,
+            a.state
+
         from tbl_category A
                  join tbl_product B on A.category_code = B.category_code
         where A.category_code = #{categoryCode}
     </select>
     <select id="searchUpperCategoryDetail" resultMap="productResultMap">
         select
-            *
+            a.category_code,
+            b.product_name,
+            a.name,
+            b.orderable_status,
+            a.state
+
         from tbl_category A
                  join tbl_product B on A.category_code = B.category_code
         where A.upper_category_code = #{categoryCode}
@@ -300,7 +310,7 @@
         UPDATE tbl_category
         SET name = #{categoryName},
             state = #{categoryDisplay}
-        WHERE upper_category_code =#{upperCategoryCode} AND category_code = #{subCategoryName}
+        WHERE category_code = #{subCategoryName}
     </update>
 
 </mapper>

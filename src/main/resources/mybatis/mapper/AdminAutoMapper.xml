@@ -11,6 +11,8 @@
         <result property="modifyDate" column="modify_date"/>
         <result property="title" column="title"/>
         <result property="mail_code" column="mail_code"/>
+        <result property="date" column="date"/>
+        <result property="mailList" column="mail_list"/>
         <collection property="searchEmailList" column="email"/>
     </resultMap>
 <select id="previewMail">
@@ -51,7 +53,6 @@ WHERE form_code = #{formCode}
                 #{content}, now(), #{title}, #{mailList}
                 )
     </insert>
-
     <insert id="imgInsert">
     INSERT INTO tbl_post_img (
 
@@ -73,4 +74,36 @@ WHERE form_code = #{formCode}
          '이메일')
     </foreach>
 </insert>
+    <select id="searchEmailHistory" resultMap="autoMailResultMap">
+        SELECT
+            A.mail_code,
+            A.content,
+            A.date,
+            A.title,
+            A.mail_list
+        from tbl_mail_history A
+        <where>
+            <if test="searchStartDay != ''">
+                <if test="searchEndDay != ''">
+                    AND A.date BETWEEN #{searchStartDay} AND #{searchEndDay}
+                </if>
+                <if test="searchEndDay == ''">
+                    AND A.date > #{searchStartDay}
+                </if>
+            </if>
+<!--            <if test="keyword != ''">-->
+<!--                AND (-->
+<!--                <if test="search == 0">-->
+<!--                    A.title LIKE CONCAT('%', #{keyword}, '%') OR A.content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </if>-->
+<!--                <if test="search == 1">-->
+<!--                    A.title LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </if>-->
+<!--                <if test="search == 2">-->
+<!--                    A.content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </if>-->
+<!--                )-->
+<!--            </if>-->
+        </where>
+    </select>
 </mapper>

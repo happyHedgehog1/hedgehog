@@ -14,4 +14,6 @@ public interface AdminAutoMailService {
     public void modifyMail(AdminAutoMailDTO mailDTO) throws AdminProductAddException;
 
     boolean sendMail(List<UploadedImageDTO> uploadedImageList, String title, String summernote, String sendDate, String chooseMember) throws MessagingException, UnsupportedEncodingException;
+
+    List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailDTO mailDTO);
 }

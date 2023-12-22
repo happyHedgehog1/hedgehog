@@ -207,8 +207,8 @@ public class AdminServiceController {
                 adminInquiryServiceImpl.inqStateUpdate(inquiryDTO);
             }
         }
-        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
-        return "redirect:/Service/Product-inquiry";
+        rttr.addFlashAttribute("success", true);
+        return "redirect:/Service/productInquiryPage";
     }
 
 
@@ -477,7 +477,7 @@ public class AdminServiceController {
         return "admin/content/Service/email";
     }
 
-    @GetMapping("/emailHistory")
+    @GetMapping("/emailHistoryPage")
     public String emailHistory() {
         return "admin/content/Service/emailHistory";
     }

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,12 +26,19 @@ public class AdminCategoryController {
         this.adminProductServiceImpl = adminProductServiceImpl;
     }
 
+    /**
+     * 카테고리 상태, 이름 변경 메소드
+     * @param categoryForm
+     * @return
+     * @throws AdminProductAddException
+     */
     @PostMapping(value = "categoryModify")
-    public String categoryModify(@ModelAttribute AdminCategoryForm categoryForm) throws AdminProductAddException {
+    public String categoryModify(@ModelAttribute AdminCategoryForm categoryForm, RedirectAttributes rttr) throws AdminProductAddException {
 
         log.info(String.valueOf(categoryForm));
 
         adminProductServiceImpl.categoryModify(categoryForm);
+        rttr.addFlashAttribute("success", true);
 
         return "redirect:/category/categoryAdd";
 
@@ -61,8 +69,17 @@ public class AdminCategoryController {
                 stateY++;
                 productDTO.get(i).setPrice(stateY);
                 productDTO.get(i).setProductCode(totalCount);
+            }else {
+                stateN++;
+                productDTO.get(i).setDeliveryCharge(stateN);
+                productDTO.get(i).setProductCode(totalCount);
+
             }
         }
+        log.info("categoryDetail ==================== totalCount" + totalCount);
+        log.info("categoryDetail ==================== stateY" + stateY);
+        log.info("categoryDetail ==================== stateN" + stateN);
+
         productDTO.get(0).setOrderableStatus(productDTO.get(0).getCategory().getState());
         log.info("categoryDetail ==================== " + productDTO);
         return productDTO;

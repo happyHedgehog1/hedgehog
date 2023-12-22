@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -40,6 +41,25 @@ public class AutoMailController {
     public AutoMailController(AdminAutoMailServiceImpl autoMail, ObjectMapper objectMapper) {
         this.autoMail = autoMail;
         this.objectMapper = objectMapper;
+    }
+
+    @GetMapping(value = "/searchEmailHistory")
+    public ModelAndView searchEmailHistory(@ModelAttribute AdminAutoMailDTO mailDTO){
+        log.info("searchEmailHistory============= start");
+        log.info(mailDTO.toString());
+
+        List<AdminAutoMailDTO> mailDTOList = autoMail.searchEmailHistory(mailDTO);
+        log.info("searchEmailHistory============= : " + mailDTOList);
+
+        int totalResult = mailDTOList.size();
+        log.info("=============================totalResult : " + totalResult);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("mailList", mailDTOList);
+        mv.setViewName("admin/content/Service/emailHistory");
+
+        return mv;
+
     }
 
     @Value("img")

@@ -70,7 +70,7 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         int result = mapper.insertMailHistory(adminAutoMailDTO);
 
         log.info(adminAutoMailDTO.toString());
-        int mailCode = adminAutoMailDTO.getMail_code();
+        int mailCode = Integer.parseInt(adminAutoMailDTO.getMail_code());
 
 //        이미지 테이블에 업로드
 //        adminAutoMailDTO.setEventCode();
@@ -101,6 +101,15 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
 
 
         return true;
+    }
+
+    @Override
+    public List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailDTO mailDTO) {
+        log.info("searchEmailHistory 시작~~~~~~~~~~~~~~~~~~");
+
+        List<AdminAutoMailDTO> mailList = mapper.searchEmailHistory(mailDTO);
+
+        return mailList;
     }
 
 

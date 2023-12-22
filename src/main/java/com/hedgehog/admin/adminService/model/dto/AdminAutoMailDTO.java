@@ -16,8 +16,13 @@ public class AdminAutoMailDTO {
     private String creationDate;
     private String modifyDate;
     private String title;
-    private int mail_code;
+    private String mail_code;
     private List<String> searchEmailList;
     private String mailList;
     private int eventCode;
+    private String searchStartDay;
+    private String searchEndDay;
+    private String search;
+    private String keyword;
+    private String date;
 }

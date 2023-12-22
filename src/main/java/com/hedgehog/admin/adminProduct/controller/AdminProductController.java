@@ -197,7 +197,7 @@ public class AdminProductController {
 
         log.info("=============product 수정 끗~~~~~~~~~~~~~~~");
 
-        rttr.addFlashAttribute("message", "상품 수정에 성공하셨습니다.");
+        rttr.addFlashAttribute("success", true);
         int productCode = product.getProductCode();
         return "redirect:/product/productDetail?productCode=" + productCode;
     }
@@ -367,7 +367,7 @@ public class AdminProductController {
 //        상품등록 메소드
         adminProductServiceImpl.productAdd(product);
 
-        rttr.addFlashAttribute("message", "상품 등록에 성공하였습니다.");
+            rttr.addFlashAttribute("success", true);
         } catch (IOException | AdminProductAddException e) {
             e.printStackTrace();
 
