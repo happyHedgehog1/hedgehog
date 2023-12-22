@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-
 // 모달 메뉴 열기
     document.getElementById("btnSubmitAdd").addEventListener("click", function() {
         document.getElementById("myModal").style.display = "flex";
@@ -220,11 +218,7 @@ $(document).ready(function () {
         setSelectBox($(this));
     });
 });
-let message = null;
 
-if(message != null && message !== 'null') {
-    alert(message);
-}
 //
 // $("#btnAdd").on("click", function () {
 //     var salesStart = $("#salesStart").val();

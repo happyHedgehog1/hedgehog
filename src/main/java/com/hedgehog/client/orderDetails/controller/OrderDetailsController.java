@@ -2,10 +2,7 @@ package com.hedgehog.client.orderDetails.controller;
 
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
-import com.hedgehog.client.orderDetails.model.dto.OrderDTO;
-import com.hedgehog.client.orderDetails.model.dto.OrderDetailsCollect;
-import com.hedgehog.client.orderDetails.model.dto.OrderDetailsDTO;
-import com.hedgehog.client.orderDetails.model.dto.OrderListDTO;
+import com.hedgehog.client.orderDetails.model.dto.*;
 import com.hedgehog.client.orderDetails.model.service.OrderDetailsService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserEmailNotFoundException;
@@ -66,7 +63,7 @@ public class OrderDetailsController {
         log.info("orderDeliveryInfo ===== 시작날짜: " + dateStart);
         log.info("orderDeliveryInfo ===== 끝날짜: " + dateEnd);
         /*이 위치에 오면 처음에 입력받은 값이 null이라고 할지라도 값이 모두 생긴다.*/
-        OrderDTO order = new OrderDTO(state, dateStart, dateEnd);
+        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.atStartOfDay().plusDays(1).minusSeconds(1));
         log.info("현재검색조건...order : " + order);
         String info = "orderDeliveryInfo";
         int totalCount = orderDetailsService.selectTotalCountOrderInfo(userCode, order, info);
@@ -85,6 +82,7 @@ public class OrderDetailsController {
         List<OrderListDTO> orderList = orderDetailsService.selectOrderInfoList(userCode, orderDetailsSelectCriteria, info);
         log.info("orderDeliveryInfo : OrderDetailsController ... orderList : " + orderList);
         mv.addObject("orderList", orderList);
+
         mv.addObject("orderDetailsSelectCriteria", orderDetailsSelectCriteria);
         log.info("orderDeliveryInfo : OrderDetailsController... orderDetailsSelectCriteria" + orderDetailsSelectCriteria);
 
@@ -92,6 +90,10 @@ public class OrderDetailsController {
         mv.addObject("state", state);
         mv.addObject("dateStart", dateStart);
         mv.addObject("dateEnd", dateEnd);
+
+        log.info("state : " + state);
+        log.info("dateStart : " + dateStart);
+        log.info("dateEnd : " + dateEnd);
 
         /*이부분에서 일주일전, 한달전, 세달전, 여섯달 전에 대한 변수를 반환한다.*/
         mv.addObject("now", LocalDate.now());
@@ -133,7 +135,7 @@ public class OrderDetailsController {
         log.info("exchangePaybackInfo ===== 시작날짜: " + dateStart);
         log.info("exchangePaybackInfo ===== 끝날짜: " + dateEnd);
         /*이 위치에 오면 처음에 입력받은 값이 null이라고 할지라도 값이 모두 생긴다.*/
-        OrderDTO order = new OrderDTO(state, dateStart, dateEnd);
+        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.atStartOfDay().plusDays(1).minusSeconds(1));
         log.info("현재검색조건...order : " + order);
         String info = "exchangePaybackInfo";
         int totalCount = orderDetailsService.selectTotalCountOrderInfo(userCode, order, info);
@@ -187,7 +189,7 @@ public class OrderDetailsController {
                                    @RequestParam(required = false) String email,
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
-        if(loginDetails==null){
+        if (loginDetails == null) {
             log.info("잘못된 접근이라 메인으로 돌아갑니다.");
             redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다. 메인으로 돌아갑니다.");
             return "redirect:/";
@@ -240,6 +242,8 @@ public class OrderDetailsController {
                                     @RequestParam(required = false) String email,
                                     RedirectAttributes redirectAttributes,
                                     Model model) {
+        log.info("orderCode : " + orderCode);
+        log.info("email : " + email);
         if (orderCode == null || email == null) {
             redirectAttributes.addFlashAttribute("message", "주문번호 또는 이메일을 입력해주세요.");
             return "redirect:/myshop/guestOrderSearch";
@@ -250,8 +254,12 @@ public class OrderDetailsController {
             redirectAttributes.addFlashAttribute("message", "조건에 맞는 비회원이 없습니다.\n다시입력해주세요.");
             return "redirect:/myshop/guestOrderSearch";
         }
-        log.info("newOrderCode: " + newOrderCode);
-        if (newOrderCode != orderCode) {
+        log.info("newOrderCode : " + newOrderCode);
+        log.info("orderCode : " + orderCode);
+        log.info("email : " + email);
+        log.info("newOrderCode != orderCode : " + (newOrderCode != orderCode));
+        log.info("!newOrderCode.equals(orderCode) : " + (!newOrderCode.equals(orderCode)));
+        if (!newOrderCode.equals(orderCode)) {
             log.info("계정정보가 달라서 메인으로 돌아갑니다.");
             redirectAttributes.addFlashAttribute("message", "계정정보가 달라서 메인으로 돌아갑니다.");
             return "redirect:/";

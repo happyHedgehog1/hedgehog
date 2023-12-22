@@ -213,7 +213,7 @@ tbody tr {
 tbody tr:hover {
     text-decoration: underline;
     color: black;
-    font-weight: bold;
+    /*font-weight: bold;*/
     cursor: pointer;
     background-color: #A7727D20;
 }

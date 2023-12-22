@@ -9,6 +9,11 @@
     <title>상품문의</title>
     <link rel="stylesheet" th:href="@{/admin/css/Product-inquiry.css}" type="text/css">
     <script th:src="@{/admin/js/seach.js}"></script>
+    <script th:if="${success}">
+        $(document).ready(function() {
+            alert("상태 변경에 성공하였습니다.");
+        });
+    </script>
 </head>
 <body>
 <th:block layout:fragment="content">

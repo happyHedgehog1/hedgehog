@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminService.model.dao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailForm;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +20,8 @@ public interface AdminAutoMapper {
     int imgInsert(List<UploadedImageDTO> uploadedImageList, int mailCode);
 
     String[] searchEmailList();
+
+    List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailForm form);
+
+    AdminAutoMailDTO emailDetail(int mailCode);
 }

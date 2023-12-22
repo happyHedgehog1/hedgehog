@@ -15,36 +15,36 @@ function setupRowEvents(row) {
 }
 
 // 카테고리 소분류 추가
-$("body").on("click", 'img[name="img-add2"]', function () {
-    console.log(`버튼 클릭`);
-    // 새로운 엘리먼트 생성
-    var currentRow = $(this).closest('tr');
-    var categoryName = currentRow.find('input[type="hidden"]').val()
-    console.log(categoryName + "!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    var newsemiCategory = $(
-        "<tr class='category1'> <input type=\"hidden\" th:value='" + categoryName + "'/>" +
-        "<td style='padding-left: 5px;'><img src='/admin/images/L.png' height='20px'><img src='/admin/images/category2.png' height='20px'> 카테고리(소분류)</td>" +
-        "<td></td>" +
-        "<td></td>" +
-        "</tr>"
-    );
+// $("body").on("click", 'img[name="img-add2"]', function () {
+//     console.log(`버튼 클릭`);
+//     // 새로운 엘리먼트 생성
+//     var currentRow = $(this).closest('tr');
+//     var categoryName = currentRow.find('input[type="hidden"]').val()
+//     console.log(categoryName + "!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+//     var newsemiCategory = $(
+//         "<tr class='category1'> <input type=\"hidden\" th:value='" + categoryName + "'/>" +
+//         "<td style='padding-left: 5px;'><img src='/admin/images/L.png' height='20px'><img src='/admin/images/category2.png' height='20px'> 카테고리(소분류)</td>" +
+//         "<td></td>" +
+//         "<td></td>" +
+//         "</tr>"
+//     );
 
-
-    currentRow.after(newsemiCategory);
-    // 여기서 클릭 이벤트 추가
-    setupRowEvents(newsemiCategory);
-    console.log(newsemiCategory)
-
-});
+//
+//     currentRow.after(newsemiCategory);
+//     // 여기서 클릭 이벤트 추가
+//     setupRowEvents(newsemiCategory);
+//     console.log(newsemiCategory)
+//
+// });
 
 // 화살표에 따라서 소분류 카테고리 보이고 숨기기
-$(document).ready(function () {
-    // 이미지를 클릭했을 때
-    $('body').on('click', 'img[name^="img-"]', function () {
-        // 클릭한 이미지에 따라 상태 변경
-        toggleImageState($(this));
-    });
-});
+// $(document).ready(function () {
+//     // 이미지를 클릭했을 때
+//     $('body').on('click', 'img[name^="img-"]', function () {
+//         // 클릭한 이미지에 따라 상태 변경
+//         toggleImageState($(this));
+//     });
+// });
 
 // 카테고리의 이미지 상태를 변경하는 함수
 function toggleImageState(clickedImage) {
@@ -129,23 +129,35 @@ function updateTable2(data) {
         categoryDisplayN.prop('disabled', true);
         $('#submit').hide();
 
+        totalCount.text(data[0].productCode);
+        stateY.text(data[data.length - 1].price);
+        stateN.text(data[0].productCode - data[data.length - 1].price);
+
 
     } else {
         // 다른 경우에는 활성화
         inputCategoryName.prop('disabled', false);
+        categoryDisplayY.prop('disabled', false);
+        categoryDisplayN.prop('disabled', false);
+
         $('#submit').show();
 
+        // 노출 상태 설정
+        if (data[0].category.state === "Y") {
+            console.log("Y")
+            categoryDisplayY.prop('checked', true);
+        } else {
+            console.log("N")
+
+            categoryDisplayN.prop('checked', true);
+        }
+        totalCount.text(data[0].productCode);
+        stateY.text(data[data.length - 1].price);
+        stateN.text(data[0].productCode - data[data.length - 1].price);
+
+
     }
 
-    // 노출 상태 설정
-    if (data[0].orderableStatus === 'Y') {
-        categoryDisplayY.prop('checked', true);
-    } else {
-        categoryDisplayN.prop('checked', true);
-    }
-    totalCount.text(data[0].productCode);
-    stateY.text(data[data.length - 1].price);
-    stateN.text(data[0].productCode - data[data.length - 1].price);
 
 }
 
@@ -171,4 +183,5 @@ $('#submitBtn').on('click', function () {
         }
     });
 });
+
 

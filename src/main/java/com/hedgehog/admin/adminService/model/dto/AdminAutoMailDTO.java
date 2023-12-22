@@ -20,4 +20,10 @@ public class AdminAutoMailDTO {
     private List<String> searchEmailList;
     private String mailList;
     private int eventCode;
+    private String searchStartDay;
+    private String searchEndDay;
+    private String search;
+    private String keyword;
+    private String date;
+    private String mailsCode;
 }

@@ -27,16 +27,6 @@ public class adminMainController {
 
     }
 
-//     //당일 방문자
-//    @GetMapping("/dailyVisitors")
-//    public String dailyVisitors(Model model){
-//        List<AdminDailyVisitorsDTO> dailyVisitorsDTO = adminDailyVisitorsServiceImpl.dailyVisitors();
-//        int visitorCount = dailyVisitorsDTO.size();
-//        model.addAttribute("dailyVisitorsDTO",dailyVisitorsDTO);
-//        model.addAttribute("dailyVisitors", visitorCount);
-//        log.info("=================dailyVisitorsDTO" +dailyVisitorsDTO);
-//        return "admin/content/main/admin-main";
-//    }
 
     /**
      *
@@ -55,6 +45,8 @@ public class adminMainController {
         List<AdminInquiryDTO> adminInquiryDTO = adminDailyVisitorsServiceImpl.inquiry();
 
         List<AdminReviewDTO> adminReviewDTOS = adminDailyVisitorsServiceImpl.review();
+
+
 
 
         ModelAndView mv = new ModelAndView();

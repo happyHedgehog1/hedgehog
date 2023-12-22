@@ -21,18 +21,21 @@
                 <li th:if="${map.type == 'sopa' or map.type == 'table' or map.type == 'closet'}">거실</li>
                 <li th:if="${map.type == 'desk' or map.type == 'bookcase' or map.type == 'chair'}">서재</li>
                 <li th:if="${map.type == 'kitchenTable' or map.type == 'kitchenCloset'}">주방</li>
-                <li>&gt;</li>
-                <li th:if="${map.type == 'bed'}">침대</li>
-                <li th:if="${map.type == 'wardrobe'}">옷장</li>
-                <li th:if="${map.type == 'dressingTable'}">화장대</li>
-                <li th:if="${map.type == 'sopa'}">소파</li>
-                <li th:if="${map.type == 'table'}">테이블</li>
-                <li th:if="${map.type == 'closet'}">수납장</li>
-                <li th:if="${map.type == 'desk'}">책상</li>
-                <li th:if="${map.type == 'bookcase'}">책장</li>
-                <li th:if="${map.type == 'chair'}">의자</li>
-                <li th:if="${map.type == 'kitchenTable'}">식탁</li>
-                <li th:if="${map.type == 'kitchenCloset'}">수납장</li>
+
+                <li th:if="${map.type == 'sale'}">TimeSale</li>
+                <li th:if="${map.type == 'best'}">인기상품</li>
+                <li th:if="${map.type == 'bed'}">&gt; 침대</li>
+                <li th:if="${map.type == 'wardrobe'}">&gt; 옷장</li>
+                <li th:if="${map.type == 'dressingTable'}">&gt; 화장대</li>
+                <li th:if="${map.type == 'sopa'}">&gt; 소파</li>
+                <li th:if="${map.type == 'table'}">&gt; 테이블</li>
+                <li th:if="${map.type == 'closet'}">&gt; 수납장</li>
+                <li th:if="${map.type == 'desk'}">&gt; 책상</li>
+                <li th:if="${map.type == 'bookcase'}">&gt; 책장</li>
+                <li th:if="${map.type == 'chair'}">&gt; 의자</li>
+                <li th:if="${map.type == 'kitchenTable'}">&gt; 식탁</li>
+                <li th:if="${map.type == 'kitchenCloset'}">&gt; 수납장</li>
+
             </ul>
 
             <div class="gallery" id="thumbnailArea">

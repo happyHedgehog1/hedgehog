@@ -47,8 +47,8 @@
         VALUES (#{userCode}, #{newMember.email}, #{newMember.phone}, #{newMember.hiddenCertifiedKey})
     </insert>
     <insert id="insertMember">
-        INSERT INTO tbl_member(member_code, birthday, gender, email_consent)
-        VALUES (#{userCode}, #{newMember.birthday}, #{newMember.gender}, #{newMember.emailService})
+        INSERT INTO tbl_member(member_code, birthday, gender, email_consent, point)
+        VALUES (#{userCode}, #{newMember.birthday}, #{newMember.gender}, #{newMember.emailService}, 5000)
     </insert>
     <resultMap id="loginUserResultMap" type="com.hedgehog.client.auth.model.dto.LoginUserDTO">
         <id property="userCode" column="user_code"/>

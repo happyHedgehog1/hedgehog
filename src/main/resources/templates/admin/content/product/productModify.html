@@ -9,8 +9,12 @@
     <title>상품수정</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
     <script th:src="@{/admin/js/productModify.js}"></script>
-
     <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
+    <script th:if="${success}">
+        $(document).ready(function() {
+            alert("상태 변경에 성공하였습니다.");
+        });
+    </script>
 </head>
 <body>
 <th:block layout:fragment="content">
