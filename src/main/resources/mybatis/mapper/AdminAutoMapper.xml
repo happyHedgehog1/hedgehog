@@ -11,6 +11,9 @@
         <result property="modifyDate" column="modify_date"/>
         <result property="title" column="title"/>
         <result property="mail_code" column="mail_code"/>
+        <result property="date" column="date"/>
+        <result property="mailList" column="mail_list"/>
+        <result property="mailsCode" column="mail_code"/>
         <collection property="searchEmailList" column="email"/>
     </resultMap>
 <select id="previewMail">
@@ -51,7 +54,6 @@ WHERE form_code = #{formCode}
                 #{content}, now(), #{title}, #{mailList}
                 )
     </insert>
-
     <insert id="imgInsert">
     INSERT INTO tbl_post_img (
 
@@ -73,4 +75,47 @@ WHERE form_code = #{formCode}
          '이메일')
     </foreach>
 </insert>
+    <select id="searchEmailHistory">
+        SELECT
+            A.mail_code as mailsCode,
+            A.content,
+            A.date,
+            A.title,
+            LENGTH(A.mail_list) - LENGTH(REPLACE(A.mail_list, ',', '')) + 1 AS name,
+            A.mail_list
+        from tbl_mail_history A
+        <where>
+            <if test="searchStartDay != ''">
+                <if test="searchEndDay != ''">
+                    AND A.date BETWEEN #{searchStartDay} AND #{searchEndDay}
+                </if>
+                <if test="searchEndDay == ''">
+                    AND A.date > #{searchStartDay}
+                </if>
+            </if>
+            <if test="keyword != ''">
+                <if test="search == 0">
+                    AND A.title LIKE CONCAT('%', #{keyword}, '%') OR A.content LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="search == 1">
+                    AND A.title LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="search == 2">
+                    AND A.content LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+
+            </if>
+        </where>
+    </select>
+    <select id="emailDetail">
+        SELECT
+            A.mail_code,
+            A.content,
+            A.date,
+            A.title,
+            LENGTH(A.mail_list) - LENGTH(REPLACE(A.mail_list, ',', '')) + 1 AS name,
+            A.mail_list
+        from tbl_mail_history A
+        where A.mail_code = #{mailCode}
+    </select>
 </mapper>

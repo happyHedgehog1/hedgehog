@@ -2,6 +2,7 @@ package com.hedgehog.admin.adminService.model.service;
 
 import com.hedgehog.admin.adminService.model.dao.AdminAutoMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailForm;
 import com.hedgehog.admin.exception.AdminProductAddException;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
 import jakarta.mail.MessagingException;
@@ -93,10 +94,8 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         mimeMessageHelper.setText(adminAutoMailDTO.getContent(), true); //메일 내용 지정
         mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
         mimeMessageHelper.setTo(searchEmailList); //받는 메일 주소 지정
+        mimeMessageHelper.setBcc(searchEmailList);
 
-
-
-        mimeMessageHelper.addInline("image", new ClassPathResource("static/admin/images/logo.png"));
 
         javaMailSender.send(mimeMailMessage);
         log.info("메일 보내기 끗~~~~~~~~~~~~~~~~~~");
@@ -105,5 +104,28 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         return true;
     }
 
+    @Override
+    public List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailForm form) {
+        log.info("searchEmailHistory 시작~~~~~~~~~~~~~~~~~~");
 
-}
+        List<AdminAutoMailDTO> mailList = mapper.searchEmailHistory(form);
+        log.info("searchEmailHistory 시작~~~~~~~~~~~~~~~~~~" + mailList);
+
+
+        return mailList;
+    }
+
+    @Override
+    public AdminAutoMailDTO emailDetail(int mailCode) {
+        log.info("emailDetail 시작~~~~~~~~~~~~~~~~~~");
+
+        AdminAutoMailDTO mailList = mapper.emailDetail(mailCode);
+        log.info("emailDetail 시작~~~~~~~~~~~~~~~~~~" + mailList);
+
+
+        return mailList;
+    }
+    }
+
+
+

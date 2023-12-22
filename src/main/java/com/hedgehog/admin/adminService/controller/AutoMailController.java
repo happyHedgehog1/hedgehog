@@ -2,8 +2,10 @@ package com.hedgehog.admin.adminService.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
 import com.hedgehog.admin.adminService.model.dao.AdminAutoMapper;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
+import com.hedgehog.admin.adminService.model.dto.AdminAutoMailForm;
 import com.hedgehog.admin.adminService.model.service.AdminAutoMailServiceImpl;
 import com.hedgehog.admin.exception.AdminProductAddException;
 import com.hedgehog.client.board.model.dto.UploadedImageDTO;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -40,6 +43,40 @@ public class AutoMailController {
     public AutoMailController(AdminAutoMailServiceImpl autoMail, ObjectMapper objectMapper) {
         this.autoMail = autoMail;
         this.objectMapper = objectMapper;
+    }
+
+    @GetMapping(value = "/emailDetail")
+    public String emailDetail(@RequestParam int mailCode, Model model){
+        log.info("");
+        log.info("");
+        log.info("selectProductDetail~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
+        log.info("~~~~~~~~~~~~~~~~orderCode : {}", mailCode);
+
+        AdminAutoMailDTO mailDTO = autoMail.emailDetail(mailCode);
+        log.info("~~~~~~~~~~~~~~~~emailDetail : {}", mailDTO);
+
+
+        model.addAttribute("mailDTO", mailDTO);
+        return "admin/content/Service/emailDetail";
+    }
+
+    @GetMapping(value = "/searchEmailHistory")
+    public ModelAndView searchEmailHistory(@ModelAttribute AdminAutoMailForm form){
+        log.info("searchEmailHistory============= start");
+        log.info(form.toString());
+
+        List<AdminAutoMailDTO> mailDTOList = autoMail.searchEmailHistory(form);
+        log.info("searchEmailHistory============= : " + mailDTOList);
+
+        int totalResult = mailDTOList.size();
+        log.info("=============================totalResult : " + totalResult);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("mailList", mailDTOList);
+        mv.setViewName("admin/content/Service/emailHistory");
+
+        return mv;
+
     }
 
     @Value("img")
