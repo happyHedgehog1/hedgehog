@@ -1,10 +1,11 @@
-
-
+@import url('https://fonts.googleapis.com/css2?family=Diphylleia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 section{
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 150px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 
 .wrap{
@@ -13,6 +14,10 @@ section{
   flex-direction: column;
   justify-content: center;
   /* border: 1px solid red; */
+}
+
+h3, h2{
+  font-family: 'Diphylleia', serif;
 }
 
 
@@ -206,20 +211,30 @@ button:hover {
 }
 
 
-.average_review{
+.average_review , .average_review2{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
+  marin-top: 10px;
+  font-family: 'Diphylleia', serif;
 }
 
+
 .average_review li{
-  padding: 10px 0;
-  font-size: 24px;
+  font-size: 36px;
+  color: #DAA520;
+
 }
-.average_review div{
-  color: tomato;
-  font-size: 40px;
+
+.average_review2{
+  font-size: 20px;
+}
+
+.average_review2 li{
+  font-size: 20px;
+  color: #DAA520;
+
 }
 
 /* 포토리뷰 */
@@ -247,6 +262,13 @@ span{
 
 }
 
+.allPhoth {
+  font-size: 22px;
+  text-align: right;
+  padding: 10px 20px;
+}
+
+
 .poto_review_txt{
   margin-left: 120px;
   font-size: 18px;
@@ -256,7 +278,6 @@ span{
   display: flex;
   justify-content: center;
   font-size: 22px;
-  border-top: 1px solid rgb(168, 168, 168);
   padding-top: 20px;
 }
 
@@ -266,6 +287,7 @@ span{
   justify-content: space-between;
   align-items: center;  
   padding: 20px 0;
+  border-bottom: 1px solid rgb(168, 168, 168);
 }
 
 .qa{
@@ -468,6 +490,29 @@ span{
 .top a:hover{
   background-image: url("/client/images/icon/btn2.png");
   height: 70px;
+}
+
+
+
+/* 리뷰별모양 */
+
+
+.fa-star , .fa-star-half{
+  color: #DAA520;
+  display: inline;
+  padding: 0 5px;
+}
+
+.reviewStar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin-top: 90px;
+  font-size: 36px;
+}
+
+.reviewStar div , .reviewStar2 div{
+  display: inline-block;
 }
 
 

@@ -81,7 +81,7 @@
             <li>리뷰 포인트</li>
             <li>구매 후 리뷰 작성시 최대 1,000 포인트적립</li>
           </ul>
-          <div><span>♥</span>첫 구매시 무조건 10,000포인트 적립<span>♥</span></div>
+          <div><span>♥</span>첫 구매시 무조건 1,000포인트 적립<span>♥</span></div>
         </div>
 
         <div class="detail_info ">
@@ -90,9 +90,6 @@
             <li th:if="${productReview.get(0) != null}" th:text="'리뷰('+${productReview.get(0).getReview()}+')'"><a th:href="@{'#rivew'}">상품후기</a></li>
             <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"><a th:href="@{'#rivew'}">상품후기</a></li>
           </ul>
-<!--          <ul>-->
-<!--            <li><a th:href="@{'#qa'}">Q&A</a></li>-->
-<!--          </ul>-->
         </div>
 
         <!-- 상세이미지 -->
@@ -102,22 +99,15 @@
 
         <!-- 평균리뷰 ===================-->
 
-        <ul class="average_review" th:if="${productReview.get(0) != null}">
-          <li>
-            <div>★★★★★</div>
-            <div th:text="'리뷰평점 ' + ${productReview.get(0).getReviewAvg()}"></div>
-            <i th:class="${fullStarIcon}"></i>
-          </li>
+        <hr>
+        <div class="reviewStar" th:if="${ result != null }">
+          <div th:each="star : ${result}">
+            <i th:each="char : ${star}" th:class="${char}"></i>
+          </div>
+        </div>
+        <ul class="average_review" >
+          <li th:if="${ productReview.get(0) != null }" th:text="${productReview.get(0).getReviewAvg()}"></li>
         </ul>
-
-
-
-
-
-
-
-
-
 
 
         <!-- 포토후기 ===========================-->
@@ -130,7 +120,8 @@
                 <img th:src="@{/client/images/review_photo/1.png}" alt="">
               </li>
             </ul>
-            <div class="review_page_number">전체보기</div>
+            <div class="allPhoth">전체보기</div>
+            <hr>
           </div>
 
           <div id="overlay">
@@ -143,9 +134,15 @@
 
                 <div class="right-column" >
                   <div class="modal_average_review">
-                    <ul>
-                      <li>★★★★☆</li><li>4</li>
-
+                    <ul class="review2">
+                      <div class="reviewStar2" th:if="${ result != null }">  <!-- 모달포토후기창 -->
+                        <div th:each="star : ${result}">
+                          <i th:each="char : ${star}" th:class="${char}"></i>
+                        </div>
+                      </div>
+                      <ul class="average_review2" >
+                        <li th:if="${ productReview.get(0) != null }" th:text="${productReview.get(0).getReviewAvg()}"></li>
+                      </ul>
                     </ul>
                     <ul class="right-column-text">
                       <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}">아이디 </li>
@@ -178,21 +175,19 @@
             <h2 id="rivew">상품후기</h2>
 
             <th:block th:if="${productReview.get(0) != null}">
-              <ul class="text_review_list" th:if="${not #lists.isEmpty(productReview)}" th:each="prodreview, number : ${productReview}">
+              <ul class="text_review_list" th:if="${not #lists.isEmpty(productReview)}" th:each="prodreview, number : ${productReview}" id="reviewList">
+
                 <li th:text="${number.index + 1}">일련번호</li>
                 <li><span>★★★★☆</span></li>
                 <li th:text="${prodreview.getReviewContent()}">내용</li>
                 <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}"></li>
                 <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
               </ul>
-
-
             </th:block>
+
             <div th:if="${productReview.get(0) == null}">후기가 없습니다.</div>
 
-
-
-            <div class="review_page_number">1</div>
+            <button class="review_page_number" onclick="loadMoreReviews()">더 보기</button>
 
 
           <!-- Q&A -->
@@ -218,10 +213,6 @@
             비회원으로 주문하신 경우 당사 사이트 우측 상단의 [배송 조회 > 비회원 주문 확인] 메뉴에서 확인 가능하며 <br>
             주문 완료 후 제공되는 주문번호 및 주문 시 기재한 이메일로 확인 가능합니다
           </p>
-
-        </div>
-
-      </div>
     </section>
 
     <script>
@@ -230,6 +221,27 @@
         console.log(number);
         location.href = "/productinfo/product/" + number;
       });
+
+
+      // 리뷰증가시마다 더보기
+      var currentPage = 1; // 현재 페이지
+      var reviewsPerPage = 5; // 페이지당 리뷰 수
+
+      function loadMoreReviews() {
+        // 현재 페이지의 다음 리뷰 가져오기
+        var startIndex = currentPage * reviewsPerPage;
+        var endIndex = startIndex + reviewsPerPage;
+
+        // 현재 페이지의 리뷰만 가져오도록 조건을 걸어서 표시
+        $('#reviewList li').each(function(index) {
+          if (index >= startIndex && index < endIndex) {
+            $(this).show();
+          }
+        });
+
+        // 페이지 번호 증가
+        currentPage++;
+      }
     </script>
 
 
