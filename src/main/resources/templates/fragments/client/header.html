@@ -15,11 +15,12 @@
         <!-- 사이드메뉴 -->
         <div class="side_menu" onclick="toggleHamburger()">
             <ul class="side_menu_List">
-                <li><a th:href="@{'/list/productList'}">베스트 상품</a></li>
                 <li><a th:href="@{'/list/productList/bed'}">침실</a></li>
                 <li><a th:href="@{'/list/productList/sopa'}">거실</a></li>
                 <li><a th:href="@{'/list/productList/desk'}">서재</a></li>
                 <li><a th:href="@{'/list/productList/kitchenTable'}">주방</a></li>
+                <li class="text5"><a th:href="@{'/list/productList/best'}">베스트 상품</a></li>
+                <li class="text5"><a th:href="@{'/list/productList/sale'}">TIME SALE</a></li>
                 <li class="post"><a th:href="@{/board}">게시판</a>
                     <ul class="post_list" onclick="deleteBoardFormData()">
                         <li><a th:href="@{/board/reviewList}">리뷰게시판</a></li>
