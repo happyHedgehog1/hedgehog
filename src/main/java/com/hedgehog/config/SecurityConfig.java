@@ -43,23 +43,27 @@ public class SecurityConfig {
                 .authorizeHttpRequests( // 페이지 권한 설정
                         //SUPER_ADMIN("SUPER_ADMIN"), ADMIN("ADMIN"), MEMBER("MEMBER"), GUEST("GUEST")
                         auth -> {
-                            auth.requestMatchers("/adminmain/**",
-                                    "/product/**",
-                                    "/category/**",
-                                    "/member/**",
-                                    "/order/**",
-                                    "/Service/**",
-                                    "/adminManagement/**",
-                                    "/statistics/**",
-                                    "/event/**",
-                                    "/autoMailModify/**").hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.SUPER_ADMIN.getRole());
-                            auth.requestMatchers("/board/writeQuestion/**",
-                                    "/board/writeReview/**",
-                                    "/board/uploadSummernoteImageFile/**",
-                                    "/myshop/**"
-                            ).hasAnyAuthority(UserRole.MEMBER.getRole());
                             auth.requestMatchers("/myshop/guestOrderSearch**",
-                                    "/myshop/orderDetails**").permitAll();
+                                            "/myshop/orderDetails**").
+                                    permitAll();
+                            auth.requestMatchers("/adminmain/**",
+                                            "/product/**",
+                                            "/category/**",
+                                            "/member/**",
+                                            "/order/**",
+                                            "/Service/**",
+                                            "/adminManagement/**",
+                                            "/statistics/**",
+                                            "/event/**",
+                                            "/autoMailModify/**").
+                                    hasAnyAuthority(UserRole.ADMIN.getRole(), UserRole.SUPER_ADMIN.getRole());
+                            auth.requestMatchers("/board/writeQuestion/**",
+                                            "/board/writeReview/**",
+                                            "/board/uploadSummernoteImageFile/**",
+                                            "/myshop/**").
+                                    hasAnyAuthority(UserRole.MEMBER.getRole());
+//                            auth.requestMatchers("/myshop/guestOrderSearch**",
+//                                    "/myshop/orderDetails**").permitAll();
                             auth.anyRequest().permitAll();
 //                            auth.requestMatchers("/**")
 //                                    .permitAll();

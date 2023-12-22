@@ -96,16 +96,26 @@
                             <th:block th:text="|[${order.orderCode}]|"></th:block>
                         </td>
                         <td><img th:src="|/thumbPath${order.convertPath}|" th:alt="|${order.orderCode}번 제품이미지|"></td>
-                        <td th:text="|${order.productName} 포함 ${order.productCount}개|">
+                        <td th:text="|${order.productName} 포함 ${order.productCount}종류|">
                         </td>
-                        <td>
-                            <th:block
-                                    th:text="|${order.costPrice - order.reducedPrice - order.pointUsage}원|"></th:block>
-                        </td>
-                        <td th:text="|${order.deliveryCharge}원|"></td>
-                        <td>
-                            <th:block th:text="|${order.pointCharge}p|"></th:block>
-                        </td>
+                        <td th:text="|${#numbers.formatInteger(order.costPrice - order.reducedPrice - order.pointUsage,4,'COMMA')} 원|"
+                            th:if="${order.costPrice - order.reducedPrice - order.pointUsage >= 1000}"></td>
+                        <td th:text="|${order.costPrice - order.reducedPrice - order.pointUsage} 원|"
+                            th:if="${order.costPrice - order.reducedPrice - order.pointUsage > 0 and order.costPrice - order.reducedPrice - order.pointUsage < 1000}"></td>
+                        <td th:text="|0 원|" th:if="${order.costPrice - order.reducedPrice - order.pointUsage}==0"></td>
+
+                        <td th:text="|${#numbers.formatInteger(order.deliveryCharge,4,'COMMA')} 원|"
+                            th:if="${order.deliveryCharge >= 1000}"></td>
+                        <td th:text="|${order.deliveryCharge} 원|"
+                            th:if="${order.deliveryCharge > 0 and order.deliveryCharge < 1000}"></td>
+                        <td th:text="|0 원|" th:if="${order.deliveryCharge}==0"></td>
+
+                        <td th:text="|${#numbers.formatInteger(order.pointCharge,4,'COMMA')} 원|"
+                            th:if="${order.pointCharge >= 1000}"></td>
+                        <td th:text="|${order.pointCharge} 원|"
+                            th:if="${order.pointCharge > 0 and order.pointCharge < 1000}"></td>
+                        <td th:text="|0 원|" th:if="${order.pointCharge}==0"></td>
+
                         <td th:text="${order.state}"></td>
                     </tr>
                     </tbody>
