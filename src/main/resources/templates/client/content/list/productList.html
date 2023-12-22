@@ -38,8 +38,8 @@
 
             </ul>
 
-            <div class="gallery" id="thumbnailArea">
-                <th:block th:each="product : ${productList}">
+            <div class="gallery" id="thumbnailArea" th:if="${productList}">
+                <th:block th:each="product : ${productList}" >
                     <ul class="gallery_list">
                         <input type="hidden" th:value="${product.adminProductDTO.productCode}">
                         <li>
@@ -52,7 +52,10 @@
                             </ul>
                             <ul class="gallery_list_text2">
                                 <li th:text="${product.adminProductDTO.productName}"></li>
-                                <span th:text="'￦'+${T(java.lang.String).format('%,d', product.adminProductDTO.price)}"></span>
+                                <span th:text="${T(java.lang.String).format('%,d', product.adminProductDTO.price) +'원'}"
+                                      th:classappend="${product.getSaleEndDay() != null} ? 'strikethrough' : ''"></span>
+                                <span th:if="${product.getDiscount() != null}" th:text="${product.getDiscount() * 100 }+'%'"></span>
+                                <li class="saleDate" th:if="${product.getSaleEndDay() != null}" th:text="${#strings.substring(product.getSaleEndDay(), 0, 10)+'(세일종료)'}">할인끝나는날짜</li>
                             </ul>
                         </li>
                     </ul>

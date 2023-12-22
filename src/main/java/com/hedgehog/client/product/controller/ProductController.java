@@ -1,5 +1,6 @@
 package com.hedgehog.client.product.controller;
 
+import com.hedgehog.client.board.model.dto.ProductReviewDTO;
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
 import com.hedgehog.client.product.model.dto.ProductDetailReviewDTO;
 import com.hedgehog.client.product.model.service.ProductService;
@@ -48,10 +49,7 @@ public class ProductController {
         for (ProductDetailDTO prodDetail : productDetail) {
             log.info("상품목록====" + prodDetail);
 
-
-
         }
-
 
         Long productPriceObject = Long.valueOf(productPrice);
         log.info("상품가격 타입: " + productPriceObject.getClass().getName());
@@ -73,28 +71,64 @@ public class ProductController {
         log.info("들고온상품리뷰관련결과값=====" + productDetailReview);
 
 
-        System.out.println("리뷰총갯===" + productDetailReview.size());  /*  null도 1로인식..  */
+        String star = "fa-solid fa-star";
+        String halfStar = "fa-solid fa-star-half";
+
+        List<String> result = new ArrayList<>();
+
+        double reviewAvg = 0.0;
+        if (productDetailReview.get(0) != null) {
+            reviewAvg = productDetailReview.get(0).getReviewAvg();
+
+            int integerPart = (int) reviewAvg;
+            log.info("정수구하기=====" + integerPart);
+            if (integerPart > 0) {
+
+                for (int i = 0; i < integerPart; i++) {
+                    result.add(star);
+                }
+
+                if (reviewAvg - integerPart >= 0) {
+                    result.add(halfStar);
+                }
+                log.info("정수수수수=====" + integerPart);
 
 
-        System.out.println("사이즈===="+productDetailReview.size());
+            }
 
-        System.out.println("리뷰총갯수수수===" + productDetailReview.size());
+            log.info("result=====" + result);
+            log.info("integerPart=====" + integerPart);
+            System.out.println("reviewAvg======"+reviewAvg);
+        }
 
+        log.info("관련결과값=====" + productDetailReview);
 
-        String fullStarIcon = "fas fa-star";
-        String halfStarIcon = "fa-star-half";
+        log.info("result=====" + result);
+
+        log.info("마지막확인결과값=====" + productDetailReview);
 
 
         model.addAttribute("productDetail", productDetail);
         model.addAttribute("productPrice", productPrice);
         model.addAttribute("productOption", optionNameList);
         model.addAttribute("productReview", productDetailReview);
-        model.addAttribute("fullStarIcon",fullStarIcon);
+        model.addAttribute("result",result);
 
         System.out.println("총결과값=====" + productDetailReview);
 
 
         return "client/content/productinfo/product";
     }
+
+
+//    @GetMapping("/product/{sale}")
+//    public String selectSale(@PathVariable int sale){
+//
+//
+//
+//
+//        return "client/content/productinfo/product";
+//
+//    }
 
 }
