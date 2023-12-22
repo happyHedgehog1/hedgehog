@@ -83,6 +83,8 @@
                     AND write_date > #{searchStartDay}
                 </if>
             </if>
+            and status != 'A'
+
         </where>
     </select>
     <select id="eventDetail" resultMap="eventResultMap">
