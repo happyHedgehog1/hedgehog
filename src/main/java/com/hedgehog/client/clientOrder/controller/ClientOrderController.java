@@ -3,17 +3,16 @@ package com.hedgehog.client.clientOrder.controller;
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
+import com.hedgehog.client.clientOrder.model.dto.ClientCartOrderForm;
 import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import com.hedgehog.client.clientOrder.model.service.ClientCartServiceImp;
 import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
-import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
 import com.hedgehog.client.kakaopay.model.service.KakaoPayService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -99,25 +98,14 @@ public class ClientOrderController {
     //여기부터 주문성공 및 실패 페이지
 
     @GetMapping("/orderCompleted") //주문완료 페이지
-    public String orderCompleted(
-                                 @RequestParam("pg_token") String pgToken,
-                                 @ModelAttribute("tid") String tid,
-//                                 @RequestParam(value = "AllOriginalTotalOrder", required = false) int AllOriginalTotalOrder,
-//                                 HttpSession httpSession,
-                                 Model model
-    ){
-
-        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
-        model.addAttribute("총 가격",approveResponse.getAmount().getTotal());
-//        int AllOriginalTotalOrder = (int) httpSession.getAttribute("AllOriginalTotalOrder");
-
-        model.addAttribute("주문번호", tid);
-//        model.addAttribute("AllOriginalTotalOrder", AllOriginalTotalOrder);
+    public ModelAndView orderCompleted( ModelAndView mv,
+                                        @AuthenticationPrincipal LoginDetails loginDetails){
 
 
 
 
-        return "/client/content/clientOrder/orderCompleted";
+        mv.setViewName("/client/content/clientOrder/orderCompleted");
+        return mv;
     }
 
     @GetMapping("/orderFailed") // 주문실패 페이지

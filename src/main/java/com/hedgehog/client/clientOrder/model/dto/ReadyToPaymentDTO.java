@@ -22,4 +22,5 @@ public class ReadyToPaymentDTO {
     private String fail_url;
 
 
+
 }

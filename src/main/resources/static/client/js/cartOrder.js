@@ -200,7 +200,7 @@ function sendValuesToServer() {
 //카카오페이 관련 결제하기 버튼을 누르면 동작
 
 const adminKey = 'c84521fef561a0b8f63c5438a75390a6';
-const formData = new FormData();
+// const formData = new FormData();
 
 
 
@@ -282,22 +282,21 @@ $(function(){
                 ,usingPoint:usingPoint
                 ,deliveryName:deliveryName
                 ,deliveryPhone:deliveryPhone
-                ,deliveryRequest:deliveryRequest
+                ,deliveryRequest:deliveryRequest,
+                next_redirect_pc_url: 'http://localhost:8080/clientOrder/orderComplete'
                 // ,productName:productName
             },
             success:function(response){
-                location.href = response.next_redirect_pc_url
+                location.href = response.next_redirect_pc_url//리다이렉트하는 url
+                console.log(response)
             },
             error:function (error){
+                // location.href = error.
                 console.log(error)
             }
         })
     })
 })
-
-
-
-
 
 
 

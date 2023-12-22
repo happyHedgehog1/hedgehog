@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.kakaopay.model.dao.KakaoPayMapper">
+
+
+<resultMap id="OrderCompletedResultMap" type="ClientCartOrderForm">
+    <id property="orderCode" column="order_code"/>
+    <result property="finalPrice" column="final_price"/>
+    <result property="productName" column="product_name"/>
+</resultMap>
+
+    <select id="getCartByUserNo" resultMap="OrderCompletedResultMap">
+
+        SELECT
+            A.order_code,
+            C.final_price,
+            B.product_name
+        FROM
+            tbl_order A
+                JOIN tbl_product B ON A.product_code = B.product_code
+                JOIN tbl_order_details C ON A.order_code = C.order_code
+        WHERE customer_code =#{userCode}
+
+
+    </select>
+
+
+</mapper>

@@ -2,15 +2,14 @@ package com.hedgehog.client.clientOrder.model.service;
 
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.clientOrder.model.dao.CartOrderMapper;
+import com.hedgehog.client.clientOrder.model.dto.ClientCartOrderForm;
 import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -45,6 +44,10 @@ public class ClientCartServiceImp implements ClientCartService {
         return cartOrderMapper.updateUserPoint(userCode, usedPoints);
     }
 
+    @Override
+    public ClientCartOrderForm getUserOrder(int userCode) {
+        return cartOrderMapper.getUserOrder(userCode);
+    }
 
 
 }

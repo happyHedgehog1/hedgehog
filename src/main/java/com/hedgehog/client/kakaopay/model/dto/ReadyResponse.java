@@ -18,6 +18,8 @@ public class ReadyResponse {//카카오페이에서 결제 처리 후 응답을 
 
     private String partner_order_id;//파트너사에서 전달하는 주문 고유 Id
 
+    private String created_at; //생성일자?
+
 
 
 

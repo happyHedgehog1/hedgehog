@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface kakaoPayMapper {
+public interface KakaoPayMapper {
 
 
-//    List<CartSelectDTO> getCartByUserNo(int userCode);
+    List<CartSelectDTO> getCartByUserNo(int userCode);
 }

@@ -2,82 +2,71 @@ package com.hedgehog.client.kakaopay.model.service;
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
-import com.hedgehog.client.kakaopay.model.dao.kakaoPayMapper;
+import com.hedgehog.client.kakaopay.model.dao.KakaoPayMapper;
 import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
 import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
-import org.apache.catalina.manager.util.SessionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
 @Service
+@SessionAttributes({"tid", "orderPayment"})
 public class KakaoPayService {
 
-//
-////    @Autowired
-//    private final kakaoPayMapper kakaoMapper;
-//
+
+//    @Autowired
+    private final KakaoPayMapper kakaoMapper;
+
 
 
     private static final String HOST = "https://kapi.kakao.com";
 
-//    public KakaoPayService(kakaoPayMapper kakaoMapper) {
-//        this.kakaoMapper = kakaoMapper;
-//    }
+    public KakaoPayService(KakaoPayMapper kakaoMapper) {
+        this.kakaoMapper = kakaoMapper;
+    }
+    ReadyResponse readyResponse;
 
 
-    private ReadyResponse readyResponse;
 
     public ReadyResponse payReady(String name, String phone, String email,
-                                   String savedPoint, String originalTotalOrder,
-                                   String deliveryPrice, String AllOriginalTotalOrder,
-                                   String usingPoint, String deliveryName, String deliveryPhone,
-                                   String deliveryRequest
-//                                  @AuthenticationPrincipal LoginDetails loginDetails
+                                  String savedPoint, String originalTotalOrder,
+                                  String deliveryPrice, String AllOriginalTotalOrder,
+                                  String usingPoint, String deliveryName, String deliveryPhone,
+                                  String deliveryRequest, LoginDetails loginDetails
+
     ) {
 
 
-//        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
-//        List<CartSelectDTO> carts = kakaoMapper.getCartByUserNo(loginUserDTO.getUserCode());
-//
-//        String[] cartNames = new String[carts.size()];
-//        for (CartSelectDTO cart : carts){
-//            for (int i = 0; i < carts.size(); i++) {
-//                cartNames[i] = cart.getProductName();
-//            }
-//        }
-//        String itemName = cartNames[0] + " 그외 " + (carts.size()-1);//인덱스니까 -1
-//        log.info("상품명들 : " + itemName);
-//        String orderId = loginUserDTO.getUserCode() + itemName;
-//
-//        log.info("주문아이디인데 이거 나오냐" + orderId);
+
+        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
+        List<CartSelectDTO> carts = kakaoMapper.getCartByUserNo(loginUserDTO.getUserCode());
+
 
         log.info("======================================> 서비스 시작 ");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         //parameters에 결제에 필요한 정보를 추가
 
-//        String orderId = "100";
+        String orderId = "100";
 
         parameters.add("cid", "TC0ONETIME"); //이거 테스트할땐 무조건 고정값으로 써야됨
-        parameters.add("partner_order_id", "10"); //주문번호
-        parameters.add("partner_user_id", name); //회원 네임인데 아이디로 가야겠네
-        parameters.add("item_name", "상품명이들어감");
+        parameters.add("partner_order_id", "4"); //주문번호
+        parameters.add("partner_user_id", "1in가구"); //아이디로 가야겠네
+        parameters.add("item_name", "수납장");
         parameters.add("quantity", "2");
         parameters.add("total_amount", AllOriginalTotalOrder);
         parameters.add("tax_free_amount", "0"); //비과세
-        parameters.add("approval_url", "http://localhost:8080/kakao/pay"); // 결제승인시 넘어갈 url
+        parameters.add("approval_url", "http://localhost:8080/kakao/pay/complete"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://localhost:8080/clientOrder/orderFailed"); // 결제취소시 넘어갈 url
         parameters.add("fail_url", "http://localhost:8080/clientOrder/orderFailed");
 
@@ -109,7 +98,9 @@ public class KakaoPayService {
         return readyResponse;
     }
 
+    //카카오api에 결제 승인 요청을 보내는 부
     public ApproveResponse payApprove(String tid, String pgToken){
+
 
 
 
@@ -117,11 +108,17 @@ public class KakaoPayService {
         log.info("=================================================================> 서비스 응답 시작 ");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+
+
         parameters.add("cid", "TC0ONETIME");
         parameters.add("tid", tid);
-        parameters.add("partner_order_id", "4"); // 주문명
-        parameters.add("partner_user_id", "1 in 가구");
+        parameters.add("partner_order_id", "4"); // 주문아이ㅅ
+        parameters.add("partner_user_id", "1in가구");
         parameters.add("pg_token", pgToken);
+
+        log.info("tid값이 여기서 받아지냐 =========" + tid);
+        log.info("pgToken은 여기서 받아지냐 ======= " + pgToken);
+
 
 
         log.info("=================================================================> 서비스 중간 ");
@@ -140,6 +137,9 @@ public class KakaoPayService {
 
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
         log.info("결재승인 응답객체: " + approveResponse);
+        log.info("tid왜 안나오냐" + tid);
+        log.info("tid왜 안나오냐" + approveResponse.getTid());
+
 
         log.info("======================================================================= 서비스 마지막 리턴 :");
         return approveResponse;

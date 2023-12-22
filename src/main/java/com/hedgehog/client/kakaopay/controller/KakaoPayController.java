@@ -1,24 +1,23 @@
 package com.hedgehog.client.kakaopay.controller;
 
 import com.hedgehog.client.auth.model.dto.LoginDetails;
+import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
 import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
+import com.hedgehog.client.kakaopay.model.dto.orderPayment;
 import com.hedgehog.client.kakaopay.model.service.KakaoPayService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @Slf4j
 @Controller
-@SessionAttributes({"tid","order"})
+@SessionAttributes({"tid", "orderPayment"})
 public class KakaoPayController {
 
     private final KakaoPayService kakaoPayService;
@@ -29,21 +28,27 @@ public class KakaoPayController {
         this.request = request;
     }
 
+
     @PostMapping("/kakao/pay")
     public @ResponseBody ReadyResponse payReady(
-                                  @RequestParam(required = false) String name,
-                                  @RequestParam(required = false) String phone,
-                                  @RequestParam(required = false) String email,
+                                  @RequestParam String name,
+                                  @RequestParam String phone,
+                                  @RequestParam String email,
                                   @RequestParam(required = false) String savedPoint,
                                   @RequestParam(required = false) String originalTotalOrder,
                                   @RequestParam(required = false) String deliveryPrice,
-                                  @RequestParam(required = false) String AllOriginalTotalOrder,
+                                  @RequestParam String AllOriginalTotalOrder,
                                   @RequestParam(required = false) String usingPoint,
                                   @RequestParam(required = false) String deliveryName,
-                                  @RequestParam(required = false) String deliveryPhone,
-                                  @RequestParam(required = false) String deliveryRequest,
+                                  @RequestParam String deliveryPhone,
+                                  @RequestParam String deliveryRequest,
+                                  @AuthenticationPrincipal LoginDetails loginDetails,
+                                  orderPayment orderpayment,
+
+
                                   Model model) {
 
+        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
 
         // 카카오 결제 준비하기 결제요청 service 실행.
         log.info("이름 : " + name);
@@ -59,17 +64,22 @@ public class KakaoPayController {
         log.info("배송요청사항 : " + deliveryRequest);
 
         log.info("==================================================== 컨트롤러 출력 시작 ");
+
         ReadyResponse readyResponse = kakaoPayService.payReady( name, phone, email,
                 savedPoint, originalTotalOrder, deliveryPrice
-                ,AllOriginalTotalOrder,usingPoint, deliveryName, deliveryPhone, deliveryRequest
+                ,AllOriginalTotalOrder,usingPoint, deliveryName, deliveryPhone, deliveryRequest, loginDetails
+    );
 
-        );
+        model.addAttribute("approval_url", readyResponse.getNext_redirect_pc_url());
+        model.addAttribute("orderPayment",orderpayment);
 
-        model.addAttribute("tid", readyResponse.getTid());
+
 
 
         // 요청처리후 받아온 결재고유 번호(tid)를 모델에 저장
         log.info("결재고유 번호: " + readyResponse.getTid());
+        model.addAttribute("tid", readyResponse.getTid());
+
         log.info("결제 예정 금액 다시 : " + AllOriginalTotalOrder);
 //        log.info("이건 왜 안들어와 다시 : " + readyResponse.getAllOriginalTotalOrder());
         log.info("이건" + readyResponse.getPartner_order_id());
@@ -85,30 +95,40 @@ public class KakaoPayController {
 
     }
 
-    @GetMapping("/order/pay/complete")
+    @GetMapping("/kakao/pay/complete")
     public String payCompleted(
-                                @RequestParam("pg_token") String pgToken,
-                               @ModelAttribute("tid") String tid,
-                               Model model) {
+            @RequestParam("pg_token") String pgToken,
+            @ModelAttribute("tid") String tid,
+            @ModelAttribute("orderPayment") orderPayment orderPayment,
+//            String pgToken,String tid,orderPayment orderPayment,
+                                 Model model) {
 
 //                               @RequestParam(value = "AllOriginalTotalOrder", required = false) int AllOriginalTotalOrder,
 
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
-        log.info("결재고유 번호: " + tid);
+        log.info("결재고유 번호당: " + tid);
+        log.info("주문정보: " + orderPayment);
+
 
         // 카카오 결재 요청하기
-        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+
+
+
 //         session = request.getSession();
 //        session.setAttribute("AllOriginalTotalOrder", AllOriginalTotalOrder);
 
 
 //        model.addAttribute("AllOriginalTotalOrder", AllOriginalTotalOrder);
-        model.addAttribute("주문번호", tid);
+        model.addAttribute("tid", tid);
+        model.addAttribute("pg_Token" , pgToken);
+
+
+        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
 
 
         log.info("=========================================컨트롤러 conpleted ");
 
-        return "redirect:/client/content/clientOrder/orderCompleted";
+        return "redirect:/clientOrder/orderCompleted";
 
     }
 

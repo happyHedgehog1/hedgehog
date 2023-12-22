@@ -1,6 +1,7 @@
 package com.hedgehog.client.clientOrder.model.dao;
 
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
+import com.hedgehog.client.clientOrder.model.dto.ClientCartOrderForm;
 import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,6 @@ public interface CartOrderMapper {
     OrderInfoDTO getOrderInfo(int userCode);
 
     int updateUserPoint(int userCode, int usedPoints);
+
+    ClientCartOrderForm getUserOrder(int userCode);
 }
