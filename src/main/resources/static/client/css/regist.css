@@ -7,9 +7,11 @@ section {
     justify-content: flex-start;
     min-height: 80.2vh;
 }
+
 #route_home {
     cursor: pointer;
 }
+
 #contents {
     align-self: center;
     /* min-width는 선택 */
@@ -30,32 +32,31 @@ section {
 }
 
 
-
 #agree_list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     border: 2px solid #A7727D;
-    max-width: 57em;
 }
 
-#agree_list>div {
+#agree_list > div {
     box-sizing: border-box;
 }
 
 #termsAndConditionContainer,
 #privacyPolicyContainer {
+    width: 30em;
     padding: 0.5em;
     border: 1px solid #a7727d;
 }
 
-#termsAndConditionContainer>:first-child,
-#privacyPolicyContainer>:first-child {
+#termsAndConditionContainer > :first-child,
+#privacyPolicyContainer > :first-child {
     font-size: 1.1em;
     margin-bottom: 0.5em;
 }
 
-#termsAndConditionContainer>:nth-child(2),
-#privacyPolicyContainer>:nth-child(2) {
+#termsAndConditionContainer > :nth-child(2),
+#privacyPolicyContainer > :nth-child(2) {
     max-height: 15em;
     overflow-y: scroll;
     border: 1px solid #ccc;
@@ -64,8 +65,8 @@ section {
     margin-bottom: 0.5em;
 }
 
-#termsAndConditionContainer>:nth-child(3),
-#privacyPolicyContainer>:nth-child(3) {
+#termsAndConditionContainer > :nth-child(3),
+#privacyPolicyContainer > :nth-child(3) {
     display: flex;
     justify-content: flex-end;
     gap: 0.3em;
@@ -107,18 +108,18 @@ section {
     padding: 5px 0px 5px 15px;
 }
 
-#contents_table td>input {
+#contents_table td > input {
     margin: 3px 0px 3px 5px;
 
 }
 
-#email_row td>div {
+#email_row td > div {
     margin: 4px 0px 4px 5px;
 }
 
-#email_row td>div:nth-child(3),
-#email_row td>div:nth-child(4),
-#email_row td>div:nth-child(5) {
+#email_row td > div:nth-child(3),
+#email_row td > div:nth-child(4),
+#email_row td > div:nth-child(5) {
     font-size: 0.8em;
 }
 
@@ -136,8 +137,8 @@ section {
     height: 1.7em;
 }
 
-#contents_table td>input,
-#contents_table td>label,#check_text {
+#contents_table td > input,
+#contents_table td > label, #check_text {
     margin-left: 5px;
 }
 
@@ -171,7 +172,7 @@ section {
     margin-left: 3px;
 }
 
-#email_authentication>div {
+#email_authentication > div {
     min-width: 4.3em;
 }
 
@@ -232,7 +233,8 @@ input {
 #address_col_3 {
     width: 25em;
 }
-#email_message{
-    font-size:0.8em;
-    color:red;
+
+#email_message {
+    font-size: 0.8em;
+    color: red;
 }

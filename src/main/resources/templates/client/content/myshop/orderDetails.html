@@ -63,14 +63,17 @@
                             th:if="${orderDetail.pointCharge >= 1000}"></td>
                         <td th:text="|${orderDetail.pointCharge} 원|"
                             th:if="${orderDetail.pointCharge > 0 and orderDetail.pointCharge < 1000}"></td>
-                        <td th:text="무료" th:if="${orderDetail.pointCharge}==0"></td>
-                        <td th:text="${orderDetails.orderState}"></td>
+                        <td th:text="|0 p|" th:if="${orderDetail.pointCharge}==0"></td>
+                        <td class="orderState" th:text="${orderDetails.orderState}"></td>
                         <td th:if="${orderDetails.orderState=='배송완료' and orderDetail.reviewPoint <= 0}">
                             <button type="button"
                                     sec:authorize="hasAuthority('MEMBER')"
                                     th:onclick="'location.href=\'/board/writeReview?orderDetailsCode=' + ${orderDetail.orderDetailsCode} + '\''">
                                 리뷰하기
                             </button>
+                        </td>
+                        <td th:unless="${orderDetails.orderState=='배송완료' and orderDetail.reviewPoint <= 0}">
+
                         </td>
                     </tr>
                     </tbody>
@@ -104,31 +107,70 @@
                     </tr>
                     </tfoot>
                 </table>
+                <div id="receive_button_wrap">
+                    <ul>
+                        <li>
+                            배송중인 제품을 받으시면 수령하기 버튼을 누르면 됩니다.
+                        </li>
+                        <li>
+                            비회원 문의는 전화로 가능합니다.
+                        </li>
+                    </ul>
+                    <div>
+                        <form method="post" action="/myshop/receiveComplete" id="receive_complete"
+                              th:if="${orderDetails.orderState=='배송중'}">
+                            <input type="hidden" id="order_code" name="orderCode" th:value="${orderDetails.orderCode}">
+                            <input id="receive_button" type="submit" value="수령하기"/>
+                        </form>
+                    </div>
+                </div>
                 <div class="subject">배송 정보</div>
-                <table id="delivery_info">
-                    <tbody>
-                    <tr>
-                        <td>받는 분</td>
-                        <td th:text="${orderDetails.recipientName}"></td>
-                    </tr>
-                    <tr>
-                        <td>휴대폰 번호</td>
-                        <td th:text="${orderDetails.recipientPhone}"></td>
-                    </tr>
-                    <tr>
-                        <td>배송지</td>
-                        <td th:text="${orderDetails.deliveryAddress}"></td>
-                    </tr>
-                    <tr>
-                        <td>배송방법</td>
-                        <td th:text="${orderDetails.deliveryRequest}"></td>
-                    </tr>
-                    <tr>
-                        <td>배송상태</td>
-                        <td th:text="${orderDetails.deliveryState}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div id="delivery_info">
+                    <table id="sender">
+                        <tr>
+                            <td>주문하시는 분</td>
+                            <td th:text="${name}"></td>
+                        </tr>
+                        <tr>
+                            <td>이메일</td>
+                            <td th:text="${email}"></td>
+                        </tr>
+                        <tr>
+                            <td>휴대폰 번호</td>
+                            <td th:text="${phone}"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                    <table id="receiver">
+                        <tr>
+                            <td>받는 분</td>
+                            <td th:text="${orderDetails.recipientName}"></td>
+                        </tr>
+                        <tr>
+                            <td>휴대폰 번호</td>
+                            <td th:text="${orderDetails.recipientPhone}"></td>
+                        </tr>
+                        <tr>
+                            <td>배송지</td>
+                            <td th:text="${orderDetails.deliveryAddress}"></td>
+                        </tr>
+                        <tr>
+                            <td>배송방법</td>
+                            <td th:text="${orderDetails.deliveryRequest}"></td>
+                        </tr>
+                        <tr>
+                            <td>배송상태</td>
+                            <td th:text="${orderDetails.deliveryState}"></td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="subject">주문금액 정보</div>
                 <div id="cost_info">
                     <ul class="minus">
@@ -197,7 +239,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="payment_wrap">
                         <div>
                             <div class="subject">결제정보</div>
@@ -226,5 +267,6 @@
             </div>
         </div>
     </section>
+    <script th:src="@{/client/js/orderDetails.js}"></script>
 </th:block>
 </html>
