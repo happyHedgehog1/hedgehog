@@ -37,7 +37,7 @@
             </if>
             AND A.customer_code = #{userCode}
             AND A.creation_date BETWEEN #{order.dateStart} AND #{order.dateEnd}
-
+            AND A.creation_date != #{order.dateEnd}
         </where>
     </select>
     <resultMap id="orderListDTOResultMap" type="com.hedgehog.client.orderDetails.model.dto.OrderListDTO">
@@ -99,6 +99,7 @@
             AND A.customer_code = #{userCode}
             AND A.creation_date BETWEEN #{orderDetailsSelectCriteria.order.dateStart} AND
             #{orderDetailsSelectCriteria.order.dateEnd}
+            AND A.creation_date != #{orderDetailsSelectCriteria.order.dateEnd}
             AND B.image_classification = 'Thumbnails'
         </where>
         GROUP BY A.order_code
@@ -217,4 +218,15 @@
           AND B.order_code = #{orderCode}
           AND A.member_state = 'N'
     </select>
+    <select id="selectUserCode">
+        SELECT A.user_code
+        FROM tbl_user A
+        JOIN tbl_order B ON A.user_code = B.customer_code
+        WHERE B.order_code=#{orderCode}
+    </select>
+    <update id="updateReceiveOrder">
+        UPDATE tbl_order
+        SET state = '배송완료'
+        WHERE order_code=#{orderCode}
+    </update>
 </mapper>

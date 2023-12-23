@@ -59,7 +59,17 @@ public class OrderDetailsService {
 
     public Integer selectOrderCode(Integer orderCode, String email) {
         Integer newOrderCode = mapper.selectOrderCode(orderCode, email);
-        log.info("가져온 newOrderCode... : "+newOrderCode);
+        log.info("가져온 newOrderCode... : " + newOrderCode);
         return newOrderCode;
+    }
+
+    public int selectUserCode(Integer orderCode) {
+        return mapper.selectUserCode(orderCode);
+    }
+
+    public boolean updateReceiveOrder(String orderCode) {
+        int result = mapper.updateReceiveOrder(orderCode);
+        log.info("result: ", result);
+        return result >= 0 ? true : false;
     }
 }

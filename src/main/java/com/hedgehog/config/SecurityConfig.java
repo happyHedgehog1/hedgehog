@@ -44,7 +44,8 @@ public class SecurityConfig {
                         //SUPER_ADMIN("SUPER_ADMIN"), ADMIN("ADMIN"), MEMBER("MEMBER"), GUEST("GUEST")
                         auth -> {
                             auth.requestMatchers("/myshop/guestOrderSearch**",
-                                            "/myshop/orderDetails**").
+                                            "/myshop/orderDetails**",
+                                            "/myshop/receiveComplete**").
                                     permitAll();
                             auth.requestMatchers("/adminmain/**",
                                             "/product/**",
