@@ -215,6 +215,8 @@ $(function(){
         var deliveryPhone = $("input[name='pay-phone2']").val();
         var deliveryRequest = $("input[name='deliveryRequest']").val();
         // var productName = $("input[name='productName']").val();
+        var productCode = $("input[name='orderProductCode']").val();
+        var count = $("input[name='orderCount']").val();
 
         if(name == ""){
             $("#name-input input[name='pay-name']").focus()
@@ -283,6 +285,8 @@ $(function(){
                 ,deliveryName:deliveryName
                 ,deliveryPhone:deliveryPhone
                 ,deliveryRequest:deliveryRequest,
+                productCode:productCode,
+                count:count,
                 next_redirect_pc_url: 'http://localhost:8080/clientOrder/orderComplete'
                 // ,productName:productName
             },
@@ -421,3 +425,8 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
+
+function kakaopaybtn() {
+    var button = document.getElementById('kakaoPay');
+    button.classList.toggle('clicked');
+}

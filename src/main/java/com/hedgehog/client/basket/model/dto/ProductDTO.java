@@ -8,7 +8,7 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
-public class productDTO {
+public class ProductDTO {
 
     private int productCode;
     private int categoryCode; //categoryDTO
