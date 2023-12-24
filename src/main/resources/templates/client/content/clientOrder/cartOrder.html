@@ -67,6 +67,8 @@
                         <td th:text="(${item.price * hdAmountList[index.index]} + (${totalSum > 100000 ? 0 : item.deliveryCharge}))">
                         </td>
 
+                        <input type="hidden" name="orderProductCode" th:value="${item.productCode}">
+                        <input type="hidden" name="orderCount" th:value="${item.amount}">
 
                     </tr>
                 </tbody>
@@ -212,7 +214,7 @@
                         <div class="payment">
                             <h4 class="payment2">결제수단</h4>
                             <br>
-                            <button type="button" class="payment3" id="kakaoPay">카카오페이</button>
+                            <button type="button" class="payment3" id="kakaoPay" onclick="kakaopaybtn()" >카카오페이 </button>
                         </div>
                         <br>
 

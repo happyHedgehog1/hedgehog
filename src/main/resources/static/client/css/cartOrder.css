@@ -196,6 +196,10 @@ tr:last-child {
 .payment3{
   cursor: pointer;
 }
+  .payment3.clicked {
+    background-color: #c59e9e !important; /* 덮어쓰기 위해 !important 사용 */
+
+  }
 
 .buying {
   display: grid;

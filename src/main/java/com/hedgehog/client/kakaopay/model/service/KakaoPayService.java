@@ -3,19 +3,18 @@ import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.kakaopay.model.dao.KakaoPayMapper;
+import com.hedgehog.client.kakaopay.model.dto.OrderPayment;
 import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
 import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -39,17 +38,12 @@ public class KakaoPayService {
 
 
     public ReadyResponse payReady(String name, String phone, String email,
-                                  String savedPoint, String originalTotalOrder,
-                                  String deliveryPrice, String AllOriginalTotalOrder,
-                                  String usingPoint, String deliveryName, String deliveryPhone,
-                                  String deliveryRequest, LoginDetails loginDetails
+                                  int savedPoint, int originalTotalOrder,
+                                  int deliveryPrice, int AllOriginalTotalOrder,
+                                  int usingPoint, String deliveryName, String deliveryPhone,
+                                  String deliveryRequest, LoginDetails loginDetails,
+                                  List<Integer> productCode, List<Integer> count) {
 
-    ) {
-
-
-
-        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
-        List<CartSelectDTO> carts = kakaoMapper.getCartByUserNo(loginUserDTO.getUserCode());
 
 
         log.info("======================================> 서비스 시작 ");
@@ -64,7 +58,7 @@ public class KakaoPayService {
         parameters.add("partner_user_id", "1in가구"); //아이디로 가야겠네
         parameters.add("item_name", "수납장");
         parameters.add("quantity", "2");
-        parameters.add("total_amount", AllOriginalTotalOrder);
+        parameters.add("total_amount", String.valueOf(AllOriginalTotalOrder));
         parameters.add("tax_free_amount", "0"); //비과세
         parameters.add("approval_url", "http://localhost:8080/kakao/pay/complete"); // 결제승인시 넘어갈 url
         parameters.add("cancel_url", "http://localhost:8080/clientOrder/orderFailed"); // 결제취소시 넘어갈 url
@@ -155,4 +149,25 @@ public class KakaoPayService {
     }
 
 
+    public void saveOrderDetail (int userCode, OrderPayment orderpayment){
+
+        log.info("이건 나오냐" + orderpayment);
+        log.info("유저코드이거나오냐"+ userCode);
+        orderpayment.setUserCode(userCode);
+        log.info("productcode나오냐"+ orderpayment.getProductCode());
+        log.info("pointusage이거나오냐" + orderpayment.getPointUsage());
+
+
+        log.info("주문코드요==" + orderpayment.getOrderCode());//주문전이라 안나옴
+
+        kakaoMapper.saveOrderDetail(userCode, orderpayment);
+
+    }
+
+
+//    public void saveAllOrderInfo(OrderPayment orderpayment) {
+//        log.info("배송비 나오냐 여기서? : " + orderpayment.getDeliveryCharge());
+//        log.info("총금액 : " + orderpayment.getFinalPrice());
+//        kakaoMapper.saveAllOrderInfo(orderpayment);
+//    }
 }

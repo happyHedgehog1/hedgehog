@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Getter
 @Service
 @ToString
-public class OrderListDTO {
+public class  OrderListDTO {
     private int orderCode; // tbl_order 의 order_code
     private Timestamp creationDate; // tbl_order 의 creation_date
     private String convertPath; // tbl_product_img 의 convert_path

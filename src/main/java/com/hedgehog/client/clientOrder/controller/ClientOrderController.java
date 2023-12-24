@@ -3,12 +3,10 @@ package com.hedgehog.client.clientOrder.controller;
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
-import com.hedgehog.client.clientOrder.model.dto.ClientCartOrderForm;
 import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import com.hedgehog.client.clientOrder.model.service.ClientCartServiceImp;
-import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
+import com.hedgehog.client.kakaopay.model.dto.OrderPayment;
 import com.hedgehog.client.kakaopay.model.service.KakaoPayService;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -99,11 +97,18 @@ public class ClientOrderController {
 
     @GetMapping("/orderCompleted") //주문완료 페이지
     public ModelAndView orderCompleted( ModelAndView mv,
+                                        @ModelAttribute("OrderPayment") OrderPayment orderpayment,
                                         @AuthenticationPrincipal LoginDetails loginDetails){
 
 
-
-
+//        OrderInfoDTO orderinfo = clientCartService.getOrderProduct();
+log.info("finalPrice"+ orderpayment.getFinalPrice());
+log.info("orderCode" + orderpayment.getOrderCode());
+mv.addObject("finalPrice", orderpayment.getFinalPrice());
+mv.addObject("userCode", loginDetails.getLoginUserDTO().getUserCode());
+mv.addObject("userName", loginDetails.getLoginUserDTO().getName());
+mv.addObject("orderCode", orderpayment.getOrderCode());
+log.info("이거라도 주문코드가" + orderpayment.getOrderCode());//이건 주문하면 나오내
         mv.setViewName("/client/content/clientOrder/orderCompleted");
         return mv;
     }
@@ -114,4 +119,7 @@ public class ClientOrderController {
     }
 
 }
+
+
+
 
