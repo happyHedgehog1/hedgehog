@@ -94,7 +94,7 @@
                                 <col style="width: 300px">
                                 <col style="width: 100%">
                                 <col class="w140">
-                                <col class="w140">
+                                <col class="w200">
                                 <col>
                             </colgroup>
                             <tbody>
@@ -108,8 +108,8 @@
                                 <tr class="proSearchBottomtr" th:each="mail,state : ${mailList}">
                                     <input type="hidden" th:value="${mail.mailsCode}" name="mailCode">
                                     <td th:text="${state.index +1}"/>
-                                    <td th:text="${mail.title}"/>
-                                    <td th:utext="${mail.content}"/>
+                                    <td style="padding-left: 20px; text-align: left" th:utext="${mail.title}"/>
+                                    <td style="padding-left: 20px; text-align: left" th:utext="${mail.content}"/>
                                     <td th:text="${mail.name} +건"/>
                                     <td th:text="${mail.date}"/>
                                 </tr>  

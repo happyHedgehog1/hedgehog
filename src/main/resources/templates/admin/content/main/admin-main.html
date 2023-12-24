@@ -95,26 +95,26 @@
                             <th class="tableDate">작성일자</th>
                         </tr>
                         <tr>
-                            <td class="tableTitle" th:text="${review.get(0).product.productName}"></td>
-                            <td class="tableWriter" th:utext="${#strings.substring(review.get(0).content, 0, 15) + '...'}"></td>
+                            <td class="tableWriter" th:text="${#strings.length(review.get(0).product.productName) > 10 ? #strings.substring(review.get(0).product.productName , 0 , 10 ) + '..' : review.get(0).product.productName}"></td>
+                            <td class="tableWriter" th:utext="${#strings.length(review.get(0).content) > 10 ? #strings.substring(review.get(0).content , 0 , 10 ) + '..' : review.get(0).content}"></td>
                             <td class="tableDate" th:text="${review.get(0).id.id}"></td>
                             <td class="tableDate" th:text="${review.get(0).write_date}"></td>
                         </tr>
                         <tr>
-                            <td class="tableTitle" th:text="${review.get(1).product.productName}"></td>
-                            <td class="tableWriter" th:utext="${#strings.substring(review.get(1).content, 0, 15) + '...'}"></td>
+                            <td class="tableWriter" th:text="${#strings.length(review.get(1).product.productName) > 10 ? #strings.substring(review.get(1).product.productName , 0 , 10 ) + '..' : review.get(1).product.productName}"></td>
+                            <td class="tableWriter" th:utext="${#strings.length(review.get(1).content) > 10 ? #strings.substring(review.get(1).content , 0 , 10 ) + '..' : review.get(1).content}"></td>
                             <td class="tableDate" th:text="${review.get(1).id.id}"></td>
                             <td class="tableDate" th:text="${review.get(1).write_date}"></td>
                         </tr>
                         <tr>
-                            <td class="tableTitle" th:text="${review.get(2).product.productName}"></td>
-                            <td class="tableWriter" th:utext="${#strings.substring(review.get(2).content, 0, 15) + '...'}"></td>
+                            <td class="tableWriter" th:text="${#strings.length(review.get(2).product.productName) > 10 ? #strings.substring(review.get(2).product.productName , 0 , 10 ) + '..' : review.get(2).product.productName}"></td>
+                            <td class="tableWriter" th:utext="${#strings.length(review.get(2).content) > 10 ? #strings.substring(review.get(2).content , 0 , 10 ) + '..' : review.get(2).content}"></td>
                             <td class="tableDate" th:text="${review.get(2).id.id}"></td>
                             <td class="tableDate" th:text="${review.get(2).write_date}"></td>
                         </tr>
                         <tr>
-                            <td class="tableTitle" th:text="${review.get(3).product.productName}"></td>
-                            <td class="tableWriter" th:utext="${#strings.substring(review.get(3).content, 0, 15) + '...'}"></td>
+                            <td class="tableWriter" th:text="${#strings.length(review.get(3).product.productName) > 10 ? #strings.substring(review.get(3).product.productName , 0 , 10 ) + '..' : review.get(3).product.productName}"></td>
+                            <td class="tableWriter" th:utext="${#strings.length(review.get(3).content) > 10 ? #strings.substring(review.get(3).content , 0 , 10 ) + '..' : review.get(3).content}"></td>
                             <td class="tableDate" th:text="${review.get(3).id.id}"></td>
                             <td class="tableDate" th:text="${review.get(3).write_date}"></td>
                         </tr>

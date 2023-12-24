@@ -90,6 +90,8 @@ tr{
     border: 1px solid #bdc5cd;
     width: 1350px;
     border-spacing: 0;
+    border-collapse: collapse;
+
 }
 
 
@@ -210,13 +212,15 @@ button:active {
     position: sticky;
     top: 0;
     line-height: 60px;
-    
+    border-collapse: collapse;
+
 }
 
 .modalTable2 td{
     border-bottom: solid #ebebeb 1px;
     text-align: center;
     border-right: 1px solid #ebebeb;
+    border-collapse: collapse;
 
 }
 
@@ -276,12 +280,15 @@ button:active {
     line-height: 60px;
     border-bottom: 1px solid #ebebeb;
     background-color: #CFCFCF;
+    border-collapse: collapse;
 }
 
 .modalResultTable{
     overflow-y: auto;
     height: 300px;
     margin: 0;
+    border-collapse: collapse;
+
 }
 
 #btnModalProdAdd{

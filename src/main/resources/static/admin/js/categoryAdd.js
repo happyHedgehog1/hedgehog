@@ -136,11 +136,11 @@ function updateTable2(data) {
 
     } else {
         // 다른 경우에는 활성화
-        inputCategoryName.prop('disabled', false);
-        categoryDisplayY.prop('disabled', false);
-        categoryDisplayN.prop('disabled', false);
+        inputCategoryName.prop('disabled', true);
+        categoryDisplayY.prop('disabled', true);
+        categoryDisplayN.prop('disabled', true);
 
-        $('#submit').show();
+        $('#submit').hide();
 
         // 노출 상태 설정
         if (data[0].category.state === "Y") {

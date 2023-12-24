@@ -13,7 +13,7 @@
     <div id="wrap">
         <header><a href="#">
             <div class="logobackground">
-                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h1 class="logoimg"><img src="/thumbPath/thumbnail_e500dd88ac7544e0abb3997f0fc3bd1f.png" alt="logo"></h1>
                 <h2>문의글 답변</h2>
             </div>
         </a>
@@ -21,7 +21,7 @@
     <div class="body">
         <div class="wrap">
             <form id="inquiryComment" th:action="@{ /Service/inquiryComment}" method="post">
-            <div class="answer"> 고객 문의 내용</div>
+            <div class="answer"> </div>
             <table>
                 <tr>
                     <th>유형</th>
@@ -36,7 +36,7 @@
 
                     <td th:text="${adminInquiryDTO.post_type}"></td>
                     <td th:text="${adminInquiryDTO.title}"  ></td>
-                    <td th:text="${adminInquiryDTO.content}"></td>
+                    <td th:utext="${adminInquiryDTO.content}"></td>
                     <td th:text="${adminInquiryDTO.getId().id}"></td>
                     <td th:text="${adminInquiryDTO.write_date}"></td>
                     <td th:text="${adminInquiryDTO.answer_state}"></td>
@@ -56,7 +56,7 @@
                     <td>
 
 
-                        <div id="summernote" th:text="${adminInquiryDTO.answer_state} eq 'Y' ? ${adminInquiryDTO.comContent} : ''"></div>
+                        <div id="summernote" th:utext="${adminInquiryDTO.answer_state} eq 'Y' ? ${adminInquiryDTO.comContent} : ''"></div>
                         <input type="hidden" id="content" name="content" />
 
 

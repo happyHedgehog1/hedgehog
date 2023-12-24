@@ -1,4 +1,5 @@
 var selectedProducts = [];
+$(document).ready(function () {
 
 // 모달 메뉴 열기
 document.getElementById("btnEventAdd").addEventListener("click", function () {
@@ -11,7 +12,6 @@ document.getElementById("closeModal").addEventListener("click", function () {
     resetSearchForm();
 });
 
-$(document).ready(function () {
     $("#btnPrdSearch").click(function (e) {
         e.preventDefault();
         console.log("작동");
@@ -45,11 +45,11 @@ $(document).ready(function () {
 
 function updateTable(data) {
     var tableBody = $(".modalTable2");
-    console.log("tableBody:", tableBody); // 확인용 출력
+    console.log("tableBody:", tableBody);
 
     tableBody.empty();
     var headRow =
-        '<tr class="searchResult">' +
+        '<tr class="searchResult" style="border-top: white solid 3px">' +
         '<th style="width: 140px;"><input type="checkbox" name="chk_all_product"></th>' +
         '<th style="width: 140px;">상품번호</th>' +
         '<th>상품명</th>' +
@@ -66,7 +66,7 @@ function updateTable(data) {
         var formattedDate = registrationDate.toISOString().split('T')[0];
         var formattedPrice = Number(data[i].price).toLocaleString();
 
-        var row = '<tr class="proSearchBottomtr">' +
+        var row = '<tr class="proSearchBottomtr" style="border-top: white solid 3px">' +
             '<td><input type="checkbox" name="resultCheckbox" id="resultCheckbox" style="width: 140px;" value="' + data[i].productCode + '"></td>' +
             '<td>' + data[i].productCode + '</td>' +
             '<td>' + data[i].productName + '</td>' +
@@ -90,7 +90,7 @@ function resetSearchForm() {
 
     // 테이블 헤더 다시 추가
     var headRow =
-        '<tr class="searchResult">' +
+        '<tr class="searchResult" style="border-top: white solid 3px">' +
         '<th style="width: 140px;"><input type="checkbox" name="chk_all_product"></th>' +
         '<th style="width: 140px;">상품번호</th>' +
         '<th>상품명</th>' +
@@ -260,14 +260,14 @@ $(document).ready(function () {
         var price = $("#price").val();
         var allProductCodes = [];
         $('input[name="resultCheckbox"]').each(function () {
-            allProductCodes.push($(this).closest('tr').find('td:eq(1)').text()); // 상품번호 열의 데이터 가져오기
+            allProductCodes.push($(this).closest('tr').find('td:eq(1)').text());
         });
 
 
         $.ajax({
             type: "POST",
             url: "/event/register",
-            contentType: "application/json; charset=UTF-8", // JSON 형식으로 요청을 보내도록 설정
+            contentType: "application/json; charset=UTF-8",
             data: JSON.stringify({
                 eventName: eventName,
                 status: status,
@@ -277,11 +277,11 @@ $(document).ready(function () {
                 allProductCodes: allProductCodes
             }),
             success: function (data) {
-                console.log("검색 결과:", data);
                 updateTable(data);
+                alert('이벤트 등록이 성공했습니다.');
             },
             error: function (error) {
-                console.error("검색 오류:", error);
+                alert('이벤트 등록에 실패했습니다.');
             }
         });
     });
@@ -321,10 +321,15 @@ $(document).ready(function () {
                 allProductCodes: allProductCodes
             }),
             success: function (data) {
-                console.log("검색 결과:", data);
-                updateTable(data);
+                if(date.success) {
+                    alert('이벤트 수정에 성공하였습니다.');
+                    updateTable(data);
+                }else {
+                    alert('이벤트 수정에 실패하였습니다.');
+                }
             },
             error: function (error) {
+                alert('이벤트 수정에 실패하였습니다.');
                 console.error("검색 오류:", error);
 
             }

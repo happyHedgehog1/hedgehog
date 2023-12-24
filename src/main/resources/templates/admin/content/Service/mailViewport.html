@@ -8,17 +8,18 @@
 </head>
 <body>
     <div id="wrap">
-            <div class="answer">
-                <div>
-                    메일 제목
-                </div>
-                <th:block th:text="${adminAutoMailDTO.title}"></th:block>
-                <div>
-                    메일 내용
-                </div>
-                <th:block th:utext="${adminAutoMailDTO.content}"/></div>
-
-        </div>
+        <table>
+            <tr>
+                <td>
+                    <span th:text="${adminAutoMailDTO.title}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <th:block th:utext="${adminAutoMailDTO.content}"/></div>
+                </td>
+            </tr>
+        </table>
     </div>
 
 </body>

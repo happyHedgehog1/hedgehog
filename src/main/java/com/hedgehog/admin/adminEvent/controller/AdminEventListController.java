@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -32,35 +34,36 @@ public class AdminEventListController {
      */
     @PostMapping(value = "/modify", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String modify(@RequestBody AdminEventForm form,
-                         RedirectAttributes rttr) {
-        String post_code = String.valueOf(form.getPost_code());
-        String eventName = form.getEventName();
-        String searchStartDay = form.getSearchStartDay();
-        String status = form.getStatus();
-        String searchEndDay = form.getSearchEndDay();
-        List<String> allProductCodes = form.getAllProductCodes();
-        List<String > productCode = form.getProductCode();
-        double price = form.getPrice() * 0.01;
-        form.setPrice(price);
+    public String modify(@RequestBody AdminEventForm form, RedirectAttributes rttr) {
+            String post_code = String.valueOf(form.getPost_code());
+            String eventName = form.getEventName();
+            String searchStartDay = form.getSearchStartDay();
+            String status = form.getStatus();
+            String searchEndDay = form.getSearchEndDay();
+            List<String> allProductCodes = form.getAllProductCodes();
+            List<String> productCode = form.getProductCode();
+            double price = form.getPrice() * 0.01;
+            form.setPrice(price);
 
-        log.info("");
-        log.info("");
-        log.info("*************************" + post_code);
-        log.info("*************************" + eventName);
-        log.info("*************************" + status);
-        log.info("*************************" + searchStartDay);
-        log.info("*************************" + searchEndDay);
-        log.info("*************************" + price);
-        log.info("*************************" + allProductCodes);
-        log.info("*************************" + productCode);
-        log.info("*************************" + form);
+            log.info("");
+            log.info("");
+            log.info("*************************" + post_code);
+            log.info("*************************" + eventName);
+            log.info("*************************" + status);
+            log.info("*************************" + searchStartDay);
+            log.info("*************************" + searchEndDay);
+            log.info("*************************" + price);
+            log.info("*************************" + allProductCodes);
+            log.info("*************************" + productCode);
+            log.info("*************************" + form);
 
-        adminEventService.modifyEvent(form);
-        rttr.addFlashAttribute("message", "이벤트 수정에 성공하였습니다.");
+            adminEventService.modifyEvent(form);
+
+            rttr.addFlashAttribute("success", true);
 
 
-        return "admin/content/event/eventModify";
+            return "admin/content/event/eventModify";
+
 
     }
 
@@ -72,8 +75,7 @@ public class AdminEventListController {
      */
     @PostMapping(value = "/register", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String registerEvent(@RequestBody AdminEventForm form,
-                                RedirectAttributes rttr) {
+    public String registerEvent(@RequestBody AdminEventForm form) {
         String eventName = form.getEventName();
         String searchStartDay = form.getSearchStartDay();
         String status = form.getStatus();
@@ -96,7 +98,6 @@ public class AdminEventListController {
 
 
         adminEventService.updateEventStatus(form);
-        rttr.addFlashAttribute("message", "이벤트 등록에 성공하였습니다.");
 
 
         return "admin/content/event/eventModify";

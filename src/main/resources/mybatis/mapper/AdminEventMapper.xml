@@ -66,10 +66,10 @@
             modify_date
         FROM tbl_event
         <where>
-            <if test="status == '1'">
+            <if test="status == 1">
                 AND status = 'Y'
             </if>
-            <if test="status == '2'">
+            <if test="status == 2">
                 AND status = 'N'
             </if>
             <if test="eventName != ''">

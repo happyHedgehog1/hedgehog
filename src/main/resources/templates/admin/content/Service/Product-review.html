@@ -116,12 +116,14 @@
                         <div class="tblWrapper">
                         <table class="tblBottom" id="productReview">
                             <colgroup>
-                                <col class="w140">
+                                <col class="w50">
                                 <col class="w140">
                                 <col style="width: 100%;">
+                                <col class="w200">
                                 <col class="w140">
-                                <col class="w140">
-                                <col>
+                                <col  class="w140">
+                                <col  class="w200">
+                                <col  class="w140">
                             </colgroup>
                             <tbody>
                                             <tr class="searchResult">
@@ -142,8 +144,8 @@
                                     </td>
 
                                     <td><img class="reviewImg" th:src="@{|/thumbPath${review.attachment.savePath}|}"></td>
-                                    <td th:utext="${#strings.length(review.content) > 10 ? #strings.substring(review.content, 0, 10) + '..' : review.content}"></td>
-                                    <td th:text="${#strings.length(review.product.productName) > 6 ? #strings.substring(review.product.productName, 0, 6) + '..' : review.product.productName}"></td>
+                                    <td th:utext="${#strings.length(review.content) > 18 ? #strings.substring(review.content, 0, 18) + '..' : review.content}" style="text-align: left; padding-left: 10px"></td>
+                                    <td th:text="${#strings.length(review.product.productName) > 10 ? #strings.substring(review.product.productName, 0, 10) + '..' : review.product.productName} " style="text-align: left; padding-left: 10px"></td>
                                     <td th:text="${ review.grade}"></td>
                                     <td th:text="${ review.id.id}"></td>
                                     <td th:text="${ review.write_date}"></td>
