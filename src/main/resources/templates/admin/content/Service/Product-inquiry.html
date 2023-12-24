@@ -128,17 +128,16 @@
                     <table class="tblBottom" id="productInquiry">
                         <colgroup>
                             <col class="w50">
-                            <col class="w140">
-                            <col class="w140">
-                            <col class="w140">
+                            <col class="w140" >
                             <col>
-                            <col style="width: 100%;">
+                            <col class="w140">
+                            <col class="w200">
                             <col class="w140">
                             <col class="w140">
                         </colgroup>
                         <tbody>
                         <tr class="searchResult">
-                            <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
+                            <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" style="width: 50px"></th>
                             <th>유형</th>
                             <th>제목</th>
                             <th>작성자</th>
@@ -153,7 +152,7 @@
                                        th:value="${inquiry.getInquiry_code()}">
                             </td>
                             <td th:text="${ inquiry.post_type}"></td>
-                            <td th:text="${ inquiry.title}"></td>
+                            <td th:text="${ inquiry.title}" style="text-align: left; padding-left: 10px"></td>
                             <td th:text="${ inquiry.id.id}"></td>
                             <td th:text="${ inquiry.write_date}"></td>
                             <td th:text="${ inquiry.answer_state}"></td>

@@ -216,39 +216,99 @@ $(document).ready(function () {
     // 상위 카테고리가 변경될 때마다 서브 카테고리 업데이트
     $('#upperCategoryCode').change(function () {
         setSelectBox($(this));
+    })
+
+    document.getElementById("btnAdd").addEventListener("click",  (e) => {
+        e.preventDefault();
+        let isValidate = validate();
+        if (isValidate) {
+            document.getElementById("productAdd").submit();
+        }
     });
 });
 
-//
-// $("#btnAdd").on("click", function () {
-//     var salesStart = $("#salesStart").val();
-//     var salesEnd = $("#salesEnd").val();
-//     var productName = $("#productName").val();
-//     var price = parseInt($("#price").val(), 10);
-//     var upperCategoryCode = parseInt($("#upperCategoryCode").val(), 10);
-//     var optionCode = $("#optionDTO\\[0\\]\\.optionCode").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
-//     var optionName = $("#optionDTO\\[0\\]\\.optionName").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
-//     var stock = $("#optionList\\[0\\]\\.stock").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
-//     var thumbnail = $("#thumbnail").val();
-//     var sub_thumbnail = $("#sub_thumbnail").val();
-//     var proImg = $("#proImg").val();
-//
-//     필드 중 하나라도 비어있을 때 경고창 띄우기
-//     if (salesStart === '' ||
-//         salesEnd === '' ||
-//         productName === "" ||
-//         price === "" ||
-//         upperCategoryCode === "" ||
-//         optionCode === "" ||
-//         optionName === "" ||
-//         stock === "" ||
-//         thumbnail === "" ||
-//         sub_thumbnail === "" ||
-//         proImg === ""
-//     ) {
-//         alert("모든 필드를 입력하세요.");
-//     }
-// });
-//
-//
-//
+
+
+
+    function validate() {
+        const salesStart = document.getElementById("salesStart");
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!dateRegex.test(salesStart.value) || salesStart.value === "" || salesStart.value === '' || salesStart.value === null) {
+            alert("상품 판매 시작일을 정해주세요");
+            salesStart.focus();
+            return false;
+        }
+        const salesEnd = document.getElementById("salesEnd");
+        if (!dateRegex.test(salesEnd.value) || salesEnd.value === "" || salesEnd.value === '' || salesEnd.value === null) {
+            alert("상품 판매 종료일을 정해주세요");
+            salesEnd.focus();
+            return false;
+        }
+        const productName = document.getElementById("productName");
+        if (productName.value.length <= 0) {
+            alert("상품명을 입력해주세요.");
+            productName.focus();
+            return false;
+        }
+        var parsedPrice = parseInt(document.getElementById("price").value);
+        if (isNaN(parsedPrice) || parsedPrice <= 0) {
+            alert("유효한 가격을 입력하세요.");
+            parsedPrice.focus();
+            return false;
+        }
+        const upperCategoryCode = document.getElementById("upperCategoryCode");
+        if (upperCategoryCode.value === 0) {
+            alert("상위 카테고리를 선택해주세요.");
+            upperCategoryCode.focus();
+            return false;
+        }
+        const subCategoryName = document.getElementById("subCategoryName");
+        if (subCategoryName.value === "") {
+            alert("세부 카테고리를 선택해주세요.");
+            subCategoryName.focus();
+            return false;
+        }
+        const optionCode = document.getElementById("optionDTO[0].optionCode");
+        if (optionCode.value.length <= 0) {
+            alert("색상코드를 입력해주세요.");
+            optionCode.focus();
+            return false;
+        }
+        const optionName = document.getElementById("optionDTO[0].optionName");
+        if (optionName.value.length <= 0) {
+            alert("색상명을 입력해주세요.");
+            optionName.focus();
+            return false;
+        }
+
+        var stock = parseInt(document.getElementById("optionList[0].stock").value);
+        if (isNaN(stock) || stock <= 0) {
+            alert("유효한 재고량을 입력하세요.");
+            stock.focus();
+            return false;
+        }
+        const thumbnail = document.getElementById("thumbnail");
+        if (thumbnail.value.length <= 0) {
+            alert("대표이미지를 넣어주세요.");
+            thumbnail.focus();
+            return false;
+        }
+        const sub_thumbnail = document.getElementById("sub_thumbnail");
+        if (sub_thumbnail.value.length <= 0) {
+            alert("sub_thumbnail 입력해주세요.");
+            sub_thumbnail.focus();
+            return false;
+        }
+        const proImg = document.getElementById("proImg");
+        if (proImg.value.length <= 0) {
+            alert("proImg 입력해주세요.");
+            proImg.focus();
+            return false;
+        }
+        alert("상품이 등록되었습니다.");
+        return true;
+    }
+
+
+
+

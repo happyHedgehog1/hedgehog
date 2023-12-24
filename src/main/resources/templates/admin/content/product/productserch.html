@@ -149,6 +149,11 @@
                             <colgroup>
                                 <col class="w140">
                                 <col>
+                                <col class="w140">
+                                <col class="w140">
+                                <col class="w140">
+                                <col class="w140">
+                                <col class="w200">
                             </colgroup>
                             <tbody>
                                         <tr class="searchResult">        
@@ -164,7 +169,7 @@
                                     th:each="product : ${ productList }"
                                 >
                                     <td th:text="${ product.productCode }"></td>
-                                    <td th:text="${ product.productName }"></td>
+                                    <td th:text="${ product.productName }" style="padding-left: 10px; text-align: left"></td>
                                     <td th:text="${ #numbers.formatInteger(product.price, 3, 'COMMA') + '원' }"></td>
                                     <td th:text="${ product.orderableStatus }"></td>
                                     <td th:text="${ product.optionList != null and not #lists.isEmpty(product.optionList) ? product.optionList[0].sales : ''}"></td>

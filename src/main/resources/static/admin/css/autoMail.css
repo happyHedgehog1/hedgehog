@@ -152,3 +152,25 @@ td {
       padding-top: 3px;
 
   }
+
+button{
+    display: block;
+    margin: auto;
+    width: 120px;
+    height: 30px;
+    color: white;
+    background-color: #A7727D;
+    border: 0;
+    font-size: 15px;
+
+}
+
+
+button:active {
+    background-color: #3F464F;
+    width: 120px;
+    height: 30px;
+    color: white;
+    border: 0;
+    font-size: 15px;
+}

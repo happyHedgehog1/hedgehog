@@ -11,7 +11,7 @@
     <div id="wrap">
         <header><a href="#">
             <div class="logobackground">
-                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h1 class="logoimg"><img src="/thumbPath/thumbnail_e500dd88ac7544e0abb3997f0fc3bd1f.png" alt="logo"></h1>
                 <h2 >상품 후기</h2>
             </div>
         </a>
@@ -35,11 +35,11 @@
                 </tr>
                 <tr>
                     <th>후기 내용</th>
-                    <td th:text="${adminReviewDTO.content}" colspan="4"></td>
+                    <td th:utext="${adminReviewDTO.content}" colspan="4"></td>
                 </tr>
                 <tr>
                     <th>후기 사진</th>
-                    <td th:text="${adminReviewDTO.content}" colspan="4"></td>
+                    <td th:utext="${adminReviewDTO.content}" colspan="4"></td>
                 </tr>
             </table>
         </div>

@@ -111,16 +111,17 @@
                         <div class="tblWrapper">
                         <table class="tblBottom" id="notice">
                             <colgroup>
-                                <col class="w140">
-                                <col class="w140">
+                                <col class="w50">
+                                <col>
+                                <col class="w200">
+                                <col class="w200">
                                 <col class="w200">
                                 <col class="w140">
                                 <col class="w140">
-                                <col>
                             </colgroup>
                             <tbody>
                                             <tr class="searchResult">
-                                                <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" ></th>
+                                                <th class="searchBottomCheck"><input type="checkbox" name="resultCheckbox" style="width: 50px"></th>
                                                 <th>제목</th>
                                                 <th>작성자</th>
                                                 <th>등록일자</th>
@@ -131,9 +132,9 @@
                                     <tr class="proSearchBottomtr" th:each="FAQ : ${ noticeList }">
                                     <td class="proSearchBottomCheck">
                                         <input type="checkbox" name="resultCheckbox" id="resultCheckbox"
-                                               th:value="${FAQ.getPost_code()}">
+                                               th:value="${FAQ.getPost_code()}" style="width: 50px">
                                     </td>
-                                    <td th:text="${#strings.length(FAQ.title) > 10 ? #strings.substring(FAQ.title, 0, 10) + '..' : FAQ.title}"></td>
+                                    <td style="text-align: left; padding-left: 20px" th:text="${#strings.length(FAQ.title) > 35 ? #strings.substring(FAQ.title, 0, 35) + '..' : FAQ.title}"></td>
                                     <td th:text="${ FAQ.id.id }"></td>
                                     <td th:text="${ FAQ.write_date }"></td>
                                     <td th:text="${ FAQ.modify_date }"></td>

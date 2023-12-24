@@ -63,6 +63,10 @@ tr{
     width: 25px !important;
 }
 
+.w50{
+    width: 25px !important;
+}
+
 .w400 {
     width: 400px !important;
 
@@ -71,7 +75,12 @@ tr{
 .w140{
     width: 140px !important;
 }
-
+.w100{
+    width: 100px !important;
+}
+.w200{
+    width: 200px !important;
+}
 
 .arrAlign li{
     float: left;
