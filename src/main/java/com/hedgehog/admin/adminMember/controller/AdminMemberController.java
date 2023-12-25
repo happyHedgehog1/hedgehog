@@ -6,6 +6,7 @@ import com.hedgehog.admin.adminOrder.model.dto.AdminOrderDTO;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
 import com.hedgehog.admin.exception.OrderStateUpdateException;
 import com.hedgehog.admin.exception.UnregistException;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -76,18 +78,9 @@ public class AdminMemberController {
         log.info("mailModify~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~시작");
         log.info("~~~~~~~~~~~~~~~~mailDTO : {}", mailDTO);
 
-
-//        mailDTO.setMemberId(name);
-//        for(int i = 0; i < mailDTO.getMemberId().size(); i++){
-//            String memberId = mailDTO.getMemberId().get(i);
-//            mailDTO.setMemberId(memberId);
-//        }
 //메일 보내는 메소드
         adminMemberServiceimpl.sendMail(mailDTO);
         rttr.addFlashAttribute("message", "메일 전송이 성공하였습니다.");
-
-//        메일 히스토리 테이블에 등록하는 메소드 Transactional때매 따로 생성
-//        adminMemberServiceimpl.insertMailHistoryTable(mailDTO);
 
 
 
@@ -145,7 +138,7 @@ public class AdminMemberController {
      */
     @PostMapping(value = "/memberWithdraw")
     private String memberWithdraw(@RequestParam("resultCheckbox")List<String> memberId,
-                                  RedirectAttributes rttr) throws UnregistException {
+                                  RedirectAttributes rttr) throws UnregistException, MessagingException, UnsupportedEncodingException {
 
         log.info("*********************** memberWithdraw");
         log.info("*********************** memberId"+memberId);
@@ -164,7 +157,7 @@ public class AdminMemberController {
 
         }
 
-        rttr.addFlashAttribute("message", "회원탈퇴 신청되었습니다. 탈퇴 확정은 탈퇴회원조회 페이지에서 진행해주세요.");
+        rttr.addFlashAttribute("message", "회원탈퇴가 완료되었습니다.");
         return "redirect:/member/membersearchPage";
     }
 

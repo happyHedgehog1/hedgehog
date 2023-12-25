@@ -14,12 +14,12 @@
         function previewMail(mailCode) {
             console.log(mailCode)
             const mailDetailUrl = "/autoMailModify/previewMail?mailCode=" + mailCode;
-            window.open(mailDetailUrl, "_blank", "width=1200, height=800");
+            window.open(mailDetailUrl, "_blank", "width=850, height=800");
         }
         function modifyMail(mailCode) {
             console.log(mailCode)
             const mailDetailUrl = "/autoMailModify/modifyMailPage?mailCode=" + mailCode;
-            window.open(mailDetailUrl, "_blank", "width=1200, height=800");
+            window.open(mailDetailUrl, "_blank", "width=1000, height=1200");
         }
 
     </script>
@@ -88,8 +88,18 @@
                                         <td>
                                             <button type="button" name="newMember" onclick="previewMail(7)">미리보기</button>
                                         </td>
+                                    </tr>
+                                    <tr>
 
-                                    </tr>   
+                                        <th>인증번호발송</th>
+                                        <td>
+                                            <button type="button" name="newMember" onclick="modifyMail(9)">수정</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" name="newMember" onclick="previewMail(9)">미리보기</button>
+                                        </td>
+
+                                    </tr>
                                 </tbody>    
                             </table>
 

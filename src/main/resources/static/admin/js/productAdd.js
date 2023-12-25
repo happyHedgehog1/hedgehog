@@ -33,7 +33,7 @@ $(document).ready(function () {
 
         var src = $(this).attr("src");
         if (src.includes("add.png")) {
-            // 새로운 op-list 엘리먼트 생성
+
             var newOpList = $("<tr class='optionList'>" +
                 "<th colspan='2'>" +
                 "<ul class='arrAlign'>" +
@@ -61,13 +61,13 @@ $(document).ready(function () {
 
     $("#file").on("change", function(e){
 
-    var files = e.target.files; //input file 객체를 가져온다.
+    var files = e.target.files;
     var i,f;
     for (i = 0; i != files.length; ++i) {
         f = files[i];
-        var reader = new FileReader(); //FileReader를 생성한다.
+        var reader = new FileReader();
 
-        //성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
+
         reader.onload = function(e) {
         };
         reader.readAsBinaryString(f);
@@ -105,16 +105,13 @@ $(function () {
             return;
         }
 
-        // 미리보기를 담을 컨테이너 엘리먼트 가져오기
         var thumbnailContainer = $("#subThumbnailPreview");
 
-        // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
         if (thumbnailContainer.children('img').length + files.length > 3) {
             var excessCount = thumbnailContainer.children('img').length + files.length - 3;
             thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
         }
 
-        // 새로 추가한 이미지를 배열에 추가
         for (var i = 0; i < files.length; i++) {
             var image = new Image();
             var ImageTempUrl = window.URL.createObjectURL(files[i]);
@@ -165,7 +162,6 @@ $(function(){
         $("#totalStock").text(totalQuantity);
     }
 
-// 페이지 로딩 시 초기 전체 재고를 설정하기 위해 updateTotalStock 함수를 호출합니다.
     $(document).ready(function () {
         // 페이지 로딩 시 초기 옵션 개수에 따라 재고 설정
         updateTotalStock();
@@ -195,7 +191,6 @@ function setSelectBox(select) {
                     .attr('value', data[i].subCategoryName)
                     .text(data[i].name);
 
-                // 만약 현재 옵션이 선택된 상태이면 선택 속성 추가
                 if (data[i].subCategoryName === selectedSubCategory) {
                     option.attr('selected', 'selected');
                 }
@@ -209,11 +204,10 @@ function setSelectBox(select) {
     });
 }
 
-// 페이지 로딩 시 초기 서브 카테고리 설정
 $(document).ready(function () {
     setSelectBox($('#upperCategoryCode'));
 
-    // 상위 카테고리가 변경될 때마다 서브 카테고리 업데이트
+    // 상위 카테고리를 선택하면 서브 카테고리 값을 db에서 가져옴
     $('#upperCategoryCode').change(function () {
         setSelectBox($(this));
     })
@@ -229,7 +223,7 @@ $(document).ready(function () {
 
 
 
-
+//유효성 검사
     function validate() {
         const salesStart = document.getElementById("salesStart");
         const dateRegex = /^\d{4}-\d{2}-\d{2}$/;

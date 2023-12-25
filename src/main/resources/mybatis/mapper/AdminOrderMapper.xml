@@ -29,6 +29,8 @@
         <result property="costPrice" column="cost_price"/>
         <result property="finalPrice" column="final_price"/>
         <result property="optionCode" column="option_code"/>
+        <result property="exchangeCause" column="exchangeCause"/>
+        <result property="refundCause" column="refundCause"/>
     </resultMap>
     <resultMap id="adminUserResultMap" type="AdminUserDTO">
         <id property="user_code" column="user_code"/>
@@ -243,13 +245,17 @@
             G.recipient_phone,
             g.delivery_address,
             g.delivery_requests,
-            g.state
+            G.state,
+            H.cause exchangeCause,
+            I.cause refundCause
         FROM tbl_order_details C
                  JOIN tbl_order A ON A.order_code = C.order_code
                  JOIN tbl_product D ON D.product_code = C.product_code
-                 JOIN tbl_user E on A.customer_code = E.user_code
-                 join tbl_customer F on A.customer_code = F.customer_code
-                 join tbl_delivery G on A.order_code = G.delivery_code
+                 JOIN tbl_user E ON A.customer_code = E.user_code
+                 JOIN tbl_customer F ON A.customer_code = F.customer_code
+                 JOIN tbl_delivery G ON A.order_code = G.delivery_code
+                 LEFT JOIN tbl_exchange H ON A.order_code = H.payment_code
+                 LEFT JOIN tbl_refund I ON A.order_code = I.payment_code
         where A.order_code = #{orderCode}
     </select>
 

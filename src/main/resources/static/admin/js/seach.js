@@ -171,7 +171,7 @@ $(document).ready(function () {
                     const inquiry_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
                     const answer_state = this.parentNode.children[5].innerText;
                     const inquiryDetailUrl = "/Service/inquiryDetail?inquiry_code=" + inquiry_code+ "&answer_state=" + answer_state;
-                    window.open(inquiryDetailUrl, "_blank", "width=840, height=700");
+                    window.open(inquiryDetailUrl, "_blank", "width=900, height=1500");
                 };
             }
 

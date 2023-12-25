@@ -100,12 +100,15 @@ public class AdminUnregisterController {
         int totalResult= unregisterList.size();
         int countY = 0;
         int countN = 0;
+        int countI = 0;
         for (int i = 0; i < unregisterList.size(); i++) {
             String state = unregisterList.get(i).getState();
-            if (unregisterList.get(i).getCause().equals("관리자 탈퇴") || unregisterList.get(i).getCause().equals("강제 탈퇴")) {
+            if (unregisterList.get(i).getCause().equals("강제 탈퇴")) {
                 countN++;
-            }else {
+            }else if (unregisterList.get(i).getCause().equals("탈퇴 취소")){
                 countY++;
+            }else {
+                countI++;
             }
 
         }
@@ -117,6 +120,7 @@ public class AdminUnregisterController {
         modelAndView.addObject("totalResult", totalResult);
         modelAndView.addObject("countY", countY);
         modelAndView.addObject("countN", countN);
+        modelAndView.addObject("countI", countI);
 
 
         return modelAndView;
