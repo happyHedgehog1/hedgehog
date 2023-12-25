@@ -71,14 +71,17 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 if (response === "success") {
-                    window.location.href = "/myshop/orderDetails?orderCode=" + orderCode;
+                    window.location.href =
+                        "/myshop/orderDetails?orderCode=" + orderCode;
                 } else {
-                    // 실패했을 경우
+                    alert("주문정보와 계정정보가 일치하지 않습니다.\n메인으로 돌아갑니다.");
+                    location.href='/'
                 }
             },
             error: function (error) {
                 console.error("Error:", error);
-                // 오류가 나올 경우.
+                alert("알 수 없는 오류가 발생했습니다.\n메인으로 돌아갑니다.");
+                location.href='/'
             }
         })
     })

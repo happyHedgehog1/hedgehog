@@ -8,8 +8,11 @@ import com.hedgehog.client.orderDetails.model.dto.*;
 import com.hedgehog.client.orderDetails.model.service.OrderDetailsService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserEmailNotFoundException;
+import com.hedgehog.common.logout.SessionLogout;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsPagenation;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsSelectCriteria;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
@@ -180,12 +183,14 @@ public class OrderDetailsController {
     @PostMapping("/memberOrderDetails")
     @ResponseBody
     public String memberOrderDetails(@AuthenticationPrincipal LoginDetails loginDetails,
-                                     @RequestParam int orderCode) {
+                                     @RequestParam int orderCode,
+                                     HttpServletRequest req,
+                                     HttpServletResponse res) {
         int userCode = loginDetails.getLoginUserDTO().getUserCode();
-        log.info("주문내역을 찾으려는데... 계정코드 : " + userCode);
         boolean result = orderDetailsService.isYourOrder(userCode, orderCode);
-        log.info("주문내역이 지금 내 계정정보와 같냐... : " + result);
-
+        if (!result) {
+            SessionLogout.invalidSession(req, res);
+        }
         return result == true ? "success" : "fail";
     }
 
@@ -196,8 +201,8 @@ public class OrderDetailsController {
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
         if (loginDetails == null) {
-            log.info("잘못된 접근이라 메인으로 돌아갑니다.");
-            redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다. 메인으로 돌아갑니다.");
+            redirectAttributes.addFlashAttribute("message",
+                    "잘못된 접근입니다. 메인으로 돌아갑니다.");
             return "redirect:/";
         }
         LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
@@ -207,12 +212,7 @@ public class OrderDetailsController {
             log.info("계정정보가 달라서 메인으로 돌아갑니다.");
             return "redirect:/";
         }
-
         OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
-
-        log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
-
-
         model.addAttribute("orderDetails", orderDetailsCollect);
         int sumCostPrice = orderDetailsCollect
                 .getOrderDetailsList()
@@ -234,19 +234,17 @@ public class OrderDetailsController {
                 .stream()
                 .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
         model.addAttribute("sumPointCharge", sumPointCharge);
-        model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
+        model.addAttribute("finalPrice",
+                sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
         int sumReviewPoint = orderDetailsCollect
                 .getOrderDetailsList()
                 .stream()
                 .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
         model.addAttribute("sumReviewPoint", sumReviewPoint);
-
         MemberDTO member = myshopService.getMemberInfo(userCode);
         model.addAttribute("name", member.getName());
         model.addAttribute("email", member.getEmail());
         model.addAttribute("phone", member.getPhone());
-
-
         return "/client/content/myshop/orderDetails";
     }
 
