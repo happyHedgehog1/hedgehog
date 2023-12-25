@@ -96,7 +96,7 @@
                             <th:block th:text="|[${order.orderCode}]|"></th:block>
                         </td>
                         <td><img th:src="|/thumbPath${order.convertPath}|" th:alt="|${order.orderCode}번 제품이미지|"></td>
-                        <td th:text="|${order.productName} 포함 ${order.productCount}종류|">
+                        <td th:text="|${order.productName.length() lt 15 ? order.productName : order.productName.substring(0, 15)+'...'} 포함 ${order.productCount}종류|">
                         </td>
                         <td th:text="|${#numbers.formatInteger(order.costPrice - order.reducedPrice - order.pointUsage,4,'COMMA')} 원|"
                             th:if="${order.costPrice - order.reducedPrice - order.pointUsage >= 1000}"></td>

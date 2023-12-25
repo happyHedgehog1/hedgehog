@@ -20,7 +20,7 @@
                 <li>리뷰하기</li>
             </ul>
             <div id="contents">
-                <form action="/board/writeReview" method="post" id="registReview">
+                <form th:action="@{/board/writeReview}" method="post" id="registReview">
                     <table id="contents_table">
                         <tr>
                             <td colspan="2">
@@ -87,12 +87,11 @@
                             </td>
                         </tr>
                     </table>
-                    <!--                    <input type="hidden" id="uploadedImages" name="uploadedImages" value="">-->
-                    <input type="text" id="uploadedImages" name="uploadedImages" value="" readonly>
-                    <input type="text" id="orderDetailsCode" name="orderDetailsCode"
+                    <input type="hidden" id="uploadedImages" name="uploadedImages" value="" readonly>
+                    <input type="hidden" id="orderDetailsCode" name="orderDetailsCode"
                            th:value="${orderDetailsDTO.orderDetailsCode}"
                            readonly>
-                    <input type="text" id="stars" name="stars" value="0" readonly>
+                    <input type="hidden" id="stars" name="stars" value="0" readonly>
                     <div id="bottom_buttons">
                         <input type="button" id="goback_button" value="뒤로가기" onclick="history.back()">
                         <input type="submit" id="submit_button" value="작성하기">

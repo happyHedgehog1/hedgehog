@@ -77,16 +77,20 @@ public class BoardWriteController {
         String newEditorData = "<p>주문번호 : " + orderNumber + "</p><br><p>제품이름 : " + productName + "</p><br>" + editordata;
         // 주문번호와 제품이름과 원래 summernote의 데이터를 합쳐서 전달한다.
         try {
-            List<UploadedImageDTO> uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<List<UploadedImageDTO>>() {
-            });
-            log.info("이제 JSON으로 고친 값...");
-            for (UploadedImageDTO image : uploadedImageList) {
-                log.info("Convert Path: " + image.getConvertPath());
-                log.info("Save Path: " + image.getSavePath());
-                log.info("Source Name: " + image.getSourceName());
-                log.info("Convert Name: " + image.getConvertName());
-            }
+            List<UploadedImageDTO> uploadedImageList = null;
+            if (!"".equals(uploadedImages)) {
+                uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<>() {
+                });
 
+                log.info("uploadedImageList: " + uploadedImageList);
+                log.info("이제 JSON으로 고친 값...");
+                for (UploadedImageDTO image : uploadedImageList) {
+                    log.info("Convert Path: " + image.getConvertPath());
+                    log.info("Save Path: " + image.getSavePath());
+                    log.info("Source Name: " + image.getSourceName());
+                    log.info("Convert Name: " + image.getConvertName());
+                }
+            }
             // 1. 현재 로그인한 계정의 정보
             // 2. insert tbl_inquiry
             // 3. 게시글의 번호 가져오기
@@ -228,14 +232,19 @@ public class BoardWriteController {
         log.info("내가 입력한 stars ...");
         log.info(stars);
         try {
-            List<UploadedImageDTO> uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<>() {
-            });
-            log.info("이제 JSON으로 고친 값...");
-            for (UploadedImageDTO image : uploadedImageList) {
-                log.info("Convert Path: " + image.getConvertPath());
-                log.info("Save Path: " + image.getSavePath());
-                log.info("Source Name: " + image.getSourceName());
-                log.info("Convert Name: " + image.getConvertName());
+            List<UploadedImageDTO> uploadedImageList = null;
+            if (!"".equals(uploadedImages)) {
+                uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<>() {
+                });
+
+                log.info("uploadedImageList: " + uploadedImageList);
+                log.info("이제 JSON으로 고친 값...");
+                for (UploadedImageDTO image : uploadedImageList) {
+                    log.info("Convert Path: " + image.getConvertPath());
+                    log.info("Save Path: " + image.getSavePath());
+                    log.info("Source Name: " + image.getSourceName());
+                    log.info("Convert Name: " + image.getConvertName());
+                }
             }
             // 1. 현재 로그인한 계정의 정보
             // 2. insert tbl_review

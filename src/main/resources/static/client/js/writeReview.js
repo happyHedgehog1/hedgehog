@@ -29,7 +29,7 @@ $(document).ready(function () {
         tabsize: 2,
         height: 300,
         minHeight: null,
-        maxHeight: null,
+        maxHeight: 300,
         focus: false,
         lang: "ko-KR",
         toolbar: [
@@ -60,7 +60,6 @@ $(document).ready(function () {
     function uploadSummernoteImageFile(file, editor) {
         data = new FormData();
         data.append("file", file);
-
         $.ajax({
             data: data,
             type: "POST",

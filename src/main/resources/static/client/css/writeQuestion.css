@@ -131,7 +131,7 @@ section {
     padding-bottom: 1em;
 }
 
-#info {
+.info {
     font-size: 15px;
     color: #707070;
 }

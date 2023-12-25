@@ -138,14 +138,13 @@ $(document).ready(function () {
     //     }
     // }
 
-    $('#submit_button').on('click', function (e) {
-        e.preventDefault();
+    $('#submit_button').click(function (e) {
         if ($('#input_option').val() !== '0' &&
             $('#input_title').val().length !== 0 &&
             $('#summernote').val().length !== 0) {
-            // 폼 제출
-            $('#memberForm').submit();
+
         } else {
+            e.preventDefault();
             alert('분류를 선택해주세요.\n그리고 제목과 상세문의는 반드시 작성해야 합니다.');
         }
     });
