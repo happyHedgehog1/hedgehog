@@ -104,7 +104,6 @@
         </where>
         GROUP BY A.order_code
         LIMIT #{orderDetailsSelectCriteria.startRow}, #{orderDetailsSelectCriteria.limit}
-
     </select>
     <select id="isYourOrder">
         SELECT COUNT(*)
