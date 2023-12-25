@@ -130,7 +130,7 @@
             (#{type} = 'sale' AND F.status = 'Y' AND A.event_progressionstatus = 'Y')
 
         OR
-            (#{type} = 'best' AND F.status = 'A' AND A.event_progressionstatus = 'A')
+            (#{type} = 'best' AND F.status = 'A' AND A.event_progressionstatus = 'Y')
             )
         ORDER BY A.product_code
         LIMIT  #{selectCriteria.startRow}, #{ selectCriteria.limit }

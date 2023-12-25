@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <li layout:fragment="content">
+<th:block layout:fragment="content">
 
   <link rel="stylesheet" th:href="@{/client/css/product.css}">
     <script src="https://kit.fontawesome.com/6726f2378f.js" crossorigin="anonymous"></script>
@@ -37,16 +37,17 @@
                 <span>판매가</span>
                 <span th:text="'￦'+${T(java.lang.String).format('%,d', productPrice)}"></span>
               </div>
-              <div class="option" >
-                <label for="color">색상</label>
-                <select name="option_color" id="color">
-                  <th:block th:each="option : ${productOption}">
-
-                      <option th:text="${option}">흰색</option>
-                  </th:block>
-
-                </select>
-              </div>
+              <form method="post" id="addToCartForm">
+                <div class="option">
+                  <input type="hidden" name="productCode" th:value="${productDetail[0].productText[0].productName}" />
+                  <label for="option">색상</label>
+                  <select name="optionColor" id="option">
+                    <th:block th:each="option : ${productOption}">
+                      <option th:text="${option}"></option>
+                    </th:block>
+                  </select>
+                </div>
+              </form>
               <div class="info">
                 <div>
                   <div>카드할인</div>
@@ -63,8 +64,8 @@
                 </div>
               </div>
               <div class="button">
-                <button type="button">장바구니</button>
-                <button type="button">바로구매</button>
+                <button type="button" onclick="addToCart()">장바구니</button>
+                <button type="button" onclick="directPurchase()">바로구매</button>
               </div>
             </div>
           </div>
@@ -242,6 +243,27 @@
         // 페이지 번호 증가
         currentPage++;
       }
+
+      function addToCart() {
+        // Form 요소 가져오기
+        var addToCartForm = document.getElementById("addToCartForm");
+
+        // 선택된 값 가져오기
+        var selectedProductName = addToCartForm.querySelector('input[name="productCode"]').value;
+        var selectedColor = addToCartForm.querySelector('select[name="optionColor"]').value;
+
+        // 값에 대해 작업 수행
+        var url = '/cart';
+        url += '?productCode=' + encodeURIComponent(selectedProductName);
+        url += '&color=' + encodeURIComponent(selectedColor);
+
+
+        console.log('productCode====:', selectedProductName);
+        console.log('color====:', selectedColor);
+        // 페이지 이동 값 전달
+        window.location.href = url;
+      }
+
     </script>
 
 
