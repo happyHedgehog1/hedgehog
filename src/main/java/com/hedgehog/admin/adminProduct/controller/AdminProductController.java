@@ -120,15 +120,21 @@ public class AdminProductController {
                         int subThumbnailIndex = sub_thumbnails.indexOf(paramFile);
                         if (subThumbnailIndex == 0) {
                             fileMap.put("fileType", "sub_thumbnail_1");
+                            width = 640;
+                            height = 640;
                         } else if (subThumbnailIndex == 1) {
                             fileMap.put("fileType", "sub_thumbnail_2");
+                            width = 640;
+                            height = 640;
                         } else if (subThumbnailIndex == 2) {
                             fileMap.put("fileType", "sub_thumbnail_3");
+                            width = 640;
+                            height = 640;
                         } else {
                             fileMap.put("fileType", "sub_thumbnail");
+                            width = 640;
+                            height = 640;
                         }
-                        width = 640;
-                        height = 640;
                     } else if("proImg".equals(fieldName)){
                         fileMap.put("fileType", "proImg");
                         width = 860;
@@ -265,22 +271,22 @@ public class AdminProductController {
 
         log.info("~~~~~~~~~~~~~~~~~~~~~fileUploadDirectory" + fileUploadDirectory);
         log.info("****************************thumnailDirectory" + thumnailDirectory);
-
+//      위 경로에 폴더가 없ㅇ으면 생성함
         if(!directory.exists() || !directory2.exists()){
             log.info("*************************** 폴더 생성" + directory.mkdirs());
             log.info("*************************** 폴더 생성2" + directory2.mkdirs());
         }
 
         List<Map<String, String>> fileList = new ArrayList<>();
-
         List<MultipartFile> paramFileList = new ArrayList<>();
-        paramFileList.add(thumbnail);
+
+        paramFileList.add(thumbnail); //paramFilseList에 대표이미지 넣기
         log.info("=======================thumbnail" + thumbnail);
-        for (int i = 0; i < sub_thumbnails.size(); i++){
+        for (int i = 0; i < sub_thumbnails.size(); i++){ //paramFileList에 제품관점 이미지 넣기 제품관점 이미지는 List 형태로 받았으니 for문을 이용하여 하나씩 꺼내서 넣어준다
             paramFileList.add(sub_thumbnails.get(i));
             log.info("=====================sub_thumbnails" + sub_thumbnails.get(i));
         }
-        paramFileList.add(proImg);
+        paramFileList.add(proImg);  //paramFilsList에 제품 상세 페이지 넣기
         log.info("============proImg" + proImg);
         try {
             for(MultipartFile paramFile : paramFileList) {
@@ -289,14 +295,16 @@ public class AdminProductController {
 
                     log.info("~~~~~~~~~~~~~~~~~~~~~originFileName" + originFileName);
 
-                    String ext = originFileName.substring(originFileName.lastIndexOf("."));
-                    String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+                    String ext = originFileName.substring(originFileName.lastIndexOf(".")); //originFileName에서 . 을 기준으로 확장자를 ext 변수에 넣기
+                    String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext; //UUID 이용하여 파일명을 생성하고, 확장자를 붙여 savedFIleName에 넣기
 
                     log.info("++++++++++++++++++변경한 이름" + savedFileName);
 
                     log.info("+++++++++++++++ paramFile : " + fileUploadDirectory + "/" + savedFileName);
 
                     paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
+//                    transferTo는 업로드된 파일을 지정된 파일로 복사하는 메소드 MultipartFile의 메소드임
+//                    저장할 경로, 파일명 저장
 
                     Map<String, String> fileMap = new HashMap<>();
                     fileMap.put("originFileName", originFileName);
@@ -309,7 +317,7 @@ public class AdminProductController {
                     String fieldName = paramFile.getName();
                     log.info("***********************필드 name {} ", fieldName);
                     log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
-                    if ("thumbnail".equals(fieldName)) {
+                    if ("thumbnail".equals(fieldName)) { //이름의 따라서 이미지 크기 변경 및 fileMap 객체에 새로운 이름으로 지정
                         fileMap.put("fileType", "Thumbnails");
                         width = 640;
                         height = 640;
@@ -317,15 +325,22 @@ public class AdminProductController {
                         int subThumbnailIndex = sub_thumbnails.indexOf(paramFile);
                         if (subThumbnailIndex == 0) {
                             fileMap.put("fileType", "sub_thumbnail_1");
+                            width = 640;
+                            height = 640;
                         } else if (subThumbnailIndex == 1) {
                             fileMap.put("fileType", "sub_thumbnail_2");
+                            width = 640;
+                            height = 640;
                         } else if (subThumbnailIndex == 2) {
                             fileMap.put("fileType", "sub_thumbnail_3");
+                            width = 640;
+                            height = 640;
                         } else {
                             fileMap.put("fileType", "sub_thumbnail");
+                            width = 640;
+                            height = 640;
                         }
-                        width = 640;
-                        height = 640;
+
                     } else if("proImg".equals(fieldName)){
                         fileMap.put("fileType", "proImg");
                         width = 860;
@@ -334,6 +349,7 @@ public class AdminProductController {
 
                     Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)
                             .toFile(thumnailDirectory + "/thumbnail_" + savedFileName);
+                    //Thumbnailator 라이브러리 이용, 이미지 크기변경하고 썸네일 생성
 
                     fileMap.put("thumbnailPath", "/thumbnail_" + savedFileName);
 
@@ -344,6 +360,7 @@ public class AdminProductController {
 
             log.info("****************************fileList" + fileList);
 
+//            변환한 이미지 정보 DTO에 담기
         product.setAttachment(new ArrayList<AttachmentDTO>());
         List<AttachmentDTO> list = product.getAttachment();
         for(int i = 0; i < fileList.size(); i++){

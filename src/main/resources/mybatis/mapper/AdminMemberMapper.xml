@@ -133,7 +133,7 @@
         WHERE user_code = #{member_code}
     </update>
     <insert id="insertWithdrawTable" >
-        INSERT INTO tbl_withdraw
+        INSERT IGNORE INTO tbl_withdraw
             (user_code,
              state,
              cause,
@@ -152,42 +152,21 @@
     </select>
     <select id="memberDetail" resultMap="memberResultMap">
         SELECT
-            member_code,
-            email_consent,
-            point,
-            cumulative_amount,
-            email,
-            phone,
-            user_code,
-            id,
-            name,
-            creation_date,
-            connection_date,
-            withdraw_state,
-            point_usage
-        FROM(
-                SELECT
-                    A.member_code,
-                    A.email_consent,
-                    A.point,
-                    A.cumulative_amount,
-                    B.email,
-                    B.phone,
-                    C.user_code,
-                    C.id,
-                    C.name,
-                    C.creation_date,
-                    C.connection_date,
-                    C.withdraw_state,
-                    D.point_usage
-                FROM
-                    tbl_member A
-                        JOIN tbl_customer B ON A.member_code = B.customer_code
-                        JOIN tbl_user C ON B.customer_code = C.user_code
-                        join tbl_order D on d.customer_code = b.customer_code
-                        join tbl_order_details E on D.order_code = E.order_code
-                where
-                    member_code =  #{member_code})as sub
+            A.member_code,
+            A.point,
+            C.id,
+            C.name,
+            COALESCE(SUM(D.point_usage), 0) AS point_usage
+        FROM
+            tbl_member A
+                JOIN
+            tbl_user C ON A.member_code = C.user_code
+                LEFT JOIN
+            tbl_order D ON D.customer_code = A.member_code
+        WHERE
+            A.member_code = #{member_code}
+        GROUP BY
+            A.member_code, A.point, C.id, C.name;
     </select>
     <update id="pointAdd">
         UPDATE tbl_member
@@ -221,8 +200,32 @@
 <!--                #{content}, now(), #{title}, #{formCode}, 2, #{memberId}-->
 <!--                )-->
 <!--    </insert>-->
-
-
+    <select id="searchMail" resultMap="adminCustomerDTOResultMap">
+        SELECT
+            a.email,
+            b.id
+        FROM
+            tbl_customer A
+                join tbl_user B on A.customer_code = B.user_code
+        where
+            customer_code =  #{user_code}
+    </select>
+    <select id="searchMailForm" resultMap="autoMailResultMap">
+        SELECT
+            name,
+            content,
+            title
+        FROM TBL_MAILFORM
+        WHERE form_code = #{i}
+    </select>
+    <update id="updateWithdrawState">
+        UPDATE tbl_withdraw
+        SET
+            cause = '강제 탈퇴',
+            state = 'Y',
+            commit_date = now()
+        WHERE user_code = #{member_code}
+    </update>
 
 </mapper>
 

@@ -34,7 +34,9 @@ public class AdminEventListController {
      */
     @PostMapping(value = "/modify", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String modify(@RequestBody AdminEventForm form, RedirectAttributes rttr) {
+    public Map<String, String> modify(@RequestBody AdminEventForm form, RedirectAttributes rttr) {
+        Map<String , String> response = new HashMap<>();
+        try {
             String post_code = String.valueOf(form.getPost_code());
             String eventName = form.getEventName();
             String searchStartDay = form.getSearchStartDay();
@@ -58,11 +60,12 @@ public class AdminEventListController {
             log.info("*************************" + form);
 
             adminEventService.modifyEvent(form);
+            response.put("success", String.valueOf(true));
+        }catch (Exception e){
+            response.put("success", String.valueOf(false));
+        }
 
-            rttr.addFlashAttribute("success", true);
-
-
-            return "admin/content/event/eventModify";
+            return response;
 
 
     }
@@ -75,33 +78,36 @@ public class AdminEventListController {
      */
     @PostMapping(value = "/register", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String registerEvent(@RequestBody AdminEventForm form) {
-        String eventName = form.getEventName();
-        String searchStartDay = form.getSearchStartDay();
-        String status = form.getStatus();
-        String searchEndDay = form.getSearchEndDay();
-        List<String> allProductCodes = form.getAllProductCodes();
-        double price = form.getPrice() * 0.01;
-        form.setPrice(price);
+    public Map<String , String> registerEvent(@RequestBody AdminEventForm form, RedirectAttributes rttr) {
+        Map<String , String> response = new HashMap<>();
+        try{
+
+            String eventName = form.getEventName();
+            String searchStartDay = form.getSearchStartDay();
+            String status = form.getStatus();
+            String searchEndDay = form.getSearchEndDay();
+            List<String> allProductCodes = form.getAllProductCodes();
+            double price = form.getPrice() * 0.01;
+            form.setPrice(price);
 
 
-        log.info("");
-        log.info("");
-        log.info("*************************" + eventName);
-        log.info("*************************" + status);
-        log.info("*************************" + searchStartDay);
-        log.info("*************************" + searchEndDay);
-        log.info("*************************" + price);
-        log.info("*************************" + allProductCodes);
-        log.info("*************************" + form);
+            log.info("");
+            log.info("");
+            log.info("*************************" + eventName);
+            log.info("*************************" + status);
+            log.info("*************************" + searchStartDay);
+            log.info("*************************" + searchEndDay);
+            log.info("*************************" + price);
+            log.info("*************************" + allProductCodes);
+            log.info("*************************" + form);
 
+            adminEventService.updateEventStatus(form);
 
-
-        adminEventService.updateEventStatus(form);
-
-
-        return "admin/content/event/eventModify";
-
+            response.put("success", String.valueOf(true));
+    }catch (Exception e){
+        response.put("success", String.valueOf(false));
+    }
+            return response;
     }
 
     @PostMapping(value = "/productSearch", produces = "application/json; charset=UTF-8")

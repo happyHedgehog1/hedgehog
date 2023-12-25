@@ -63,6 +63,12 @@
                 </tr>
             </table>
             <table>
+                <colgroup>
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                </colgroup>
                 <tr>
                     <th>보내는 분</th>
                     <th>보내는 분 연락처</th>
@@ -83,12 +89,22 @@
                     <td colspan="2" th:text="${orderDetail.deliveryDTO.deliveryAddress}"></td>
                     <td colspan="2" th:text="${orderDetail.deliveryDTO.deliveryRequests}"></td>
                 </tr>
+                <tr th:if="${orderDetail.deliveryDTO.state == '교환중' || orderDetail.deliveryDTO.state == '교환완료'}">
+                    <th colspan="2"> 교환 사유</th>
+                    <td colspan="2" th:text="${orderDetail.orderDetail.get(0).exchangeCause}"></td>
+                </tr>
+                <tr th:if="${orderDetail.deliveryDTO.state == '환불중' || orderDetail.deliveryDTO.state == '환불완료'}">
+                    <th colspan="2"> 환불 사유</th>
+                    <td colspan="2" th:text="${orderDetail.orderDetail.get(0).refundCause}"></td>
+                </tr>
                 <tr th:if="${orderDetail.deliveryDTO.state == '배송완료'}">
                     <form id="orderStateForm" th:action="@{/order/}" method="post">
                         <input type="hidden" name="orderCode" id="orderCode" th:value="${orderDetail.getOrderCode()}"/>
                         <th ><button onclick="submitForm('orderStateForm', 'exchange');" >교환신청</button></th>
                         <th ><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
-                        <th colspan="3"><input type="text" id="cause" name="cause"></th>
+                        <th>신청 사유</th>
+                        <th colspan="2"><input type="text" id="cause" name="cause" style="width: 330px">
+                        </th>
                     </form>
                 </tr>
             </table>

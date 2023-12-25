@@ -277,12 +277,21 @@ $(document).ready(function () {
                 allProductCodes: allProductCodes
             }),
             success: function (data) {
-                updateTable(data);
-                alert('이벤트 등록이 성공했습니다.');
+                if(data.success) {
+                    alert('이벤트 등록에 성공하였습니다.');
+                    updateTable(data);
+                    location.reload();
+
+                }else {
+                    alert('이벤트 등록에 실패하였습니다.');
+                }
             },
             error: function (error) {
-                alert('이벤트 등록에 실패했습니다.');
+                alert('이벤트 등록에 실패하였습니다.');
+                console.error("검색 오류:", error);
+
             }
+
         });
     });
 });
@@ -321,9 +330,11 @@ $(document).ready(function () {
                 allProductCodes: allProductCodes
             }),
             success: function (data) {
-                if(date.success) {
+                if(data.success) {
                     alert('이벤트 수정에 성공하였습니다.');
                     updateTable(data);
+                    location.reload();
+
                 }else {
                     alert('이벤트 수정에 실패하였습니다.');
                 }
