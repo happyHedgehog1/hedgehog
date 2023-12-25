@@ -86,6 +86,7 @@ public class OrderDetailsController {
         log.info("orderDeliveryInfo : OrderDetailsController ... orderList : " + orderList);
         mv.addObject("orderList", orderList);
 
+        orderDetailsSelectCriteria.setOrder(new OrderDTO(state, dateStart, dateEnd));
         mv.addObject("orderDetailsSelectCriteria", orderDetailsSelectCriteria);
         log.info("orderDeliveryInfo : OrderDetailsController... orderDetailsSelectCriteria" + orderDetailsSelectCriteria);
 
@@ -97,6 +98,7 @@ public class OrderDetailsController {
         log.info("state : " + state);
         log.info("dateStart : " + dateStart);
         log.info("dateEnd : " + dateEnd);
+
 
         /*이부분에서 일주일전, 한달전, 세달전, 여섯달 전에 대한 변수를 반환한다.*/
         mv.addObject("now", LocalDate.now());
@@ -152,6 +154,7 @@ public class OrderDetailsController {
         OrderDetailsSelectCriteria orderDetailsSelectCriteria = OrderDetailsPagenation.getOrderDetailsSelectCriteria(pageNo, totalCount, limit, buttonAmount, order);
         log.info("");
         log.info("");
+        orderDetailsSelectCriteria.setOrder(new OrderDTO(state, dateStart, dateEnd));
         log.info("exchangePaybackInfo : OrderDetailsController..... orderDetailsSelectCriteria : " + orderDetailsSelectCriteria);
 
         List<OrderListDTO> orderList = orderDetailsService.selectOrderInfoList(userCode, orderDetailsSelectCriteria, info);

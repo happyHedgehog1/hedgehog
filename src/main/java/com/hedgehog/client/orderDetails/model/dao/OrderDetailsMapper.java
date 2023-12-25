@@ -23,4 +23,10 @@ public interface OrderDetailsMapper {
     int selectUserCode(Integer orderCode);
 
     int updateReceiveOrder(String orderCode);
+
+    String selectReceiveOrder(String orderCode);
+
+    String selectDeliveryCode(String orderCode);
+
+    void updateDelivery(String deliveryCode);
 }

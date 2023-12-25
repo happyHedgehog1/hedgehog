@@ -117,7 +117,7 @@
                         </li>
                     </ul>
                     <div>
-                        <form method="post" action="/myshop/receiveComplete" id="receive_complete"
+                        <form method="post" th:action="@{/myshop/receiveComplete}" id="receive_complete"
                               th:if="${orderDetails.orderState=='배송중'}">
                             <input type="hidden" id="order_code" name="orderCode" th:value="${orderDetails.orderCode}">
                             <input id="receive_button" type="submit" value="수령하기"/>
@@ -132,20 +132,18 @@
                             <td th:text="${name}"></td>
                         </tr>
                         <tr>
-                            <td>이메일</td>
-                            <td th:text="${email}"></td>
-                        </tr>
-                        <tr>
                             <td>휴대폰 번호</td>
                             <td th:text="${phone}"></td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>이메일</td>
+                            <td th:text="${email}"></td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
                         </tr>
                     </table>
                     <table id="receiver">

@@ -25,6 +25,23 @@
     align-items: center;
 }
 
+.board_title_review {
+    display: flex;
+    height: 170px;
+    justify-content: space-between;
+    padding: 20px 0px 20px 0px;
+    cursor: pointer;
+}
+
+#board_title_review_wrap {
+    display: flex;
+}
+
+#img {
+    height: 130px;
+    text-align: right;
+}
+
 .board_title2,
 .board_write2,
 .board_date2,
@@ -134,4 +151,8 @@
 
 .writing {
     width: 730px;
+}
+
+.board_title_review:hover {
+    background-color: #d2c1c1;
 }

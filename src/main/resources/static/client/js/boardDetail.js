@@ -34,3 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 })
+
+function product(productCode) {
+    location.href = "/productinfo/product/" + productCode;
+}
