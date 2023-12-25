@@ -30,8 +30,7 @@ $(document).ready(function () {
         placeholder: "",
         tabsize: 2,
         height: 300,
-        minHeight: null,
-        maxHeight: null,
+        maxWidth:780,
         focus: false,
         lang: "ko-KR",
         toolbar: [

@@ -28,8 +28,7 @@ $(document).ready(function () {
         placeholder: "",
         tabsize: 2,
         height: 300,
-        minHeight: null,
-        maxHeight: 300,
+        maxWidth: 780,
         focus: false,
         lang: "ko-KR",
         toolbar: [
