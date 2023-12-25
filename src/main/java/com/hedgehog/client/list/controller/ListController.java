@@ -78,6 +78,7 @@ public class ListController {
 
 
         System.out.println("mv========================="+mv);
+        System.out.println("재확인===="+productList.get(0).getAdminProductDTO().getProductName());
 
         int discount = (int) productList.get(0).getDiscount();
 

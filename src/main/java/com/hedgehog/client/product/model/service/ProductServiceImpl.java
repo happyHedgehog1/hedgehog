@@ -31,6 +31,8 @@ public class ProductServiceImpl implements ProductService{
 
         List<ProductDetailReviewDTO> result = mapper.selectProductReview(number);
 
+        System.out.println("리뷰===="+result);
+
         return result;
     }
 }
