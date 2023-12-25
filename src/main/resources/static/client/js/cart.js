@@ -1,7 +1,6 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    // 감소 버튼에 대한 이벤트 리스너 등록
     var decreaseButtons = document.querySelectorAll('.decrease-button');
     decreaseButtons.forEach(function (button) {
         button.addEventListener('click', function () {
@@ -10,15 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
             var hdElement = quantityElement.nextElementSibling; // hidden field
             // 현재 수량 가져오기
             var currentQuantity = parseInt(quantityElement.innerText);
-
             // 새로운 수량 계산
             var newQuantity = Math.max(currentQuantity - 1, 1);
-
-            // 수량 표시 업데이트
+                // 수량 표시 업데이트
             quantityElement.innerText = newQuantity;
             hdElement.value = newQuantity;
-
-
         });
     });
 
@@ -92,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectAllItemsButton = document.getElementById('selectAllItems');
     selectAllItemsButton.addEventListener('click', function () {
         selectAllItems();
-        // window.location.href = "/clientOrder/cartOrder";//이거 안써도 넘어가짐
 
     });
 
@@ -100,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectOrderButton = document.getElementById('selectOrderButton');
     selectOrderButton.addEventListener('click', function () {
         selectOrderItems();
-        // window.location.href = "/clientOrder/cartOrder";
 
     });
 });
@@ -124,64 +117,6 @@ function selectOrderItems(){
     console.log('선택상품주문하기 버튼에서 선택된 상품들:', selectedItems);
 
 }
-
-//==============선택상품 삭제=============
-// document.addEventListener("DOMContentLoaded", function () {
-//     // 삭제 버튼에 클릭 이벤트 리스너 등록
-//     var deleteButton = document.getElementById('deleteSelectedItems');
-//     if (deleteButton) {
-//         deleteButton.addEventListener('click', function () {
-//             deleteSelectedItems();
-//         });
-//     }
-// });
-// function deleteSelectedItems() {
-//     console.log("deleteSelectedItems function called");
-//
-//     var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
-//
-//     var cartCodes = Array.from(checkedCheckboxes).map(function (checkbox) {
-//         return checkbox.nextElementSibling.value;
-//     });
-//
-//     // 서버로 cartCodes를 전송하고 삭제 작업을 수행하는 fetch 요청을 보냅니다.
-//     fetch('/basket/cart/delete', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(cartCodes),
-//     })
-//         .then(response => response.text())  // 수정: response.json() 대신 response.text() 사용
-//         .then(data => {
-//             console.log(data);
-//             if (data === 'success') {
-//                 // 선택된 상품이 성공적으로 삭제된 경우
-//                 cartCodes.forEach(function (code) {
-//                     removeItemFromUI(code);
-//                 });
-//                 alert('선택된 상품이 삭제되었습니다.');
-//             } else {
-//                 // 삭제 중 오류가 발생한 경우
-//                 alert('상품 삭제 중 오류가 발생했습니다.');
-//             }
-//         })
-//         .catch(error => {
-//             // AJAX 요청 실패 시
-//             console.error('Error:', error);
-//         });
-// }
-//
-// // // 화면에서 특정 cartCode에 해당하는 행을 제거하는 함수
-// function removeItemFromUI(cartCode) {
-//     var rowToRemove = document.querySelector('.cart_table tr[data-cart-code="' + cartCode + '"]');
-//     if (rowToRemove) {
-//         rowToRemove.remove();
-//
-//     // 선택된 상품 삭제 후 필요한 UI 업데이트 등 수행
-//     updateTotalPrice();
-//     }
-// }
 
 document.addEventListener("DOMContentLoaded", function () {
     // 삭제 버튼에 클릭 이벤트 리스너 등록
