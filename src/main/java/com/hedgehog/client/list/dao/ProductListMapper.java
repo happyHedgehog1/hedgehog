@@ -13,4 +13,6 @@ public interface ProductListMapper {
     int selectTotalPageCount(String type);
 
 
+//    메인페이지 베스트상품
+    List<ProductListDTO> selectBestProduct();
 }

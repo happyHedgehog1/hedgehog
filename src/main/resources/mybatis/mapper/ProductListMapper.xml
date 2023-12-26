@@ -136,5 +136,20 @@
         LIMIT  #{selectCriteria.startRow}, #{ selectCriteria.limit }
     </select>
 
+    <select id="selectBestProduct" resultMap="productListResultMap">
+        SELECT
+            A.product_code,
+            B.convert_path,
+            B.image_classification,
+            A.product_name,
+            A.price,
+            D.status
+        FROM tbl_product A
+                 LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
+                 LEFT JOIN tbl_event_product_list C ON(A.product_code = C.product_code)
+                 LEFT JOIN tbl_event D ON(D.post_code = C.post_code)
+        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND D.status = 'y' AND B.image_classification = 'Thumbnails'
+    </select>
+
 
 </mapper>
