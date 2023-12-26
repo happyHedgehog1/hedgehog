@@ -1,16 +1,18 @@
 package com.hedgehog.client.product.controller;
 
+import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.board.model.dto.ProductReviewDTO;
 import com.hedgehog.client.product.model.dto.ProductDetailDTO;
 import com.hedgehog.client.product.model.dto.ProductDetailReviewDTO;
 import com.hedgehog.client.product.model.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -44,11 +46,8 @@ public class ProductController {
 
         long productPrice = Long.parseLong(productDetail.get(0).getProductText().get(0).getProductPrice());  /* 가격 확인 */
 
-
-
         for (ProductDetailDTO prodDetail : productDetail) {
             log.info("상품목록====" + prodDetail);
-
         }
 
         Long productPriceObject = Long.valueOf(productPrice);
@@ -63,6 +62,7 @@ public class ProductController {
         List<String> optionNameList = new ArrayList<>(overlapOptionName);
 
         log.info("옵션확인========" + optionNameList);
+
 
         /* 리뷰 */
 
@@ -88,7 +88,7 @@ public class ProductController {
                     result.add(star);
                 }
 
-                if (reviewAvg - integerPart >= 0) {
+                if (reviewAvg - integerPart > 0) {
                     result.add(halfStar);
                 }
                 log.info("정수수수수=====" + integerPart);
@@ -120,15 +120,36 @@ public class ProductController {
         return "client/content/productinfo/product";
     }
 
-
-//    @GetMapping("/product/{sale}")
-//    public String selectSale(@PathVariable int sale){
+//    @PostMapping("/addcart")
+//    public ModelAndView addCart(@RequestParam String optionColor,
+//                          @RequestParam String addProductCode,
+//                          @AuthenticationPrincipal LoginDetails loginDetails,
+//                          ModelAndView modelAndView) {
+//
+//
+//        int customerCode = loginDetails.getLoginUserDTO().getUserCode(); /*로그인계정*/
+//
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("loginInfo", customerCode);
 //
 //
 //
 //
-//        return "client/content/productinfo/product";
 //
 //    }
+
+    @PostMapping("/addcart")
+    public String addcart(@RequestParam String optionColor,
+                          @RequestParam int productCode,
+                          @AuthenticationPrincipal LoginDetails loginDetails,
+                          Model model) {
+
+        int userCode = loginDetails.getLoginUserDTO().getUserCode();
+        productService.addCart(optionColor,productCode,userCode);
+
+
+        return "redirect:/basket/cart";
+
+    }
 
 }

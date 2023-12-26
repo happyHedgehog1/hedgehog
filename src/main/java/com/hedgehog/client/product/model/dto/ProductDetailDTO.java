@@ -16,4 +16,5 @@ public class ProductDetailDTO {
     private String imageClassification;
     private List<ProductTextDTO> productText;
 
+
 }

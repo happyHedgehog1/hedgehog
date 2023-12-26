@@ -14,4 +14,5 @@ public class ProductDetailReviewDTO {
     private String ReviewId;
     private double ReviewAvg;
     private int Review;
+    private int ReviewCode;
 }

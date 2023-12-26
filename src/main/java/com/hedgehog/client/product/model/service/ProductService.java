@@ -9,4 +9,6 @@ public interface ProductService {
     List<ProductDetailDTO> selectProductDetail(int number);
 
     List<ProductDetailReviewDTO> selectProductReview(int number);
+
+    void addCart(String color, int productCode, int userCode);
 }

@@ -49,8 +49,6 @@ public class ListController {
         log.info("컨트롤러에서 전달받은 게시글총갯수==================== {}" , totalCount);
 
 
-
-
         /* 게시물 조회 */
         int limit = 12;
 
@@ -63,7 +61,7 @@ public class ListController {
         Map<String, Object> map = new HashMap<>();
         map.put("selectCriteria", selectCriteria);
         map.put("type", type);
-        List<ProductListDTO> productList = productListService.selectProductList(map);  /* 리스트상품명 */
+        List<ProductListDTO> productList = productListService.selectProductList(map);  /* 상품리스트 */
 
 
 

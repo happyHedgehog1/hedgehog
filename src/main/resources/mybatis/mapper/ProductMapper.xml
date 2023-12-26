@@ -17,12 +17,14 @@
         <result property="productPrice" column="price"/>
         <result property="productName" column="product_name"/>
         <result property="optionName" column="name"/>
+        <result property="optionCode" column="option_code"/>
     </resultMap>
 
     <resultMap id="ProductReviewResultMap" type="ProductDetailReviewDTO">
         <result property="ReviewContent" column="content"/>
         <result property="ReviewWriteDate" column="write_date"/>
         <result property="ReviewId" column="id"/>
+        <result property="ReviewCode" column="review_code"/>
         <result property="Review" column="reviews"/>
     </resultMap>
 
@@ -34,7 +36,8 @@
             B.image_classification,
             A.product_name,
             A.price,
-            D.name
+            D.name,
+            D.option_code
         FROM tbl_product A
             LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
             LEFT JOIN tbl_option_list C ON (A.product_code = C.product_code)
@@ -49,15 +52,25 @@
             B.content,
             B.write_date,
             C.id,
-            A.reviews
+            A.reviews,
+            B.review_code
         FROM tbl_product A
         LEFT JOIN tbl_review B ON (A.product_code = B.product_code)
         LEFT JOIN tbl_user C ON (B.member_code = C.user_code)
         WHERE A.product_code = #{number} AND A.orderable_status = 'Y' AND B.state = 'Y'
     </select>
-
-
-
-
-
+    <select id="getColorCode">
+        select
+            A.option_code
+            FROM tbl_option A
+        WHERE A.name=#{color}
+    </select>
+    <insert id="addCart">
+        INSERT INTO tbl_cart
+        (amount,
+         customer_code,
+         option_code,
+         product_code)
+        values (1, #{userCode}, #{colorCode}, #{productCode})
+    </insert>
 </mapper>

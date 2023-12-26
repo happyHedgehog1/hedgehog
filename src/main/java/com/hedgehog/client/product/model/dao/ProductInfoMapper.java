@@ -11,4 +11,8 @@ public interface ProductInfoMapper {
     List<ProductDetailDTO> selectProductDetail(int number);
 
     List<ProductDetailReviewDTO> selectProductReview(int number);
+
+    String getColorCode(int productCode,String color);
+
+    void addCart(String colorCode, int productCode, int userCode);
 }

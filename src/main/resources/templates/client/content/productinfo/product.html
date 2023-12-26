@@ -4,247 +4,264 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-  <li layout:fragment="content">
+<li layout:fragment="content">
 
-  <link rel="stylesheet" th:href="@{/client/css/product.css}">
+    <link rel="stylesheet" th:href="@{/client/css/product.css}">
     <script src="https://kit.fontawesome.com/6726f2378f.js" crossorigin="anonymous"></script>
 
     <div class="top"><a th:href="@{'#'}"></a></div>
 
     <section>
-      <div class="wrap">
-        <div class="product_wrap" >
-          <ul class="product_photos">
-            <li class="product_main_photo">
-              <img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt="대표이미지">
-            </li>
-            <li>
-              <div class="product_sub_photos">
-                <a th:href="@{|/thumbPath${productDetail[0].convertPath}|}" title="image1"><img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt="Product Image" /></a>
-                <a th:href="@{|/thumbPath${productDetail[1].convertPath}|}" title="image2"><img th:src="@{|/thumbPath${productDetail[1].convertPath}|}" alt="Product Image" /></a>
-                <a th:href="@{|/thumbPath${productDetail[2].convertPath}|}" title="image3"><img th:src="@{|/thumbPath${productDetail[2].convertPath}|}" alt="Product Image" /></a>
-                <a th:href="@{|/thumbPath${productDetail[3].convertPath}|}" title="image4"><img th:src="@{|/thumbPath${productDetail[3].convertPath}|}" alt="Product Image" /></a>
-              </div>
-            </li>
-          </ul>
-
-          <div class="product_text">
-            <div>1인가구</div>
-            <h3 th:text="${productDetail[0].productText[0].productName}">평상형 수납침대</h3>
-            <hr>
-            <div class="product_text_wrap">
-              <div class="product_price">
-                <span>판매가</span>
-                <span th:text="'￦'+${T(java.lang.String).format('%,d', productPrice)}"></span>
-              </div>
-              <div class="option" >
-                <label for="color">색상</label>
-                <select name="option_color" id="color">
-                  <th:block th:each="option : ${productOption}">
-
-                      <option th:text="${option}">흰색</option>
-                  </th:block>
-
-                </select>
-              </div>
-              <div class="info">
-                <div>
-                  <div>카드할인</div>
-                  <p>신한카드 3/5/10만원 즉시 할인 <br>
-                    삼성카드 청구할인 <br>
-                    국민카드 무이자 최대 12개월</p>
-                </div>
-                <div>
-                  <div>배송정보</div>
-                  <p><span>1인가구배송</span> <br>
-                    평일기준 3일이내 도착예상 <br>
-                    산간지역 / 제주특별자치 상관없이 <br>
-                    전부 무료배송!</p>
-                </div>
-              </div>
-              <div class="button">
-                <button type="button">장바구니</button>
-                <button type="button">바로구매</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="point_txt_wrap">
-          <ul class="review">
-            <li th:if="${productReview.get(0) != null}" th:text="'리뷰('+${productReview.get(0).getReview()}+')'"></li>
-            <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"></li>
-            <li><a th:href="@{'#rivew'}">더보기 +</a></li>
-          </ul>
-          <ul class="review_txt">
-            <li>리뷰 포인트</li>
-            <li>구매 후 리뷰 작성시 최대 1,000 포인트적립</li>
-          </ul>
-          <div><span>♥</span>첫 구매시 무조건 1,000포인트 적립<span>♥</span></div>
-        </div>
-
-        <div class="detail_info ">
-          <div>상세정보</div>
-          <ul>
-            <li th:if="${productReview.get(0) != null}" th:text="'리뷰('+${productReview.get(0).getReview()}+')'"><a th:href="@{'#rivew'}">상품후기</a></li>
-            <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"><a th:href="@{'#rivew'}">상품후기</a></li>
-          </ul>
-        </div>
-
-        <!-- 상세이미지 -->
-        <div class="page_view" th:each="detailsPage : ${productDetail}">
-          <img th:if="${detailsPage.getImageClassification() != null and detailsPage.getImageClassification() == 'proImg'}" th:src="@{|/thumbPath${detailsPage.getConvertPath()}|}"alt="상세페이지">
-        </div>
-
-        <!-- 평균리뷰 ===================-->
-
-        <hr>
-        <div class="reviewStar" th:if="${ result != null }">
-          <div th:each="star : ${result}">
-            <i th:each="char : ${star}" th:class="${char}"></i>
-          </div>
-        </div>
-        <ul class="average_review" >
-          <li th:if="${ productReview.get(0) != null }" th:text="${productReview.get(0).getReviewAvg()}"></li>
-        </ul>
-
-
-        <!-- 포토후기 ===========================-->
-
-        <div th:if="${productReview.get(0) != null}" th:each="prodreview : ${productReview}">
-          <div class="poto_review" >
-            <h2>포토 리뷰</h2>
-            <ul th:onclick="openModal()">
-              <li>
-                <img th:src="@{/client/images/review_photo/1.png}" alt="">
-              </li>
-            </ul>
-            <div class="allPhoth">전체보기</div>
-            <hr>
-          </div>
-
-          <div id="overlay">
-            <div id="myModal" class="modal">
-              <button id="closeModal">&times;</button>
-              <div class="content-container">
-                <div class="left-column">
-                  <img th:src="@{/client/images/review_photo/1.png}" alt="후기사진">
-                </div>
-
-                <div class="right-column" >
-                  <div class="modal_average_review">
-                    <ul class="review2">
-                      <div class="reviewStar2" th:if="${ result != null }">  <!-- 모달포토후기창 -->
-                        <div th:each="star : ${result}">
-                          <i th:each="char : ${star}" th:class="${char}"></i>
+        <div class="wrap">
+            <div class="product_wrap">
+                <ul class="product_photos">
+                    <li class="product_main_photo">
+                        <img th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt="대표이미지">
+                    </li>
+                    <li>
+                        <div class="product_sub_photos">
+                            <a th:href="@{|/thumbPath${productDetail[0].convertPath}|}" title="image1"><img
+                                    th:src="@{|/thumbPath${productDetail[0].convertPath}|}" alt="Product Image"/></a>
+                            <a th:href="@{|/thumbPath${productDetail[1].convertPath}|}" title="image2"><img
+                                    th:src="@{|/thumbPath${productDetail[1].convertPath}|}" alt="Product Image"/></a>
+                            <a th:href="@{|/thumbPath${productDetail[2].convertPath}|}" title="image3"><img
+                                    th:src="@{|/thumbPath${productDetail[2].convertPath}|}" alt="Product Image"/></a>
+                            <a th:href="@{|/thumbPath${productDetail[3].convertPath}|}" title="image4"><img
+                                    th:src="@{|/thumbPath${productDetail[3].convertPath}|}" alt="Product Image"/></a>
                         </div>
-                      </div>
-                      <ul class="average_review2" >
-                        <li th:if="${ productReview.get(0) != null }" th:text="${productReview.get(0).getReviewAvg()}"></li>
-                      </ul>
-                    </ul>
-                    <ul class="right-column-text">
-                      <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}">아이디 </li>
-                      <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
-                    </ul>
-                  </div>
-                  <hr>
-                  <div class="modal_option">
-                    <div th:text="${productDetail[0].productText[0].productName}"></div></div>
-                  <hr>
-                  <div class="modal_content" th:text="${prodreview.getReviewContent()}"></div>
-                  <hr>
-                  <div>
-                    <ul id="review-img">
-                      <li><img src="/client/images/review_photo/1.png" alt="">dfdfdf</li>
-                      <li><img src="/client/images/review_photo/2.png" alt="">werwer</li>
-                    </ul>
-                  </div>
+                    </li>
+                </ul>
+
+                <div class="product_text">
+                    <div>1인가구</div>
+                    <h3 th:text="${productDetail[0].productText[0].productName}">평상형 수납침대</h3>
+                    <hr>
+                    <div class="product_text_wrap">
+                        <div class="product_price">
+                            <span>판매가</span>
+                            <span th:text="'￦'+${T(java.lang.String).format('%,d', productPrice)}"></span>
+                        </div>
+
+
+                        <form th:action="@{/productinfo/addcart}" method="post">
+                            <div class="option">
+                                <label for="color">색상</label>
+                                <select name="optionColor" id="color">
+
+                                    <th:block th:each="option : ${productOption}">
+                                        <option th:text="${option}">흰색</option>
+                                    </th:block>
+
+                                </select>
+                                <input name="productCode" type="hidden"
+                                       th:value="${productDetail.get(0).getProductCode()}">
+                            </div>
+
+
+                            <div class="info">
+                                <div>
+                                    <div>카드할인</div>
+                                    <p>신한카드 3/5/10만원 즉시 할인 <br>
+                                        삼성카드 청구할인 <br>
+                                        국민카드 무이자 최대 12개월</p>
+                                </div>
+                                <div>
+                                    <div>배송정보</div>
+                                    <p><span>1인가구배송</span> <br>
+                                        평일기준 3일이내 도착예상 <br>
+                                        산간지역 / 제주특별자치 상관없이 <br>
+                                        전부 무료배송!</p>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <button type="submit">장바구니</button>
+                                <!--                <button type="button">바로구매</button>-->
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
+
             </div>
-          </div>
+
+            <div class="point_txt_wrap">
+                <ul class="review">
+                    <li th:if="${productReview.get(0) != null}"
+                        th:text="'리뷰('+${productReview.get(0).getReview()}+')'"></li>
+                    <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"></li>
+                    <li><a th:href="@{'#rivew'}">더보기 +</a></li>
+                </ul>
+                <ul class="review_txt">
+                    <li>리뷰 포인트</li>
+                    <li>구매 후 리뷰 작성시 최대 1,000 포인트적립</li>
+                </ul>
+                <div><span>♥</span>첫 구매시 무조건 1,000포인트 적립<span>♥</span></div>
+            </div>
+
+            <div class="detail_info ">
+                <div>상세정보</div>
+                <ul>
+                    <li th:if="${productReview.get(0) != null}" th:text="'리뷰('+${productReview.get(0).getReview()}+')'">
+                        <a th:href="@{'#rivew'}">상품후기</a></li>
+                    <li th:if="${productReview.get(0) == null}" th:text="'리뷰(0)'"><a th:href="@{'#rivew'}">상품후기</a></li>
+                </ul>
+            </div>
+
+            <!-- 상세이미지 -->
+            <div class="page_view" th:each="detailsPage : ${productDetail}">
+                <img th:if="${detailsPage.getImageClassification() != null and detailsPage.getImageClassification() == 'proImg'}"
+                     th:src="@{|/thumbPath${detailsPage.getConvertPath()}|}" alt="상세페이지">
+            </div>
+
+            <!-- 평균리뷰 ===================-->
+
+            <hr>
+            <div class="reviewStar" th:if="${ result != null }">
+                <div th:each="star : ${result}">
+                    <i th:each="char : ${star}" th:class="${char}"></i>
+                </div>
+            </div>
+            <ul class="average_review">
+                <li th:if="${ productReview.get(0) != null }" th:text="${productReview.get(0).getReviewAvg()}"></li>
+            </ul>
+
+
+            <!-- 포토후기 ===========================-->
+
+            <!--        <div th:if="${productReview.get(0) != null}" th:each="prodreview : ${productReview}">-->
+            <!--          <div class="poto_review" >-->
+            <!--            <h2>포토 리뷰</h2>-->
+            <!--            <ul th:onclick="openModal()">-->
+            <!--              <li>-->
+            <!--                <img th:src="@{/client/images/review_photo/1.png}" alt="">-->
+            <!--              </li>-->
+            <!--            </ul>-->
+            <!--            <div class="allPhoth">전체보기</div>-->
+            <!--            <hr>-->
+            <!--          </div>-->
+
+            <!--          <div id="overlay">-->
+            <!--            <div id="myModal" class="modal">-->
+            <!--              <button id="closeModal">&times;</button>-->
+            <!--              <div class="content-container">-->
+            <!--                <div class="left-column">-->
+            <!--                  <img th:src="@{/client/images/review_photo/1.png}" alt="후기사진">-->
+            <!--                </div>-->
+
+            <!--                <div class="right-column" >-->
+            <!--                  <div class="modal_average_review">-->
+            <!--                    <ul class="review2">-->
+            <!--                      <div class="reviewStar2" th:if="${ result != null }">  &lt;!&ndash; 모달포토후기창 &ndash;&gt;-->
+            <!--                        <div th:each="star : ${result}">-->
+            <!--                          <i th:each="char : ${star}" th:class="${char}"></i>-->
+            <!--                        </div>-->
+            <!--                      </div>-->
+            <!--                      <ul class="average_review2" >-->
+            <!--                        <li th:if="${ productReview.get(0) != null }" th:text="${productReview.get(0).getReviewAvg()}"></li>-->
+            <!--                      </ul>-->
+            <!--                    </ul>-->
+            <!--                    <ul class="right-column-text">-->
+            <!--                      <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}">아이디 </li>-->
+            <!--                      <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>-->
+            <!--                    </ul>-->
+            <!--                  </div>-->
+            <!--                  <hr>-->
+            <!--                  <div class="modal_option">-->
+            <!--                    <div th:text="${productDetail[0].productText[0].productName}"></div></div>-->
+            <!--                  <hr>-->
+            <!--                  <div class="modal_content">자세히보기</div>-->
+            <!--                  <hr>-->
+            <!--                  <div>-->
+            <!--                    <ul id="review-img">-->
+            <!--                      <li><img src="/client/images/review_photo/1.png" alt="">dfdfdf</li>-->
+            <!--                      <li><img src="/client/images/review_photo/2.png" alt="">werwer</li>-->
+            <!--                    </ul>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </div>-->
+            <!--        </div>-->
+
+
+            <!-- 글 후기 -->
+
+            <div class="text_review">
+                <div>
+                    <h2 id="rivew">상품후기</h2>
+
+                    <th:block th:if="${productReview.get(0) != null}">
+                        <ul class="text_review_list" th:if="${not #lists.isEmpty(productReview)}"
+                            th:each="prodreview, number : ${productReview}" id="reviewList">
+
+                            <!--                <li th:text="${number.index + 1}">일련번호</li>-->
+                            <!--                <li><span>★★★★☆</span></li>-->
+                            <!--                <li th:text="${prodreview.getReviewContent()}">내용</li>-->
+                            <!--                <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}"></li>-->
+                            <!--                <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>-->
+                        </ul>
+                    </th:block>
+
+                    <div th:if="${productReview.get(0) == null}">후기가 없습니다.</div>
+
+                    <button class="review_page_number"
+                            th:onclick="|location.href='/board/reviewList?currentPage=1&searchCondition=productCode&searchValue=${productDetail.get(0).getProductCode()}'|">
+                        더 보기
+                    </button>
+
+
+                    <p class="nonmember">
+                        비회원으로 주문하신 경우 당사 사이트 우측 상단의 [배송 조회 > 비회원 주문 확인] 메뉴에서 확인 가능하며 <br>
+                        주문 완료 후 제공되는 주문번호 및 주문 시 기재한 이메일로 확인 가능합니다
+                    </p>
+                </div>
+            </div>
         </div>
-
-
-        <!-- 글 후기 -->
-
-        <div class="text_review">
-          <div>
-            <h2 id="rivew">상품후기</h2>
-
-            <th:block th:if="${productReview.get(0) != null}">
-              <ul class="text_review_list" th:if="${not #lists.isEmpty(productReview)}" th:each="prodreview, number : ${productReview}" id="reviewList">
-
-                <li th:text="${number.index + 1}">일련번호</li>
-                <li><span>★★★★☆</span></li>
-                <li th:text="${prodreview.getReviewContent()}">내용</li>
-                <li th:text="${#strings.replace(prodreview.getReviewId(), #strings.substring(prodreview.getReviewId(), 2, 7), '*****')}"></li>
-                <li th:text="${#strings.substring(prodreview.getReviewWriteDate(), 0, 10)}">리뷰쓴날짜</li>
-              </ul>
-            </th:block>
-
-            <div th:if="${productReview.get(0) == null}">후기가 없습니다.</div>
-
-            <button class="review_page_number" onclick="loadMoreReviews()">더 보기</button>
-
-
-          <!-- Q&A -->
-<!--          <h2 id="qa">Q&A</h2>-->
-<!--          <div class="qa">-->
-<!--            <ul class="main">-->
-<!--              <li>1</li>-->
-<!--              <li>배송관련</li>-->
-<!--              <li>배송기간은 얼마나 걸리나요?</li>-->
-<!--            </ul>-->
-<!--            <div class="sub">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</div>-->
-<!--          </div>-->
-<!--          <div class="qa">-->
-<!--            <ul class="main">-->
-<!--              <li>2</li>-->
-<!--              <li>배송관련</li>-->
-<!--              <li>배송기간은 얼마나 걸리나요?</li>-->
-<!--            </ul>-->
-<!--            <div class="sub">답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변답변</div>-->
-<!--          </div>-->
-
-          <p class="nonmember">
-            비회원으로 주문하신 경우 당사 사이트 우측 상단의 [배송 조회 > 비회원 주문 확인] 메뉴에서 확인 가능하며 <br>
-            주문 완료 후 제공되는 주문번호 및 주문 시 기재한 이메일로 확인 가능합니다
-          </p>
     </section>
 
+
     <script>
-      $("#thumbnailArea > div").click(function(){
-        const number = $(this).find("label").text();
-        console.log(number);
-        location.href = "/productinfo/product/" + number;
-      });
-
-
-      // 리뷰증가시마다 더보기
-      var currentPage = 1; // 현재 페이지
-      var reviewsPerPage = 5; // 페이지당 리뷰 수
-
-      function loadMoreReviews() {
-        // 현재 페이지의 다음 리뷰 가져오기
-        var startIndex = currentPage * reviewsPerPage;
-        var endIndex = startIndex + reviewsPerPage;
-
-        // 현재 페이지의 리뷰만 가져오도록 조건을 걸어서 표시
-        $('#reviewList li').each(function(index) {
-          if (index >= startIndex && index < endIndex) {
-            $(this).show();
-          }
+        $("#thumbnailArea > div").click(function () {
+            const number = $(this).find("label").text();
+            console.log(number);
+            location.href = "/productinfo/product/" + number;
         });
 
-        // 페이지 번호 증가
-        currentPage++;
-      }
+
+        // 리뷰증가시마다 더보기
+        var currentPage = 1; // 현재 페이지
+        var reviewsPerPage = 5; // 페이지당 리뷰 수
+
+        function loadMoreReviews() {
+            // 현재 페이지의 다음 리뷰 가져오기
+            var startIndex = currentPage * reviewsPerPage;
+            var endIndex = startIndex + reviewsPerPage;
+
+            // 현재 페이지의 리뷰만 가져오도록 조건을 걸어서 표시
+            $('#reviewList li').each(function (index) {
+                if (index >= startIndex && index < endIndex) {
+                    $(this).show();
+                }
+            });
+
+            // 페이지 번호 증가
+            currentPage++;
+
+        }
+
+
+        //   장바구니로 넘기기
+
+        //   function addCart() {
+        //     var color = document.getElementById("color").value;
+        //     var productCode = document.getElementsByName("addProductCode")[0].value;
+        //
+        //     var url = "/productinfo/addcart?color=" + encodeURIComponent(color) + "&productCode=" + encodeURIComponent(productCode);
+        //
+        //     window.location.href = url;
+        // }
     </script>
 
 
     <script th:src="@{/client/js/product.js}"></script>
-  </th:block>
+    </th:block>
 </html>
