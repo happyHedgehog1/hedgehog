@@ -109,6 +109,7 @@
         <result property="price" column="price"/>
         <result property="savedMoney" column="savedMoney"/>
         <result property="deliveryCharge" column="delivery_Charge"/>
+        <result property="convertPath" column="convert_path"/>
     </resultMap>
 
 
@@ -121,14 +122,18 @@
             B.price,
             (B.price * 0.01) AS savedMoney,
             A.product_code,
-            B.delivery_charge
+            B.delivery_charge,
+            D.convert_path
         FROM
             tbl_cart A
                 join
             tbl_product B ON A.product_code = B.product_code
                 join
             tbl_user C ON A.customer_code = C.user_code
+                join
+            tbl_product_img D ON B.product_code=D.product_code
         WHERE C.user_code = #{userCode}
+          and D.image_classification = 'Thumbnails'
     </select>
 
 

@@ -55,7 +55,8 @@
         B.price,
         (B.price * 0.01) AS 적립금,
         B.delivery_charge,
-        (B.price * A.amount + B.delivery_charge) AS 합계
+        (B.price * A.amount + B.delivery_charge) AS 합계,
+        C.convert_path
         FROM
         tbl_cart A
         left join
