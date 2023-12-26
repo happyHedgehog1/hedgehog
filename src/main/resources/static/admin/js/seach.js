@@ -145,7 +145,7 @@ $(document).ready(function () {
                     const orderCode = this.parentNode.querySelector("td:nth-child(3)").innerText;
 
                     const orderDetailUrl = "/order/orderDetail?orderCode=" + orderCode;
-                    window.open(orderDetailUrl, "_blank", "width=840, height=700");
+                    window.open(orderDetailUrl, "_blank", "width=1530, height=700");
                 };
             }
         }
@@ -171,7 +171,7 @@ $(document).ready(function () {
                     const inquiry_code = this.parentNode.querySelector("input[name='resultCheckbox']").value;
                     const answer_state = this.parentNode.children[5].innerText;
                     const inquiryDetailUrl = "/Service/inquiryDetail?inquiry_code=" + inquiry_code+ "&answer_state=" + answer_state;
-                    window.open(inquiryDetailUrl, "_blank", "width=840, height=700");
+                    window.open(inquiryDetailUrl, "_blank", "width=900, height=1500");
                 };
             }
 
@@ -273,9 +273,13 @@ $(document).ready(function () {
                     this.parentNode.style.color = "black";
                 }
 
-                $tdsProduct[i].onclick = function() {
-                    const no = this.parentNode.children[0].innerText;
-                    window.open("/product/detail", "_blank", "width=1500,height=1000");
+                $tdsProduct[i].ondblclick = function() {
+
+                    const mailCode = this.parentNode.querySelector("input[name='mailCode']").value;
+
+                    const mailDetailUrl = "/autoMailModify/emailDetail?mailCode=" + mailCode;
+
+                    window.open(mailDetailUrl, "_blank", "width=1000, height=1500");
                 };
             }
         }

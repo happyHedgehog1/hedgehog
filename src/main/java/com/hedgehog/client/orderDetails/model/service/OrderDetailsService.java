@@ -8,6 +8,7 @@ import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsSelectCriteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -59,7 +60,25 @@ public class OrderDetailsService {
 
     public Integer selectOrderCode(Integer orderCode, String email) {
         Integer newOrderCode = mapper.selectOrderCode(orderCode, email);
-        log.info("가져온 newOrderCode... : "+newOrderCode);
+        log.info("가져온 newOrderCode... : " + newOrderCode);
         return newOrderCode;
+    }
+
+    public int selectUserCode(Integer orderCode) {
+        return mapper.selectUserCode(orderCode);
+    }
+
+    @Transactional
+    public boolean updateReceiveOrder(String orderCode) {
+        String result1 = mapper.selectReceiveOrder(orderCode);
+        log.info("result1: " + result1);
+        int result2 = 0;
+        if (result1.equals("배송중")) {
+            result2 = mapper.updateReceiveOrder(orderCode);
+            String deliveryCode = mapper.selectDeliveryCode(orderCode);
+            mapper.updateDelivery(deliveryCode);
+        }
+        log.info("result2: ", result2);
+        return result2 >= 0 ? true : false;
     }
 }

@@ -5,7 +5,9 @@ import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
 import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
 import com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO;
 import com.hedgehog.admin.exception.UnregistException;
+import jakarta.mail.MessagingException;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface AdminMemberService {
@@ -13,7 +15,7 @@ public interface AdminMemberService {
 
     List<AdminAllMemberDTO> selectMember(AdminMemberForm form);
 
-    public void memberWithdraw(AdminAllMemberDTO adminAllMemberDTO) throws UnregistException;
+    public void memberWithdraw(AdminAllMemberDTO adminAllMemberDTO) throws UnregistException, MessagingException, UnsupportedEncodingException;
 
     AdminAllMemberDTO memberDetail(int memberCode);
 

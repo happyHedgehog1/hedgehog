@@ -63,7 +63,7 @@ public class ListController {
         Map<String, Object> map = new HashMap<>();
         map.put("selectCriteria", selectCriteria);
         map.put("type", type);
-        List<ProductListDTO> productList = productListService.selectProductList(map);
+        List<ProductListDTO> productList = productListService.selectProductList(map);  /* 리스트상품명 */
 
 
 
@@ -76,10 +76,16 @@ public class ListController {
         mv.addObject("map",map);
         mv.addObject("selectCriteria", selectCriteria);
 
-        mv.setViewName("client/content/list/productList");
 
         System.out.println("mv========================="+mv);
+        System.out.println("재확인===="+productList.get(0).getAdminProductDTO().getProductName());
 
+        int discount = (int) productList.get(0).getDiscount();
+
+
+        System.out.println("할인금액=="+productList.get(0).getDiscount());
+
+        mv.setViewName("client/content/list/productList");
 
         return mv;
 

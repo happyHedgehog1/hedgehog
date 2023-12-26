@@ -236,25 +236,25 @@
     <update id="productUpdate" parameterType="Map">
         UPDATE TBL_PRODUCT
         SET
-            product_name = #{productName, jdbcType=VARCHAR},
-            orderable_status = #{orderableStatus ,jdbcType=CHAR},
-            price = #{price, jdbcType=INTEGER},
-            delivery_charge = #{deliveryCharge ,jdbcType=INTEGER},
-            sales_start = #{salesStart ,jdbcType=TIMESTAMP},
-            sales_end = #{salesEnd ,jdbcType=TIMESTAMP},
-            category_code = #{subCategoryName ,jdbcType=INTEGER},
+            product_name = #{productName},
+            orderable_status = #{orderableStatus},
+            price = #{price},
+            delivery_charge = #{deliveryCharge},
+            sales_start = #{salesStart},
+            sales_end = #{salesEnd},
+            category_code = #{subCategoryName},
             modification_date = now()
-        WHERE product_code = #{productCode, jdbcType=INTEGER}
+        WHERE product_code = #{productCode}
     </update>
     <update id="optionListUpdate" parameterType="Map">
         UPDATE tbl_option_list
         SET
-            stock = #{stock, jdbcType=INTEGER}
-        WHERE product_code = #{productCode, jdbcType=INTEGER} AND option_code = #{optionCode, jdbcType=VARCHAR}
+            stock = #{stock}
+        WHERE product_code = #{productCode} AND option_code = #{optionCode}
     </update>
     <delete id="deleteOptionList" parameterType="Map">
         DELETE FROM tbl_option_list
-        WHERE product_code = #{productCode, jdbcType=INTEGER} AND option_code = #{optionCode, jdbcType=VARCHAR}
+        WHERE product_code = #{productCode} AND option_code = #{optionCode}
     </delete>
     <insert id="addOptionList2">
         REPLACE into tbl_option_list (
@@ -284,14 +284,24 @@
     </select>
     <select id="searchCategoryDetail" resultMap="productResultMap">
         select
-            *
+            a.category_code,
+            b.product_name,
+            a.name,
+            b.orderable_status,
+            a.state
+
         from tbl_category A
                  join tbl_product B on A.category_code = B.category_code
         where A.category_code = #{categoryCode}
     </select>
     <select id="searchUpperCategoryDetail" resultMap="productResultMap">
         select
-            *
+            a.category_code,
+            b.product_name,
+            a.name,
+            b.orderable_status,
+            a.state
+
         from tbl_category A
                  join tbl_product B on A.category_code = B.category_code
         where A.upper_category_code = #{categoryCode}
@@ -300,7 +310,7 @@
         UPDATE tbl_category
         SET name = #{categoryName},
             state = #{categoryDisplay}
-        WHERE upper_category_code =#{upperCategoryCode} AND category_code = #{subCategoryName}
+        WHERE category_code = #{subCategoryName}
     </update>
 
 </mapper>

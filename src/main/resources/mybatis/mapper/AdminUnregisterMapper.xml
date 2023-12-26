@@ -79,10 +79,13 @@
                 </if>
             </if>
             <if test="unregisterCondition == 'withdrawal'">
-                AND (B.cause NOT LIKE CONCAT('%관리자%', '') AND B.cause NOT LIKE CONCAT('%강제%', ''))
+                AND (B.cause NOT LIKE CONCAT('%관리자%', '') AND B.cause NOT LIKE CONCAT('%강제%', '')
+                         AND B.cause NOT LIKE CONCAT('%취소%', '')
+                         AND B.state = 'Y')
+                               OR B.cause LIKE CONCAT('%관리자 승인%', '')
             </if>
             <if test="unregisterCondition == 'forcedWithdrawal'">
-                AND B.cause LIKE CONCAT('%강제%', '') OR B.cause LIKE CONCAT('%관리자 승인%', '')
+                AND B.cause LIKE CONCAT('%강제%', '')
             </if>
             <if test="unregisterCondition == 'plannedWithdrawal'">
                 AND B.state = 'N'
@@ -90,6 +93,7 @@
             <if test="searchId != null and searchId != ''">
                 AND A.id LIKE CONCAT('%', #{searchId}, '%')
             </if>
+            AND (B.cause NOT LIKE CONCAT('%관리자 탈퇴%', ''))
         </where>
     </select>
     <update id="causeUpdate" parameterType="_int">

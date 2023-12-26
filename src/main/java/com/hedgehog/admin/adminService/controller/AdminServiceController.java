@@ -131,8 +131,8 @@ public class AdminServiceController {
                 adminInquiryServiceImpl.inqStateUpdate(inquiryDTO);
             }
         }
-        rttr.addFlashAttribute("message", "상태가 변경되었습니다.");
-        return "admin/content/Service/Product-inquiry";
+        rttr.addFlashAttribute("success", true);
+        return "redirect:/Service/productInquiryPage";
     }
 
     //상품문의 답변
@@ -472,7 +472,7 @@ public class AdminServiceController {
         return "admin/content/Service/email";
     }
 
-    @GetMapping("/emailHistory")
+    @GetMapping("/emailHistoryPage")
     public String emailHistory() {
         return "admin/content/Service/emailHistory";
     }

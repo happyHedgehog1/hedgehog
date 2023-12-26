@@ -59,9 +59,9 @@ log.info("==============");
         List<String> dailySaleVolume = mapper.dailySaleVolume(startOfDay, endOfDay);
         int result1 = dailySaleVolume.size();
         adminMainStatisticsDTO.setSaleVolume(result1);
-        adminMainStatisticsDTO.setSaleVolume(dailySaleVolume.size());
-        log.info("===================dailySaleVolume: " + dailySaleVolume);
-        log.info("===================dailySaleVolume.size()" + result1);
+
+//        log.info("===================dailySaleVolume.size()" + result1);
+        log.info("===================dailySaleVolume" + result1);
 
         //리뷰 조회
         List<String> dailyReview = mapper.dailyReviews(startOfDay, endOfDay);

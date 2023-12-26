@@ -4,13 +4,12 @@
       layout:decorate="~{layouts/adminlayout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품등록</title>
-    <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
     <script th:src="@{/admin/js/productAdd.js}"></script>
 
-    <link rel="stylesheet" th:href="@{/admin/css/productAdd.css}">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -20,11 +19,11 @@
         <div class="mainHd">
             <div class="topTitle">
                 <h4>상품 등록</h4>
-                <div><button id="btnSubmitAdd">상품일괄등록</button></div>
+<!--                <div><button id="btnSubmitAdd">상품일괄등록</button></div>-->
             </div>
         </div>
         <form id="productAdd" th:action="@{/product/productAdd}" method="post" enctype="multipart/form-data">
-            <div class="sectTopWrapper">
+            <div class="sectTopWrapper" id="sectTopWrapper">
                 <div class="sectTop">
                     <table>
                         <colgroup>
@@ -83,7 +82,7 @@
                             <td>
                                 <ul class="arrAlign">
                                     <li class="w250">
-                                        <input type="number" name="price" id="price" style="width: 200px;" placeholder="가격을 입력하세요">
+                                        <input type="number" name="price" id="price" style="width: 200px;" value="0">
                                     </li>
                                 </ul>
                             </td>
@@ -161,7 +160,7 @@
                                         <input type="text" name="optionDTO[0].optionName" id="optionDTO[0].optionName" style="width: 350px;" placeholder="예시 : 흰색">
                                     </li>
                                     <li class="w200">
-                                        <input type="number" name="optionList[0].stock" id="optionList[0].stock" style="width: 125px;" value="0">
+                                        <input type="number" name="optionList[0].stock" id="optionList[0].stock" style="width: 125px;" >
                                         개
                                     </li>
                                     <li class="w140" style="padding-top: 5px;">
@@ -210,7 +209,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div><button id="btnAdd">상품등록</button></div>
+                    <div><button type="submit" id="btnAdd" >상품 등록</button></div>
                 </div>
             </div>
         </form>
@@ -296,12 +295,7 @@
     </div>
 
 </th:block>
-<script th:inline="javascript">
-    var message = [[${message}]];
-    if (message) {
-        alert(message);
-    }
-</script>
+
 </body>
 </html>
 

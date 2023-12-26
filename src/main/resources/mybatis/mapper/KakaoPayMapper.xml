@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hedgehog.client.kakaopay.model.dao.KakaoPayMapper">
+
+
+<resultMap id="OrderCompletedResultMap" type="ClientCartOrderForm">
+    <id property="orderCode" column="order_code"/>
+    <result property="finalPrice" column="final_price"/>
+    <result property="productName" column="product_name"/>
+</resultMap>
+
+    <select id="getCartByUserNo" resultMap="OrderCompletedResultMap">
+
+        SELECT
+            A.order_code,
+            C.final_price,
+            B.product_name
+        FROM
+            tbl_order A
+                JOIN tbl_product B ON A.product_code = B.product_code
+                JOIN tbl_order_details C ON A.order_code = C.order_code
+        WHERE customer_code =#{userCode}
+
+
+    </select>
+
+<!--주문배송내역 조회할 수 있게 만들기 -->
+    <resultMap id="OrderPaymentResultMap" type="OrderPayment">
+        <id property="orderCode" column="order_code"/>
+        <result property="convertPath" column="convertPath"/>
+        <result property="productName" column="product_name"/>
+        <result property="finalPrice" column="final_price"/>
+        <result property="deliveryCharge" column="delivery_Charge"/>
+        <result property="pointCharge"  column="point_charge"/>
+        <result property="state" column="state"/>
+        <result property="customerCode" column="customer_code"/>
+    </resultMap>
+
+    <select id="selectOrderList" resultMap="OrderPaymentResultMap">
+
+
+    </select>
+
+
+<!--    SELECT A.order_code,-->
+<!--    A.creation_date,-->
+<!--    B.convert_path,-->
+<!--    A.product_code,-->
+<!--    D.product_name,-->
+<!--    COUNT(*) product_count,-->
+<!--    SUM(C.cost_price * C.count) cost_price,-->
+<!--    SUM(C.delivery_charge * C.count) delivery_charge,-->
+<!--    SUM(C.reduced_price * C.count) reduced_price,-->
+<!--    A.point_usage,-->
+<!--    SUM(C.point_charge * C.count) point_charge,-->
+<!--    A.state-->
+<!--    FROM tbl_order A-->
+<!--    JOIN tbl_product_img B ON A.product_code = B.product_code-->
+<!--    JOIN tbl_order_details C ON A.order_code = C.order_code-->
+<!--    JOIN tbl_product D ON A.product_code = D.product_code-->
+
+<insert id="saveOrderDetail" parameterType="com.hedgehog.client.kakaopay.model.dto.OrderPayment" >
+    INSERT INTO tbl_order (
+        customer_code,
+        creation_date,
+        product_code,
+        point_usage,
+        state
+    ) VALUES (
+                #{userCode},
+                 NOW(),
+    <foreach collection="orderPayment.productCode" item="productCode" separator=",">
+        #{productCode}
+    </foreach>,
+                 #{orderPayment.pointUsage},
+                 '배송중'
+             );
+
+    <selectKey keyProperty="orderPayment.orderCode" order="AFTER" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID() AS orderCode
+    </selectKey>
+
+</insert>
+<!--이거 inset한 마지막 autoIncreament를 ordercode랑 매핑시킬 수 있다-->
+
+
+
+
+
+
+<!--    <insert id="saveAllOrderInfo" parameterType="com.hedgehog.client.kakaopay.model.dto.OrderPayment">-->
+<!--        INSERT INTO tbl_order_details (-->
+<!--        order_code,-->
+<!--        count,-->
+<!--        product_code,-->
+<!--        delivery_charge,-->
+<!--        point_charge,-->
+<!--        reduced_price,-->
+<!--        cost_price,-->
+<!--        final_price,-->
+<!--        option_code,-->
+<!--        review_point-->
+<!--        ) VALUES (-->
+<!--        #{orderCode},-->
+<!--         <foreach collection="orderPayment.count" item="count" separator=",">-->
+<!--             #{count}-->
+<!--         </foreach>,-->
+<!--        <foreach collection="orderPayment.productCode" item="productCode" separator=",">-->
+<!--            #{productCode}-->
+<!--        </foreach>,-->
+<!--        #{orderPayment.deliveryCharge},-->
+<!--        #{orderPayment.pointCharge},-->
+<!--        #{orderPayment.reducedPrice},-->
+<!--        #{orderPayment.costPrice},-->
+<!--        #{orderPayment.finalPrice},-->
+<!--        (SELECT option_code FROM tbl_option_list WHERE product_code = #{orderPayment.productCode[_iterator]}),-->
+<!--        1000-->
+<!--        );-->
+<!--    </insert>-->
+
+
+
+
+</mapper>

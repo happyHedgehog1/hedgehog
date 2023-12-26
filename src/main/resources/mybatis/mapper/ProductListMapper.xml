@@ -5,6 +5,9 @@
 <mapper namespace="com.hedgehog.client.list.dao.ProductListMapper">
 
     <resultMap type="ProductListDTO" id="productListResultMap" >
+        <result property="Discount" column="discount"/>
+        <result property="SaleEndDay" column="end_day"/>
+        <result property="saleOrBestCode" column="status"/>
         <association property="adminProductDTO" resultMap="productResultMap"/>
         <association property="adminCategoryDTO" resultMap="categoryResultMap"/>
         <association property="attachmentList" resultMap="attachmentResultMap"/>
@@ -49,8 +52,10 @@
         FROM tbl_product A
                  LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
                  LEFT JOIN tbl_category C ON (A.category_code = C.category_code)
+                 LEFT JOIN tbl_event_product_list E ON (E.product_code = A.product_code)
+                 LEFT JOIN tbl_event F ON (F.post_code = E.post_code)
         WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND C.state = 'Y'
-            AND
+            AND(
               (#{type} = 'bed' AND c.name = '침대')
            OR
             (#{type} = 'wardrobe' AND C.name = '옷장')
@@ -72,7 +77,11 @@
             (#{type} = 'kitchenTable' AND C.name = '식탁')
            OR
             (#{type} = 'kitchenCloset' AND C.name = '수납장' AND C.category_code = '15')
-
+           OR
+            (#{type} = 'sale' AND F.status = 'Y' AND A.event_progressionstatus = 'Y')
+           OR
+            (#{type} = 'best' AND F.status = 'A' AND A.event_progressionstatus = 'A')
+            )
     </select>
 
     <select id="selectProductList" resultMap="productListResultMap">
@@ -84,34 +93,44 @@
             B.source_name,
             B.convert_path,
             A.reviews,
-            B.image_classification
+            B.image_classification,
+            F.status,
+            F.end_day,
+            F.discount
         FROM tbl_product A
         LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
         LEFT JOIN tbl_category C ON (A.category_code = C.category_code)
+        LEFT JOIN tbl_event_product_list E ON (E.product_code = A.product_code)
+        LEFT JOIN tbl_event F ON (F.post_code = E.post_code)
         WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND C.state = 'Y' AND B.image_classification = 'Thumbnails'
-        AND A.event_progressionstatus = 'N'
         AND (
-            (#{type} = 'bed' AND c.name = '침대')
+            (#{type} = 'bed' AND c.name = '침대' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'wardrobe' AND C.name = '옷장')
+            (#{type} = 'wardrobe' AND C.name = '옷장' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'dressingTable' AND C.name = '화장대')
+            (#{type} = 'dressingTable' AND C.name = '화장대' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'sopa' AND C.name = '소파')
+            (#{type} = 'sopa' AND C.name = '소파' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'table' AND C.name = '테이블')
+            (#{type} = 'table' AND C.name = '테이블' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'closet' AND C.name = '수납장')
+            (#{type} = 'closet' AND C.name = '수납장' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'desk' AND C.name = '책상')
+            (#{type} = 'desk' AND C.name = '책상' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'bookcase' AND C.name = '책장')
+            (#{type} = 'bookcase' AND C.name = '책장' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'chair' AND C.name = '의자')
+            (#{type} = 'chair' AND C.name = '의자' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'kitchenTable' AND C.name = '식탁')
+            (#{type} = 'kitchenTable' AND C.name = '식탁' AND A.event_progressionstatus = 'N')
         OR
-            (#{type} = 'kitchenCloset' AND C.name = '수납장' AND C.category_code = '15')
+            (#{type} = 'kitchenCloset' AND C.name = '수납장' AND C.category_code = '15' AND A.event_progressionstatus = 'N')
+
+        OR
+            (#{type} = 'sale' AND F.status = 'Y' AND A.event_progressionstatus = 'Y')
+
+        OR
+            (#{type} = 'best' AND F.status = 'A' AND A.event_progressionstatus = 'Y')
             )
         ORDER BY A.product_code
         LIMIT  #{selectCriteria.startRow}, #{ selectCriteria.limit }

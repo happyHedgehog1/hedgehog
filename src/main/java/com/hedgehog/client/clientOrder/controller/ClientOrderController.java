@@ -5,15 +5,12 @@ import com.hedgehog.client.auth.model.dto.LoginUserDTO;
 import com.hedgehog.client.basket.model.dto.CartSelectDTO;
 import com.hedgehog.client.clientOrder.model.dto.OrderInfoDTO;
 import com.hedgehog.client.clientOrder.model.service.ClientCartServiceImp;
-import com.hedgehog.client.kakaopay.model.dto.ApproveResponse;
-import com.hedgehog.client.kakaopay.model.dto.ReadyResponse;
+import com.hedgehog.client.kakaopay.model.dto.OrderPayment;
 import com.hedgehog.client.kakaopay.model.service.KakaoPayService;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -99,25 +96,21 @@ public class ClientOrderController {
     //여기부터 주문성공 및 실패 페이지
 
     @GetMapping("/orderCompleted") //주문완료 페이지
-    public String orderCompleted(
-                                 @RequestParam("pg_token") String pgToken,
-                                 @ModelAttribute("tid") String tid,
-//                                 @RequestParam(value = "AllOriginalTotalOrder", required = false) int AllOriginalTotalOrder,
-//                                 HttpSession httpSession,
-                                 Model model
-    ){
-
-        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
-        model.addAttribute("총 가격",approveResponse.getAmount().getTotal());
-//        int AllOriginalTotalOrder = (int) httpSession.getAttribute("AllOriginalTotalOrder");
-
-        model.addAttribute("주문번호", tid);
-//        model.addAttribute("AllOriginalTotalOrder", AllOriginalTotalOrder);
+    public ModelAndView orderCompleted( ModelAndView mv,
+                                        @ModelAttribute("OrderPayment") OrderPayment orderpayment,
+                                        @AuthenticationPrincipal LoginDetails loginDetails){
 
 
-
-
-        return "/client/content/clientOrder/orderCompleted";
+//        OrderInfoDTO orderinfo = clientCartService.getOrderProduct();
+log.info("finalPrice"+ orderpayment.getFinalPrice());
+log.info("orderCode" + orderpayment.getOrderCode());
+mv.addObject("finalPrice", orderpayment.getFinalPrice());
+mv.addObject("userCode", loginDetails.getLoginUserDTO().getUserCode());
+mv.addObject("userName", loginDetails.getLoginUserDTO().getName());
+mv.addObject("orderCode", orderpayment.getOrderCode());
+log.info("이거라도 주문코드가" + orderpayment.getOrderCode());//이건 주문하면 나오내
+        mv.setViewName("/client/content/clientOrder/orderCompleted");
+        return mv;
     }
 
     @GetMapping("/orderFailed") // 주문실패 페이지
@@ -126,4 +119,7 @@ public class ClientOrderController {
     }
 
 }
+
+
+
 

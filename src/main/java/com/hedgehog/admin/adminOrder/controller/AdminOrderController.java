@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 @Slf4j
@@ -108,6 +110,21 @@ public class AdminOrderController {
 
         AdminOrderDTO orderDetail = adminOrderService.orderDetail(orderCode);
         log.info("~~~~~~~~~~~~~~~~orderDetail : {}", orderDetail);
+
+        int finalPrice = 0;
+        int finalPrice1 = 0;
+        int calPrice = 0;
+
+        for(int i = 0; i < orderDetail.getOrderDetail().size(); i++){
+            int count = orderDetail.getOrderDetail().get(i).getCount();
+            int costPrice = orderDetail.getOrderDetail().get(i).getCostPrice();
+
+            finalPrice1 += (count * costPrice);
+        }
+
+        finalPrice = finalPrice1 - orderDetail.getPointUsage();
+
+        orderDetail.setSumPrice(finalPrice);
 
 
         model.addAttribute("orderDetail", orderDetail);

@@ -35,57 +35,27 @@ public class BoardController {
                                    @RequestParam(defaultValue = "gradeDESC") String orderBy,
                                    @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
                                    ModelAndView mv) {
-        /*searchCondition: 아이디, 제품명, 제품코드, 별점낮은순, 별점높은순*/
-        /*searchValue: wildcard로 검색하는 형태. 배송/제품/교환/환불 문의는 어떤식으로 할지 고민중. 단순히 wildcard가 제일 편하긴 하겠다만..
-         *별점같은 경우 searchValue 입력하는  부분이 사라지는 방식으로. 물론 다른 Condition이면 상관없다만..*/
-        /*쿼리스트링으로 표시되는건 ?currentPage=2 같은 형태. pageNo는 이 컨트롤러 메서드에서 활용되는 형태*/
-        log.info("");
-        log.info("");
-        log.info("reviewList : BoardController..... start");
-        /*맨 먼저 목록보기를 누르면 1페이지가 나온다.*/
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchCondition", searchCondition);
         searchMap.put("searchValue", searchValue);
         searchMap.put("orderBy", orderBy);
-        log.info("orderBy : " + orderBy);
-
-        log.info("reviewList : BoardController에서 검색조건은 현재 다음과 같음... : " + searchMap);
-
-        /*우선 전체 게시물의 개수가 필요하다. 데이터베이스에서 먼저 전체 게시물 수를 조회해 온다.*/
         int totalCount = boardService.selectTotalCountReviewList(searchMap);
-        log.info("조건에 맞는 전체 문의 게시글의 수... : " + totalCount);
-        /*한 페이지에 5개*/
-        int limit = 1;
-        /*한번에 페이징 버튼은 5개*/
+        int limit = 3;
         int buttonAmount = 5;
-        /*페이징 처리용 로직을 위한 변수*/
         SelectCriteria selectCriteria = null;
         if (searchCondition != null && !"".equals(searchCondition)) {
-            // 뭔가 검색조건이 있다면
-            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue, orderBy);
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount,
+                    searchCondition, searchValue, orderBy);
         } else {
-            // 검색조건이 없다면
             selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, orderBy);
         }
-        log.info("");
-        log.info("");
-        log.info("reviewList : BoardController..... selectCriteria : " + selectCriteria);
-
         List<ReviewDTO> reviewList = boardService.selectReviewList(selectCriteria);
-
-        log.info("reviewList : BoardController... reviewList : " + reviewList);
-        log.info("... 사진도 가져와야 한다.");
         List<Integer> reviewCodes = reviewList.stream().map(ReviewDTO::getReviewCode).collect(Collectors.toList());
         List<PostImageDTO> imageList = boardService.getReviewImage(reviewCodes);
-        log.info("imageList : BoardController... imageList : " + imageList);
-
         mv.addObject("reviewList", reviewList);
         mv.addObject("imageList", imageList);
         mv.addObject("selectCriteria", selectCriteria);
-        log.info("reviewList : BoardController... selectCriteria" + selectCriteria);
-
         mv.setViewName("/client/content/board/reviewList");
-        log.info("reviewList : BoardController..... end..");
         return mv;
     }
 

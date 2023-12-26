@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문내역 상세조회</title>
-    <link rel="stylesheet" th:href="@{/admin/css/autoMail/viewport/viewport.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/admin/css/orderDetail.css}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script th:src="@{/admin/js/seach.js}"></script>
 </head>
@@ -20,64 +20,91 @@
     </header>
     <div class="body">
         <div class="wrap">
-            <table >
+            <table>
                 <tr>
+                    <th>주문번호</th>
                     <th>주문일자</th>
-                    <th>주문코드</th>
                     <th>상품명</th>
-                    <th>상품가격</th>
+                    <th>판매가</th>
+                    <th>개수</th>
+                    <th>합계</th>
                     <th>배송비</th>
                     <th>사용한 적립금</th>
-                    <th>합계</th>
-                </tr>
-                    <td th:text="${orderDetail.getCreationDate()}"/>
-                    <td th:text="${orderDetail.getOrderCode()}"/>
-                    <td th:text="${orderDetail.getProductDTO().productName}"/>
-                    <td>
-                        <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
-                            <div th:text="${#numbers.formatInteger(orderDetail.getOrderDetail().get(orderStat.index).getCostPrice(), 3, 'COMMA') + '원'}"></div>
-                        </div>
-                    </td>
-                <td>
-                    <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
-                        <div th:text="${#numbers.formatInteger(orderDetail.getOrderDetail().get(orderStat.index).getDeliveryCharge(), 3, 'COMMA') + '원'}"></div>
-                    </div>
-                </td>
-                <td th:text="${orderDetail.pointUsage}"/>
+                    <th>총합계</th>
+                    <th>상태</th>
                 </tr>
                 <tr>
-                    <th>보내는분 이름</th>
-                    <th colspan="2">보내는분 연락처</th>
-                    <th>받는분 이름</th>
-                    <th colspan="2">받는분 연락처</th>
+                    <td th:text="${orderDetail.getOrderCode()}"/>
+                    <td th:text="${orderDetail.getCreationDate()}"/>
+                    <td>
+                        <div th:each="order, orderStat : ${orderDetail.getProductDTO()}">
+                            <div th:text="${order.productName}" style="height: 30px" ></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
+                            <div style="height: 30px" th:text="${#numbers.formatInteger(order.costPrice, 3, 'COMMA') == '0' ? '0원' : #numbers.formatInteger(order.costPrice, 3, 'COMMA') + '원'}" ></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
+                            <div style="height: 30px" th:text="${order.count + '개'}" ></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="order, orderStat : ${orderDetail.getOrderDetail()}">
+                            <div style="height: 30px" th:text="${#numbers.formatInteger(order.count * order.costPrice, 3, 'COMMA') + '원'}" ></div>
+                        </div>
+                    </td>
+                    <td th:text="${orderDetail.getOrderDetail().get(0).deliveryCharge eq 0 ? '0원' : #numbers.formatInteger(orderDetail.getOrderDetail().get(0).deliveryCharge, 3, 'COMMA') + '원'}"></td>
+                    <td th:text="${orderDetail.pointUsage eq 0 ? '0원' : #numbers.formatInteger(orderDetail.pointUsage, 3, 'COMMA') + '원'}"/>
+                    <td th:text="${ #numbers.formatInteger(orderDetail.getSumPrice(), 3, 'COMMA') + '원' }"></td>
+                    <td th:text="${orderDetail.deliveryDTO.state}"></td>
+                </tr>
+            </table>
+            <table>
+                <colgroup>
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                </colgroup>
+                <tr>
+                    <th>보내는 분</th>
+                    <th>보내는 분 연락처</th>
+                    <th>받는 분</th>
+                    <th>받는 분 연락처</th>
                 </tr>
                 <tr>
                     <td th:text="${orderDetail.userDTO.name}"/>
-                    <td colspan="2" th:text="${#strings.concat(#strings.substring(orderDetail.adminCustomerDTO.phone, 0, 3), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,3, 7), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,7))}"/>
+                    <td th:text="${#strings.concat(#strings.substring(orderDetail.adminCustomerDTO.phone, 0, 3), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,3, 7), '-', #strings.substring(orderDetail.adminCustomerDTO.phone,7))}"/>
                     <td th:text="${orderDetail.deliveryDTO.recipientName}"/>
-                    <td colspan="2" th:text="${#strings.concat(#strings.substring(orderDetail.deliveryDTO.recipientPhone, 0, 3), '-', #strings.substring(orderDetail.deliveryDTO.recipientPhone,3, 7), '-', #strings.substring(orderDetail.deliveryDTO.recipientPhone,7))}"/>
+                    <td th:text="${#strings.concat(#strings.substring(orderDetail.deliveryDTO.recipientPhone, 0, 3), '-', #strings.substring(orderDetail.deliveryDTO.recipientPhone,3, 7), '-', #strings.substring(orderDetail.deliveryDTO.recipientPhone,7))}"/>
                 </tr>
                 <tr>
-                    <th colspan="5">주소</th>
-                    <th rowspan="2">상태</th>
+                    <th colspan="2">배송지</th>
+                    <th colspan="2">배송방법</th>
                 </tr>
                 <tr>
-                    <td colspan="5" th:text="${orderDetail.deliveryDTO.deliveryAddress}"></td>
+                    <td colspan="2" th:text="${orderDetail.deliveryDTO.deliveryAddress}"></td>
+                    <td colspan="2" th:text="${orderDetail.deliveryDTO.deliveryRequests}"></td>
                 </tr>
-                <tr>
-                    <th colspan="5">배송메모</th>
-                    <td rowspan="2" th:text="${orderDetail.deliveryDTO.state}"></td>
-
+                <tr th:if="${orderDetail.deliveryDTO.state == '교환중' || orderDetail.deliveryDTO.state == '교환완료'}">
+                    <th colspan="2"> 교환 사유</th>
+                    <td colspan="2" th:text="${orderDetail.orderDetail.get(0).exchangeCause}"></td>
                 </tr>
-                <tr>
-                    <td colspan="5" th:text="${orderDetail.deliveryDTO.deliveryRequests}"></td>
+                <tr th:if="${orderDetail.deliveryDTO.state == '환불중' || orderDetail.deliveryDTO.state == '환불완료'}">
+                    <th colspan="2"> 환불 사유</th>
+                    <td colspan="2" th:text="${orderDetail.orderDetail.get(0).refundCause}"></td>
                 </tr>
                 <tr th:if="${orderDetail.deliveryDTO.state == '배송완료'}">
                     <form id="orderStateForm" th:action="@{/order/}" method="post">
                         <input type="hidden" name="orderCode" id="orderCode" th:value="${orderDetail.getOrderCode()}"/>
-                        <th><button onclick="submitForm('orderStateForm', 'exchange');">교환신청</button></th>
-                        <th><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
-                        <th><input type="text" id="cause" name="cause"></th>
+                        <th ><button onclick="submitForm('orderStateForm', 'exchange');" >교환신청</button></th>
+                        <th ><button onclick="submitForm('orderStateForm', 'refund');">환불신청</button></th>
+                        <th>신청 사유</th>
+                        <th colspan="2"><input type="text" id="cause" name="cause" style="width: 330px">
+                        </th>
                     </form>
                 </tr>
             </table>

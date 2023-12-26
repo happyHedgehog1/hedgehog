@@ -24,23 +24,27 @@
             <div class="order_complete">&lt;주문완료&gt;</div>
             <br>
 
-            <div class="thanks_text">1in가구를 이용해 주셔서 감사합니다.</div>
+            <div class="thanks_text">1in가구를 이용해 주셔서 감사합니다. &nbsp; </div>
             <br>
         </div>
         <br><br>
-        <div class="complete_comment">
-            <div class="complete_comment2">고객님, 주문이 완료되었습니다</div>
-        </div>
-        <br><br>
+            <h3><span class="complete_comment" th:text="${userName + '님, 주문이 완료되었습니다'}">
+
+            </span></h3>
+
+            </div>
+        <br>
+            <br>
+            <br>
 
         <div class="oreder_number">
-            <div class="order_number2">고객님이 주문하신 제품의 주문번호는 : &nbsp;</div>
+            <div class="order_number2">고객님이 주문하신 제품의 주문번호는 :  &nbsp;</div>
 <!--            <div class="oreder_number3">${orderNumber}</div>-->
-            <div class="oreder_number3" th:text="${tid}" ></div>
+            <div class="oreder_number3" th:text="${orderCode}" ></div>
             <div class="order_number4">입니다.</div>
         </div>
         <br>
-        <div class="order_number5">주문내역 확인은 배송/마이페이지 등에서 확인하실 수 있습니다 </div>
+        <div class="order_number5">주문내역 확인은 마이페이지에서 확인하실 수 있습니다 </div>
         <br><br><br>
         <hr>
         <br><br><br>
@@ -61,8 +65,7 @@
 
                     <div class="sum_text3">
 
-<!--                        <h3>200,000원</h3>-->
-                        <p th:text="${AllOriginalTotalOrder}" >총 가격</p>
+                        <h3 th:text="${finalPrice + '원'}" >200,000원</h3>
                     </div>
 
                 </div>

@@ -126,6 +126,63 @@ function selectOrderItems(){
 }
 
 //==============선택상품 삭제=============
+// document.addEventListener("DOMContentLoaded", function () {
+//     // 삭제 버튼에 클릭 이벤트 리스너 등록
+//     var deleteButton = document.getElementById('deleteSelectedItems');
+//     if (deleteButton) {
+//         deleteButton.addEventListener('click', function () {
+//             deleteSelectedItems();
+//         });
+//     }
+// });
+// function deleteSelectedItems() {
+//     console.log("deleteSelectedItems function called");
+//
+//     var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
+//
+//     var cartCodes = Array.from(checkedCheckboxes).map(function (checkbox) {
+//         return checkbox.nextElementSibling.value;
+//     });
+//
+//     // 서버로 cartCodes를 전송하고 삭제 작업을 수행하는 fetch 요청을 보냅니다.
+//     fetch('/basket/cart/delete', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(cartCodes),
+//     })
+//         .then(response => response.text())  // 수정: response.json() 대신 response.text() 사용
+//         .then(data => {
+//             console.log(data);
+//             if (data === 'success') {
+//                 // 선택된 상품이 성공적으로 삭제된 경우
+//                 cartCodes.forEach(function (code) {
+//                     removeItemFromUI(code);
+//                 });
+//                 alert('선택된 상품이 삭제되었습니다.');
+//             } else {
+//                 // 삭제 중 오류가 발생한 경우
+//                 alert('상품 삭제 중 오류가 발생했습니다.');
+//             }
+//         })
+//         .catch(error => {
+//             // AJAX 요청 실패 시
+//             console.error('Error:', error);
+//         });
+// }
+//
+// // // 화면에서 특정 cartCode에 해당하는 행을 제거하는 함수
+// function removeItemFromUI(cartCode) {
+//     var rowToRemove = document.querySelector('.cart_table tr[data-cart-code="' + cartCode + '"]');
+//     if (rowToRemove) {
+//         rowToRemove.remove();
+//
+//     // 선택된 상품 삭제 후 필요한 UI 업데이트 등 수행
+//     updateTotalPrice();
+//     }
+// }
+
 document.addEventListener("DOMContentLoaded", function () {
     // 삭제 버튼에 클릭 이벤트 리스너 등록
     var deleteButton = document.getElementById('deleteSelectedItems');
@@ -135,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
 function deleteSelectedItems() {
     console.log("deleteSelectedItems function called");
 
@@ -152,7 +210,7 @@ function deleteSelectedItems() {
         },
         body: JSON.stringify(cartCodes),
     })
-        .then(response => response.text())  // 수정: response.json() 대신 response.text() 사용
+        .then(response => response.text())
         .then(data => {
             console.log(data);
             if (data === 'success') {
@@ -161,6 +219,7 @@ function deleteSelectedItems() {
                     removeItemFromUI(code);
                 });
                 alert('선택된 상품이 삭제되었습니다.');
+                location.reload();// 삭제하고 페이지를 리로드함 비동기로 하고싶었으나 적용이 잘 안됨
             } else {
                 // 삭제 중 오류가 발생한 경우
                 alert('상품 삭제 중 오류가 발생했습니다.');
@@ -170,18 +229,19 @@ function deleteSelectedItems() {
             // AJAX 요청 실패 시
             console.error('Error:', error);
         });
-}
-
 // 화면에서 특정 cartCode에 해당하는 행을 제거하는 함수
 function removeItemFromUI(cartCode) {
-    var rowToRemove = document.querySelector('.cart_table tr[data-cart-code="' + cartCode + '"]');
+    var rowToRemove = document.querySelector('.cart_table tr[data-cart-code="' + cartCodes + '"]');
     if (rowToRemove) {
         rowToRemove.remove();
+        // 선택된 상품 삭제 후 필요한 UI 업데이트 등 수행
+        updateTotalPrice();
     }
-
-    // 선택된 상품 삭제 후 필요한 UI 업데이트 등 수행
-    updateTotalPrice();
 }
+}
+
+
+
 //=========================================
 
 

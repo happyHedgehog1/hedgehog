@@ -13,4 +13,5 @@ public class ProductTextDTO {
     private String optionName;
     private String productPrice;
     private String productName;
+    private String saleOrBestCode;
 }

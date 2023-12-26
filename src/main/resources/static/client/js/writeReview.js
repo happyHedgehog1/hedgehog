@@ -28,8 +28,7 @@ $(document).ready(function () {
         placeholder: "",
         tabsize: 2,
         height: 300,
-        minHeight: null,
-        maxHeight: null,
+        maxWidth: 780,
         focus: false,
         lang: "ko-KR",
         toolbar: [
@@ -54,22 +53,12 @@ $(document).ready(function () {
                     }
                 }
             },
-            // onMediaDelete: function (target, editor, editable) {
-            //     handleDeletedImage(target);
-            // },
-            // onKeyDown: function (e) {
-            //     console.log(e);
-            //     if (e.key === "Backspace") {
-            //         handleBackspaceKey();
-            //     }
-            // }
         }
     });
 
     function uploadSummernoteImageFile(file, editor) {
         data = new FormData();
         data.append("file", file);
-
         $.ajax({
             data: data,
             type: "POST",
@@ -105,34 +94,4 @@ $(document).ready(function () {
 
         $("#uploadedImages").val(JSON.stringify(updatedValue));
     }
-
-    // function handleDeletedImage(target) {
-    //     var convertPath = target.attr('src').replace('/thumbPath', '');
-    //     console.log(convertPath, "삭제하려던 값의 src값. 근데 /thumbPath가 빠진.")
-    //
-    //     removeImageInfoFromHiddenInput(convertPath);
-    // }
-    //
-    // function removeImageInfoFromHiddenInput(convertPath) {
-    //     var hiddenInputValue = $('#uploadedImages').val();
-    //     console.log(hiddenInputValue, "삭제 전 히든input")
-    //     if (hiddenInputValue) {
-    //         var existingImageInfo = JSON.parse(hiddenInputValue);
-    //         var updatedValue = existingImageInfo.filter(function (imageInfo) {
-    //             return imageInfo.convertPath !== convertPath;
-    //         });
-    //         $('#uploadedImages').val(JSON.stringify(updatedValue));
-    //     }
-    //     console.log($('#uploadedImages').val(), "삭제 후 히든input")
-    // }
-    //
-    // function handleBackspaceKey() {
-    //     console.log("backspace를 눌렀다...")
-    //     var currentNode = $('#summernote').summernote('focus').summernote('editable').data('target');
-    //
-    //     if (currentNode && currentNode[0].nodeName === 'IMG') {
-    //         // 이미지를 삭제하는 로직
-    //         handleDeletedImage($(currentNode));
-    //     }
-    // }
 });

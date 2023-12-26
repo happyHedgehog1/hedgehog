@@ -13,30 +13,27 @@
     <div id="wrap">
         <header><a href="#">
             <div class="logobackground">
-                <h1 class="logoimg"><img src="../../image/logo_prod.png" alt="logo"></h1>
+                <h1 class="logoimg"><img th:src="@{/client/images/icon/logo.png}" alt="logo"></h1>
                 <h2>문의글 답변</h2>
             </div>
         </a>
         </header>
     <div class="body">
         <div class="wrap">
-            <form id="inquiryComment" th:action="@{ /Service/inquiryComment}" method="post">
-            <div class="answer"> 고객 문의 내용</div>
+            <form id="inquiryComment" th:action="@{/Service/inquiryComment}" method="post">
+            <div class="answer"> </div>
             <table>
                 <tr>
                     <th>유형</th>
                     <th>제목</th>
-                    <td>내용</td>
                     <th>작성자</th>
                     <th>등록일</th>
                     <th>답변여부</th>
                     <th>공개여부</th>
                 </tr>
                 <tr>
-
                     <td th:text="${adminInquiryDTO.post_type}"></td>
                     <td th:text="${adminInquiryDTO.title}"  ></td>
-                    <td th:text="${adminInquiryDTO.content}"></td>
                     <td th:text="${adminInquiryDTO.getId().id}"></td>
                     <td th:text="${adminInquiryDTO.write_date}"></td>
                     <td th:text="${adminInquiryDTO.answer_state}"></td>
@@ -47,6 +44,10 @@
                     <input type="hidden" id="inqtitle" name="inqtitle" th:value="${adminInquiryDTO.title}" />
                     <input type="hidden" id="inqcontent" name="inqcontent" th:value="${adminInquiryDTO.content}" />
                 </tr>
+                <tr>
+                    <th>내용</th>
+                    <td colspan="5" th:utext="${adminInquiryDTO.content}"></td>
+                </tr>
             </table>
             <div class="question"> 답변</div>
             <table>
@@ -56,7 +57,7 @@
                     <td>
 
 
-                        <div id="summernote" th:text="${adminInquiryDTO.answer_state} eq 'Y' ? ${adminInquiryDTO.comContent} : ''"></div>
+                        <div id="summernote" th:utext="${adminInquiryDTO.answer_state} eq 'Y' ? ${adminInquiryDTO.comContent} : ''"></div>
                         <input type="hidden" id="content" name="content" />
 
 

@@ -268,9 +268,10 @@ public class AuthController {
 
 
     @GetMapping("fail")
-    public String loginFall(@RequestParam String message, Model model) {
+    public String loginFail(@RequestParam String message, Model model) {
         if(message.equals("withdrawCancel")){
-            model.addAttribute("message","탈퇴 유예 기간 중에 접속했습니다.\n탈퇴신청을 해제합니다.");
+            model.addAttribute("message",
+                    "탈퇴 유예 기간 중에 접속했습니다.\n탈퇴신청을 해제합니다.");
             return "/client/content/main/main";
         }
         model.addAttribute("message", message);

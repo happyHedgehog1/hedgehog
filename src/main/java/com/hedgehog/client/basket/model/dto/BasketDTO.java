@@ -15,7 +15,7 @@ public class BasketDTO {
     private int amount;
     private int customerCode;
     private int optionCode;
-    private productDTO productCode;
+    private ProductDTO productCode;
     private ProductImgDTO imgCode;
 
 

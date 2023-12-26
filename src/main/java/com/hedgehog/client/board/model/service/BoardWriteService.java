@@ -44,14 +44,14 @@ public class BoardWriteService {
         log.info("getLastInsertCodeInquiry로 값을 받았냐... : " + inquiryCode);
         // 사진 넣기.
 
-        int result2 = 0;
-        if (uploadedImageList.size() != 0) {
-            result2 = mapper.insertPostImageInquiry(inquiryCode, uploadedImageList);
+        if (uploadedImageList != null) {
+            int result2 = mapper.insertPostImageInquiry(inquiryCode, uploadedImageList);
+
+            if (result2 != uploadedImageList.size()) {
+                return false;
+            }
+            log.info("이미지가 올라가긴 했냐 : " + result2);
         }
-        if (result2 != uploadedImageList.size()) {
-            return false;
-        }
-        log.info("이미지가 올라가긴 했냐 : " + result2);
 
 
         return true;
@@ -99,11 +99,13 @@ public class BoardWriteService {
         }
         log.info("getLastInsertCodeReview로 값을 받았냐... : " + reviewCode);
         // 4. insert tbl_post_img ...
-        int result2 = mapper.insertPostImageReview(reviewCode, uploadedImageList);
-        if (result2 != uploadedImageList.size()) {
-            return false;
+        if (uploadedImageList != null) {
+            int result2 = mapper.insertPostImageReview(reviewCode, uploadedImageList);
+            if (result2 != uploadedImageList.size()) {
+                return false;
+            }
+            log.info("이미지가 올라가긴 했냐 : " + result2);
         }
-        log.info("이미지가 올라가긴 했냐 : " + result2);
 
         // 5. update tbl_order_details ..
         int result3 = mapper.updateReviewPoint(orderDetailsDTO.getOrderDetailsCode());
@@ -114,14 +116,14 @@ public class BoardWriteService {
 
         // 6. select and update tbl_member -> point 목적
         Integer point = mapper.selectMemberPoint(userCode);
-        if (point != null) {
+        if (point == null) {
             return false;
         }
         point += 1000;
         mapper.updateMemberPoint(userCode, point);
 
 
-        // 6. update tbl_product ...
+        // 7. update tbl_product ...
         ProductReviewDTO productReviewDTO = mapper.getReviewInfo(orderDetailsDTO.getProductCode());
         int reviews = productReviewDTO.getReviews();
         double grade = productReviewDTO.getGrade();

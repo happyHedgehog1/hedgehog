@@ -11,6 +11,8 @@ import lombok.ToString;
 
 public class ApproveResponse { //결제 승인을 위한
 
+
+
     private String aid; // 요청 고유 번호
     private String tid; // 결제 고유 번호
     private String cid; // 가맹점 코드
@@ -25,9 +27,6 @@ public class ApproveResponse { //결제 승인을 위한
     private String created_at; // 결제 요청 시간
     private String approved_at; // 결제 승인 시간
     private String payload; // 결제 승인 요청에 대해 저장 값, 요청 시 전달 내용
-
-
-
     private Amount amount; //결제 금액 정보
 
 }

@@ -200,7 +200,7 @@ function sendValuesToServer() {
 //카카오페이 관련 결제하기 버튼을 누르면 동작
 
 const adminKey = 'c84521fef561a0b8f63c5438a75390a6';
-const formData = new FormData();
+// const formData = new FormData();
 
 
 
@@ -215,6 +215,8 @@ $(function(){
         var deliveryPhone = $("input[name='pay-phone2']").val();
         var deliveryRequest = $("input[name='deliveryRequest']").val();
         // var productName = $("input[name='productName']").val();
+        var productCode = $("input[name='orderProductCode']").val();
+        var count = $("input[name='orderCount']").val();
 
         if(name == ""){
             $("#name-input input[name='pay-name']").focus()
@@ -282,22 +284,23 @@ $(function(){
                 ,usingPoint:usingPoint
                 ,deliveryName:deliveryName
                 ,deliveryPhone:deliveryPhone
-                ,deliveryRequest:deliveryRequest
+                ,deliveryRequest:deliveryRequest,
+                productCode:productCode,
+                count:count,
+                next_redirect_pc_url: 'http://localhost:8080/clientOrder/orderComplete'
                 // ,productName:productName
             },
             success:function(response){
-                location.href = response.next_redirect_pc_url
+                location.href = response.next_redirect_pc_url//리다이렉트하는 url
+                console.log(response)
             },
             error:function (error){
+                // location.href = error.
                 console.log(error)
             }
         })
     })
 })
-
-
-
-
 
 
 
@@ -422,3 +425,8 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
+
+function kakaopaybtn() {
+    var button = document.getElementById('kakaoPay');
+    button.classList.toggle('clicked');
+}

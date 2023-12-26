@@ -19,4 +19,7 @@ public class CartSelectDTO {
     private int deliveryCharge;
     private int productSum;
     private String formattedPrice;
+    private String convertPath;
+
+
 }

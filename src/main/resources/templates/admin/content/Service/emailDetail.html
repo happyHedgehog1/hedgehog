@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이메일 발송내역 상세조회</title>
+    <link rel="stylesheet" th:href="@{/admin/css/autoMail/viewport/viewport.css}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:src="@{/admin/js/seach.js}"></script>
+</head>
+<body>
+<div id="wrap">
+    <header>
+        <div class="logobackground">
+            <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
+            <h2>이메일 발송내역 상세조회</h2>
+        </div>
+    </header>
+    <div class="body">
+        <div class="wrap">
+            <table >
+                <tr>
+                    <th>메일 제목</th>
+                    <td th:text="${mailDTO.title}" colspan="3"/>
+                </tr>
+                <tr>
+                    <th>발신일</th>
+                    <td th:text="${mailDTO.date}" style="width: 200px"/>
+                    <th>총 발송 건수</th>
+                    <td th:text="${mailDTO.name} + '건'"/>
+                </tr>
+                <tr>
+                    <th>수신자 메일주소</th>
+                    <td th:text="${mailDTO.mailList}" colspan="3"/>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td  colspan="3" th:utext="${mailDTO.content}"/>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        var message = [[${message}]];
+        if (message) {
+            alert(message);
+        }
+
+    </script>
+</div>
+</body>
+</html>

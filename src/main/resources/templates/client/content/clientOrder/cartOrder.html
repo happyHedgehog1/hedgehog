@@ -32,6 +32,7 @@
 
                 <div class="order_info">주문내역</div>
 
+<!--                <form>-->
             <table class="cart_table" id="orderTable">
 
                 <thead>
@@ -47,11 +48,13 @@
                 </thead>
 
 
+
                 <tbody id="orderTableBody" >
                     <tr th:each="item , index : ${cartList}">
 <!--                        <input type="hidden" th:name="'cartcheckbox_' + ${index.index}" th:id="'cartcheckbox_' + ${index.index}" th:value="${item.cartCode}">-->
-                        <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>
-                        <td th:text="${item.productName}">상품명</td>
+<!--                        <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>-->
+                        <td><img th:text="${item.convertPath}" width="70px"  height="70px" > </td>
+                        <td th:text="${item.productName}" >상품명</td>
                         <td th:text="${item.price}">판매가</td>
                         <td th:text="${item.savedMoney * hdAmountList[index.index]}">적립포인트</td>
                         <td>
@@ -64,6 +67,8 @@
                         <td th:text="(${item.price * hdAmountList[index.index]} + (${totalSum > 100000 ? 0 : item.deliveryCharge}))">
                         </td>
 
+                        <input type="hidden" name="orderProductCode" th:value="${item.productCode}">
+                        <input type="hidden" name="orderCount" th:value="${item.amount}">
 
                     </tr>
                 </tbody>
@@ -209,19 +214,19 @@
                         <div class="payment">
                             <h4 class="payment2">결제수단</h4>
                             <br>
-                            <button type="button" class="payment3" id="kakaoPay">카카오페이</button>
+                            <button type="button" class="payment3" id="kakaoPay" onclick="kakaopaybtn()" >카카오페이 </button>
                         </div>
                         <br>
 
                         <div class="buying">
-                            <button type="button" class="buying2" id="paymentButton">결제하기</button>
+                            <button type="submit" class="buying2" id="paymentButton">결제하기</button>
                         </div>
-
-<!--                        <button type="button" id="btn-kakao-pay">눌러!!!</button>-->
 
 
                     </div>
                     <br>
+<!--                </form>-->
+
 
 
 <script>

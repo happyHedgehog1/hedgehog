@@ -9,6 +9,11 @@
     <title>상품분류관리</title>
     <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}"></script>
     <link rel="stylesheet"  th:href="@{/admin/css/categoryAdd.css}">
+    <script th:if="${success}">
+        $(document).ready(function() {
+            alert("상태 변경에 성공하였습니다.");
+        });
+    </script>
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -37,17 +42,15 @@
                                     </colgroup>
                                     <tr class="category">
                                         <td><img th:src="@{/admin/images/category1.png}" height="20px" >침실<input type="hidden" th:value="1"/></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
-                                    <tr class="category1" th:each="category : ${categoryList}" >
+                                    <tr th:each="category : ${categoryList}" th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                         <td style="padding-left: 5px;"
                                             th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/L.png}" height="20px"
                                                     th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/category2.png}" height="20px"
                                                     th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
-                                            <span th:text="${category.name}"
+                                            <span th:text="${category.name}" th:value="${category.name}"
                                                     th:if="${category.upperCategoryCode == 1 and category.upperCategoryCode != 0}">
                                             </span>
                                             <input type="hidden" th:value="${category.subCategoryName}"
@@ -56,10 +59,8 @@
                                     </tr>
                                     <tr class="category">
                                         <td><img th:src="@{/admin/images/category1.png}" height="20px">거실<input type="hidden" th:value="2"/></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
-                                    <tr class="category1" th:each="category : ${categoryList}">
+                                    <tr th:each="category : ${categoryList}" th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
                                         <td style="padding-left: 5px;"
                                             th:if="${category.upperCategoryCode == 2 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/L.png}" height="20px"
@@ -75,11 +76,9 @@
                                     </tr>
                                     <tr class="category">
                                         <td><img th:src="@{/admin/images/category1.png}" height="20px">서재<input type="hidden" th:value="3"/></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                         <input type="hidden" th:value="${'3'}"/>
                                     </tr>
-                                    <tr class="category1" th:each="category : ${categoryList}">
+                                    <tr th:each="category : ${categoryList}" th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
                                         <td style="padding-left: 5px;"
                                             th:if="${category.upperCategoryCode == 3 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/L.png}" height="20px"
@@ -95,10 +94,8 @@
                                     </tr>
                                     <tr class="category">
                                         <td><img th:src="@{/admin/images/category1.png}" height="20px">주방<input type="hidden" th:value="4"/></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/add2.png}" height="13px" name="img-add2" style="padding-left: 5px;"></a></td>
-                                        <td><a href="#"><img th:src="@{/admin/images/allow_up.png}" height="10px" name="img-allow_up"></a></td>
                                     </tr>
-                                    <tr class="category1" th:each="category : ${categoryList}">
+                                    <tr th:each="category : ${categoryList}" th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
                                         <td style="padding-left: 5px;"
                                             th:if="${category.upperCategoryCode == 4 and category.upperCategoryCode != 0}">
                                             <img th:src="@{/admin/images/L.png}" height="20px"
@@ -133,7 +130,7 @@
                                     <td>
                                         <ul>
                                             <li>
-                                                <input type="text" name="inputCategoryName" id="inputCategoryName">
+                                                <input type="text" name="inputCategoryName" id="inputCategoryName" disabled>
                                             </li>
                                         </ul>
                                     </td>
@@ -142,10 +139,10 @@
                                     <th>노출 상태</th>
                                     <td>
                                         <label>
-                                        <input type="radio" name="categoryDisplay" value="Y" checked><span> 노출</span>
+                                        <input type="radio" name="categoryDisplay" value="Y" disabled checked><span> 노출</span>
                                         </label>
                                         <label>
-                                        <input type="radio" name="categoryDisplay" value="N"><span> 숨김</span>
+                                        <input type="radio" name="categoryDisplay" value="N" disabled ><span> 숨김</span>
                                         </label>
                                     </td>
                                 </tr>
@@ -177,15 +174,15 @@
                                     <tr>&nbsp;</tr>
                                 </th>
                             </table>
-                            <button type="submit" id="submit" name="submit">적용</button>
+<!--                            <button type="submit" id="submit" name="submit">적용</button>-->
                         </div>
                         </form>
                     </div>
                 </div>
         </div>
     </div>
-    <script th:src="@{/admin/js/categoryAdd.js}"></script>
-
+    <script th:src="@{/admin/js/categoryAdd.js}">
+    </script>
 </th:block>
 </body>
 </html>

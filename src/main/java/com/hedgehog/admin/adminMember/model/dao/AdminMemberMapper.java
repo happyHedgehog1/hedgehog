@@ -1,9 +1,6 @@
 package com.hedgehog.admin.adminMember.model.dao;
 
-import com.hedgehog.admin.adminMember.model.dto.AdminAllMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.AdminMemberDTO;
-import com.hedgehog.admin.adminMember.model.dto.AdminMemberForm;
-import com.hedgehog.admin.adminMember.model.dto.AdminSendMailDTO;
+import com.hedgehog.admin.adminMember.model.dto.*;
 import com.hedgehog.admin.adminService.model.dto.AdminAutoMailDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -35,6 +32,12 @@ public interface AdminMemberMapper {
     AdminSendMailDTO serachMail(int i);
 
     AdminSendMailDTO sendMail(int memberId);
+
+    AdminCustomerDTO searchMail(int memberCode);
+
+    AdminSendMailDTO searchMailForm(int i);
+
+    int updateWithdrawState(AdminAllMemberDTO adminAllMemberDTO);
 
 
 //    int insertMailHistoryTable(AdminSendMailDTO mailDTO);
