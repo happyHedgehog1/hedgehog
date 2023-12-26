@@ -19,4 +19,6 @@ public interface AdminAutoMailService {
     List<AdminAutoMailDTO> searchEmailHistory(AdminAutoMailForm form);
 
     AdminAutoMailDTO emailDetail(int mailCode);
+
+    boolean sendMailOnlyString(String title, String summernote, String chooseMember) throws MessagingException, UnsupportedEncodingException;
 }

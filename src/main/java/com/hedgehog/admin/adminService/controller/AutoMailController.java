@@ -91,6 +91,7 @@ public class AutoMailController {
                            @RequestParam String summernote,
                            @RequestParam String chooseMember, RedirectAttributes rttr) throws JsonProcessingException, MessagingException, UnsupportedEncodingException {
 
+        if (uploadedImages != null && !uploadedImages.isEmpty()) {
         log.info("메일보내기 시작~~~~~~~~~~~~~");
         log.info("uploadedImages~~~~~~~~~~~~~" + uploadedImages);
         log.info("title~~~~~~~~~~~~~" +title);
@@ -109,6 +110,17 @@ public class AutoMailController {
         boolean isSucces = autoMail.sendMail(uploadedImageList, title, summernote, chooseMember);
 
         return "redirect:/Service/email";
+        }else{
+            log.info("메일보내기 시작~~~~~~~~~~~~~");
+            log.info("title~~~~~~~~~~~~~" +title);
+            log.info("summernote~~~~~~~~~~~~~" + summernote);
+            log.info("chooseMember~~~~~~~~~~~~~" + chooseMember);
+
+
+            boolean isSucces = autoMail.sendMailOnlyString(title, summernote, chooseMember);
+
+            return "redirect:/Service/email";
+        }
     }
 
 
