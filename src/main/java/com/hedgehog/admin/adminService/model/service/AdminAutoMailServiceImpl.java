@@ -55,7 +55,7 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
 
     @Override
     @Transactional
-    public boolean sendMail(List<UploadedImageDTO> uploadedImageList, String title, String summernote, String sendDate, String chooseMember) throws MessagingException, UnsupportedEncodingException {
+    public boolean sendMail(List<UploadedImageDTO> uploadedImageList, String title, String summernote, String chooseMember) throws MessagingException, UnsupportedEncodingException {
 
 //        마케팅 수신 동의한 메일주소랑 유저코드 가져오기
         String[] searchEmailList = mapper.searchEmailList();
@@ -64,7 +64,6 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
         AdminAutoMailDTO adminAutoMailDTO = new AdminAutoMailDTO();
         adminAutoMailDTO.setTitle(title);
         adminAutoMailDTO.setContent(summernote);
-        adminAutoMailDTO.setCreationDate(sendDate);
 
 
 

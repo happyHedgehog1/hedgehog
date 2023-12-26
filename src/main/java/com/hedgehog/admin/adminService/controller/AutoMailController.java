@@ -89,14 +89,12 @@ public class AutoMailController {
     public String mainSend(@RequestParam String uploadedImages,
                            @RequestParam String title,
                            @RequestParam String summernote,
-                           @RequestParam String sendDate,
                            @RequestParam String chooseMember, RedirectAttributes rttr) throws JsonProcessingException, MessagingException, UnsupportedEncodingException {
 
         log.info("메일보내기 시작~~~~~~~~~~~~~");
         log.info("uploadedImages~~~~~~~~~~~~~" + uploadedImages);
         log.info("title~~~~~~~~~~~~~" +title);
         log.info("summernote~~~~~~~~~~~~~" + summernote);
-        log.info("sendDate~~~~~~~~~~~~~" +sendDate);
         log.info("chooseMember~~~~~~~~~~~~~" + chooseMember);
         List<UploadedImageDTO> uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<List<UploadedImageDTO>>() {
         });
@@ -108,9 +106,9 @@ public class AutoMailController {
             log.info("Convert Name: " + image.getConvertName());
         }
 
-        boolean isSucces = autoMail.sendMail(uploadedImageList, title, summernote, sendDate, chooseMember);
+        boolean isSucces = autoMail.sendMail(uploadedImageList, title, summernote, chooseMember);
 
-        return "redirect: /Service/email";
+        return "redirect:/Service/email";
     }
 
 
