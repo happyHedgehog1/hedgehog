@@ -52,8 +52,8 @@
                 <tbody id="orderTableBody" >
                     <tr th:each="item , index : ${cartList}">
 <!--                        <input type="hidden" th:name="'cartcheckbox_' + ${index.index}" th:id="'cartcheckbox_' + ${index.index}" th:value="${item.cartCode}">-->
-<!--                        <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>-->
-                        <td><img th:src="|/thumbPath${item.convertPath}|" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"> </td>
+                        <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.convertPath})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>
+<!--                        <td><img th:src="|/thumbPath${item.convertPath}|" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"> </td>-->
                         <td th:text="${item.productName}" >상품명</td>
                         <td th:text="${item.price}">판매가</td>
                         <td th:text="${item.savedMoney * hdAmountList[index.index]}">적립포인트</td>
@@ -137,7 +137,7 @@
 
                             <td id="name-data">
 
-                                <input type="text" th:value="${name}" id="name-input" name="pay-name">
+                                <input readonly type="text" th:value="${name}" id="name-input" name="pay-name">
                             </td>
                         </tr>
 
@@ -148,7 +148,7 @@
                             <th id="phone1-header">휴대전화</th>
                             <td id="phone1-data">
                                 <label for="phone1-input" id="phone1-input-label">전화1</label>
-                                <input type="phone" th:value="${phone}" name="pay-phone" id="phone1-input">
+                                <input readonly type="phone" th:value="${phone}" name="pay-phone" id="phone1-input">
                             </td>
                         </tr>
 
@@ -156,7 +156,7 @@
                             <th id="email-header">이메일</th>
                             <td id="email-data">
                                 <label for="email-input" id="email-input-label">이메일</label>
-                                <input type="email" name="pay-email" th:value="${email}" id="email-input"></td>
+                                <input readonly type="email" name="pay-email" th:value="${email}" id="email-input"></td>
 
                         </tr>
 

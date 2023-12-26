@@ -34,10 +34,10 @@
                 LEFT JOIN
             tbl_product_img C ON A.product_code = C.product_code
         group by A.product_code
-            WHERE C.image_classification = 'Thumbnails'
+
     </select>
 
-
+<!--    WHERE C.image_classification = 'Thumbnails'-->
 
 
     <resultMap id="selectCartSumResultMap" type="CartSumDTO">

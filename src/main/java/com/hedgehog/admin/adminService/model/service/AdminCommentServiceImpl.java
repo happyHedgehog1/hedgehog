@@ -40,7 +40,7 @@ public class AdminCommentServiceImpl implements AdminCommentService {
             // "N"이면 댓글 삽입
             int result = mapper.inquiryComment(adminCommentDTO);
             int result2 = mapper.updateState(adminCommentDTO);
-            //상품문의 메일발송
+
 
 
             log.info("");
