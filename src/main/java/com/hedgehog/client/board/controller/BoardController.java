@@ -32,7 +32,7 @@ public class BoardController {
     @GetMapping("/reviewList")
     public ModelAndView reviewList(@RequestParam(required = false) String searchCondition,
                                    @RequestParam(required = false) String searchValue,
-                                   @RequestParam(defaultValue = "gradeDESC") String orderBy,
+                                   @RequestParam(required = false) String orderBy,
                                    @RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
                                    ModelAndView mv) {
         Map<String, String> searchMap = new HashMap<>();
