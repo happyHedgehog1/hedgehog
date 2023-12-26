@@ -48,7 +48,7 @@
                 <a th:href="@{/auth/regist}"><img src="/client/images/icon/join.png">회원가입</a></li>
             <li sec:authorize="!hasAnyAuthority('SUPER_ADMIN','ADMIN','MEMBER')"> <!--권한이 없는경우 주문조회-->
                 <a th:href="@{/myshop/guestOrderSearch}"><img src="/client/images/icon/order.png">주문조회</a></li>
-            <li sec:authorize="!hasAnyAuthority('SUPER_ADMIN','ADMIN')">
+            <li sec:authorize="hasAuthority('MEMBER')">
                 <a th:href="@{/basket/cart}"><img src="/client/images/icon/cart.png">장바구니</a></li>
         </ul>
     </div>

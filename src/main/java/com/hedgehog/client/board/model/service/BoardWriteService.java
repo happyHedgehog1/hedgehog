@@ -127,7 +127,11 @@ public class BoardWriteService {
         ProductReviewDTO productReviewDTO = mapper.getReviewInfo(orderDetailsDTO.getProductCode());
         int reviews = productReviewDTO.getReviews();
         double grade = productReviewDTO.getGrade();
-        ProductReviewDTO newProductReviewDTO = new ProductReviewDTO(reviews + 1, (grade * reviews + orderDetailsDTO.getReviewPoint()) / (reviews + 1));
+        ProductReviewDTO newProductReviewDTO = new ProductReviewDTO(reviews + 1, (grade * reviews + Integer.parseInt(stars)) / (reviews + 1));
+        log.info(reviews+"");
+        log.info(grade+"");
+        log.info(orderDetailsDTO.getReviewPoint()+"");
+        log.info(newProductReviewDTO.toString());
         mapper.updateProductReviewCount(newProductReviewDTO, orderDetailsDTO.getProductCode());
 
         return true;
