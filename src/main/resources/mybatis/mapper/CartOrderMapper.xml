@@ -17,6 +17,34 @@
     <result property="convertPath" column="convert_path"/>
 </resultMap>
 
+<!--    <select id="cartOrderSelect" resultMap="CartOrderSelectResultMap">-->
+<!--        SELECT-->
+<!--        A.cart_code,-->
+<!--        A.product_code,-->
+<!--        C.img_code,-->
+<!--        B.product_name,-->
+<!--        B.price,-->
+<!--        (B.price * 0.01) AS 적립금,-->
+<!--        B.delivery_charge,-->
+<!--        (B.price * A.amount + B.delivery_charge) AS 합계-->
+<!--        FROM-->
+<!--        tbl_cart A-->
+<!--        left join-->
+<!--        tbl_product B ON A.product_code = B.product_code-->
+<!--        left join-->
+<!--        tbl_product_img C ON B.product_code = C.product_code-->
+<!--        WHERE-->
+<!--        A.cart_code IN-->
+<!--        <foreach collection="cartcheckbox" item="cartCode" open="(" separator="," close=")">-->
+<!--            #{cartCode}-->
+<!--        </foreach>-->
+<!--&#45;&#45;         WHERE A.product_code = #{productCode}-->
+<!--        Where C.image_classification = 'Thumbnails'-->
+
+
+
+<!--    </select>-->
+
 
     <select id="cartOrderSelect" resultMap="CartOrderSelectResultMap">
         SELECT

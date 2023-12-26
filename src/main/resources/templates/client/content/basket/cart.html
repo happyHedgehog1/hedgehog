@@ -50,8 +50,8 @@
 
 <!--                               체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
 
-<!--                               <td><img th:src="|/thumbPath${item.convertPath}|" width="70px" height="70px"  ></td>-->
-                            <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.convertPath})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>
+                               <td><img th:src="|/thumbPath${item.convertPath}|" width="70px" height="70px" onerror="this.src='/client/images/event.png'"  ></td>
+<!--                            <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.convertPath})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>-->
                             <td th:text="${item.productName}">상품명</td>
                                <td th:text="${item.price}">가격</td>
                                <td th:text="${item.savedMoney}">적립금</td>
