@@ -143,7 +143,7 @@
                                         th:value="${review.getReview_code()}">
                                     </td>
                                     <td><img class="reviewImg" th:src="@{|/thumbPath${review.attachment.savePath}|}"></td>
-                                    <td th:utext="${#strings.length(review.content) > 12 ? #strings.substring(review.content, 0, 12) + '..' : review.content}" style="text-align: left; padding-left: 10px"></td>
+                                    <td class="tableWriter" th:utext="${#strings.length(review.content) > 10 ? #strings.substring(review.content, 0, 10) + '..' : review.content}" style="text-align: left; padding-left: 10px"></td>
                                     <td th:text="${review.product.productName} " style="text-align: left; padding-left: 10px"></td>
                                     <td th:text="${ review.grade}"></td>
                                     <td th:text="${ review.id.id}"></td>
@@ -172,6 +172,12 @@
         if (message) {
             alert(message);
         }
+            document.querySelectorAll(".tableWriter").forEach(function (tag) {
+            const temp = tag.getElementsByTagName('img');
+            if(temp.length>=1){
+            tag.innerText='포토 후기';
+        }
+        })
 
     </script>
 </th:block>
