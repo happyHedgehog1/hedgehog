@@ -124,7 +124,49 @@ public class AdminAutoMailServiceImpl implements AdminAutoMailService{
 
         return mailList;
     }
+
+    @Override
+    public boolean sendMailOnlyString(String title, String summernote, String chooseMember) throws MessagingException, UnsupportedEncodingException {
+
+//        마케팅 수신 동의한 메일주소랑 유저코드 가져오기
+        String[] searchEmailList = mapper.searchEmailList();
+        log.info(searchEmailList.toString());
+//        tbl_mail_history에 먼저 insert하고 mail_code를 가져온다
+        AdminAutoMailDTO adminAutoMailDTO = new AdminAutoMailDTO();
+        adminAutoMailDTO.setTitle(title);
+        adminAutoMailDTO.setContent(summernote);
+
+
+
+        int result = mapper.insertMailHistory(adminAutoMailDTO);
+
+        log.info(adminAutoMailDTO.toString());
+        int mailCode = adminAutoMailDTO.getMail_code();
+
+//        이미지 테이블에 업로드
+//        adminAutoMailDTO.setEventCode();
+
+//        메일보내기
+
+        log.info("메일 보내기 시작~~~~~~~~~~~~~~~~~~");
+        MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "UTF-8");
+
+        mimeMessageHelper.setSubject(MimeUtility.encodeText(adminAutoMailDTO.getTitle(), "UTF-8", "B")); //메일 제목 지정
+        mimeMessageHelper.setText(adminAutoMailDTO.getContent(), true); //메일 내용 지정
+        mimeMessageHelper.setFrom(FROM_ADDRESS); //보내는 메일 주소 지정
+        mimeMessageHelper.setTo(searchEmailList); //받는 메일 주소 지정
+        mimeMessageHelper.setBcc(searchEmailList);
+
+
+        javaMailSender.send(mimeMailMessage);
+        log.info("메일 보내기 끗~~~~~~~~~~~~~~~~~~");
+
+
+        return true;
     }
+}
 
 
 
