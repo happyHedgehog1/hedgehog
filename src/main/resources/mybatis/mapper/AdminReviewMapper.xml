@@ -85,9 +85,8 @@
                 <if test="revKeyword == 2">
                     AND C.id LIKE CONCAT('%', #{revSearch}, '%')
                 </if>
-
             </if>
-
+        and d.image_classification = 'Thumbnails'
         </where>
     </select>
 

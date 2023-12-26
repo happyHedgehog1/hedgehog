@@ -37,8 +37,12 @@
                         th:onclick="|redirectQuestionDetail(@{${question.inquiryCode}},'@{${selectCriteria.searchCondition}}','@{${selectCriteria.searchValue}}',@{${selectCriteria.pageNo}})|">
                         <td class="inquiryCode" th:text="${stat.index+1+selectCriteria.startRow}"></td>
                         <td class="postType" th:text="${question.postType}"></td>
-                        <td class="title"
-                            th:text="${question.title.length() lt 15 ? question.title : question.title.substring(0, 15)+'...'}"></td>
+                        <td class="title">
+                            <span
+                                    th:text="${question.title.length() lt 25 ? question.title : question.title.substring(0, 25)+'...'}"/>
+                            <img th:src="@{/client/images/icon/comment.png}" style="width:1em;"
+                                 th:if="${question.commentCode!=null}"/>
+                        </td>
                         <td class="writeDate" th:text="${#dates.format(question.writeDate, 'yyyy-MM-dd')}"></td>
                         <td class="memberId"
                             th:text="|${question.memberId[0] + #strings.repeat('*', question.memberId.length()-2) + question.memberId[question.memberId.length()-1]}|"></td>

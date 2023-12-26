@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         window.location.href = '/';
                     } else {
                         alert("삭제에 성공했습니다. 게시판으로 돌아갑니다.")
-                        window.location.href = '/board';
+                        if (postType == 1) {
+                            window.location.href = '/board/reviewList';
+                        } else if (postType == 2) {
+                            window.location.href = '/board/questionList';
+                        }
                     }
                 },
                 error: function (error) {
@@ -30,7 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         } else {
             alert("삭제하지 않습니다. 게시판으로 돌아갑니다.");
-            window.location.href = '/board';
+            if (postType == 1) {
+                window.location.href = '/board/reviewList';
+            } else if (postType == 2) {
+                window.location.href = '/board/questionList';
+            }
         }
     }
 })
+
+function product(productCode) {
+    location.href = "/productinfo/product/" + productCode;
+}

@@ -11,63 +11,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // 옵션 누르면 메뉴 생겼다 없어졌다가는 기능
-$(document).ready(function () {
-    $('input[name="option"]').change(function () {
-        toggleOptionList();
-    });
+// $(document).ready(function () {
+//     $('input[name="option"]').change(function () {
+//         toggleOptionList();
+//     });
+//
+//     // 옵션 목록 토글 함수
+//     function toggleOptionList() {
+//         if ($('input[name="option"]:checked').val() === 'Y') {
+//             $('.optionList').show();
+//         } else {
+//             $('.optionList').hide();
+//         }
+//     }
+// });
 
-    // 옵션 목록 토글 함수
-    function toggleOptionList() {
-        if ($('input[name="option"]:checked').val() === 'Y') {
-            $('.optionList').show();
-        } else {
-            $('.optionList').hide();
-        }
-    }
-});
-    var optionIndex = 1;
-
-    $("body").on("click", "#img-add img", function (event) {
-        console.log("클릭");
-        event.preventDefault(); // 링크의 기본 동작 방지
-
-        var src = $(this).attr("src");
-        if (src.includes("add.png")) {
-            // 새로운 op-list 엘리먼트 생성
-            var newOpList = $("<tr class='optionList'>" +
-                "<th colspan='2'>" +
-                "<ul class='arrAlign'>" +
-                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</div></li>"+
-                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
-                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
-                "<li class='w200'><input type='number' name='optionList[" + optionIndex + "].stock' style='width: 125px;' value='0'> 개</li>" +
-                "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
-                "</ul>" +
-                "</th>" +
-                "</tr>");
-
-            $(".optionList:last").after(newOpList);
-            optionIndex++;
-        } else if (src.includes("delete.png")) {
-            $(this).closest(".optionList").remove();
-            optionIndex--;
-        }
-    });
-
-    $("body").on("click", "img[name='img-delete']", function(event) {
-        $(this).closest("tr.optionList").remove();
-    });
 
 
     $("#file").on("change", function(e){
 
-    var files = e.target.files; //input file 객체를 가져온다.
+    var files = e.target.files;
     var i,f;
     for (i = 0; i != files.length; ++i) {
         f = files[i];
-        var reader = new FileReader(); //FileReader를 생성한다.
+        var reader = new FileReader();
 
-        //성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
+
         reader.onload = function(e) {
         };
         reader.readAsBinaryString(f);
@@ -105,16 +74,13 @@ $(function () {
             return;
         }
 
-        // 미리보기를 담을 컨테이너 엘리먼트 가져오기
         var thumbnailContainer = $("#subThumbnailPreview");
 
-        // 이미지가 5개 이상일 때, 맨 앞 이미지를 제거
         if (thumbnailContainer.children('img').length + files.length > 3) {
             var excessCount = thumbnailContainer.children('img').length + files.length - 3;
             thumbnailContainer.children('img:lt(' + excessCount + ')').remove();
         }
 
-        // 새로 추가한 이미지를 배열에 추가
         for (var i = 0; i < files.length; i++) {
             var image = new Image();
             var ImageTempUrl = window.URL.createObjectURL(files[i]);
@@ -165,7 +131,6 @@ $(function(){
         $("#totalStock").text(totalQuantity);
     }
 
-// 페이지 로딩 시 초기 전체 재고를 설정하기 위해 updateTotalStock 함수를 호출합니다.
     $(document).ready(function () {
         // 페이지 로딩 시 초기 옵션 개수에 따라 재고 설정
         updateTotalStock();
@@ -195,7 +160,6 @@ function setSelectBox(select) {
                     .attr('value', data[i].subCategoryName)
                     .text(data[i].name);
 
-                // 만약 현재 옵션이 선택된 상태이면 선택 속성 추가
                 if (data[i].subCategoryName === selectedSubCategory) {
                     option.attr('selected', 'selected');
                 }
@@ -209,46 +173,135 @@ function setSelectBox(select) {
     });
 }
 
-// 페이지 로딩 시 초기 서브 카테고리 설정
 $(document).ready(function () {
     setSelectBox($('#upperCategoryCode'));
 
-    // 상위 카테고리가 변경될 때마다 서브 카테고리 업데이트
+    // 상위 카테고리를 선택하면 서브 카테고리 값을 db에서 가져옴
     $('#upperCategoryCode').change(function () {
         setSelectBox($(this));
+    })
+
+    document.getElementById("btnAdd").addEventListener("click",  (e) => {
+        e.preventDefault();
+        let isValidate = validate();
+        if (isValidate) {
+            document.getElementById("productAdd").submit();
+        }
     });
 });
 
-//
-// $("#btnAdd").on("click", function () {
-//     var salesStart = $("#salesStart").val();
-//     var salesEnd = $("#salesEnd").val();
-//     var productName = $("#productName").val();
-//     var price = parseInt($("#price").val(), 10);
-//     var upperCategoryCode = parseInt($("#upperCategoryCode").val(), 10);
-//     var optionCode = $("#optionDTO\\[0\\]\\.optionCode").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
-//     var optionName = $("#optionDTO\\[0\\]\\.optionName").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
-//     var stock = $("#optionList\\[0\\]\\.stock").val();  // [ 와 ]는 특수 문자이므로 \\를 추가해 이스케이프 처리
-//     var thumbnail = $("#thumbnail").val();
-//     var sub_thumbnail = $("#sub_thumbnail").val();
-//     var proImg = $("#proImg").val();
-//
-//     필드 중 하나라도 비어있을 때 경고창 띄우기
-//     if (salesStart === '' ||
-//         salesEnd === '' ||
-//         productName === "" ||
-//         price === "" ||
-//         upperCategoryCode === "" ||
-//         optionCode === "" ||
-//         optionName === "" ||
-//         stock === "" ||
-//         thumbnail === "" ||
-//         sub_thumbnail === "" ||
-//         proImg === ""
-//     ) {
-//         alert("모든 필드를 입력하세요.");
-//     }
-// });
-//
-//
-//
+
+
+//유효성 검사
+    function validate() {
+        const salesStart = document.getElementById("salesStart");
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!dateRegex.test(salesStart.value) || salesStart.value === "" || salesStart.value === '' || salesStart.value === null) {
+            alert("상품 판매 시작일을 정해주세요");
+            salesStart.focus();
+            return false;
+        }
+        const salesEnd = document.getElementById("salesEnd");
+        if (!dateRegex.test(salesEnd.value) || salesEnd.value === "" || salesEnd.value === '' || salesEnd.value === null) {
+            alert("상품 판매 종료일을 정해주세요");
+            salesEnd.focus();
+            return false;
+        }
+        const productName = document.getElementById("productName");
+        if (productName.value.length <= 0) {
+            alert("상품명을 입력해주세요.");
+            productName.focus();
+            return false;
+        }
+        var parsedPrice = parseInt(document.getElementById("price").value);
+        if (isNaN(parsedPrice) || parsedPrice <= 0) {
+            alert("유효한 가격을 입력하세요.");
+            parsedPrice.focus();
+            return false;
+        }
+        const upperCategoryCode = document.getElementById("upperCategoryCode");
+        if (upperCategoryCode.value === 0) {
+            alert("상위 카테고리를 선택해주세요.");
+            upperCategoryCode.focus();
+            return false;
+        }
+        const subCategoryName = document.getElementById("subCategoryName");
+        if (subCategoryName.value === "") {
+            alert("세부 카테고리를 선택해주세요.");
+            subCategoryName.focus();
+            return false;
+        }
+        const optionCode = document.getElementById("optionDTO[0].optionCode");
+        if (optionCode.value.length <= 0) {
+            alert("색상코드를 입력해주세요.");
+            optionCode.focus();
+            return false;
+        }
+        const optionName = document.getElementById("optionDTO[0].optionName");
+        if (optionName.value.length <= 0) {
+            alert("색상명을 입력해주세요.");
+            optionName.focus();
+            return false;
+        }
+
+        var stock = parseInt(document.getElementById("optionList[0].stock").value);
+        if (isNaN(stock) || stock <= 0) {
+            alert("유효한 재고량을 입력하세요.");
+            stock.focus();
+            return false;
+        }
+        const thumbnail = document.getElementById("thumbnail");
+        if (thumbnail.value.length <= 0) {
+            alert("대표이미지를 넣어주세요.");
+            thumbnail.focus();
+            return false;
+        }
+        const sub_thumbnail = document.getElementById("sub_thumbnail");
+        if (sub_thumbnail.value.length <= 0) {
+            alert("sub_thumbnail 입력해주세요.");
+            sub_thumbnail.focus();
+            return false;
+        }
+        const proImg = document.getElementById("proImg");
+        if (proImg.value.length <= 0) {
+            alert("proImg 입력해주세요.");
+            proImg.focus();
+            return false;
+        }
+        alert("상품이 등록되었습니다.");
+        return true;
+    }
+
+
+$(document).ready(function () {
+    var optionIndex = 1;
+
+    // Add optionList
+    $("body").on("click", "#img-add img", function (event) {
+        event.preventDefault();
+
+        var src = $(this).attr("src");
+        if (src.includes("add.png")) {
+            var newOpList = $("<tr class='optionList'>" +
+                "<th colspan='2'>" +
+                "<ul class='arrAlign'>" +
+                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</div></li>" +
+                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
+                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
+                "<li class='w200'><input type='number' name='optionList[" + optionIndex + "].stock' style='width: 125px;' value='0'> 개</li>" +
+                "<li class='w140' style='padding-top: 5px;'><div id=\"img-delete\"><img src='/admin/images/delete.png' height='25px' name='img-delete'></div></li>" +
+                "</ul>" +
+                "</th>" +
+                "</tr>");
+
+            $(".optionList:last").after(newOpList);
+            optionIndex++;
+        }
+    });
+
+    // Delete optionList
+    $("body").on("click", "#img-delete img", function (event) {
+        $(this).closest("tr.optionList").remove();
+        optionIndex--;
+    });
+});

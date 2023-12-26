@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,8 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 //        withdraw 테이블에 해당 member insert
         List<AdminAllMemberDTO> memberDTO = mapper.searchMember(adminAllMemberDTO);
         int result1 = mapper.insertWithdrawTable(adminAllMemberDTO);
+        int result2 = mapper.updateWithdrawState(adminAllMemberDTO);
+
 
         if(!(result > 0)) {
             throw new UnregistException("상태 변경에 실패하셨습니다.");
@@ -156,12 +159,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
 
                 //첨부 파일이 있으면 반복문을 통해 파일 하나씩 helper에 넣어준다
-                if (!CollectionUtils.isEmpty(mailDTO.getAttachFileList())) {
-                    for (AtchFileDto attachFileDto : mailDTO.getAttachFileList()) {
-                        FileSystemResource fileSystemResource = new FileSystemResource(new File(attachFileDto.getRealFileNm()));
-                        mimeMessageHelper.addAttachment(MimeUtility.encodeText(attachFileDto.getAttachFileNm(), "UTF-8", "B"), fileSystemResource);
-                    }
-                }
+//                if (!CollectionUtils.isEmpty(mailDTO.getAttachFileList())) {
+//                    for (AtchFileDto attachFileDto : mailDTO.getAttachFileList()) {
+//                        FileSystemResource fileSystemResource = new FileSystemResource(new File(attachFileDto.getRealFileNm()));
+//                        mimeMessageHelper.addAttachment(MimeUtility.encodeText(attachFileDto.getAttachFileNm(), "UTF-8", "B"), fileSystemResource);
+//                    }
+//                }
 
                 //메일 실제로 보내는 구문
                 javaMailSender.send(mimeMailMessage);

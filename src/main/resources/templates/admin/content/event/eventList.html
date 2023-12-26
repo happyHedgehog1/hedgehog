@@ -98,7 +98,12 @@
                             <table class="tblBottom" id="eventlist">
                                 <colgroup>
                                     <col style="width: 50px;">
+                                    <col style="width: 200px;">
                                     <col>
+                                    <col style="width: 200px;">
+                                    <col style="width: 200px;">
+                                    <col style="width: 100px;">
+                                    <col style="width: 200px;">
                                 </colgroup>
                                 <tbody>
                                             <tr class="eventSearchResult">
@@ -113,7 +118,7 @@
                                     <tr class="eventSearchBottomTr"  th:each="event,stat : ${ eventList }" >
                                         <td th:text="${event.postCode}"></td>
                                         <td th:text="${ event.status == 'N' ? '이벤트 종료' : '이벤트 진행중'}" th:classappend="${event.status == 'N' ? 'colorRed' : ''}"></td>
-                                        <td th:text="${ event.title }"></td>
+                                        <td style="text-align: left; padding-left: 20px" th:text="${ event.title }"></td>
                                         <td th:text="${ event.startDay}"></td>
                                         <td th:text="${ event.endDay }"></td>
                                         <td th:text="${ event.discount } + '%'"></td>

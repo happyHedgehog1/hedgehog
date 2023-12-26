@@ -2,12 +2,17 @@ package com.hedgehog.client.orderDetails.controller;
 
 import com.hedgehog.client.auth.model.dto.LoginDetails;
 import com.hedgehog.client.auth.model.dto.LoginUserDTO;
+import com.hedgehog.client.auth.model.dto.MemberDTO;
+import com.hedgehog.client.myshop.model.service.MyshopService;
 import com.hedgehog.client.orderDetails.model.dto.*;
 import com.hedgehog.client.orderDetails.model.service.OrderDetailsService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserEmailNotFoundException;
+import com.hedgehog.common.logout.SessionLogout;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsPagenation;
 import com.hedgehog.common.paging.orderDetailsPaging.OrderDetailsSelectCriteria;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
@@ -31,6 +36,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OrderDetailsController {
     private final OrderDetailsService orderDetailsService;
+    private final MyshopService myshopService;
 
     @GetMapping("/orderDeliveryInfo")
     public ModelAndView orderDeliveryInfo(@AuthenticationPrincipal LoginDetails loginDetails,
@@ -63,7 +69,7 @@ public class OrderDetailsController {
         log.info("orderDeliveryInfo ===== 시작날짜: " + dateStart);
         log.info("orderDeliveryInfo ===== 끝날짜: " + dateEnd);
         /*이 위치에 오면 처음에 입력받은 값이 null이라고 할지라도 값이 모두 생긴다.*/
-        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.atStartOfDay().plusDays(1).minusSeconds(1));
+        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.plusDays(1));
         log.info("현재검색조건...order : " + order);
         String info = "orderDeliveryInfo";
         int totalCount = orderDetailsService.selectTotalCountOrderInfo(userCode, order, info);
@@ -83,6 +89,7 @@ public class OrderDetailsController {
         log.info("orderDeliveryInfo : OrderDetailsController ... orderList : " + orderList);
         mv.addObject("orderList", orderList);
 
+        orderDetailsSelectCriteria.setOrder(new OrderDTO(state, dateStart, dateEnd));
         mv.addObject("orderDetailsSelectCriteria", orderDetailsSelectCriteria);
         log.info("orderDeliveryInfo : OrderDetailsController... orderDetailsSelectCriteria" + orderDetailsSelectCriteria);
 
@@ -94,6 +101,7 @@ public class OrderDetailsController {
         log.info("state : " + state);
         log.info("dateStart : " + dateStart);
         log.info("dateEnd : " + dateEnd);
+
 
         /*이부분에서 일주일전, 한달전, 세달전, 여섯달 전에 대한 변수를 반환한다.*/
         mv.addObject("now", LocalDate.now());
@@ -135,7 +143,7 @@ public class OrderDetailsController {
         log.info("exchangePaybackInfo ===== 시작날짜: " + dateStart);
         log.info("exchangePaybackInfo ===== 끝날짜: " + dateEnd);
         /*이 위치에 오면 처음에 입력받은 값이 null이라고 할지라도 값이 모두 생긴다.*/
-        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.atStartOfDay().plusDays(1).minusSeconds(1));
+        OrderDTO order = new OrderDTO(state, dateStart, dateEnd.plusDays(1));
         log.info("현재검색조건...order : " + order);
         String info = "exchangePaybackInfo";
         int totalCount = orderDetailsService.selectTotalCountOrderInfo(userCode, order, info);
@@ -149,6 +157,7 @@ public class OrderDetailsController {
         OrderDetailsSelectCriteria orderDetailsSelectCriteria = OrderDetailsPagenation.getOrderDetailsSelectCriteria(pageNo, totalCount, limit, buttonAmount, order);
         log.info("");
         log.info("");
+        orderDetailsSelectCriteria.setOrder(new OrderDTO(state, dateStart, dateEnd));
         log.info("exchangePaybackInfo : OrderDetailsController..... orderDetailsSelectCriteria : " + orderDetailsSelectCriteria);
 
         List<OrderListDTO> orderList = orderDetailsService.selectOrderInfoList(userCode, orderDetailsSelectCriteria, info);
@@ -174,12 +183,14 @@ public class OrderDetailsController {
     @PostMapping("/memberOrderDetails")
     @ResponseBody
     public String memberOrderDetails(@AuthenticationPrincipal LoginDetails loginDetails,
-                                     @RequestParam int orderCode) {
+                                     @RequestParam int orderCode,
+                                     HttpServletRequest req,
+                                     HttpServletResponse res) {
         int userCode = loginDetails.getLoginUserDTO().getUserCode();
-        log.info("주문내역을 찾으려는데... 계정코드 : " + userCode);
         boolean result = orderDetailsService.isYourOrder(userCode, orderCode);
-        log.info("주문내역이 지금 내 계정정보와 같냐... : " + result);
-
+        if (!result) {
+            SessionLogout.invalidSession(req, res);
+        }
         return result == true ? "success" : "fail";
     }
 
@@ -190,22 +201,18 @@ public class OrderDetailsController {
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
         if (loginDetails == null) {
-            log.info("잘못된 접근이라 메인으로 돌아갑니다.");
-            redirectAttributes.addFlashAttribute("message", "잘못된 접근입니다. 메인으로 돌아갑니다.");
+            redirectAttributes.addFlashAttribute("message",
+                    "잘못된 접근입니다. 메인으로 돌아갑니다.");
             return "redirect:/";
         }
-        int userCode = loginDetails.getLoginUserDTO().getUserCode();
+        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
+        int userCode = loginUserDTO.getUserCode();
         boolean result = orderDetailsService.isYourOrder(userCode, orderCode);
         if (!result) {
             log.info("계정정보가 달라서 메인으로 돌아갑니다.");
             return "redirect:/";
         }
-
         OrderDetailsCollect orderDetailsCollect = orderDetailsService.getOrderDetails(orderCode);
-
-        log.info("orderDetailsInfo : OrderDetailsController ... orderDetailsCollect : \n" + orderDetailsCollect);
-
-
         model.addAttribute("orderDetails", orderDetailsCollect);
         int sumCostPrice = orderDetailsCollect
                 .getOrderDetailsList()
@@ -227,13 +234,17 @@ public class OrderDetailsController {
                 .stream()
                 .collect(Collectors.summingInt((orderDetail) -> orderDetail.getPointCharge() * orderDetail.getCount()));
         model.addAttribute("sumPointCharge", sumPointCharge);
-        model.addAttribute("finalPrice", sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
+        model.addAttribute("finalPrice",
+                sumCostPrice - sumReducedPrice - orderDetailsCollect.getPointUsage() + sumDeliveryCharge);
         int sumReviewPoint = orderDetailsCollect
                 .getOrderDetailsList()
                 .stream()
                 .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
         model.addAttribute("sumReviewPoint", sumReviewPoint);
-
+        MemberDTO member = myshopService.getMemberInfo(userCode);
+        model.addAttribute("name", member.getName());
+        model.addAttribute("email", member.getEmail());
+        model.addAttribute("phone", member.getPhone());
         return "/client/content/myshop/orderDetails";
     }
 
@@ -296,6 +307,23 @@ public class OrderDetailsController {
                 .collect(Collectors.summingInt((orderDetail) -> orderDetail.getReviewPoint()));
         model.addAttribute("sumReviewPoint", sumReviewPoint);
 
+        int userCode = orderDetailsService.selectUserCode(orderCode);
+        MemberDTO member = myshopService.getMemberInfo(userCode);
+        model.addAttribute("name", member.getName());
+        model.addAttribute("email", member.getEmail());
+        model.addAttribute("phone", member.getPhone());
+
         return "/client/content/myshop/orderDetails";
+    }
+
+    @PostMapping("/receiveComplete")
+    public String receiveOrder(@RequestParam String orderCode, RedirectAttributes redirectAttributes) {
+        boolean isReceive = orderDetailsService.updateReceiveOrder(orderCode);
+        if (isReceive) {
+            redirectAttributes.addFlashAttribute("message", "배송완료 처리에 성공했습니다. \n메인으로 돌아갑니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "알 수 없는 오류가 발생했습니다. \n메인으로 돌아갑니다.");
+        }
+        return "redirect:/";
     }
 }

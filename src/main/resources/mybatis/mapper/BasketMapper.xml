@@ -14,6 +14,7 @@
         <result property="amount" column="amount"/>
         <result property="deliveryCharge" column="delivery_charge"/>
         <result property="productSum" column="합계"/>
+        <result property="convertPath" column="convert_path"/>
     </resultMap>
 
     <select id="selectCartList" resultMap="CartSelectResultMap">
@@ -33,9 +34,10 @@
                 LEFT JOIN
             tbl_product_img C ON A.product_code = C.product_code
         group by A.product_code
+
     </select>
 
-
+<!--    WHERE C.image_classification = 'Thumbnails'-->
 
 
     <resultMap id="selectCartSumResultMap" type="CartSumDTO">
@@ -103,12 +105,6 @@
 
 
 <!--    선택상품삭제-->
-
-<!--    <delete id="deleteCartItems">-->
-<!--        DELETE FROM tbl_cart-->
-<!--        WHERE cart_code = #{cartCode}-->
-<!--    </delete>-->
-<!--          AND customer_code = #{userCode}-->
 
     <delete id="deleteCartItems">
         DELETE FROM tbl_cart

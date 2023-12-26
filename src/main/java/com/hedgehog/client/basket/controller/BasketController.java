@@ -64,21 +64,11 @@ public class BasketController {
     @PostMapping(value="/cart/delete", produces = "text/plain; charset=UTF-8")
     @ResponseBody
     public String deleteSelectedItems(
-            @AuthenticationPrincipal LoginDetails loginDetails,
             @RequestBody List<Integer> cartCodes) {
-
-
-        LoginUserDTO loginUserDTO = loginDetails.getLoginUserDTO();
-
-        // cartCodes에 대한 삭제 로직 수행
         basketService.deleteCartItems(cartCodes);
 
-        // 삭제가 완료된 후에 적절한 리다이렉트 또는 다른 동작을 수행
-//        redirectAttributes.addFlashAttribute("userCode", loginUserDTO.getUserCode());
         return "success";
     }
-
-
 
 
 

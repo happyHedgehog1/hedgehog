@@ -67,6 +67,10 @@ tr{
     width: 25px !important;
 }
 
+.w50{
+    width: 50px !important;
+}
+
 .w400 {
     width: 400px !important;
 

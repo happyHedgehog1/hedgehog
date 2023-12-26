@@ -151,12 +151,13 @@
             A.content,
             B.product_name,
             C.id,
-            A.write_date
+            MAX(A.write_date) AS write_date
         FROM tbl_review A
                  JOIN tbl_product B ON A.product_code = B.product_code
                  JOIN tbl_user C ON A.member_code = C.user_code
-                 join tbl_product_img D on A.product_code = D.product_code
-        order by  A.write_date desc
+                 JOIN tbl_product_img D ON A.product_code = D.product_code
+        GROUP BY A.content, B.product_name, C.id
+        ORDER BY write_date DESC;
 
     </select>
 

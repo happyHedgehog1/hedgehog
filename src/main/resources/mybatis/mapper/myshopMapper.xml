@@ -4,11 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hedgehog.client.myshop.model.dao.MyshopMapper">
     <select id="getMyPoint" resultType="_int">
-        SELECT
-            point
-        FROM
-            tbl_member
-        WHERE member_code=#{userCode}
+        SELECT point
+        FROM tbl_member
+        WHERE member_code = #{userCode}
     </select>
     <resultMap id="memberInfo" type="com.hedgehog.client.auth.model.dto.MemberDTO">
         <result property="email" column="email"/>
@@ -16,30 +14,30 @@
         <result property="birthday" column="birthday"/>
         <result property="gender" column="gender"/>
         <result property="emailService" column="email_consent"/>
+        <result property="name" column="name"/>
     </resultMap>
     <select id="getMemberInfo" resultMap="memberInfo">
-        SELECT
-            A.email,
-            A.phone,
-            B.birthday,
-            B.gender,
-            B.email_consent
-        FROM
-            tbl_customer A
-        JOIN tbl_member B ON A.customer_code=B.member_code
-        WHERE B.member_code = #{userCode}
+        SELECT A.email,
+               A.phone,
+               B.birthday,
+               B.gender,
+               B.email_consent,
+               C.name
+        FROM tbl_customer A
+                 LEFT JOIN tbl_member B ON A.customer_code = B.member_code
+                 JOIN tbl_user C ON A.customer_code = C.user_code
+        WHERE A.customer_code = #{userCode}
     </select>
     <select id="getEmail">
-        SELECT
-            email
-        FROM
-            tbl_customer
+        SELECT email
+        FROM tbl_customer
         WHERE customer_code = #{userCode};
     </select>
     <update id="updateUser">
         UPDATE tbl_user
-        SET password=#{userPwd}, name=#{name}
-        WHERE id=#{userId};
+        SET password=#{userPwd},
+            name=#{name}
+        WHERE id = #{userId};
     </update>
     <update id="updateCustomer">
         UPDATE tbl_customer

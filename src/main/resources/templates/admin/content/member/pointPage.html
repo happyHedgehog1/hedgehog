@@ -15,7 +15,7 @@
     <header>
         <div class="logobackground">
             <h1 class="logoimg"><img th:src="@{/admin/images/logo_prod.png}" alt="logo"></h1>
-            <h2>주문내역 상세조회</h2>
+            <h2>포인트</h2>
         </div>
     </header>
     <div class="body">
@@ -28,7 +28,7 @@
                     <th>회원명</th>
                     <th>사용 가능한 적립금</th>
                     <th>사용한 적립금</th>
-                    <th>총 적립금</th>
+                    <th>누적 적립금</th>
                 </tr>
                 <tr>
                     <td th:text="${memberDetail.member_code}"></td>
@@ -36,7 +36,7 @@
                     <td th:text="${memberDetail.getUser().name}"></td>
                     <td th:text="${memberDetail.point == 0 ? '0원' : #numbers.formatInteger(memberDetail.point, 3, 'COMMA') + '원'}"></td>
                     <td th:text="${memberDetail.getOrderDTO().pointUsage == 0 ? '0원' : #numbers.formatInteger(memberDetail.getOrderDTO().pointUsage, 3, 'COMMA') + '원'}"></td>
-                    <td th:text="${#numbers.formatInteger(memberDetail.point + memberDetail.getOrderDTO().pointUsage, 3, 'COMMA') + '원'}"></td>
+                    <td th:text="${(memberDetail.point + memberDetail.getOrderDTO().pointUsage) == 0 ? '0원' : #numbers.formatInteger((memberDetail.point + memberDetail.getOrderDTO().pointUsage), 3, 'COMMA') + '원'}"></td>
                 </tr>
                 <tr>
                     <th>적립할 금액</th>

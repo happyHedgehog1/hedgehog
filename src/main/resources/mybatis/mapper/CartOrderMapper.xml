@@ -14,6 +14,7 @@
     <result property="savedMoney" column="적립금"/>
     <result property="deliveryCharge" column="delivery_charge"/>
     <result property="productSum" column="합계"/>
+    <result property="convertPath" column="convert_path"/>
 </resultMap>
 
 
@@ -39,6 +40,7 @@
             #{cartCode}
         </foreach>
         group by cart_code
+
 
 
     </select>

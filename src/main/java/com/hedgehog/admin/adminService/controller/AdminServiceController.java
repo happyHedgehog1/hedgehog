@@ -106,7 +106,7 @@ public class AdminServiceController {
 
     //상품문의 상태 업데이트
     @PostMapping(value = "/inqStateUpdate")
-    private String inqStateUpdate(@RequestParam("resultCheckbox") List<String> selectedInqCodes,
+    private String inqStateUpdate(@RequestParam("resultCheckbox") List<String> selectedInqCodes, // 체크박스로 선택된 상품문의코드 받기
                                   @RequestParam("inqSelectCommit") String selectedInqState,
                                   RedirectAttributes rttr) throws BoardException {
 
@@ -159,7 +159,7 @@ public class AdminServiceController {
 
         log.info("~~~~~~~~~~~~~~~~adminCommentDTO : {}", adminCommentDTO);
 
-
+        //답변 처리 후 결과 모델에 추가
         adminCommentServiceImpl.inquiryComment(adminCommentDTO);
         model.addAttribute("comment_code",adminCommentDTO.getComment_code());
         model.addAttribute("inquiry_code", inquiry_code);

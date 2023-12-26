@@ -1,6 +1,8 @@
 body{
     width: 800px;
-    height: 1000px;
+    height: 750px;
+    background-color: #F5F5F5;
+
 }
 
 header, .bottom{
@@ -61,17 +63,4 @@ table{
     height: 100px;
     padding: 20px 0px 0px 20px;
     margin-top: 10px;
-}
-
-#btn {
-    width: 150px;
-    height: 50px;
-    margin-top: 30px;
-    color: white;
-    background-color: #A7727D;
-    border: 0;
-    font-size: 15px;
-    margin-left: auto; /* 추가된 부분 */
-    margin-right: auto; /* 추가된 부분 */
-    display: block; /* 추가된 부분 */
 }

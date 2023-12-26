@@ -1,6 +1,11 @@
-
-body {
-    height: 100vh;
+section {
+    padding-top: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 이준경 */
+    justify-content: flex-start;
+    min-height: 80.2vh;
 }
 
 /* 경로 텍스트 */
@@ -29,10 +34,12 @@ section {
 }
 
 #product_table {
-    width: 1200px;
+    /*width: 1200px;*/
+    width: 100%;
+    border-collapse: collapse;
     border: 1px solid black;
     text-align: center;
-    margin: 50px 0;
+    margin-top: 50px;
 
 }
 
@@ -55,7 +62,7 @@ section {
 .tbody tr td {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
-    padding: 5px 0;
+    /*padding: 5px 0;*/
 
 }
 
@@ -94,36 +101,26 @@ tfoot tr td {
 
 /* 배송 정보 */
 #delivery_info {
-    width: 1200px;
-    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /*width: 1200px;*/
     margin-bottom: 50px;
 }
 
+#delivery_info > table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
 
 #delivery_info tr td {
     padding: 10px;
+    border: 1px solid black;
 }
-
-#delivery_info tbody tr td {
-    border-right: 1px solid black;
-    border-top: 1px solid black;
-
-}
-
-#delivery_info tbody tr:first-child td {
-    border-top: none;
-}
-
-#delivery_info tbody tr td:last-child {
-    border-right: none;
-
-}
-
 
 /* 제목 */
 .subject {
     background-color: #EDDBC7;
-    width: 250px;
     padding: 10px 0;
     text-align: center;
 }
@@ -135,7 +132,7 @@ tfoot tr td {
 }
 
 #cost_info {
-    width: 1200px;
+    /*width: 1200px;*/
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     text-align: center;
@@ -173,8 +170,10 @@ tfoot tr td {
     width: 60px;
     background-color: #A7727D;
     top: 45%;
-    right: -12%;
+    right: -17%;
     /*border-radius: 20%;*/
+    scale: 0.9;
+    border-radius: 5px;
 
 }
 
@@ -186,7 +185,9 @@ tfoot tr td {
     width: 15px;
     background-color: #A7727D;
     top: 25%;
-    right: -3%;
+    right: -5%;
+    scale: 0.9;
+    border-radius: 5px;
 }
 
 #cost_info .equal::after {
@@ -196,7 +197,9 @@ tfoot tr td {
     width: 60px;
     background-color: #A7727D;
     top: 38%;
-    right: -12%;
+    right: -17%;
+    scale: 0.9;
+    border-radius: 5px;
 }
 
 #cost_info .equal::before {
@@ -206,7 +209,9 @@ tfoot tr td {
     width: 60px;
     background-color: #A7727D;
     top: 58%;
-    right: -12%;
+    right: -17%;
+    scale: 0.9;
+    border-radius: 5px;
 }
 
 /* 포인트 및 적립정보 */
@@ -214,10 +219,10 @@ tfoot tr td {
 
 #point_info {
     margin-top: 50px;
-    width: 1200px;
+    /*width: 1200px;*/
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 100px;
+    margin-bottom: 30px;
 }
 
 #point_info > div {
@@ -230,20 +235,13 @@ tfoot tr td {
 
 
 .point_wrap div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 30px;
+    width: 100%;
 }
 
 /* 포인트 적립 정렬 */
-.point_wrap div span {
-    padding-left: 55px;
-}
-
-.point_wrap div div:last-child {
-    font-size: 16px;
-}
+/*.point_wrap div span {*/
+/*    padding-left: 55px;*/
+/*}*/
 
 
 #point_info .point_wrap ul {
@@ -278,7 +276,9 @@ tfoot tr td {
     cursor: pointer;
 }
 
-.payment input, #goback_button {
+.payment input,
+#goback_button,
+#receive_button {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
@@ -287,10 +287,27 @@ tfoot tr td {
     transition: 150ms;
 }
 
-.payment input:hover, #goback_button:hover {
+.payment input:hover,
+#goback_button:hover,
+#receive_button:hover {
     background-color: #A7727D;
     color: white;
 
+}
+
+#receive_button_wrap {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#receive_button_wrap li {
+    font-size: 0.8em;
+    color: darkgray;
 }
 
 #button_wrap {
@@ -299,4 +316,5 @@ tfoot tr td {
     grid-template-columns: repeat(1, 1fr);
     justify-items: center;
     margin-bottom: 100px;
+    gap: 20px;
 }

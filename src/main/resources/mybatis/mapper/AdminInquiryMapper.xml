@@ -106,6 +106,7 @@
             </if>
 
         </where>
+        ORDER BY A.write_date DESC
     </select>
 
     <update id="inqStateUpdate" parameterType="AdminCommentDTO">
@@ -139,9 +140,7 @@
             tbl_comment C ON A.inquiry_code = C.inquiry_code
         WHERE
             A.inquiry_code = #{inquiry_code}
-
-
-
+        ORDER BY A.write_date DESC
     </select>
 
 </mapper>

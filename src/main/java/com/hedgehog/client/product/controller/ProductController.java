@@ -38,6 +38,9 @@ public class ProductController {
     @GetMapping("/product/{number}")
     public String selectProductDetail(@PathVariable int number , Model model) {
 
+        log.info("코드정보=== " + number);
+
+
         List<ProductDetailDTO> productDetail = productService.selectProductDetail(number);
 
 
@@ -91,8 +94,6 @@ public class ProductController {
                 if (reviewAvg - integerPart > 0) {
                     result.add(halfStar);
                 }
-                log.info("정수수수수=====" + integerPart);
-
 
             }
 
@@ -100,8 +101,6 @@ public class ProductController {
             log.info("integerPart=====" + integerPart);
             System.out.println("reviewAvg======"+reviewAvg);
         }
-
-        log.info("관련결과값=====" + productDetailReview);
 
         log.info("result=====" + result);
 

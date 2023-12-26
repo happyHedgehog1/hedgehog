@@ -42,7 +42,7 @@
             LEFT JOIN tbl_product_img B ON (A.product_code = B.product_code)
             LEFT JOIN tbl_option_list C ON (A.product_code = C.product_code)
             LEFT JOIN tbl_option D ON (C.option_code = D.option_code)
-        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND A.product_code = 130
+        WHERE A.orderable_status = 'Y' AND B.image_status = 'Y' AND A.product_code = #{number}
         AND C.exposure_status = 'Y' AND C.stock > 0
     </select>
 

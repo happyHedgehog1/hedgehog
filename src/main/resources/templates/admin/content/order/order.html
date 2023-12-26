@@ -137,7 +137,7 @@
                                     </td>
                                     <td th:text="${ order.getCreationDate() }"></td>
                                     <td th:text="${ order.getOrderCode() }"></td>
-                                    <td th:text="${order.orderDetail.get(0).count > 1 ? order.getProductDTO().get(0).productName + ' 외 ' + (order.orderDetail.get(0).count - 1) + '건' : order.getProductDTO().get(0).productName}"></td>
+                                    <td style="text-align: left; padding-left: 20px" th:text="${order.orderDetail.get(0).count > 1 ? order.getProductDTO().get(0).productName + ' 외 ' + (order.orderDetail.get(0).count - 1) + '건' : order.getProductDTO().get(0).productName}"></td>
                                     <td th:text="${ '총 ' + order.getTotalCount() + ' 개' }"></td>
                                     <td th:text="${ order.userDTO.getName() }"></td>
                                     <td th:text="${ order.getState() }"></td>

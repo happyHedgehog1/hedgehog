@@ -74,8 +74,8 @@
         FROM tbl_user A
                  JOIN tbl_authority_list B ON B.user_code = A.user_code
                  JOIN tbl_authority C ON C.authority_code = B.authority_code
-        WHERE A.withdraw_state = 'N'
-          AND A.id = #{username};
+        WHERE A.id = #{username}
+#           AND A.withdraw_state = 'N'
     </select>
     <update id="updateConnectionDate">
         UPDATE tbl_user

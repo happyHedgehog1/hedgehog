@@ -8,9 +8,11 @@ import com.hedgehog.client.auth.model.service.AuthServiceImpl;
 import com.hedgehog.client.auth.model.service.SearchUserInfoService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserRegistPostException;
+import com.hedgehog.common.logout.SessionLogout;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -158,9 +160,6 @@ public class AuthController {
         log.info("이메일이 존재한다.(있으면 숫자, 없으면 null) : " + certificationCode);
         if (certificationCode != null) {
             response.put("certifiedCode", certificationCode);
-        } else if (certificationCode == -1) {
-            response.put("result", "sendMiss");
-            return response;
         }
         response.put("result", certificationCode == null ? "fail" : "success");
         return response;
@@ -268,11 +267,15 @@ public class AuthController {
 
 
     @GetMapping("fail")
-    public String loginFall(@RequestParam String message, Model model) {
-        if(message.equals("withdrawCancel")){
-            model.addAttribute("message","탈퇴 유예 기간 중에 접속했습니다.\n탈퇴신청을 해제합니다.");
+    public String loginFail(@RequestParam String message, Model model,
+                            HttpServletRequest req,
+                            HttpServletResponse res) {
+        if (message.equals("withdrawCancel")) {
+            model.addAttribute("message",
+                    "탈퇴 유예 기간 중에 접속했습니다.\n탈퇴신청을 해제합니다.");
             return "/client/content/main/main";
         }
+        SessionLogout.invalidSession(req,res);
         model.addAttribute("message", message);
         return "/client/content/auth/fail";
     }

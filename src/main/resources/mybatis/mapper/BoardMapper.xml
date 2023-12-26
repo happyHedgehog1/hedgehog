@@ -166,12 +166,14 @@
         <if test="orderBy != null">
             ORDER BY
             <if test="orderBy == 'gradeASC'">
-                A.grade ASC
+                A.grade ASC, A.write_date DESC
             </if>
             <if test="orderBy == 'gradeDESC'">
-                A.grade DESC
+                A.grade DESC, A.write_date DESC
             </if>
-            , A.write_date DESC
+        </if>
+        <if test="orderBy == null or orderBy == ''">
+            ORDER BY A.write_date DESC
         </if>
         LIMIT #{ startRow }, #{ limit }
     </select>
