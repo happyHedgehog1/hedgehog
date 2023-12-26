@@ -129,10 +129,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function deleteSelectedItems() {
-    console.log("deleteSelectedItems function called");
-
+    console.log("deleteSelectedItems 나오냐");
     var checkedCheckboxes = document.querySelectorAll('.cart_table input[name="cartcheckbox"]:checked');
-
     var cartCodes = Array.from(checkedCheckboxes).map(function (checkbox) {
         return checkbox.nextElementSibling.value;
     });
@@ -169,7 +167,6 @@ function removeItemFromUI(cartCode) {
     var rowToRemove = document.querySelector('.cart_table tr[data-cart-code="' + cartCodes + '"]');
     if (rowToRemove) {
         rowToRemove.remove();
-        // 선택된 상품 삭제 후 필요한 UI 업데이트 등 수행
         updateTotalPrice();
     }
 }
