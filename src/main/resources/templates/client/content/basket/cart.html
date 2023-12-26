@@ -4,111 +4,120 @@
       layout:decorate="~{layouts/client/layout}"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-    <th:block layout:fragment="content">
+<th:block layout:fragment="content">
     <script th:src="@{/client/js/jquery-3.6.3.min.js}"></script>
     <script th:src="@{/client/js/cart.js}"></script>
     <link rel="stylesheet" th:href="@{/client/css/cart.css}">
 
-        <section>
+    <section>
 
-            <div id="contents">
-                <ul class="route_list">
-                    <li><img src="/client/images/icon/home.png" alt=""></li>
-                    <li>&gt;</li>
-                    <li>장바구니</li>
-                </ul>
+        <div id="contents">
+            <ul class="route_list">
+                <li><img src="/client/images/icon/home.png" alt=""></li>
+                <li>&gt;</li>
+                <li>장바구니</li>
+            </ul>
 
-                <div class="cart_order">
-                             <div></div>
-                             <div id="cart_write"><h2>장바구니</h2></div>
-                             <div><h2>주문서작성</h2></div>
-                             <div><h2>결제하기</h2></div>
-                             <div><h2>완료</h2></div>
-                             <div></div>
+            <div class="cart_order">
+                <div></div>
+                <div id="cart_write"><h2>장바구니</h2></div>
+                <div><h2>주문서작성</h2></div>
+                <div><h2>결제하기</h2></div>
+                <div><h2>완료</h2></div>
+                <div></div>
+            </div>
+
+            <form action="/clientOrder/cartOrder" method="post">
+
+                <table class="cart_table">
+                    <thead>
+                    <tr>
+                        <th><input class="cartcheckbox" id="headerCheckbox" type="checkbox" name="cartcheckbox1"></th>
+                        <th>이미지</th>
+                        <th>상품명</th>
+                        <th>판매가</th>
+                        <th>예상 적립금</th>
+                        <th>수량</th>
+                        <th>배송비</th>
+                        <th>합계</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${cartItemList}">
+                        <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox"
+                                   data-cart-code="${item.cartCode}" th:value="${item.cartCode}">
+                            <input type="hidden" class="cart-code-hidden" th:value="${item.cartCode}">
+                        </td>
+
+                        <!--                               체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
+
+                        <td><img th:src="|/thumbPath${item.convertPath}|" width="70px" height="70px"
+                                 onerror="this.src='/client/images/event.png'"></td>
+                        <!--                            <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.convertPath})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>-->
+                        <td th:text="${item.productName}">상품명</td>
+                        <td th:text="${item.price}">가격</td>
+                        <td th:text="${item.savedMoney}">적립금</td>
+                        <!--                            <td th:text="${item.savedMoney * item.amount}">적립금</td>-->
+                        <td class="cart_numbrt_btn">
+                            <div class="quantity-container" data-product-id="${item.productCode}">
+                                <input type="hidden" th:value="${item.productCode}" style="display:none;">
+                                <button type="button" class="quantity-button decrease-button"
+                                        data-product-code="${item.cartCode}">-
+                                </button>
+                                <span class="quantity-display" id="quantity-display-${item.productCode}"
+                                      th:text="${item.amount}">1</span>
+                                <input type="hidden" name="hdAmount">
+                                <button type="button" class="quantity-button increase-button"
+                                        data-product-code="${item.cartCode}">+
+                                </button>
+                            </div>
+                        </td>
+                        <td th:text="${item.deliveryCharge}">무료</td>
+                        <td th:text="${item.productSum}">합계</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <br>
+
+                <div class="total_price">
+
+                    <div class="sum_text">
+                        <h1>합계</h1>
+                        <h3>고객님의 총 주문 금액 입니다.</h3>
+                    </div>
+
+                    <div class="sum_text2">
+                        <h4>상품 합계금액</h4>
+                        <h4>배송비</h4>
+                        <h4>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h4>
+                    </div>
+
+                    <div class="sum_text3">
+                        <!-- 수정된 부분: id 추가 -->
+                        <span id="totalPrice">0원</span>
+                        <span id="deliveryCharge">0원</span>
+                        <span id="totalOrder">0원</span>
+                    </div>
+
                 </div>
 
-<form  action="/clientOrder/cartOrder" method="post">
-
-            <table class="cart_table">
-                          <thead>
-                            <tr>
-                                 <th><input class="cartcheckbox" id="headerCheckbox" type="checkbox" name="cartcheckbox1"></th>
-                                 <th>이미지</th>
-                                 <th>상품명</th>
-                                 <th>판매가</th>
-                                 <th>예상 적립금</th>
-                                 <th>수량</th>
-                                 <th>배송비</th>
-                                 <th>합계</th>
-                            </tr>
-                          </thead>
-                    <tbody>
-                        <tr th:each="item : ${cartItemList}" >
-                               <td><input class="cartcheckbox" type="checkbox" name="cartcheckbox" data-cart-code="${item.cartCode}" th:value="${item.cartCode}">
-                                   <input type="hidden" class="cart-code-hidden" th:value="${item.cartCode}">
-                               </td>
-
-<!--                               체크박스의 고유의 이름을 붙임 이유는 자바스크립트에서 어떤 체크박스가 선택되었는지 구분하기 어려워서 근데 인식안되는거 같음-->
-
-<!--                               <td><img th:src="|/thumbPath${item.convertPath}|" width="70px" height="70px"  ></td>-->
-                            <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.convertPath})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>
-                            <td th:text="${item.productName}">상품명</td>
-                               <td th:text="${item.price}">가격</td>
-                               <td th:text="${item.savedMoney}">적립금</td>
-<!--                            <td th:text="${item.savedMoney * item.amount}">적립금</td>-->
-                               <td class="cart_numbrt_btn">
-                            <div class="quantity-container" data-product-id="${item.productCode}">
-                                    <input type="hidden" th:value="${item.productCode}" style="display:none;">
-                                    <button type="button" class="quantity-button decrease-button" data-product-code="${item.cartCode}">-</button>
-                                    <span class="quantity-display" id="quantity-display-${item.productCode}" th:text="${item.amount}">1</span>
-                                    <input type="hidden" name="hdAmount">
-                                    <button type="button" class="quantity-button increase-button" data-product-code="${item.cartCode}">+</button>
-                            </div>
-                               </td>
-                               <td th:text="${item.deliveryCharge}">무료</td>
-                               <td th:text="${item.productSum}">합계</td>
-                        </tr>
-                    </tbody>
-            </table>
-
-                    <br>
-                    <br>
-
-                        <div class="total_price">
-
-                                <div class="sum_text">
-                                    <h1>합계</h1>
-                                    <h3>고객님의 총 주문 금액 입니다.</h3>
-                                </div>
-
-                                <div class="sum_text2">
-                                    <h4>상품 합계금액</h4>
-                                    <h4>배송비</h4>
-                                    <h4>총 주문합계 금액 &nbsp;&nbsp;&nbsp;</h4>
-                                </div>
-
-                                <div class="sum_text3">
-                                    <!-- 수정된 부분: id 추가 -->
-                                    <span id="totalPrice" >0원</span>
-                                    <span id="deliveryCharge">0원</span>
-                                    <span id="totalOrder">0원</span>
-                                </div>
-
-                        </div>
-
-                    <br>
-                    <br>
-                    <hr>
-                    <br>
-                    <br>
+                <br>
+                <br>
+                <hr>
+                <br>
+                <br>
 
                 <div class="select_cart">
-                    <button class="select_delete_btn"  id="deleteSelectedItems" type="button"  >선택 상품 삭제</button>
-                        <div class="select_order_btn2">
-                            <button class="select_order_btn" id="selectOrderButton" typeof="submit" onclick="selectOrderItems()">선택상품주문하기</button>
-<!--                            <button class="select_order_btn" id="selectOrderButton" onclick="submitOrderForm('selectOrder')">선택상품주문하기</button>-->
+                    <button class="select_delete_btn" id="deleteSelectedItems" type="button">선택 상품 삭제</button>
+                    <div class="select_order_btn2">
+                        <button class="select_order_btn" id="selectOrderButton" typeof="submit"
+                                onclick="selectOrderItems()">선택상품주문하기
+                        </button>
+                        <!--                            <button class="select_order_btn" id="selectOrderButton" onclick="submitOrderForm('selectOrder')">선택상품주문하기</button>-->
 
-                        </div>
+                    </div>
 
                 </div>
 
@@ -116,8 +125,10 @@
 
                 <div class="select_all_btn2">
 
-                    <button type="submit" class="select_all_btn" id="selectAllItems" onclick="selectAllItems()">전체상품주문하기</button>
-<!--                    <button class="select_all_btn" id="selectAllItems" onclick="submitOrderForm('selectAll')">전체상품주문하기</button>-->
+                    <button type="submit" class="select_all_btn" id="selectAllItems" onclick="selectAllItems()">
+                        전체상품주문하기
+                    </button>
+                    <!--                    <button class="select_all_btn" id="selectAllItems" onclick="submitOrderForm('selectAll')">전체상품주문하기</button>-->
 
                 </div>
 
@@ -125,12 +136,11 @@
                 <br>
                 <br>
 
-</form>
+            </form>
 
 
+        </div>
+    </section>
 
-            </div>
-           </section>
-
-    </th:block>
+</th:block>
 </html>
