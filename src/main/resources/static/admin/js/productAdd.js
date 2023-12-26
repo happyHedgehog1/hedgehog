@@ -11,52 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // 옵션 누르면 메뉴 생겼다 없어졌다가는 기능
-$(document).ready(function () {
-    $('input[name="option"]').change(function () {
-        toggleOptionList();
-    });
+// $(document).ready(function () {
+//     $('input[name="option"]').change(function () {
+//         toggleOptionList();
+//     });
+//
+//     // 옵션 목록 토글 함수
+//     function toggleOptionList() {
+//         if ($('input[name="option"]:checked').val() === 'Y') {
+//             $('.optionList').show();
+//         } else {
+//             $('.optionList').hide();
+//         }
+//     }
+// });
 
-    // 옵션 목록 토글 함수
-    function toggleOptionList() {
-        if ($('input[name="option"]:checked').val() === 'Y') {
-            $('.optionList').show();
-        } else {
-            $('.optionList').hide();
-        }
-    }
-});
-    var optionIndex = 1;
-
-    $("body").on("click", "#img-add img", function (event) {
-        console.log("클릭");
-        event.preventDefault(); // 링크의 기본 동작 방지
-
-        var src = $(this).attr("src");
-        if (src.includes("add.png")) {
-
-            var newOpList = $("<tr class='optionList'>" +
-                "<th colspan='2'>" +
-                "<ul class='arrAlign'>" +
-                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</div></li>"+
-                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
-                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
-                "<li class='w200'><input type='number' name='optionList[" + optionIndex + "].stock' style='width: 125px;' value='0'> 개</li>" +
-                "<li class='w140' style='padding-top: 5px;'><img src='/admin/images/delete.png' height='25px' name='img-delete'></li>" +
-                "</ul>" +
-                "</th>" +
-                "</tr>");
-
-            $(".optionList:last").after(newOpList);
-            optionIndex++;
-        } else if (src.includes("delete.png")) {
-            $(this).closest(".optionList").remove();
-            optionIndex--;
-        }
-    });
-
-    $("body").on("click", "img[name='img-delete']", function(event) {
-        $(this).closest("tr.optionList").remove();
-    });
 
 
     $("#file").on("change", function(e){
@@ -304,5 +273,35 @@ $(document).ready(function () {
     }
 
 
+$(document).ready(function () {
+    var optionIndex = 1;
 
+    // Add optionList
+    $("body").on("click", "#img-add img", function (event) {
+        event.preventDefault();
 
+        var src = $(this).attr("src");
+        if (src.includes("add.png")) {
+            var newOpList = $("<tr class='optionList'>" +
+                "<th colspan='2'>" +
+                "<ul class='arrAlign'>" +
+                "<li className='colorPreview' style='width: 200px''colorPreview'>미리보기</div></li>" +
+                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionCode' style='width: 350px;' placeholder='#FFFFFF 형식으로 작성해주세요'></li>" +
+                "<li class='w400'><input type='text' name='optionDTO[" + optionIndex + "].optionName' style='width: 350px;' placeholder='예시 : 갈색'></li>" +
+                "<li class='w200'><input type='number' name='optionList[" + optionIndex + "].stock' style='width: 125px;' value='0'> 개</li>" +
+                "<li class='w140' style='padding-top: 5px;'><div id=\"img-delete\"><img src='/admin/images/delete.png' height='25px' name='img-delete'></div></li>" +
+                "</ul>" +
+                "</th>" +
+                "</tr>");
+
+            $(".optionList:last").after(newOpList);
+            optionIndex++;
+        }
+    });
+
+    // Delete optionList
+    $("body").on("click", "#img-delete img", function (event) {
+        $(this).closest("tr.optionList").remove();
+        optionIndex--;
+    });
+});
