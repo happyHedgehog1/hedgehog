@@ -56,7 +56,7 @@ public class KakaoPayService {
         parameters.add("cid", "TC0ONETIME"); //이거 테스트할땐 무조건 고정값으로 써야됨
         parameters.add("partner_order_id", "4"); //주문번호
         parameters.add("partner_user_id", "1in가구"); //아이디로 가야겠네
-        parameters.add("item_name", "수납장");
+        parameters.add("item_name", "스틸다 벙커침대 싱글");
         parameters.add("quantity", "2");
         parameters.add("total_amount", String.valueOf(AllOriginalTotalOrder));
         parameters.add("tax_free_amount", "0"); //비과세
