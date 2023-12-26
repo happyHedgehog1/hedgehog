@@ -17,6 +17,26 @@
         <result property="convertPath" column="convert_path"/>
     </resultMap>
 
+<!--    <select id="selectCartList" resultMap="CartSelectResultMap">-->
+<!--        SELECT DISTINCT-->
+<!--            A.product_code,-->
+<!--            C.img_code,-->
+<!--            A.product_name,-->
+<!--            A.price,-->
+<!--            (A.price * 0.01) AS 적립금,-->
+<!--            B.amount,-->
+<!--            A.delivery_charge,-->
+<!--            (A.price * B.amount + A.delivery_charge) AS 합계-->
+<!--        FROM-->
+<!--            tbl_product A-->
+<!--                LEFT JOIN-->
+<!--            tbl_cart B ON A.product_code = B.product_code-->
+<!--                LEFT JOIN-->
+<!--            tbl_product_img C ON A.product_code = C.product_code-->
+<!--        group by A.product_code-->
+
+<!--    </select>-->
+
     <select id="selectCartList" resultMap="CartSelectResultMap">
         SELECT DISTINCT
             A.product_code,
@@ -26,16 +46,25 @@
             (A.price * 0.01) AS 적립금,
             B.amount,
             A.delivery_charge,
-            (A.price * B.amount + A.delivery_charge) AS 합계
+            (A.price * B.amount + A.delivery_charge) AS 합계,
+            C.convert_path,
+            C.image_classification
         FROM
             tbl_product A
                 LEFT JOIN
             tbl_cart B ON A.product_code = B.product_code
                 LEFT JOIN
             tbl_product_img C ON A.product_code = C.product_code
-        group by A.product_code
+        WHERE B.cart_code = #{cartCode}
+          and C.image_classification = 'Thumbnails'
 
     </select>
+
+
+
+
+
+
 
 <!--    WHERE C.image_classification = 'Thumbnails'-->
 
