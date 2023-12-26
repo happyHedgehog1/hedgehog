@@ -14,6 +14,7 @@
         <result property="amount" column="amount"/>
         <result property="deliveryCharge" column="delivery_charge"/>
         <result property="productSum" column="합계"/>
+        <result property="convertPath" column="convert_path"/>
     </resultMap>
 
     <select id="selectCartList" resultMap="CartSelectResultMap">
@@ -33,6 +34,7 @@
                 LEFT JOIN
             tbl_product_img C ON A.product_code = C.product_code
         group by A.product_code
+            WHERE C.image_classification = 'Thumbnails'
     </select>
 
 

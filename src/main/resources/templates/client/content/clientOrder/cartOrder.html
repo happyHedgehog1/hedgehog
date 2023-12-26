@@ -53,7 +53,7 @@
                     <tr th:each="item , index : ${cartList}">
 <!--                        <input type="hidden" th:name="'cartcheckbox_' + ${index.index}" th:id="'cartcheckbox_' + ${index.index}" th:value="${item.cartCode}">-->
 <!--                        <td><img th:src="@{/client/images/{imgCode}(imgCode=${item.imgCode})}" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"></td>-->
-                        <td><img th:text="${item.convertPath}" width="70px"  height="70px" > </td>
+                        <td><img th:src="|/thumbPath${item.convertPath}|" width="70px"  height="70px" onerror="this.src='/client/images/event.png'"> </td>
                         <td th:text="${item.productName}" >상품명</td>
                         <td th:text="${item.price}">판매가</td>
                         <td th:text="${item.savedMoney * hdAmountList[index.index]}">적립포인트</td>
