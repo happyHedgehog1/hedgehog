@@ -39,8 +39,8 @@
         <foreach collection="cartcheckbox" item="cartCode" open="(" separator="," close=")">
             #{cartCode}
         </foreach>
-        group by cart_code AND
-         C.image_classification = 'Thumbnails'
+        group by cart_code
+
 
 
     </select>
