@@ -63,7 +63,9 @@
         select
             A.option_code
             FROM tbl_option A
+            JOIN tbl_option_list B ON A.option_code=B.option_code
         WHERE A.name=#{color}
+        AND B.product_code=#{productCode}
     </select>
     <insert id="addCart">
         INSERT INTO tbl_cart
