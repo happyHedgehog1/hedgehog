@@ -8,7 +8,10 @@ import com.hedgehog.client.myshop.model.dto.ModifyForm;
 import com.hedgehog.client.myshop.model.service.MyshopService;
 import com.hedgehog.common.common.exception.UserCertifiedException;
 import com.hedgehog.common.common.exception.UserEmailNotFoundException;
+import com.hedgehog.common.logout.SessionLogout;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -106,7 +109,7 @@ public class MyshopController {
                 String randomCode = String.valueOf(new Random().nextInt(max - min) + min);
                 int certifiedCode = authService.selectCertifiedNumber(randomCode);
                 System.out.println(certifiedCode);
-                boolean isEmailSend = authService.sendCheckEmailMail(email,randomCode);
+                boolean isEmailSend = authService.sendCheckEmailMail(email, randomCode);
 
                 if (!isEmailSend) {
                     response.put("result", "sendMiss");
@@ -132,7 +135,9 @@ public class MyshopController {
     @PostMapping("/modifyInfo")
     public String modifyInfo(@AuthenticationPrincipal LoginDetails loginDetails,
                              @ModelAttribute ModifyForm modifyForm,
-                             RedirectAttributes redirectAttributes) {
+                             RedirectAttributes redirectAttributes,
+                             HttpServletRequest req,
+                             HttpServletResponse res) {
         MemberDTO member = new MemberDTO(
                 modifyForm.getUserId(),
                 passwordEncoder.encode(modifyForm.getUserPwd()),
@@ -148,11 +153,11 @@ public class MyshopController {
 
         if (modifySuccess) {
             redirectAttributes.addFlashAttribute("message", "회원정보 변경이 완료되었습니다.");
-            return "redirect:/myshop/mypage";
+            SessionLogout.invalidSession(req, res);
         } else {
             redirectAttributes.addFlashAttribute("message", "알 수 없는 오류로 회원정보변경에 실패했습니다.");
-            return "redirect:/";
         }
+        return "redirect:/";
     }
 
     @GetMapping("/guestOrderSearch")
