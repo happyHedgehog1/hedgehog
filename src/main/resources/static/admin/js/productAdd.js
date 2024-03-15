@@ -1,13 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
-// 모달 메뉴 열기
-    document.getElementById("btnSubmitAdd").addEventListener("click", function() {
-        document.getElementById("myModal").style.display = "flex";
-    });
-
-// 모달 닫기
-    document.getElementById("closeModal").addEventListener("click", function() {
-        document.getElementById("myModal").style.display = "none";
-    });
+// document.addEventListener('DOMContentLoaded', function() {
+// // 모달 메뉴 열기
+//     document.getElementById("btnSubmitAdd").addEventListener("click", function() {
+//         document.getElementById("myModal").style.display = "flex";
+//     });
+//
+// // 모달 닫기
+//     document.getElementById("closeModal").addEventListener("click", function() {
+//         document.getElementById("myModal").style.display = "none";
+//     });
 
 
 // 옵션 누르면 메뉴 생겼다 없어졌다가는 기능
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // });
 
 
+    $(document).ready(function () {
 
     $("#file").on("change", function(e){
 
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(function(){
     $("#thumbnail").change(function(event){
+        console.log('미리보기~~~~~~~~~~~~~')
         const file = event.target.files;
 
         var image = new Image();

@@ -16,12 +16,12 @@ public class WebConfig implements WebMvcConfigurer {
 
         // 이미지 불러올 수 있도록 세팅
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:///c:/hedgehog/upload/");
+                .addResourceLocations("file:///F:/hedgehog/upload/");
 
         registry.addResourceHandler("/thumbPath/**")
-                .addResourceLocations("file:///c:/hedgehog/img/upload/thumbnail/");
+                .addResourceLocations("file:///F:/hedgehog/img/upload/thumbnail/");
         registry.addResourceHandler("/imagePath/**")
-                .addResourceLocations("file:///c:/hedgehog/img/upload/original/");
+                .addResourceLocations("file:///F:/hedgehog/img/upload/original/");
     }
 
 }

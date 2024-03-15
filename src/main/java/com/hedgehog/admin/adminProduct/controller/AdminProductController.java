@@ -34,7 +34,7 @@ public class AdminProductController {
     @Value("img")
     private String IMAGE_DIR;
 
-    @Value("C:/hedgehog/")
+    @Value("F:/hedgehog/")
     private String ROOT_LOCATION;
 
     /**
@@ -424,44 +424,25 @@ public class AdminProductController {
      */
     @GetMapping(value = "/productserach")
     public ModelAndView productsearch(@ModelAttribute AdminProductForm form) {
-        log.info("productsearch ====================== start");
-
-        log.info(form.toString());
-
         List<AdminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
-        log.info("=================================productList" + productList);
-
         int totalResult = productList.size();
         int countY = 0;
         int countN = 0;
         for (int i = 0; i < productList.size(); i++) {
             String orderableStatus = productList.get(i).getOrderableStatus();
-            log.info(orderableStatus);
-
             if (orderableStatus.equals("Y")) {
                 countY++;
-
             }
             if(orderableStatus.equals("N")){
                 countN++;
             }
-
         }
-        log.info("=============================countY" + countY);
-        log.info("=============================countN" + countN);
-
-
         ModelAndView mv = new ModelAndView();
-
         mv.addObject("productList", productList); // 모델에 productList를 추가
         mv.addObject("totalResult", totalResult);
         mv.addObject("countY", countY);
         mv.addObject("countN", countN);
         mv.setViewName("admin/content/product/productserch");
-
-
-
-        log.info("totalResult" + String.valueOf(totalResult));
 
         return mv;
     }

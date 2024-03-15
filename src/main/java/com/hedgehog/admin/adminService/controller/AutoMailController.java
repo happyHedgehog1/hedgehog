@@ -73,6 +73,7 @@ public class AutoMailController {
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("mailList", mailDTOList);
+        mv.addObject("totalResult", totalResult);
         mv.setViewName("admin/content/Service/emailHistory");
 
         return mv;
