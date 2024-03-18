@@ -114,13 +114,8 @@
     </select>
     <select id="searchProduct" resultMap="productResultMap">
         SELECT
-        A.product_code,
-        A.product_name,
-        A.price,
-        A.orderable_status,
-        A.registration_date,
-        A.modification_date,
-        A.category_code
+        A.product_code,A.product_name,A.price,A.orderable_status,
+        A.registration_date,A.modification_date,A.category_code
         FROM
         tbl_product A
         join tbl_category C on A.category_code = C.category_code

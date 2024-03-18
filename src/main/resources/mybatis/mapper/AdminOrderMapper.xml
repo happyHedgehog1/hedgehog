@@ -74,16 +74,11 @@
         <result property="state" column="state"/>
     </resultMap>
     <select id="searchOrderList" resultMap="orderResultMap">
-        SELECT A.order_code,
-            A.creation_date,
-            D.product_name,
-            SUM(b.count) total_count,
-            count(b.count) count,
-            SUM(b.cost_price) cost_price,
-            SUM(b.delivery_charge) delivery_charge,
+        SELECT A.order_code,A.creation_date,D.product_name,
+            SUM(b.count) total_count,count(b.count) count,
+            SUM(b.cost_price) cost_price,SUM(b.delivery_charge) delivery_charge,
             sum(b.cost_price * b.count) + SUM(b.delivery_charge) - SUM(b.reduced_price) - A.point_usage sum_price,
-            A.point_usage,
-            A.state,
+            A.point_usage,A.state,
             E.name
         FROM tbl_order A
         JOIN tbl_order_details b ON A.order_code = b.order_code
@@ -91,54 +86,24 @@
         JOIN tbl_user E on A.customer_code = E.user_code
         join tbl_customer F on A.customer_code = F.customer_code
         <where>
-            <if test="state == 1">
-                AND A.state LIKE CONCAT('배송대기')
-            </if>
-            <if test="state == 2">
-                AND A.state LIKE CONCAT('배송중')
-            </if>
-            <if test="state == 3">
-                AND A.state LIKE CONCAT('배송완료')
-            </if>
-            <if test="state == 4">
-                AND A.state LIKE CONCAT('교환중')
-            </if>
-            <if test="state == 5">
-                AND A.state LIKE CONCAT('교환완료')
-            </if>
-            <if test="state == 6">
-                AND A.state LIKE CONCAT('환불중')
-            </if>
-            <if test="state == 7">
-                AND A.state LIKE CONCAT('환불완료')
-            </if>
+            <if test="state == 1">AND A.state LIKE CONCAT('배송대기')</if>
+            <if test="state == 2">AND A.state LIKE CONCAT('배송중')</if>
+            <if test="state == 3">AND A.state LIKE CONCAT('배송완료')</if>
+            <if test="state == 4">AND A.state LIKE CONCAT('교환중')</if>
+            <if test="state == 5">AND A.state LIKE CONCAT('교환완료')</if>
+            <if test="state == 6">AND A.state LIKE CONCAT('환불중')</if>
+            <if test="state == 7">AND A.state LIKE CONCAT('환불완료')</if>
             <if test="keywordValue != ''">
-                <if test="keyword == 'orderCode'">
-                    AND A.order_code LIKE CONCAT('%', #{keywordValue}, '%')
-                </if>
-                <if test="keyword == 'name'">
-                    AND E.name LIKE CONCAT('%', #{keywordValue}, '%')
-                </if>
-                <if test="keyword == 'phone'">
-                    AND F.phone LIKE CONCAT('%', #{keywordValue}, '%')
-                </if>
-                <if test="keyword == 'productName'">
-                    AND d.product_name LIKE CONCAT('%', #{keywordValue}, '%')
-                </if>
-                <if test="keyword == 'productCode'">
-                    AND d.product_code LIKE CONCAT('%', #{keywordValue}, '%')
-                </if>
-                <if test="keyword == 'id'">
-                    AND e.id LIKE CONCAT('%', #{keywordValue}, '%')
-                </if>
+                <if test="keyword == 'orderCode'">AND A.order_code LIKE CONCAT('%', #{keywordValue}, '%')</if>
+                <if test="keyword == 'name'">AND E.name LIKE CONCAT('%', #{keywordValue}, '%')</if>
+                <if test="keyword == 'phone'">AND F.phone LIKE CONCAT('%', #{keywordValue}, '%')</if>
+                <if test="keyword == 'productName'">AND d.product_name LIKE CONCAT('%', #{keywordValue}, '%')</if>
+                <if test="keyword == 'productCode'">AND d.product_code LIKE CONCAT('%', #{keywordValue}, '%')</if>
+                <if test="keyword == 'id'">AND e.id LIKE CONCAT('%', #{keywordValue}, '%')</if>
             </if>
             <if test="searchStartDay != ''">
-                <if test="searchEndDay != ''">
-                    AND A.creation_date BETWEEN #{searchStartDay} AND #{searchEndDay}
-                </if>
-                <if test="searchEndDay == ''">
-                    AND A.creation_date > #{searchStartDay}
-                </if>
+                <if test="searchEndDay != ''">AND A.creation_date BETWEEN #{searchStartDay} AND #{searchEndDay}</if>
+                <if test="searchEndDay == ''">AND A.creation_date > #{searchStartDay}</if>
             </if>
         </where>
         group by A.order_code
@@ -230,22 +195,13 @@
 
     <select id="orderDetail" resultMap="orderResultMap">
         SELECT
-            A.order_code,
-            A.creation_date,
+            A.state,A.point_usage,A.order_code,A.creation_date,
+            C.order_details_code,C.count,C.cost_price,C.delivery_charge,
             D.product_name,
-            C.count,
-            C.cost_price,
-            C.delivery_charge,
-            A.point_usage,
-            A.state,
             E.name,
             F.phone,
-            c.order_details_code,
-            G.recipient_name,
-            G.recipient_phone,
-            g.delivery_address,
-            g.delivery_requests,
-            G.state,
+            G.recipient_name,G.state,G.recipient_phone,
+            G.delivery_address,G.delivery_requests,
             H.cause exchangeCause,
             I.cause refundCause
         FROM tbl_order_details C

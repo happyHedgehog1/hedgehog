@@ -200,25 +200,12 @@
     </select>
     <select id="selectProductDetail" parameterType="int" resultMap="productResultMap">
         SELECT
-            A.product_code,
-            A.orderable_status,
-            A.sales_start,
-            A.sales_end,
-            A.product_name,
-            A.price,
-            A.delivery_charge,
-            B.upper_category_code,
-            B.category_code,
-            c.option_code,
-            C.name,
-            D.option_code,
-            D.product_code,
-            D.stock,
-            F.img_code,
-            F.convert_path,
-            F.save_path,
-            F.convert_name,
-            F.image_classification
+            A.product_code,A.orderable_status,A.sales_start,A.sales_end,A.product_name,
+            A.price,A.delivery_charge,
+            B.upper_category_code,B.category_code,
+            c.option_code,C.name,
+            D.option_code,D.product_code,D.stock,
+            F.img_code,F.convert_path,F.save_path,F.convert_name,F.image_classification
         FROM tbl_product A
                  JOIN tbl_category B ON A.category_code = B.category_code
                  JOIN tbl_option_list D ON A.product_code = D.product_code

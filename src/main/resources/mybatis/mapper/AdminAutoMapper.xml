@@ -77,10 +77,7 @@ WHERE form_code = #{formCode}
 </insert>
     <select id="searchEmailHistory">
         SELECT
-            A.mail_code as mailsCode,
-            A.content,
-            A.date,
-            A.title,
+            A.mail_code as mailsCode,A.content,A.date,A.title,
             LENGTH(A.mail_list) - LENGTH(REPLACE(A.mail_list, ',', '')) + 1 AS name,
             A.mail_list
         from tbl_mail_history A
@@ -103,7 +100,6 @@ WHERE form_code = #{formCode}
                 <if test="search == 2">
                     AND A.content LIKE CONCAT('%', #{keyword}, '%')
                 </if>
-
             </if>
         </where>
     </select>

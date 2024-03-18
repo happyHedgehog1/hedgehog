@@ -117,13 +117,6 @@ public class AdminEventListController {
                                                @RequestParam("searchStartPrice") String searchStartPrice,
                                                @RequestParam("searchEndPrice") String searchEndPrice,
                                                @RequestParam("subCategoryName") String subCategoryName) {
-        log.info("");
-        log.info("");
-        log.info("*************************" + prdKeyword);
-        log.info("*************************" + searchValue);
-        log.info("*************************" + searchStartPrice);
-        log.info("*************************" + searchEndPrice);
-        log.info("*************************" + subCategoryName);
 
         AdminEventForm form =new AdminEventForm();
         form.setPrdKeyword(prdKeyword);
@@ -134,16 +127,10 @@ public class AdminEventListController {
             form.setSubCategoryName(Integer.parseInt(subCategoryName));
         }
 
-        log.info("*************************" + form);
-
-
-
         List<AdminProductDTO> productDTO = adminEventService.searchProduct(form);
         int totalResult = productDTO.size();
 
-        log.info("*************************" + productDTO);
         productDTO.get(0).setReviews(totalResult);
-
 
         return productDTO;
     }
@@ -168,35 +155,24 @@ public class AdminEventListController {
 
     @GetMapping(value = "/eventListSearch")
     private ModelAndView eventListSearch(@ModelAttribute AdminEventForm form){
-        log.info("eventSearch ==================== start");
-        log.info(form.toString());
 
         List<AdminEventDTO> eventList = adminEventService.searchEventList(form);
-        log.info("=================================eventList" + eventList);
 
         int totalResult = eventList.size();
         int countY = 0;
         int countN = 0;
         for (int i = 0; i < eventList.size(); i++) {
             String orderableStatus = eventList.get(i).getStatus();
-            log.info(orderableStatus);
-
             if (orderableStatus.equals("Y")) {
                 countY++;
-
             }
             if(orderableStatus.equals("N")){
                 countN++;
             }
-
         }
-        log.info("=============================countY" + countY);
-        log.info("=============================countN" + countN);
         for (int i = 0 ; i < eventList.size(); i++){
             int discount = (int) (eventList.get(i).getDiscount() * 100);
-
             eventList.get(i).setDiscount(discount);
-
         }
 
         ModelAndView mv = new ModelAndView("admin/content/event/eventList");
@@ -204,9 +180,6 @@ public class AdminEventListController {
         mv.addObject("totalResult", totalResult);
         mv.addObject("countY", countY);
         mv.addObject("countN", countN);
-
-        log.info("totalResult" + String.valueOf(totalResult));
-
 
         return mv;
     }

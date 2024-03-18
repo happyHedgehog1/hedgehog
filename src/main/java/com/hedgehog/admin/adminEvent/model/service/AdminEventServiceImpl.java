@@ -77,7 +77,6 @@ public class AdminEventServiceImpl implements AdminEventService{
         for(int i = 0; i < form.getProductCode().size(); i++) {
             int productCode = Integer.parseInt(form.getProductCode().get(i));
             int result = mapper.updateEventProgressionStatusN(productCode);
-            log.info("--------------------productCode"+productCode);
         }
         //새로 추가된 제품만 event_progressionstatus를 state값으로 변경
         for(int i = 0; i < form.getAllProductCodes().size(); i++) {
@@ -86,10 +85,8 @@ public class AdminEventServiceImpl implements AdminEventService{
             log.info("--------------------productCode"+productCode);
         }
 
-        //        tbl_event 테이블 update
         int result2 = mapper.updateEventTable(form);
 
-        //        tbl_event_product_list 테이블에 상품코드 insert
         int result3 = mapper.deleteEventProductList(form);
 
         for(int i =0; i < form.getAllProductCodes().size(); i++){

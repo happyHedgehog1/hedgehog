@@ -56,12 +56,9 @@ public class AdminUnregisterServiceImpl implements AdminUnregisterService {
 //            탈퇴 승인 메일 보내기
 //            user_code를 기준으로 해당 회원 메일 주소와 id 가져오는 매퍼
             AdminCustomerDTO customerDTO = mapper.searchMail(adminUnregisterDTO.getUser_code());
-            log.info("mailAddress++++++++++++++++++++++++++++"+customerDTO.toString());
 //            탈퇴 승인 메일양식 가져오는 매퍼
             AdminSendMailDTO sendMailDTO = mapper.searchMailForm(2);
-            log.info("sendMailDTO++++++++++++++++++++++++++++"+sendMailDTO.toString());
 //            탈퇴 승인 메일 보내기
-
             LocalDate unregisterDate = LocalDate.now();
             String id = customerDTO.getId();
 
@@ -82,9 +79,7 @@ public class AdminUnregisterServiceImpl implements AdminUnregisterService {
 
             javaMailSender.send(mimeMailMessage);
 
-
             result++;
-            log.info(" orderState result =================================== ", result);
         }else {
 //            탈퇴취소일때 작동하는 메소드
 //            tbl_withdraw의 state를 N으로 변경

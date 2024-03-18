@@ -35,15 +35,9 @@ public class AdminUnregisterController {
      */
     @GetMapping(value = "unregisterDetail")
     private String unregisterDetail(@RequestParam("userCode") int userCode, Model model){
-        log.info("*********************** unregisterDetail");
-        log.info("*********************** userCode"+userCode);
-
 
         AdminUnregisterDTO adminUnregisterDTO = adminUnregisterServiceimpl.unregisterDetail(userCode);
-        log.info("*********************** adminUnregisterDTO"+adminUnregisterDTO);
-
         model.addAttribute("unregisterDetail", adminUnregisterDTO);
-
 
         return "admin/content/member/unregisterDetail";
 
@@ -64,20 +58,13 @@ public class AdminUnregisterController {
                                     @RequestParam("selectCommit") String selectedState,
                                     RedirectAttributes rttr) throws OrderStateUpdateException, UnregistException, MessagingException, UnsupportedEncodingException {
 
-        log.info("*********************** orderStateUpdate");
-        log.info("*********************** selectedOrderCodes"+selectedId);
-
-
         for(int i =0; i < selectedId.size(); i++){
 
             int userCode = Integer.parseInt(selectedId.get(i));
-                log.info("orderCode**********************" + userCode);
                 AdminUnregisterDTO adminUnregisterDTO = new AdminUnregisterDTO();
                 adminUnregisterDTO.setUser_code(userCode);
                 adminUnregisterDTO.setState(selectedState);
 
-
-                log.info("order**********************" + adminUnregisterDTO);
                 adminUnregisterServiceimpl.causeUpdate(adminUnregisterDTO);
             }
 

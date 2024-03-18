@@ -51,38 +51,25 @@
 
     <select id="selectUnregister" resultMap="unregisterMap">
         SELECT
-        A.user_code,
-        A.id,
-        B.apply_date,
-        B.commit_date,
-        B.cancel_date,
-        B.cause,
-        B.state
+        A.user_code,A.id,
+        B.apply_date,B.commit_date,B.cancel_date,B.cause,B.state
         FROM
         tbl_withdraw B
         JOIN tbl_user A ON B.user_code = A.user_code
         <where>
             <if test="applyStartDay != ''">
-                <if test="applyEndDay != ''">
-                    AND B.apply_date BETWEEN #{applyStartDay} AND #{applyEndDay}
-                </if>
-                <if test="applyEndDay == ''">
-                    AND B.apply_date > #{applyStartDay}
-                </if>
+                <if test="applyEndDay != ''">AND B.apply_date BETWEEN #{applyStartDay} AND #{applyEndDay}</if>
+                <if test="applyEndDay == ''">AND B.apply_date > #{applyStartDay}</if>
             </if>
             <if test="commitStartDay != ''">
-                <if test="commitEndDay != ''">
-                    AND B.commit_date BETWEEN #{commitStartDay} AND #{commitEndDay}
-                </if>
-                <if test="commitEndDay == ''">
-                    AND B.commit_date > #{commitStartDay}
-                </if>
+                <if test="commitEndDay != ''">AND B.commit_date BETWEEN #{commitStartDay} AND #{commitEndDay}</if>
+                <if test="commitEndDay == ''">AND B.commit_date > #{commitStartDay}</if>
             </if>
             <if test="unregisterCondition == 'withdrawal'">
                 AND (B.cause NOT LIKE CONCAT('%관리자%', '') AND B.cause NOT LIKE CONCAT('%강제%', '')
                          AND B.cause NOT LIKE CONCAT('%취소%', '')
                          AND B.state = 'Y')
-                               OR B.cause LIKE CONCAT('%관리자 승인%', '')
+                OR B.cause LIKE CONCAT('%관리자 승인%', '')
             </if>
             <if test="unregisterCondition == 'forcedWithdrawal'">
                 AND B.cause LIKE CONCAT('%강제%', '')

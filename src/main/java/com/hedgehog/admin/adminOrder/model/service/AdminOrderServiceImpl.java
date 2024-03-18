@@ -44,58 +44,41 @@ public class AdminOrderServiceImpl implements AdminOrderService{
         int result = 0;
         int result2 =0;
         if("4".equals(orderDTO.getState())) { //환불완료
-            log.info("환불완료~~~~~~~~~~~~~~~");
             //tbl_order state 환불완료로 변경
             mapper.orderStateUpdate(orderDTO);
             result++;
             //tbl_payment state를 환불완료로 변경
             mapper.paymentTableUpdate(orderDTO);
             result++;
-
             //tbl_refund에 state 환불완료로 변경
             mapper.refundTableUpdate(orderDTO);
             result++;
-
             //tbl_deliver에 state 환불완료로 변경
             mapper.deliverTableUpdate(orderDTO);
             result++;
-
         } else if ("5".equals(orderDTO.getState())){ //교환완료
-            log.info("교환완료~~~~~~~~~~~~~~~");
-
             //tbl_order state 교환완료로 변경
             mapper.orderStateUpdate(orderDTO);
             result++;
-
             //tbl_payment state를 교환완료로 변경
             mapper.paymentTableUpdate(orderDTO);
             result++;
-
             //tbl_exchange에 state 교환완료로 변경
             mapper.exchangeTableUpdate(orderDTO);
             result++;
-
             //tbl_deliver에 state 교환완료로 변경
             mapper.deliverTableUpdate(orderDTO);
             result++;
-
         } else {
-            log.info("그외~~~~~~~~~~~~~~~");
-
             mapper.orderStateUpdate(orderDTO); //order테이블 state 변경
             result2++;
-
             mapper.deliveryStateUpdate(orderDTO); //delivery테이블 state 변경
             result2++;
-
             //tbl_payment state 변경
             mapper.paymentTableUpdate(orderDTO);
             result2++;
 
         }
-        log.info(" orderState result =================================== ", result);
-        log.info(" orderState result2 =================================== ", result2);
-
         if(!(result > 3 || result2 > 1)) {
             throw new OrderStateUpdateException("상태 변경에 실패하셨습니다.");
         }
@@ -130,12 +113,9 @@ public class AdminOrderServiceImpl implements AdminOrderService{
     @Override
     @Transactional
     public void exchange(AdminOrderDTO orderDTO) throws OrderStateUpdateException {
-        log.info("");
-        log.info("");
-        log.info("exchange -------------------------- 시작~~~~~~~~~");
         //tbl_order state 교환중으로 변경
         int result1 = mapper.orderStateUpdate(orderDTO);
-        //tbl_deliver에 state 교환완료로 변경
+        //tbl_deliver에 state 교환중으로 변경
         int result2 = mapper.deliverTableUpdate(orderDTO);
         //tbl_payment state를 교환중으로 변경
         int result3 = mapper.paymentTableUpdate(orderDTO);

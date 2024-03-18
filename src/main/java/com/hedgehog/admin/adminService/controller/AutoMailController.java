@@ -62,15 +62,10 @@ public class AutoMailController {
 
     @GetMapping(value = "/searchEmailHistory")
     public ModelAndView searchEmailHistory(@ModelAttribute AdminAutoMailForm form){
-        log.info("searchEmailHistory============= start");
-        log.info(form.toString());
 
         List<AdminAutoMailDTO> mailDTOList = autoMail.searchEmailHistory(form);
-        log.info("searchEmailHistory============= : " + mailDTOList);
 
         int totalResult = mailDTOList.size();
-        log.info("=============================totalResult : " + totalResult);
-
         ModelAndView mv = new ModelAndView();
         mv.addObject("mailList", mailDTOList);
         mv.addObject("totalResult", totalResult);
@@ -93,30 +88,14 @@ public class AutoMailController {
                            @RequestParam String chooseMember, RedirectAttributes rttr) throws JsonProcessingException, MessagingException, UnsupportedEncodingException {
 
         if (uploadedImages != null && !uploadedImages.isEmpty()) {
-        log.info("메일보내기 시작~~~~~~~~~~~~~");
-        log.info("uploadedImages~~~~~~~~~~~~~" + uploadedImages);
-        log.info("title~~~~~~~~~~~~~" +title);
-        log.info("summernote~~~~~~~~~~~~~" + summernote);
-        log.info("chooseMember~~~~~~~~~~~~~" + chooseMember);
+
         List<UploadedImageDTO> uploadedImageList = objectMapper.readValue(uploadedImages, new TypeReference<List<UploadedImageDTO>>() {
         });
-        log.info("이제 JSON으로 고친 값...");
-        for (UploadedImageDTO image : uploadedImageList) {
-            log.info("Convert Path: " + image.getConvertPath());
-            log.info("Save Path: " + image.getSavePath());
-            log.info("Source Name: " + image.getSourceName());
-            log.info("Convert Name: " + image.getConvertName());
-        }
 
         boolean isSucces = autoMail.sendMail(uploadedImageList, title, summernote, chooseMember);
 
         return "redirect:/Service/email";
         }else{
-            log.info("메일보내기 시작~~~~~~~~~~~~~");
-            log.info("title~~~~~~~~~~~~~" +title);
-            log.info("summernote~~~~~~~~~~~~~" + summernote);
-            log.info("chooseMember~~~~~~~~~~~~~" + chooseMember);
-
 
             boolean isSucces = autoMail.sendMailOnlyString(title, summernote, chooseMember);
 

@@ -250,17 +250,6 @@ public class AdminProductController {
                               @RequestParam("proImg") MultipartFile proImg,
                               RedirectAttributes rttr) throws UnsupportedEncodingException, ThumbnailRegistException {
 
-        log.info("********************=============productAdd 시작~~~~~~~~~");
-        log.info("==========product" + product);
-
-        log.info("==========thumbnail" + thumbnail);
-        log.info("==========sub_thumbnail" + sub_thumbnails);
-        log.info("==========proImg" + proImg);
-
-
-
-        log.info("=================사진 등록 시작~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
         String rootLocation = ROOT_LOCATION + IMAGE_DIR;
 
         String fileUploadDirectory = rootLocation + "/upload/original";
@@ -269,42 +258,23 @@ public class AdminProductController {
         File directory = new File(fileUploadDirectory);
         File directory2 = new File(thumnailDirectory);
 
-        log.info("~~~~~~~~~~~~~~~~~~~~~fileUploadDirectory" + fileUploadDirectory);
-        log.info("****************************thumnailDirectory" + thumnailDirectory);
-//      위 경로에 폴더가 없ㅇ으면 생성함
-        if(!directory.exists() || !directory2.exists()){
-            log.info("*************************** 폴더 생성" + directory.mkdirs());
-            log.info("*************************** 폴더 생성2" + directory2.mkdirs());
-        }
-
         List<Map<String, String>> fileList = new ArrayList<>();
         List<MultipartFile> paramFileList = new ArrayList<>();
 
         paramFileList.add(thumbnail); //paramFilseList에 대표이미지 넣기
-        log.info("=======================thumbnail" + thumbnail);
         for (int i = 0; i < sub_thumbnails.size(); i++){ //paramFileList에 제품관점 이미지 넣기 제품관점 이미지는 List 형태로 받았으니 for문을 이용하여 하나씩 꺼내서 넣어준다
             paramFileList.add(sub_thumbnails.get(i));
-            log.info("=====================sub_thumbnails" + sub_thumbnails.get(i));
         }
         paramFileList.add(proImg);  //paramFilsList에 제품 상세 페이지 넣기
-        log.info("============proImg" + proImg);
         try {
             for(MultipartFile paramFile : paramFileList) {
                 if (paramFile.getSize() > 0) {
                     String originFileName = paramFile.getOriginalFilename();
 
-                    log.info("~~~~~~~~~~~~~~~~~~~~~originFileName" + originFileName);
-
                     String ext = originFileName.substring(originFileName.lastIndexOf(".")); //originFileName에서 . 을 기준으로 확장자를 ext 변수에 넣기
                     String savedFileName = UUID.randomUUID().toString().replace("-", "") + ext; //UUID 이용하여 파일명을 생성하고, 확장자를 붙여 savedFIleName에 넣기
 
-                    log.info("++++++++++++++++++변경한 이름" + savedFileName);
-
-                    log.info("+++++++++++++++ paramFile : " + fileUploadDirectory + "/" + savedFileName);
-
                     paramFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
-//                    transferTo는 업로드된 파일을 지정된 파일로 복사하는 메소드 MultipartFile의 메소드임
-//                    저장할 경로, 파일명 저장
 
                     Map<String, String> fileMap = new HashMap<>();
                     fileMap.put("originFileName", originFileName);
@@ -315,8 +285,6 @@ public class AdminProductController {
                     int height = 0;
 
                     String fieldName = paramFile.getName();
-                    log.info("***********************필드 name {} ", fieldName);
-                    log.info("============================= 확인 {} ", ("proImg").equals(fieldName));
                     if ("thumbnail".equals(fieldName)) { //이름의 따라서 이미지 크기 변경 및 fileMap 객체에 새로운 이름으로 지정
                         fileMap.put("fileType", "Thumbnails");
                         width = 640;
@@ -357,9 +325,6 @@ public class AdminProductController {
                 }
             }
 
-
-            log.info("****************************fileList" + fileList);
-
 //            변환한 이미지 정보 DTO에 담기
         product.setAttachment(new ArrayList<AttachmentDTO>());
         List<AttachmentDTO> list = product.getAttachment();
@@ -376,10 +341,6 @@ public class AdminProductController {
             list.add(tempFileInfo);
 
         }
-
-
-        log.info("------------------thumbnail" + thumbnail);
-
 
 //        상품등록 메소드
         adminProductServiceImpl.productAdd(product);
@@ -404,14 +365,12 @@ public class AdminProductController {
         }
 
             if (cnt == fileList.size()) {
-                log.info("*******************업로드 실패한 사진 삭제~~~~~~~~~");
                 e.printStackTrace();
             } else {
                 e.printStackTrace();
             }
         }
 
-        log.info("=============product 끗~~~~~~~~~~~~~~~");
         return "redirect:productAddPage";
     }
 
@@ -422,7 +381,7 @@ public class AdminProductController {
      * @param form html에서 form 데이터로 전달받은 객체를 선언한 DTO
      * @return 조회된 리스트, 총 상품수, 판매중인 상품수, 판매중지 상태인 상품수를 반환
      */
-    @GetMapping(value = "/productserach")
+    @GetMapping(value = "/productSearch")
     public ModelAndView productsearch(@ModelAttribute AdminProductForm form) {
         List<AdminProductDTO> productList = adminProductServiceImpl.searchProduct(form);
         int totalResult = productList.size();

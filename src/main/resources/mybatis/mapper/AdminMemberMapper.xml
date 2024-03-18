@@ -71,18 +71,9 @@
 
     <select id="selectMember" resultMap="memberResultMap">
         SELECT
-        A.member_code,
-        A.email_consent,
-        A.point,
-        A.cumulative_amount,
-        B.email,
-        B.phone,
-        C.user_code,
-        C.id,
-        C.name,
-        C.creation_date,
-        C.connection_date,
-        C.withdraw_state
+        A.member_code,A.email_consent,A.point,A.cumulative_amount,
+        B.email,B.phone,
+        C.user_code,C.id,C.name,C.creation_date,C.connection_date,C.withdraw_state
         FROM
         tbl_member A
         JOIN tbl_customer B ON A.member_code = B.customer_code
@@ -106,23 +97,12 @@
                 </choose>
             </if>
             <if test="dateStart != ''">
-                <if test="dateEnd != ''">
-                    AND  C.creation_date BETWEEN #{dateStart} AND #{dateEnd}
-                </if>
-                <if test="dateEnd == ''">
-                    AND C.creation_date > #{dateStart}
-                </if>
+                <if test="dateEnd != ''">AND  C.creation_date BETWEEN #{dateStart} AND #{dateEnd}</if>
+                <if test="dateEnd == ''">AND C.creation_date > #{dateStart}</if>
             </if>
             <if test="memAgree != null and memAgree != ''">
-                AND (
-
-                <if test="memAgree == 'agree'">
-                    A.email_consent = 'Y'
-                </if>
-                <if test="memAgree == 'disagree'">
-                    A.email_consent = 'N'
-                </if>
-                )
+                AND (<if test="memAgree == 'agree'">A.email_consent = 'Y'</if>
+                    <if test="memAgree == 'disagree'">A.email_consent = 'N'</if>)
             </if>
         </where>
     </select>
@@ -152,17 +132,13 @@
     </select>
     <select id="memberDetail" resultMap="memberResultMap">
         SELECT
-            A.member_code,
-            A.point,
-            C.id,
-            C.name,
+            A.member_code,A.point,
+            C.id,C.name,
             COALESCE(SUM(D.point_usage), 0) AS point_usage
         FROM
             tbl_member A
-                JOIN
-            tbl_user C ON A.member_code = C.user_code
-                LEFT JOIN
-            tbl_order D ON D.customer_code = A.member_code
+                JOIN tbl_user C ON A.member_code = C.user_code
+                LEFT JOIN tbl_order D ON D.customer_code = A.member_code
         WHERE
             A.member_code = #{member_code}
         GROUP BY
