@@ -1,1 +1,3 @@
-https://onedrive.live.com/edit?id=28B54C33403EDC6B!898010&resid=28B54C33403EDC6B!898010&ithint=file%2cpptx&authkey=!APOaAnvDmJc0a2E&wdo=2&cid=28b54c33403edc6b
+![image](https://github.com/happyHedgehog1/hedgehog/assets/145536292/688a4576-30bd-4e95-93c7-9859aab55d9d)
+
+![image](https://github.com/happyHedgehog1/hedgehog/assets/145536292/be2dc22f-2e73-4eb7-a845-199ed54f0e20)
